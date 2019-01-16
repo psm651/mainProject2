@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FavoriteMapper">
+
+	<resultMap id="favoriteSelectMap" type="com.wthealth.domain.Favorite">
+		<result property="postNo" column="post_no" jdbcType="VARCHAR" />
+		<result property="favoriteNo" column="favorite_no" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" jdbcType="VARCHAR" />
+		<result property="favoriteType" column="favorite_type" jdbcType="VARCHAR" />
+		<result property="category" column="category" jdbcType="VARCHAR" />
+		<result property="contents" column="contents" jdbcType="VARCHAR" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="postDate" column="post_date" jdbcType="DATE" />
+		<result property="nickName" column="nickname" jdbcType="VARCHAR" />
+		<result property="userImage" column="user_image" jdbcType="VARCHAR" />
+		<result property="likeCount" column="like_count" jdbcType="NUMERIC" />
+	</resultMap>
+	
+	<insert id="addLike" parameterType="com.wthealth.domain.Favorite">
+		INSERT
+		INTO favorite(favorite_no, post_no, user_id, favorite_type)
+		VALUES
+		(seq_favorite_favorite_no.nextval, #{postNo}, #{userId}, '0')
+	</insert>
+	
+	<update id="updateLikeCount" parameterType="string">
+		UPDATE post
+		<set>
+			like_count = like_count+1
+		</set>
+		WHERE post_no = {value}
+	</update>
+	
+	<delete	id="deleteLike"	parameterType="int" >
+	  	DELETE
+	  	FROM favorite
+	  	WHERE favorite_no = #{favoriteNo}
+	  </delete>
+	  
+	  <insert id="addInterest" parameterType="com.wthealth.domain.Favorite">
+		INSERT
+		INTO favorite(favorite_no, post_no, user_id, favorite_type)
+		VALUES
+		(seq_favorite_favorite_no.nextval, #{postNo}, #{userId}, '1')
+	 </insert>
+	
+	<delete	id="deleteInterest"	parameterType="int" >
+	  	DELETE
+	  	FROM favorite
+	  	WHERE favorite_no = #{favoriteNo}
+	  </delete>
+	  
+ 	<select id="listMyInterest" resultMap="favoriteSelectMap" parameterType="com.wthealth.common.Search">
+		SELECT *
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+			FROM ( SELECT p.post_no, p.category, p.title, p.post_date
+				FROM favorite f, post p
+				WHERE f.post_no = p.post_no
+				AND f.favorite_type= '1'
+				AND f.user_id = #{userId}) inner_table
+		WHERE ROWNUM &lt;= #{search.endRowNum} )
+	</select> 
+	
+	 <select id="listLikePeople" resultMap="favoriteSelectMap" parameterType="com.wthealth.common.Search">
+	  	SELECT *
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+			FROM (SELECT u.nickname, u.user_image
+		FROM users u, favorite f
+		WHERE f.user_id = u.user_id
+		AND f.post_no = #{postNo}
+		AND f.favorite_type='0') inner_table
+		WHERE ROWNUM &lt;= #{search.endRowNum} ) 
+	  </select>
+	
+	<select id="getTotalCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT p.post_no, p.category, p.title, p.post_date
+				FROM favorite f, post p
+				WHERE f.post_no = p.post_no
+				AND f.favorite_type= '1'
+				AND f.user_id = #{userId}
+		) countTable
+	</select>
+	
+</mapper>

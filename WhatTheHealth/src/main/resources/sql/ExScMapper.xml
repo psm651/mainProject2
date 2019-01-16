@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ExScMapper">
+ 	
+ 	
+	<resultMap id="exScSelectMap" type="com.wthealth.domain.ExSchedule">
+		<result property="exScNo" 			column="ex_sc_no" 				jdbcType="VARCHAR"/>
+		<result property="userId"				column="user_id" 				jdbcType="VARCHAR" />
+		<result property="exScName" 		column="ex_sc_title"	 			jdbcType="VARCHAR" />
+		<result property="exScCalorie" 		column="ex_sc_calorie"			jdbcType="NUMERIC" />
+		<result property="exScTime" 		column="ex_sc_time" 			jdbcType="VARCHAR" />
+		<result property="exScContents" 	column="ex_sc_contents" 		jdbcType="NUMERIC" />	
+		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="DATE" />
+		<result property="postNo" 			column="post_no"	 			jdbcType="VARCHAR" />
+		<result property="deleteStatus" 		column="delete_status"	 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT DIET_SC -->
+	<insert 	id="addExSchedule"		parameterType="com.wthealth.domain.ExSchedule" >
+	 	INSERT
+		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, delete_status) 
+		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId} , #{exScName}, #{exScContents}, #{exScCalorie:NUMERIC} , SYSDATE, TO_CHAR(#{exScTime:VARCHAR},'hh:mi:ss'),#{postNo:VARCHAR},'0' )
+	 </insert>
+	 <!-- SQL : INSERT MEAL-->
+	
+	 
+	 <!-- SQL : SELECT  -->
+	 <select 	id="getExSchedule"	 parameterType="int"	 resultMap="exScSelectMap">
+		SELECT
+		ex_sc_title, user_id, ex_sc_contents, ex_sc_calorie, ex_sc_time, post_no, ex_sc_date, delete_status
+		FROM ex_sc
+		WHERE ex_Sc_no= #{exScNo}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateExSchedule"	parameterType="com.wthealth.domain.ExSchedule" >
+	   	Update ex_sc 
+			<set>
+				 ex_sc_title = #{exScName:VARCHAR}, 
+				 ex_sc_contents=#{exScContents:VARCHAR},
+				 ex_sc_time = #{exScTime:VARCHAR},
+				 ex_sc_calorie = #{exScCalorie:NUMERIC}
+			</set>
+			WHERE ex_sc_no= #{exScNo}
+	 </update>
+	 
+	  <update	id="deleteExSchedule"	parameterType="int" >
+	   	Update ex_sc 
+			<set>
+				delete_status = '1'
+			</set>
+			WHERE ex_sc_no= #{exScNo}
+	 </update>
+		 
+	<!-- SQL : SELECT LIST 도형이꺼봐야지 -->
+	<select  id="listExSchedule"  resultMap="exScSelectMap">
+	    SELECT *
+        FROM (   SELECT inner_table.* , ROWNUM AS row_seq
+                         FROM  (   SELECT *
+                       FROM ex_sc    ) inner_table
+                  WHERE ROWNUM &lt;= #{endRowNum} )
+      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+	 <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT * FROM ex_sc ) countTable			
+	 </select>
+	 	
+</mapper>

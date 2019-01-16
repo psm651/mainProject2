@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="HashTagMapper">
+ 	
+ 	
+	<resultMap id="hashTagSelectMap" type="com.wthealth.domain.HashTag">
+		<result property="hashTagNo" 			column="hashtag_no" 					jdbcType="NUMERIC"/>
+		<result property="hashTag"				column="hashtag" 						jdbcType="VARCHAR" />
+		<result property="postNo" 				column="post_no" 						jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT DIET_SC -->
+	<insert 	id="addHashTag" parameterType="com.wthealth.domain.HashTag">
+	 	INSERT
+		INTO hashtag ( hashtag_no ,hashtag, post_no) 
+		VALUES	 (	seq_hashtag_hashtag_no.NEXTVAL , #{hashTag:VARCHAR} , #{postNo:VARCHAR})
+	 </insert>
+	 <!-- SQL : INSERT MEAL-->
+	
+	  <delete	id="deleteHashTag"	parameterType="com.wthealth.domain.HashTag" >
+	   	DELETE
+		FROM hashtag
+	   	WHERE  post_no= #{postNo}	
+	    </delete>
+		 
+	  <select  id="listHashTag"  parameterType="com.wthealth.common.Search"   resultMap="hashTagSelectMap">
+
+       SELECT *
+        FROM (   SELECT inner_table.* , ROWNUM AS row_seq
+                         FROM  (   SELECT *
+                       FROM hashtag WHERE hashtag = #{searchKeyword}    ) inner_table
+                  WHERE ROWNUM &lt;= #{endRowNum} )
+      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+    </select>
+	 
+	  <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT * FROM hashtag ) countTable			
+	 </select>
+	 	
+	 	
+</mapper>
