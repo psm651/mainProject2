@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ClaimMapper">
+ 	
+ 	
+	<resultMap id="claimSelectMap" type="com.wthealth.domain.Claim">
+		<result property="claimNo" 				column="claim_no" 						jdbcType="NUMERIC"/>
+		<result property="userId"					column="user_id" 						jdbcType="VARCHAR" />
+		<result property="claimedUserId" 		column="claimed_id" 					jdbcType="VARCHAR" />
+		<result property="claimDate" 			column="claim_date" 					jdbcType="DATE" />
+		<result property="claimSortNo" 			column="claim_type" 					jdbcType="VARCHAR" />
+		<result property="claimStatus" 			column="claim_status" 					jdbcType="VARCHAR" />		
+		<result property="claimReasonNo" 		column="claim_reason" 					jdbcType="VARCHAR" />		
+		<result property="targetNo" 				column="claim_target_no" 				jdbcType="VARCHAR" />
+		<result property="claimContents" 		column="claim_contents" 				jdbcType="VARCHAR" />	
+	</resultMap>
+	
+	<resultMap id="postSelectMap" type="com.wthealth.domain.Post">
+		<result property="postNo" column="post_no" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" jdbcType="VARCHAR" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="contents" column="contents" jdbcType="VARCHAR" />
+		<result property="photo" column="photo" jdbcType="VARCHAR" />
+		<result property="video" column="video" jdbcType="VARCHAR" />
+		<result property="clickCount" column="click_count" jdbcType="NUMERIC" />
+		<result property="blindStatus" column="blind_status" jdbcType="VARCHAR" />
+		<result property="deleteStatus" column="delete_status"
+			jdbcType="VARCHAR" />
+		<result property="likeCount" column="like_count" jdbcType="NUMERIC" />
+		<result property="category" column="category" jdbcType="VARCHAR" />
+		<result property="postDate" column="post_date" jdbcType="DATE" />
+		<result property="exScNo" column="ex_sc_no" jdbcType="NUMERIC" />
+		<result property="dietScNo" column="diet_sc_no" jdbcType="NUMERIC" />
+		<result property="locationTagName" column="locationtag_name"
+			jdbcType="VARCHAR" />
+		<result property="xCoordinate" column="x_coordinate" jdbcType="NUMERIC" />
+		<result property="yCoordinate" column="y_coordinate" jdbcType="NUMERIC" />
+		<result property="address" column="address" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="replySelectMap" type="com.wthealth.domain.Reply">
+		<result property="replyNo" 			column="reply_no" 			jdbcType="NUMERIC"/>
+		<result property="parentReplyNo"	column="parent_reply_no" 		jdbcType="NUMERIC" />
+		<result property="reReplyNo" 	column="rereply_no" 		jdbcType="NUMERIC" />
+		<result property="replyDate" 				column="reply_date" 					jdbcType="DATE" />
+		<result property="postNo" 				column="post_no" 					jdbcType="VARCHAR" />
+		<result property="text" 			column="text" 		jdbcType="VARCHAR" />
+		<result property="writerId" 				column="writer_id" 					jdbcType="VARCHAR" />
+		<result property="blindStatus" 			column="blind_status" 				jdbcType="VARCHAR"  />
+		<result property="deleteStatus" 		column="delete_status" 			jdbcType="VARCHAR" />
+	</resultMap>
+		
+	<!-- SQL : INSERT DIET_SC -->
+	<insert 	id="addClaim"		parameterType="com.wthealth.domain.Claim" >
+	 	INSERT
+		INTO claim( claim_no, user_id, claimed_id, claim_date, claim_type, claim_status, claim_reason, claim_target_no, claim_contents ) 
+		VALUES	 (	seq_claim_claim_no.NEXTVAL , #{userId} , #{claimedUserId}, SYSDATE,  #{claimSortNo:VARCHAR}, #{claimStatus:VARCHAR} , #{claimReasonNo:VARCHAR},#{targetNo:VARCHAR}, #{claimContents:VARCHAR} )
+	 </insert>
+	 
+	  <!-- SQL : SELECT  -->
+	 <select 	id="getClaim"	 parameterType="int"	 resultMap="claimSelectMap">
+		SELECT *
+		FROM claim 
+		WHERE claim_no= #{claimNo}
+	 </select>
+	 
+	   <!-- SQL : SELECT  -->
+	 <select 	id="getClaimedPost"	 parameterType="int"	 resultMap="postSelectMap">
+		SELECT user_Id
+		FROM post 
+		WHERE post_no= #{targetNo}
+	 </select>
+	 
+	    <!-- SQL : SELECT  -->
+	 <select 	id="getClaimedReply"	 parameterType="int"	 resultMap="replySelectMap">
+		SELECT user_Id
+		FROM reply 
+		WHERE reply_no= #{targetNo}
+	 </select>
+	 
+	 <update id = "updateClaim"  parameterType = "com.wthealth.domain.Claim" >
+		Update claim 
+			<set>
+				 claim_status = #{claimStatus}
+			</set>
+			where claim_no = #{claimNo}
+	 </update>
+	 
+	<!-- SQL : SELECT LIST  -->
+<!-- 	<select  id="listClaim"  parameterType="map"	 resultMap="claimSelectMap">
+	  		SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM (SELECT * 
+	  	FROM claim	) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select>
+	  -->
+	 <!-- SQL : SELECT LIST -->
+   <select  id="listClaim"  parameterType="com.wthealth.common.Search"   resultMap="claimSelectMap">
+
+       SELECT *
+        FROM (   SELECT inner_table.* , ROWNUM AS row_seq
+                         FROM  (   SELECT *
+                       FROM claim     ) inner_table
+                  WHERE ROWNUM &lt;= #{endRowNum} )
+      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+    </select>
+	 
+	  <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT * FROM claim ) countTable			
+	 </select>
+	 	
+</mapper>

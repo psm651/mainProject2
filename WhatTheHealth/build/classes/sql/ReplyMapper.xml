@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReplyMapper">
+ 	
+ 	
+	<resultMap id="replySelectMap" type="com.wthealth.domain.Reply">
+		<result property="replyNo" 			column="reply_no" 			jdbcType="NUMERIC"/>
+		<result property="parentReplyNo"	column="parent_reply_no" 		jdbcType="NUMERIC" />
+		<result property="reReplyNo" 	column="rereply_no" 		jdbcType="NUMERIC" />
+		<result property="replyDate" 				column="reply_date" 					jdbcType="DATE" />
+		<result property="postNo" 				column="post_no" 					jdbcType="VARCHAR" />
+		<result property="text" 			column="text" 		jdbcType="VARCHAR" />
+		<result property="writerId" 				column="writer_id" 					jdbcType="VARCHAR" />
+		<result property="blindStatus" 			column="blind_status" 				jdbcType="VARCHAR"  />
+		<result property="deleteStatus" 		column="delete_status" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addReply"		parameterType="com.wthealth.domain.Reply" useGeneratedKeys="true" keyProperty="replyNo" >
+	 	INSERT
+		INTO reply ( reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status) 
+		VALUES	 (	seq_reply_reply_no.nextval, '0', SYSDATE, #{postNo} , 
+							#{text} , #{writerId} , #{blindStatus:VARCHAR} , #{deleteStatus:VARCHAR})
+		<selectKey resultType="int" keyProperty = "replyNo" order="AFTER">
+			SELECT seq_reply_reply_no.currval FROM dual
+		</selectKey>
+	</insert>
+	 
+	 <!-- SQL : INSERT -->
+	<insert 	id="addReReply"		parameterType="com.wthealth.domain.Reply"  useGeneratedKeys="true" keyProperty="replyNo" >
+	 	INSERT
+		INTO reply ( reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status) 
+		VALUES	 (	seq_reply_reply_no.nextval, #{parentReplyNo:NUMERIC} , #{reReplyNo} , SYSDATE, #{postNo} , 
+							#{text} , #{writerId} , #{blindStatus:VARCHAR} , #{deleteStatus:VARCHAR})
+		<selectKey resultType="int" keyProperty = "replyNo" order="AFTER">
+			SELECT seq_reply_reply_no.currval FROM dual
+		</selectKey>
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getReply"	parameterType="int"	resultMap="replySelectMap">
+		SELECT
+		reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
+		FROM reply 
+		WHERE reply_no = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="deleteReply"	parameterType="int" >
+	   	UPDATE reply
+	   	<set>
+	   		delete_status = '1'
+	   	</set>
+	   	WHERE reply_no = #{value}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <!-- <update	id="deleteReReply"	parameterType="int" >
+	   	UPDATE reply
+	   	<set>
+	   		delete_status = '1'
+	   	</set>
+	   	WHERE reply_no = #{value}
+	 </update> -->
+		 
+	<!-- SQL : SELECT LIST -->
+	<select  id="listReply"  parameterType="map"	resultMap="replySelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
+											FROM reply
+											WHERE post_No = #{postNo}
+									 	) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select>
+	 
+	 <!-- SQL : SELECT LIST -->
+	<select  id="listMyReply"  parameterType="map"	resultMap="replySelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
+											FROM reply
+											WHERE writer_id = #{writerId}
+											ORDER BY reply_no DESC
+											 ) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select>
+	 	<!--  위 두번째 subQuery 의  
+	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
+	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
+	 			< 는 keyword 로 &lt; 를	사용.
+	 			
+	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
+	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
+
+				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
+		-->
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
+						FROM reply
+						WHERE post_No = #{value}
+					 ) countTable						
+	 </select>
+	 
+	 <!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCountMyList"  parameterType="String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
+						FROM reply
+						WHERE writer_id = #{value}
+					 ) countTable						
+	 </select>
+	 
+</mapper>

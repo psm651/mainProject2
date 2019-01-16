@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+ 	
+ 	
+	<resultMap id="userSelectMap" type="com.wthealth.domain.User">
+		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="password" 	column="password" 		jdbcType="VARCHAR" />
+		<result property="nickName"	column="nickname" 		jdbcType="VARCHAR" />
+		<result property="email" 			column="email" 				jdbcType="VARCHAR"  />
+		<result property="userImage" 			column="user_image" 				jdbcType="VARCHAR"  />
+		<result property="gender" 			column="gender" 				jdbcType="VARCHAR"  />
+		<result property="phone" 			column="user_phone" 		jdbcType="VARCHAR" />
+		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
+		<result property="dltDate" 		column="dlt_date" 			jdbcType="DATE" />
+		<result property="holder" 				column="holder" 					jdbcType="VARCHAR" />
+		<result property="bankName" 				column="bank_name" 					jdbcType="VARCHAR" />
+		<result property="accountNum" 				column="account_num" 					jdbcType="VARCHAR" />
+		<result property="claimCount" 				column="claim_count" 					jdbcType="NUMERIC" />
+		<result property="role" 				column="role" 					jdbcType="VARCHAR" />
+		<result property="userStatus" 				column="user_status_code" 					jdbcType="VARCHAR" />
+		<result property="havingPoint" 				column="having_point" 					jdbcType="NUMERIC" />
+		<result property="snsType" 				column="sns_type_code" 					jdbcType="VARCHAR" />
+		<result property="idToken" 				column="id_token" 					jdbcType="VARCHAR" />
+		<result property="accessToken" 				column="access_token" 					jdbcType="VARCHAR" />
+		<result property="refreshToken" 				column="refresh_token" 					jdbcType="VARCHAR" />
+		
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addUser"		parameterType="com.wthealth.domain.User" >
+	 	INSERT
+		INTO users( user_id , password , nickname , email , user_image, gender, user_phone, reg_date , dlt_date, 
+			holder, bank_name, account_num, claim_count, role, user_status_code, having_point, sns_type_code, id_token, access_token, refresh_token ) 
+		VALUES	 (	#{userId} , #{password} , #{nickName} , #{email:VARCHAR}, #{userImage:VARCHAR}, #{gender}, #{phone:VARCHAR},
+		 	SYSDATE, #{dltDate:DATE}, #{holder:VARCHAR}, #{bankName:VARCHAR}, #{accountNum:VARCHAR}, '0', 'user' , '0', '0', '0',
+		 	#{idToken:VARCHAR}, #{accessToken:VARCHAR}, #{refreshToken:VARCHAR} )
+	 </insert>
+	 
+	 <!-- SQL : INSERT -->
+	<insert 	id="snsLogin"		parameterType="com.wthealth.domain.User" >
+	 	INSERT
+		INTO users( user_id , password , nickname , email , user_image, gender, user_phone, reg_date , dlt_date, 
+			holder, bank_name, account_num, claim_count, role, user_status_code, having_point, sns_type_code, id_token, access_token, refresh_token ) 
+		VALUES	 (	#{userId} , #{password} , #{nickName} , #{email:VARCHAR}, #{userImage:VARCHAR}, #{gender}, #{phone:VARCHAR},
+		 	SYSDATE, #{dltDate:DATE}, #{holder:VARCHAR}, #{bankName:VARCHAR}, #{accountNum:VARCHAR}, '0', 'user' , '0', '0', #{snsType},
+		 	#{idToken:VARCHAR}, #{accessToken:VARCHAR}, #{refreshToken:VARCHAR} )
+	 </insert>
+	 
+	 <!-- SQL : INSERT -->
+	<!-- <insert 	id="kakaoLogin"		parameterType="com.wthealth.domain.User" >
+	 	INSERT
+		INTO users( user_id , password , nickname , email , user_image, gender, user_phone, reg_date , dlt_date, 
+			holder, bank_name, account_num, claim_count, role, user_status_code, having_point, sns_type_code, id_token, access_token, refresh_token ) 
+		VALUES	 (	#{userId} , #{password} , #{nickName} , #{email:VARCHAR}, #{userImage:VARCHAR}, #{gender}, #{phone:VARCHAR},
+		 	SYSDATE, #{dltDate:DATE}, #{holder:VARCHAR}, #{bankName:VARCHAR}, #{accountNum:VARCHAR}, '0', 'user' , '0', '0', '1',
+		 	#{idToken:VARCHAR}, #{accessToken:VARCHAR}, #{refreshToken:VARCHAR} )
+	 </insert> -->
+	 
+	 <!-- SQL : INSERT -->
+	<!-- <insert 	id="naverLogin"		parameterType="com.wthealth.domain.User" >
+	 	INSERT
+		INTO users( user_id , password , nickname , email , user_image, gender, user_phone, reg_date , dlt_date, 
+			holder, bank_name, account_num, claim_count, role, user_status_code, having_point, sns_type_code, id_token, access_token, refresh_token ) 
+		VALUES	 (	#{userId} , #{password} , #{nickName} , #{email:VARCHAR}, #{userImage:VARCHAR}, #{gender}, #{phone:VARCHAR},
+		 	SYSDATE, #{dltDate:DATE}, #{holder:VARCHAR}, #{bankName:VARCHAR}, #{accountNum:VARCHAR}, '0', 'user' , '0', '0', '2',
+		 	#{idToken:VARCHAR}, #{accessToken:VARCHAR}, #{refreshToken:VARCHAR} )
+	 </insert> -->
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+			user_id , password , nickname , email , user_image, gender, user_phone, reg_date , dlt_date, 
+			holder, bank_name, account_num, claim_count, role, user_status_code, having_point, sns_type_code, id_token, access_token, refresh_token 		
+		FROM users 
+		WHERE user_id = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="deleteUser"	parameterType="com.wthealth.domain.User" >
+	   	UPDATE users
+	   	<set>
+	   		user_status_code 	= '1',
+	   		dlt_date = SYSDATE
+	   	</set>
+	   	WHERE user_id = #{userId}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateUser"	parameterType="com.wthealth.domain.User" >
+	   	UPDATE users
+	   	<set>
+	   		password 	= #{password} ,
+			nickname	= #{nickName},
+			email 		= #{email:VARCHAR} ,
+			<if test="userImage != ''">
+			user_image	= #{userImage:VARCHAR},
+			</if>
+			gender 		= #{gender},
+			user_phone  = #{phone:VARCHAR},
+			holder 		= #{holder:VARCHAR},
+			bank_name 	= #{bankName:VARCHAR},
+			account_num	= #{accountNum:VARCHAR}
+	   	</set>
+	   	WHERE user_id = #{userId}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateAccount"	parameterType="com.wthealth.domain.User" >
+	   	UPDATE users
+	   	<set>
+			holder 		= #{holder},
+			bank_name 	= #{bankName},
+			account_num	= #{accountNum}
+	   	</set>
+	   	WHERE user_id = #{userId}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateHavingPoint"	parameterType="com.wthealth.domain.User" >
+	   	UPDATE users
+	   	<set>
+	   		having_point = #{havingPoint}
+	   	</set>
+	   	WHERE user_id = #{userId}
+	 </update>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="findId"	parameterType="string"	resultMap="userSelectMap">
+		SELECT
+			user_id , password , nickname , email , user_image, gender, user_phone, reg_date , dlt_date, 
+			holder, bank_name, account_num, claim_count, role, user_status_code, having_point, sns_type_code, id_token, access_token, refresh_token 		
+		FROM users 
+		WHERE nickname = #{value}
+	 </select>
+	 
+	<!-- SQL : UPDATE -->
+	 <update	id="findPassword"	parameterType="com.wthealth.domain.User" >
+	   	UPDATE users
+	   	<set>
+	   		password 	= #{password} 
+	   	</set>
+	   	WHERE nickname = #{nickName}
+	 </update>
+		 
+	<!-- SQL : SELECT LIST -->
+<!--	<select  id="listUser"  parameterType="search"	resultMap="userSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT user_id , user_name , email
+											FROM users
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 0 and searchKeyword !='' ">
+										 				user_id = #{searchKeyword}
+													</if>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				user_name = #{searchKeyword}
+													</if>
+												</where>
+											</if>
+											ORDER BY user_id ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select> -->
+	 	<!--  위 두번째 subQuery 의  
+	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
+	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
+	 			< 는 keyword 로 &lt; 를	사용.
+	 			
+	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
+	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
+
+				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
+		-->
+	
+	<!-- SQL : SELECT ROW Count -->	 
+<!--	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT user_id , user_name , email
+						FROM users
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+						 			user_id = #{searchKeyword}
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 		user_name = #{searchKeyword}
+								</if>
+							</where>
+						</if> ) countTable						
+	 </select>-->
+	 
+</mapper>
