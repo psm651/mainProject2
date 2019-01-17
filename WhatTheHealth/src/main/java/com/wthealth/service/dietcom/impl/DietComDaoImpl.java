@@ -47,6 +47,12 @@ public class DietComDaoImpl implements DietComDao {
 	public void updateDietCom(Post post) throws Exception {
 		sqlSession.update("DietComMapper.updateDietCom", post);
 	}
+	
+	@Override
+	public void updateClickCount(Post post) throws Exception {
+		sqlSession.update("DietComMapper.updateClickCount", post);
+		
+	}
 
 	@Override
 	public void deleteDietCom(String postNo) throws Exception {
@@ -66,5 +72,5 @@ public class DietComDaoImpl implements DietComDao {
 		return sqlSession.selectOne("DietComMapper.getTotalCount", search);
 	}
 
-
+	
 }

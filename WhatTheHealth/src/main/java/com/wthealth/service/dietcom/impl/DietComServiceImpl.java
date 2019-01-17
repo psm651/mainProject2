@@ -92,6 +92,12 @@ public class DietComServiceImpl implements DietComService {
 	}
 
 	@Override
+	public void updateClickCount(Post post) throws Exception {
+		dietComDao.updateClickCount(post);
+		
+	}
+
+	@Override
 	public void deleteDietCom(String postNo) throws Exception {
 		dietComDao.deleteDietCom(postNo);
 

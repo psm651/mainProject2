@@ -4,9 +4,13 @@
 
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>식단 커뮤니티 글쓰기 페이지</title>
 	
-	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
+	<script src="../resources/js/jquery-3.3.1.min.js"></script>
 	
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
@@ -31,7 +35,17 @@
 	<!-- include summernote css/js-->
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
+	
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+	<script src="../resources/js/app.js"></script>
+	
+	<style>
+		#video {
+      width: 300px;
+      height: 120px;
+      border: 1px solid red;
+  }
+	</style>
 <script type="text/javascript">
   
 	function fncAddDietCom(){
@@ -42,8 +56,10 @@
 		//var contents = $('#summernote').summernote('code');
 		//var contents = document.getElementById("contents").value; //글 내용 인식 못함.
 		var contents = $("textarea[name=contents]").val();
-		console.log(contents.length);
+		alert(title);
 		alert(contents);
+		
+		console.log(contents.length);
 
 		if(title == null || title.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
@@ -72,10 +88,23 @@
 			resetData();
 		});
 	});	
-
+	
+	/* $( function(){
+		 $( "#searchButton").on("click" , function() {
+			 $.ajax(
+	 					{
+	 						url:"/app.js",
+	 						method:"POST",
+	 						dataType:"javaScript",
+							success: function(data) {
+								$("#video").html(data);
+							}
+					});
+			});
+	}); */
+	
 </script>
 
-<title>식단 커뮤니티 글쓰기 페이지</title>
 </head>
 <body>
 	<div class="site-wrap">
@@ -117,14 +146,19 @@
               </div> -->
 
           </div>
-
+          </form>
+          
           <div class="col-lg-4">
             <div class="p-4 mb-3 bg-white">
-              <h3 class="h5 text-black mb-3">YouTube 검색창</h3>
-              <p class="mb-0 font-weight-bold">Address</p>
-              <p class="mb-4">203 Fake St. Mountain View, San Francisco, California, USA</p>
+              <h3 class="h5 text-black mb-3 ">YouTube 검색창</h3>
+               <form name="youtubeForm">
+              <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
+              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p>
+			  </form>
+            </div>
 
             </div>
+           
             
           </div>
         </div>
@@ -137,6 +171,6 @@
 				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>
 		  </div>
-	</form>
+	
 </body>
 </html>

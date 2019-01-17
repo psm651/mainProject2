@@ -83,7 +83,15 @@
 		WHERE post_no = #{postNo}
 	</update>
 	
-	<update id="deleteDietCom" parameterType="com.wthealth.domain.Post">
+	<update id="updateClickCount" parameterType="com.wthealth.domain.Post">
+		UPDATE post
+		<set>
+			like_count = #{likeCount:NUMERIC}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
+	
+	<update id="deleteDietCom" parameterType="string">
 		UPDATE post
 		<set>
 			delete_status = '1'

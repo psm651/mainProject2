@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Ωƒ¥‹ ƒøπ¬¥œ∆º ∏Ò∑œ ∆‰¿Ã¡ˆ</title>
+    <title>ÏãùÎã® Ïª§ÎÆ§ÎãàÌã∞ Î™©Î°ù ÌéòÏù¥ÏßÄ</title>
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,7 +33,7 @@
     <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" /> 
    	<!-- ToolBar End /////////////////////////////////////-->
-<!-- ≈¯πŸ ¿Œ≈¨∑ÁµÂ Ω√¿€! -->
+<!-- Ìà¥Î∞î Ïù∏ÌÅ¥Î£®Îìú ÏãúÏûë! -->
 
     <div class="site-blocks-cover inner-page overlay" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
@@ -52,7 +53,59 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/img_1.jpg" alt="Image" class="img-fluid">
+              </div>
+              <div class="text p-4">
+                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
+                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="post-entry bg-white">
+              <div class="image">
+                <img src="../resources/images/img_2.jpg" alt="Image" class="img-fluid">
+              </div>
+              <div class="text p-4">
+                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
+                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="post-entry bg-white">
+              <div class="image">
+                <img src="../resources/images/img_3.jpg" alt="Image" class="img-fluid">
+              </div>
+              <div class="text p-4">
+                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
+                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="post-entry bg-white">
+              <div class="image">
+                <img src="../resources/images/img_4.jpg" alt="Image" class="img-fluid">
+              </div>
+              <div class="text p-4">
+                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
+                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="post-entry bg-white">
+              <div class="image">
+                <img src="../resources/images/img_1.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -78,7 +131,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_3.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/img_3.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -91,7 +144,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_4.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/img_4.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -104,59 +157,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="text p-4">
-                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
-                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white">
-              <div class="image">
-                <img src="images/img_2.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="text p-4">
-                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
-                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white">
-              <div class="image">
-                <img src="images/img_3.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="text p-4">
-                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
-                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white">
-              <div class="image">
-                <img src="images/img_4.jpg" alt="Image" class="img-fluid">
-              </div>
-              <div class="text p-4">
-                <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
-                <span class="text-uppercase date d-block mb-3"><small>By Colorlib &bullet; Sep 25, 2018</small></span>
-                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat beatae doloremque, ex corrupti perspiciatis.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white">
-              <div class="image">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/img_1.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -274,20 +275,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../resources/css/animate.css">
     
     
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
   
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="../resources/css/aos.css">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../resources/css/style.css">
     
   </head>
   <body>
@@ -396,7 +397,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -409,7 +410,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_2.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -422,7 +423,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_3.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -435,7 +436,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_4.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -448,7 +449,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -461,7 +462,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_2.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -474,7 +475,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_3.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -487,7 +488,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_4.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -500,7 +501,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white">
               <div class="image">
-                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+                <img src="../resources/images/1111.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
                 <h2 class="h5 text-black"><a href="#">Lorem ipsum dolor sit amet</a></h2>
@@ -596,17 +597,17 @@
     </footer>
   </div>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.countdown.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script>
-  <script src="js/aos.js"></script>
+  <script src="resources/js/jquery-3.3.1.min.js"></script>
+  <script src="resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="resources/js/jquery-ui.js"></script>
+  <script src="resources/js/popper.min.js"></script>
+  <script src="resources/js/bootstrap.min.js"></script>
+  <script src="resources/js/owl.carousel.min.js"></script>
+  <script src="resources/js/jquery.stellar.min.js"></script>
+  <script src="resources/js/jquery.countdown.min.js"></script>
+  <script src="resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="resources/js/bootstrap-datepicker.min.js"></script>
+  <script src="resources/js/aos.js"></script>
 
   <script src="js/main.js"></script>
     

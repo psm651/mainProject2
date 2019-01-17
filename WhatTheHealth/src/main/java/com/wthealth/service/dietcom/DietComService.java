@@ -21,6 +21,8 @@ public interface DietComService {
 
 	public void updateDietCom(Post post) throws Exception;
 	
+	public void updateClickCount(Post post) throws Exception;
+	
 	public void deleteDietCom(String postNo) throws Exception;
 
 	public Map<String, Object> listDietComRecom(Search search) throws Exception;

@@ -50,7 +50,7 @@ public class DietComController {
 		
 		@RequestMapping(value = "addDietCom", method = RequestMethod.GET)
 		public String addDietCom() throws Exception{
-			System.out.println("addDietCom : GET");
+			System.out.println("/addDietCom : GET");
 						 
 			Post dietCom = new Post();
 			dietCom.setUserId("user1");
@@ -61,14 +61,14 @@ public class DietComController {
 		@RequestMapping(value = "addDietCom", method = RequestMethod.POST)
 		public String addDietCom(@ModelAttribute("post") Post post, HttpSession session) throws Exception{
 			System.out.println("/addDietCom : POST");
-			System.out.println("post?"+post.getTitle());
 			
 			User user = (User)session.getAttribute("user");
 			post.setUserId(user.getUserId());
 			
+			System.out.println("¿À´Ï?");
 			dietComService.addDietCom(post);
 			
-			return "forward:/dietcom/getDietCom?postNo"+post.getPostNo();
+			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		
 		@RequestMapping(value="profileUpload")
@@ -79,10 +79,16 @@ public class DietComController {
 		   } 
 		
 		@RequestMapping(value = "getDietCom", method = RequestMethod.GET)
-		public String getDietCom(@RequestParam("postNo") String postNo, Model model) throws Exception{
+		public String getDietCom(@RequestParam("postNo") String postNo, Model model, HttpSession session) throws Exception{
 			System.out.println("/getDietCom :GET");
 			
 			Post post = dietComService.getDietCom(postNo);
+			
+			int clickCount = post.getClickCount();
+			clickCount++;
+			post.setClickCount(clickCount);
+			dietComService.updateClickCount(post);
+
 			model.addAttribute("post",post);
 			
 			return "forward:/dietcom/getDietCom.jsp";
@@ -94,7 +100,7 @@ public class DietComController {
 			
 			dietComService.updateDietCom(post);
 			
-			return "redirect:/dietcom/updateDietCom?postNo="+post.getPostNo();
+			return "redirect:/dietCom/updateDietCom?postNo="+post.getPostNo();
 		}
 		
 		@RequestMapping(value="deleteDietCom", method = RequestMethod.POST)
