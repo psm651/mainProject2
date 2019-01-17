@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.Synthesizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
+import com.wthealth.domain.User;
 import com.wthealth.service.dietcom.DietComService;
 
 @Controller
@@ -61,6 +61,10 @@ public class DietComController {
 		@RequestMapping(value = "addDietCom", method = RequestMethod.POST)
 		public String addDietCom(@ModelAttribute("post") Post post, HttpSession session) throws Exception{
 			System.out.println("/addDietCom : POST");
+			System.out.println("post?"+post.getTitle());
+			
+			User user = (User)session.getAttribute("user");
+			post.setUserId(user.getUserId());
 			
 			dietComService.addDietCom(post);
 			

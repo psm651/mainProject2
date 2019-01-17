@@ -45,7 +45,7 @@ public class DietComServiceImpl implements DietComService {
 		PrintWriter out = response.getWriter();
 		// 업로드할 폴더 경로
 		//String realFolder = request.getSession().getServletContext().getRealPath("images");
-		String realFolder = "C:\\Users\\Bit\\git\\WhatTheHealth\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+		String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
 		System.out.println(realFolder);
 		UUID uuid = UUID.randomUUID();
 
