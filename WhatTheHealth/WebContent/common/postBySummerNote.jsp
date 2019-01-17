@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -14,10 +13,18 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-<script type="text/javascript">
+
+
+<title>ì‹ë‹¨ ì»¤ë®¤ë‹ˆí‹° ê¸€ì“°ê¸° í˜ì´ì§€</title>
+</head>
+<body>		  
+
+	<script type="text/javascript">
 
 	 $(document).ready(function() {
         $('#summernote').summernote({
+        		placeholder : 'ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.',
+        		lang : 'ko-KR',
         		height: 500,
         		width : 750,
         		callbacks: {
@@ -51,15 +58,9 @@
     }); 
 
 </script>
-
-<title>½Ä´Ü Ä¿¹Â´ÏÆ¼ ±Û¾²±â ÆäÀÌÁö</title>
-</head>
-<body>
-
-	<!-- <div id="summernote"><p>Hello Summernote</p></div> -->
 	
-	<textarea id="summernote" name="contents"></textarea>
-		  
+	<!-- <div id="summernote"></div>  -->
+	<textarea id="summernote" id="contents" name="contents"></textarea>
 	
 </body>
 </html>

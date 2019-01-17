@@ -36,10 +36,13 @@
 		click_count, blind_status, delete_status, like_count,
 		category, post_date, ex_sc_no, locationtag_name, x_coordinate,
 		y_coordinate, address)
-		VALUES ('EC'||seq_excom_excom_no, #{userId}, #{title}, #{contents}, #{photo:VARCHAR},
+		VALUES ('EC'||seq_excom_excom_no.nextval, #{userId}, #{title}, #{contents}, #{photo:VARCHAR},
 		#{video:VARCHAR}, 0, '0', '0', 0, #{category:VARCHAR}, SYSDATE, 
 		#{exScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{xCoordinate:NUMERIC}, #{yCoordinate:NUMERIC},
 		#{address:VARCHAR})
+		<selectKey resultType="String" keyProperty = "postNo" order="AFTER">
+         SELECT 'DC'||seq_excom_excom_no.currval FROM dual
+     	</selectKey>
 	</insert>
 
 	<!-- SQL : SELECT ONE -->

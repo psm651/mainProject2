@@ -35,11 +35,11 @@
 		click_count, blind_status, delete_status, like_count,
 		category, post_date, diet_sc_no, locationtag_name, x_coordinate, y_coordinate, address)
 		VALUES
-		('DC'||seq_post_post_no.nextval, #{userId}, #{title}, #{contents},
+		('DC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
 		#{photo:VARCHAR}, #{video:VARCHAR}, 0, '0', '0', 0, #{category:VARCHAR}, SYSDATE,
 		#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{xCoordinate:NUMERIC}, #{yCoordinate:NUMERIC}, #{address:VARCHAR})
 		 <selectKey resultType="String" keyProperty = "postNo" order="AFTER">
-         SELECT 'DC'||seq_dietcom_dietcom_no FROM dual
+         SELECT 'DC'||seq_dietcom_dietcom_no.currval FROM dual
      	</selectKey>
 	</insert>
 
