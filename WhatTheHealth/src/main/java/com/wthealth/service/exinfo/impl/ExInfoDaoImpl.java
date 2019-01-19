@@ -28,14 +28,11 @@ public class ExInfoDaoImpl implements ExInfoDao{
 		System.out.println(this.getClass());
 	}
 	@Override
-	public int addExInfo(Post post) throws Exception {		
-		return sqlSession.insert("ExInfoMapper.addExInfo", post);
+	public void addExInfo(Post post) throws Exception {		
+		 sqlSession.insert("ExInfoMapper.addExInfo", post);
 	}
 
-	@Override
-	public void addPost(Post post) throws Exception{
-		sqlSession.insert("ExInfoMapper.addPost", post);
-	}
+
 	
 	@Override
 	public Post getExInfo(String postNo) throws Exception {

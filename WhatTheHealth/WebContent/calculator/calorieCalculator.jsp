@@ -8,13 +8,22 @@
 <head>
 	<meta charset="EUC-KR">
 	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<!-- 템플릿 -->
  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
@@ -26,6 +35,8 @@
         }
         
         img { width:500px; }
+        
+
     </style>
     
   
@@ -47,10 +58,8 @@
 	
 	$(function(){
 		$(".btn:contains('검색')").on("click", function(){
-			
+
 			var searchFood = $("#searchFood").val();
-			alert(searchFood);
- 		
 			$.ajax(
 		
 					{
@@ -65,27 +74,49 @@
 					  success : function(data, status){
 			
 					  
-						  var food = "";
-						  var foodDisplay = "";
-
-					  
-					  	$.each(data, function(index){
-							 food = "<div class='col-xs-4 col-md-2' name='foodName'>"+data[index]+"</div>";
-						 	 foodDisplay += food; 
-					  	});
+				
+						  var display = "";
+						  var totalDisplay = "";
 					 
-					  
-					    	$(".row").append(foodDisplay);
-				
-				
+					  	$.each(data, function(index){
+		                 
+
+						 display = "<tr><th scope='row'>"+(index+1)+"</th>"+
+					  				 "<td>"+data[index].foodName+"</td>"+
+						 			 "<td>"+data[index].amountFood+"</td>"+
+						 	 		 "<td>"+data[index].foodCalorie+"</td>"+
+									 "<td align='left'><a href='#' id='button' class='btn btn-default btn-xs' role='button'>추가</a></td></tr>";	
+						 
+						totalDisplay += display;					 
+							 /* $("#append").append(display); */
+							 
+					  	});
+					  	$("#append").html(totalDisplay);
 				  }//end of success
 				  
 				}); // end of ajax
-				
-				
-	
 		});
-	});
+				
+	}); 
+
+   $(function(){
+        $(document).on("click",".btn ",function(){
+
+        	var trArray = new Array();
+        	var tr = $(this).parents("tr").children("td");
+        	var text = tr.text();
+			       
+        	
+        	
+        	console.log(tr);
+        	console.log(text);
+    //        #append > tr:nth-child(1) > td:nth-child(5) 
+       /*     	var tr0 = $(this);
+       		var tr1 = $(this).parents("td"); */
+        });
+     }); 
+     
+
 
 </script>
 
@@ -95,40 +126,49 @@
 	
 	<jsp:include page="/layout/toolbar.jsp" />
 	
-   	<br/><br/><br/><br/>
+   	<br/><br/>
    	
    	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">칼로리계산기</h3>
+	       <h3 class=" text-info" align="center">칼로리계산기</h3>
 	    </div>
 	    
    		 <div class="form-group">
-		    <div class="col-sm-4">
+		    <div class="col-6 col-md-4">
 		      <input type="text" class="form-control" id="searchFood" name="searchFood">
 		    </div>
+		    
 	    </div>
 	    
-			<button type="button" class="btn btn-default">검색</button>
+			<button type="button" class="btn pull-right" align="right">검색</button>
 		
-		<br/>
+		<br/><br/><br/><br/>
 		<hr/>
+		<br/><br/><br/>
+		
+
+		
+	<table class="table table-hover">
+  		<thead>
+    		<tr>
+    		  <th scope="col">번호</th>
+    		  <th scope="col">음식명</th>
+    		  <th scope="col">1인분</th>
+     		  <th scope="col">칼로리</th>
+   			</tr>
+ 	    </thead>
+  	<tbody id="append">
+     
+    </tbody>
+	</table>		
+	
+	<br/><br/>
+	
+
+</div>		
 		
 		
-		<div class="row">				
-		</div>	
-			
-	<!-- 	  <div class="form-group">
-		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">스케줄담기</label>
-		    <div class="col-sm-4">
-		      <div class="input-group date">
-           			 <input type="text" name="manuDate" class="form-control"><span class="input-group-addon" >
-           			 <i class="glyphicon glyphicon-calendar"></i></span>
-           	  </div>
-		      </div>	
-		  </div>	 -->
-			
-	</div>
 </body>
 
 </html>
