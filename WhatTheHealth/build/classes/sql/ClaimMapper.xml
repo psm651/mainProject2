@@ -11,16 +11,16 @@
 		<result property="claimNo" 				column="claim_no" 						jdbcType="NUMERIC"/>
 		<result property="userId"					column="user_id" 						jdbcType="VARCHAR" />
 		<result property="claimedUserId" 		column="claimed_id" 					jdbcType="VARCHAR" />
-		<result property="claimDate" 			column="claim_date" 					jdbcType="DATE" />
+		<result property="claimDate" 			column="claim_date" 					jdbcType="VARCHAR" />
 		<result property="claimSortNo" 			column="claim_type" 					jdbcType="VARCHAR" />
 		<result property="claimStatus" 			column="claim_status" 					jdbcType="VARCHAR" />		
 		<result property="claimReasonNo" 		column="claim_reason" 					jdbcType="VARCHAR" />		
-		<result property="targetNo" 				column="claim_target_no" 				jdbcType="VARCHAR" />
+		<result property="targetNo" 				column="claim_target_no" 				jdbcType="NUMERIC" />
 		<result property="claimContents" 		column="claim_contents" 				jdbcType="VARCHAR" />	
 	</resultMap>
 	
 	<resultMap id="postSelectMap" type="com.wthealth.domain.Post">
-		<result property="postNo" column="post_no" jdbcType="VARCHAR" />
+		<result property="postNo" column="post_no" jdbcType="NUMERIC" />
 		<result property="userId" column="user_id" jdbcType="VARCHAR" />
 		<result property="title" column="title" jdbcType="VARCHAR" />
 		<result property="contents" column="contents" jdbcType="VARCHAR" />
@@ -58,7 +58,7 @@
 	<insert 	id="addClaim"		parameterType="com.wthealth.domain.Claim" >
 	 	INSERT
 		INTO claim( claim_no, user_id, claimed_id, claim_date, claim_type, claim_status, claim_reason, claim_target_no, claim_contents ) 
-		VALUES	 (	seq_claim_claim_no.NEXTVAL , #{userId} , #{claimedUserId}, SYSDATE,  #{claimSortNo:VARCHAR}, #{claimStatus:VARCHAR} , #{claimReasonNo:VARCHAR},#{targetNo:VARCHAR}, #{claimContents:VARCHAR} )
+		VALUES	 (	seq_claim_claim_no.NEXTVAL , #{userId} , #{claimedUserId}, SYSDATE,  #{claimSortNo:VARCHAR}, '0', #{claimReasonNo:VARCHAR},#{targetNo:VARCHAR}, #{claimContents:VARCHAR} )
 	 </insert>
 	 
 	  <!-- SQL : SELECT  -->
@@ -69,15 +69,15 @@
 	 </select>
 	 
 	   <!-- SQL : SELECT  -->
-	 <select 	id="getClaimedPost"	 parameterType="int"	 resultMap="postSelectMap">
-		SELECT user_Id
+	 <select 	id="getClaimedPost"	 parameterType="String"	 resultMap="postSelectMap">
+		SELECT *
 		FROM post 
 		WHERE post_no= #{targetNo}
 	 </select>
 	 
 	    <!-- SQL : SELECT  -->
 	 <select 	id="getClaimedReply"	 parameterType="int"	 resultMap="replySelectMap">
-		SELECT user_Id
+		SELECT *
 		FROM reply 
 		WHERE reply_no= #{targetNo}
 	 </select>
@@ -103,7 +103,7 @@
 	 <!-- SQL : SELECT LIST -->
    <select  id="listClaim"  parameterType="com.wthealth.common.Search"   resultMap="claimSelectMap">
 
-       SELECT *
+       SELECT  claim_no, user_id, claimed_id, claim_date, claim_type, claim_status, claim_reason, claim_target_no, claim_contents
         FROM (   SELECT inner_table.* , ROWNUM AS row_seq
                          FROM  (   SELECT *
                        FROM claim     ) inner_table
@@ -111,7 +111,7 @@
       WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
     </select>
 	 
-	  <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
+	  <select  id="getTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT * FROM claim ) countTable			
 	 </select>

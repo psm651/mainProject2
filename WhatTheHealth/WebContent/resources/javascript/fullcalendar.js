@@ -7996,6 +7996,8 @@ var BasicView = /** @class */ (function (_super) {
             '<tr>' +
             '<td class="' + theme.getClass('widgetContent') + '"></td>' +
             '</tr>' +
+            '<tr>' +
+            '</tr>'
             '</tbody>' +
             '</table>';
     };
@@ -12785,7 +12787,7 @@ var TimeGridFillRenderer_1 = __webpack_require__(242);
 // potential nice values for the slot-duration and interval-duration
 // from largest to smallest
 var AGENDA_STOCK_SUB_DURATIONS = [
-    { hours: 1 },
+    { hours: 6 },
     { minutes: 30 },
     { minutes: 15 },
     { seconds: 30 },
@@ -15074,8 +15076,8 @@ var AgendaView_1 = __webpack_require__(238);
 ViewRegistry_1.defineView('agenda', {
     'class': AgendaView_1.default,
     defaults: {
-        allDaySlot: true,
-        slotDuration: '00:30:00',
+        allDaySlot: false,
+        slotDuration: '06:00:00',
         slotEventOverlap: true // a bad name. confused with overlap/constraint system
     }
 });

@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html>
@@ -9,48 +9,105 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
+<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > 
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/css/animate.css">
+    
+    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
+  
+    <link rel="stylesheet" href="/resources/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/css/style.css">
+	
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+  <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/resources/js/jquery-ui.js"></script>
+  <script src="/resources/js/popper.min.js"></script>
+  <script src="/resources/js/bootstrap.min.js"></script>
+  <script src="/resources/js/owl.carousel.min.js"></script>
+  <script src="/resources/js/jquery.stellar.min.js"></script>
+  <script src="/resources/js/jquery.countdown.min.js"></script>
+  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
+  <script src="/resources/js/aos.js"></script>
+
+  <script src="/resources/js/main.js"></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
+	<!-- <style>
 		body {
             padding-top : 50px;
         }
-    </style>
+        /* i {
+        	background-color : red;
+        	color : white;
+        } */
+    </style> -->
+<!--     <style>
+    	#userId {
+    		float : left;
+    		width : 900px;
+    	}
+    	.giyong {
+    		overflow : hidden;
+    	}
+    	.Kimgiyong {
+    		float : right;
+    	}
+    
+    </style> -->
+    
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		//============= "°¡ÀÔ"  Event ¿¬°á =============
+		//============= "ê°€ì…"  Event ì—°ê²° =============
 		 $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( "#join" ).on("click" , function() {
 				fncAddUser();
+				console.log("ê°€ì…ë˜ë¼ê³ ")
 			});
 		});	
 		
 		
-		//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
+		//============= "ì·¨ì†Œ"  Event ì²˜ë¦¬ ë°  ì—°ê²° =============
 		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("a[href='#' ]").on("click" , function() {
-				self.location = "/index.jsp"
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$("#cancle").on("click" , function() {
+				self.location = "/main.jsp"
 			});
 		});	
 		
 		$(function() {
-			//==> ¹®ÀÚÀÎÁõ
-			$( "button.btn.btn-default" ).on("click" , function() {
+			//==> ë¬¸ìì¸ì¦
+			$( "#authSMS" ).on("click" , function() {
 				
 				var phone = $("#phone").val()
 				console.log(phone);
+				
+				if(phone == "" || phone.length <1 ){
+				    alert("íœ´ëŒ€ì „í™” ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				    return;
+				  }
 				
 				$.ajax( 
 						{
@@ -74,14 +131,20 @@
 		});	
 		
 		$(function() {
-			//==> ¸ŞÀÏÀÎÁõ
-			$( "button.btn.btn-info" ).on("click" , function() {
-				
+			//==> ë©”ì¼ì¸ì¦
+			$( "#authMail" ).on("click" , function() {
+		
 				var email = $("input[name='email']").val().split('.');
 				console.log(email);
+				 if(email == "" || email.length <1 ){
+				    alert("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				    return;
+				  }
 				
 				//self.location = "/user/mailSender?email="+email;
-				alert("¸ŞÀÏÀÌ Àü¼ÛµÇ¾ú½À´Ï´Ù.")
+				alert("ë©”ì¼ì´ ì „ì†¡ë˜ì—ˆìŠµë‹ˆë‹¤.")
+				$("#checkAuth").css("color","red")
+				
 				
 				$.ajax( 
 						{
@@ -113,38 +176,79 @@
 			var pw=$("input[name='password']").val();
 			var pw_confirm=$("input[name='password2']").val();
 			var nickName=$("input[name='nickName']").val();
+			var authNum=$("input[name='authNum']").val();
+			
+			var checkId = document.getElementById('checkId').style.color;
+			var checkNickname = document.getElementById('checkNickname').style.color;
+			var checkAuth = document.getElementById('checkAuth').style.color;
+			console.log(checkAuth);
+			
+			
 			
 			
 			if(id == null || id.length <1){
-				alert("¾ÆÀÌµğ´Â ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("ì•„ì´ë””ëŠ” ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(pw == null || pw.length <1){
-				alert("ÆĞ½º¿öµå´Â  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("íŒ¨ìŠ¤ì›Œë“œëŠ”  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(pw_confirm == null || pw_confirm.length <1){
-				alert("ÆĞ½º¿öµå È®ÀÎÀº  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ì€  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
 			if(nickName == null || nickName.length <1){
-				alert("´Ğ³×ÀÓÀº  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("ë‹‰ë„¤ì„ì€  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
+				return;
+			}
+			
+			if(authNum == null || authNum.length <1){
+				alert("ë©”ì¼ì¸ì¦ ë˜ëŠ” ë¬¸ì ì¸ì¦ì„ ì§„í–‰í•´ì£¼ì„¸ìš”.");
 				return;
 			}
 			
 			if( pw != pw_confirm ) {				
-				alert("ºñ¹Ğ¹øÈ£ È®ÀÎÀÌ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+				alert("ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì´ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 				$("input:text[name='password2']").focus();
 				$("#checkPW").css("color","red")
 				return;
 			}
 			
+			if( pw == pw_confirm ) {				
+				$("#checkPW").css("color","green")
+			
+			}
+			
+			if(checkId == 'red'){
+				alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.")
+				return;
+			}
+			
+			if(checkNickname == 'red'){
+				alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë‹‰ë„¤ì„ì…ë‹ˆë‹¤.")
+				return;
+			}
+			
+/* 
+			if(checkAuth == 'black'){
+				alert("ë©”ì¼ì¸ì¦ ë˜ëŠ” íœ´ëŒ€ì „í™” ì¸ì¦ì„ ì§„í–‰í•´ì£¼ì„¸ìš”.")
+				return;
+			} */
+			
+			if(checkAuth == 'red'){
+				alert("ì¸ì¦ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")
+				return;
+			}
+			
+			
 			
 			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			alert()
 		}
 		
 
-		//==>"ÀÌ¸ŞÀÏ" À¯È¿¼ºCheck  Event Ã³¸® ¹× ¿¬°á
+		//==>"ì´ë©”ì¼" ìœ íš¨ì„±Check  Event ì²˜ë¦¬ ë° ì—°ê²°
 		 $(function() {
 			 
 			 $("input[name='email']").on("change" , function() {
@@ -152,7 +256,7 @@
 				 var email=$("input[name='email']").val();
 			    
 				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("ÀÌ¸ŞÀÏ Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù.");
+			    	alert("ì´ë©”ì¼ í˜•ì‹ì´ ì•„ë‹™ë‹ˆë‹¤.");
 			     }
 			});
 			 
@@ -186,7 +290,7 @@
 							}
 							
 							if(!JSONData){
-								//alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù.")
+								//alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤.")
 								$("#checkId").css("color","red")
 							}
 						}							
@@ -218,7 +322,7 @@
 							}
 							
 							if(!JSONData){
-								//alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù.")
+								//alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤.")
 								$("#checkNickname").css("color","red")
 							}
 						}							
@@ -252,7 +356,7 @@
 							}
 							
 							if(!JSONData){
-								//alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù.")
+								//alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤.")
 								$("#checkAuth").css("color","red")
 							}
 						}							
@@ -261,9 +365,9 @@
 		}
 		 
 		 
-		//==>"IDÁßº¹È®ÀÎ" Event Ã³¸® ¹× ¿¬°á
+		//==>"IDì¤‘ë³µí™•ì¸" Event ì²˜ë¦¬ ë° ì—°ê²°
 		/*  $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $("button.btn.btn-info").on("click" , function() {
 				popWin 
 				= window.open("/user/checkDuplication.jsp",
@@ -283,109 +387,134 @@
 	<jsp:include page="/layout/toolbar.jsp" />
 
    	<!-- ToolBar End /////////////////////////////////////-->
+   	
+   	  <div class="site-blocks-cover inner-page overlay" style="background-image: url(/resources/images/1111.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7 text-center">
+            <h1 class="mb-5">Join Us</h1>
+          </div>
+        </div>
+      </div>
+    </div>  
 
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
+	 <div class="site-section bg-light">
 	<div class="container">
-		<div class="page-header text-center">
-		<h1 class="text-muted">È¸ ¿ø °¡ ÀÔ</h1>
-		</div>
+		<!-- <div class="page-header text-center">
+		<h1 class="text-muted">íšŒ ì› ê°€ ì…</h1>
+		</div> -->
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" enctype="multipart/form-data">
 		
-		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">¾Æ ÀÌ µğ</label>
-		    <i class="glyphicon glyphicon-ok" id="checkId"></i>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="¾ÆÀÌµğ" oninput="CheckId()">
+		 <!-- <form action="#" class="p-5 bg-white">
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">Full Name</label>
+                  <input type="text" id="fullname" class="form-control" placeholder="Full Name">
+                </div>
+              </div> -->
+		<form class="p-5 bg-white" enctype="multipart/form-data">
+		
+		  <div class="form-group ">
+		  <!-- <label for="userId" class="font-weight-bold">ì•„ ì´ ë””</label> -->
+		  	<div class="col-md-12 mb-3 mb-md-0">
+		     <label for="userId" class="font-weight-bold">ì•„ ì´ ë””</label> 
+		     <!--<i class="glyphicon glyphicon-ok" id="checkId"></i>-->
+		     <span class="icon-check mr-3" id="checkId"></span>
+		      <input type="text" class="form-control" id="userId" name="userId" placeholder="ì•„ì´ë””" oninput="CheckId()">
+		     <!--  <span class="Kimgiyong"><img src="/resources/images/noun_Check_2135001.svg" id="checkId" height="40"></span> -->
 		    </div>
-		   
 		  </div> 
 		  
 		  <div class="form-group">
-		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£</label>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" placeholder="ºñ¹Ğ¹øÈ£">
+		  	<div class="col-md-12 mb-3 mb-md-0">
+		    <label for="password" class="font-weight-bold">ë¹„ë°€ë²ˆí˜¸</label>
+		      <input type="password" class="form-control" id="password" name="password" placeholder="ë¹„ë°€ë²ˆí˜¸">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£ È®ÀÎ</label>
-		    <i class="glyphicon glyphicon-ok" id="checkPW"></i>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="ºñ¹Ğ¹øÈ£ È®ÀÎ">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="password2" class="font-weight-bold">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
+		    <!-- <i class="glyphicon glyphicon-ok" id="checkPW"></i> -->
+		    <span class="icon-check mr-3" id="checkPW"></span>
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="ë¹„ë°€ë²ˆí˜¸ í™•ì¸">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="nickName" class="col-sm-offset-1 col-sm-3 control-label">´Ğ³×ÀÓ</label>
-		    <i class="glyphicon glyphicon-ok" id="checkNickname"></i>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="´Ğ³×ÀÓ" oninput="CheckNickname()">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="nickName" class="font-weight-bold">ë‹‰ë„¤ì„</label>
+		   <!--  <i class="glyphicon glyphicon-ok" id="checkNickname"></i> -->
+		    <span class="icon-check mr-3" id="checkNickname"></span>
+		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="ë‹‰ë„¤ì„" oninput="CheckNickname()">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		  	<label for="gender" class="col-sm-offset-1 col-sm-3 control-label">¼ºº°</label>
-		  		 <div class="col-sm-offset-1  col-sm-2 text-center">
-		  			<input type='radio' name='gender' value='0' checked />¿©
-		  			<input type='radio' name='gender' value='1'  />³²
-		  		</div>
+		  <div class="col-md-12 mb-3 mb-md-0">
+		  	<label for="gender" class="font-weight-bold">ì„±ë³„</label><br/>
+		  	
+		  			<input type='radio' name='gender' value='0' checked />ì—¬&nbsp;&nbsp;&nbsp;
+		  			<input type='radio' name='gender' value='1'  />ë‚¨
+		  </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="uploadFile" class="col-sm-offset-1 col-sm-3 control-label">ÇÁ·ÎÇÊ »çÁø</label>
-		    <div class="col-sm-4">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="uploadFile" class="font-weight-bold">í”„ë¡œí•„ ì‚¬ì§„</label>
 		      <input type="file" class="form-control" id="uploadFile" name="uploadFile">
 		    </div>
 		  </div>
 
 		  
 		  <div class="form-group">
-		    <label for="phone" class="col-sm-offset-1 col-sm-3 control-label">ÈŞ´ëÀüÈ­</label>
-		     <div class="col-sm-4">
-		       <input type="text" class="form-control" id="phone" name="phone" placeholder="ÈŞ´ëÀüÈ­">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="phone" class="font-weight-bold">íœ´ëŒ€ì „í™”</label>
+		       <input type="text" class="form-control" id="phone" name="phone" placeholder="íœ´ëŒ€ì „í™”">
 		    </div>
 		  </div>
 		  
 	
 		  
 		  <div class="form-group">
-		    <label for="email" class="col-sm-offset-1 col-sm-3 control-label">ÀÌ¸ŞÀÏ</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="ÀÌ¸ŞÀÏ">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="email" class="font-weight-bold">ì´ë©”ì¼</label>
+		      <input type="text" class="form-control" id="email" name="email" placeholder="ì´ë©”ì¼">
 		    </div>
 		  </div>
 		  
 		  	  
 		   <div class="form-group">
-		   	<div class="col-sm-offset-4  col-sm-4 text-center">
-		   	ÀÎÁõ¹æ¹ıÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.<br/>
-		   	
-		      <button type="button" class="btn btn-info">¸ŞÀÏÀÎÁõ</button>
-		   	 <button type="button" class="btn btn-default">ÇÚµåÆùÀÎÁõ</button>
+		   	<div class="col-md-12 mb-3 mb-md-0 text-center">
+		   	ì¸ì¦ë°©ë²•ì„ ì„ íƒí•´ì£¼ì„¸ìš”.<br/>
+		     <button type="button" class="btn btn-primary pill text-white px-4" id="authMail">ë©”ì¼ì¸ì¦</button>
+		   	 <button type="button" class="btn btn-primary pill text-white px-4" id="authSMS">ë¬¸ìì¸ì¦</button>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="authNum" class="col-sm-offset-1 col-sm-3 control-label">ÀÎÁõ¹øÈ£</label>
-		    <i class="glyphicon glyphicon-ok" id="checkAuth"></i>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="authNum" name="authNum" placeholder="ÀÎÁõ¹øÈ£" oninput="CheckAuth()">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="authNum" class="font-weight-bold">ì¸ì¦ë²ˆí˜¸</label>
+		    <!-- <i class="glyphicon glyphicon-ok" id="checkAuth"></i> -->
+		     <span class="icon-check mr-3" id="checkAuth"></span>
+		      <input type="text" class="form-control" id="authNum" name="authNum" placeholder="ì¸ì¦ë²ˆí˜¸" oninput="CheckAuth()">
 		       </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >°¡ &nbsp;ÀÔ</button>
-			  <a class="btn btn-primary btn" href="#" role="button">Ãë&nbsp;¼Ò</a>
+		    <div class="col-md-12 mb-3 mb-md-0 text-center">
+		      <button type="button" class="btn btn-primary pill px-4 py-2" id="join">ê°€ &nbsp;&nbsp;ì…</button>
+			   <button type="button" class="btn btn-primary pill px-4 py-2" id="cancle">ì·¨&nbsp;&nbsp;ì†Œ</button>
 		    </div>
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
 		
  	</div>
-	<!--  È­¸é±¸¼º div end /////////////////////////////////////-->
-	
+	<!--  í™”ë©´êµ¬ì„± div end /////////////////////////////////////-->
+	</div>
 </body>
 
 </html>

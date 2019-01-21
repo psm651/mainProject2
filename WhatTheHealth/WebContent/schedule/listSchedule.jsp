@@ -13,16 +13,37 @@ $(function() {
 	  // page is now ready, initialize the calendar...
 
 	  $('#calendar').fullCalendar({
-		  
+		  selectable: true,
 		  header: {
-		        left: 'prev,next today',
+		        left: 'prev,next today,myCustomButton',
 		        center: 'title',
 		        right: 'basicWeek,basicDay'
-		      },
+		      },footer: {
+		          left: 'custom1,custom2',
+		          center: '',
+		          right: 'prev,next'
+		        },
 		      defaultView: 'basicWeek',
 		      dayClick: function() {
 		    	    alert('a day has been clicked!');
 		    	  },
+		    	  customButtons: {
+		    		    myCustomButton: {
+		    		      text: 'custom!',
+		    		      click: function() {
+		    		        alert('clicked the custom button!');
+		    		      }
+		    		    },
+		    		    custom2: {
+		    		        text: 'custom 2',
+		    		        click: function() {
+		    		          alert('clicked custom button 2!');
+		    		        }
+		    		      }
+		    		  },
+		    		  select: function(startDate, endDate) {
+		    		      alert('selected ' + startDate.format() + ' to ' + endDate.format());
+		    		    },
 		    	  views: {
 		    		    week: { // name of view
 		    		      titleFormat: 'YYYY / MM / DD'

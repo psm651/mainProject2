@@ -31,6 +31,10 @@ public class Post {
 	private double xCoordinate;
 	private double yCoordinate;
 	private String address;
+	/////////////////Favorite vo/////////////
+	private int favoriteNo;
+	private String pressedStatus;
+	private String favoriteType;
 	
 	public Post() {
 	}
@@ -227,6 +231,30 @@ public class Post {
 		this.address = address;
 	}
 
+	public int getFavoriteNo() {
+		return favoriteNo;
+	}
+
+	public void setFavoriteNo(int favoriteNo) {
+		this.favoriteNo = favoriteNo;
+	}
+
+	public String getPressedStatus() {
+		return pressedStatus;
+	}
+
+	public void setPressedStatus(String pressedStatus) {
+		this.pressedStatus = pressedStatus;
+	}
+
+	public String getFavoriteType() {
+		return favoriteType;
+	}
+
+	public void setFavoriteType(String favoriteType) {
+		this.favoriteType = favoriteType;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", userId=" + userId + ", title=" + title + ", contents=" + contents
@@ -235,7 +263,8 @@ public class Post {
 				+ ", category=" + category + ", postDate=" + postDate + ", exScNo=" + exScNo + ", dietScNo=" + dietScNo
 				+ ", exInfoNo=" + exInfoNo + ", exCalorie=" + exCalorie + ", exPlace=" + exPlace + ", exPart=" + exPart
 				+ ", exVideoTime=" + exVideoTime + ", locationTagName=" + locationTagName + ", xCoordinate="
-				+ xCoordinate + ", yCoordinate=" + yCoordinate + ", address=" + address + "]";
+				+ xCoordinate + ", yCoordinate=" + yCoordinate + ", address=" + address + ", favoriteNo=" + favoriteNo
+				+ ", pressedStatus=" + pressedStatus + ", favoriteType=" + favoriteType + "]";
 	}
 
 }

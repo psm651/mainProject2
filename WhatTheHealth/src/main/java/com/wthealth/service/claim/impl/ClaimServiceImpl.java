@@ -49,8 +49,11 @@ public class ClaimServiceImpl implements ClaimService {
 	@Override
 	public Map<String, Object> listClaim(Search search) throws Exception {
 		List<Claim> list = claimDao.listClaim(search);
+		int totalCount = claimDao.getTotalCount(search);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
+		map.put("totalCount", new Integer(totalCount));
 		return map;
 	}
 	@Override
@@ -59,7 +62,7 @@ public class ClaimServiceImpl implements ClaimService {
 		return claimDao.getClaim(claimNo);
 	}
 	@Override
-	public Post getClaimedPost(int targetNo) throws Exception {
+	public Post getClaimedPost(String targetNo) throws Exception {
 		
 		return claimDao.getClaimedPost(targetNo);
 	}

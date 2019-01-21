@@ -17,7 +17,7 @@ public interface ClaimService {
 	
 	public Claim getClaim(int claimNo) throws Exception; 
 	
-	public Post getClaimedPost(int targetNo) throws Exception;
+	public Post getClaimedPost(String targetNo) throws Exception;
 	
 	public Reply getClaimedReply(int targetNo) throws Exception;
 }

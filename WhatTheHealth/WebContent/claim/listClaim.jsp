@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,7 +12,8 @@
 	
 <head>
   
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- <script src="/resources/js/jquery-3.3.1.min.js"></script> -->
   <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/js/jquery-ui.js"></script>
   <script src="/resources/js/popper.min.js"></script>
@@ -22,9 +23,9 @@
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/bootstrap-datepicker.min.js"></script>
-<!-- <script src="/resources/js/aos.js"></script> -->
+  <script src="/resources/js/aos.js"></script>
 
-  <!-- <script src="/resources/js/main.js"></script> -->
+  <script src="/resources/js/main.js"></script>
 	
     <title>IronMuscle &mdash; Colorlib Website Template</title>
     
@@ -44,286 +45,197 @@
     
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
   
-    <!-- <link rel="stylesheet" href="/resources/css/aos.css"> -->
+    <link rel="stylesheet" href="/resources/css/aos.css">
 
     <link rel="stylesheet" href="/resources/css/style.css">
     
   </head>
   
     <style>
-  div p {
-  		overflow: hidden; 
- 	    text-overflow: ellipsis;
-  		white-space: nowrap; 
-  		width: 100px;
-  		height: 20px;
+
+  div.container.mb-3   {
+  		margin-top:-50px;
+		}
+		
+		form.form-inline  {
+  		margin-bottom:10px;
 		}
   </style>
   
 	<script type="text/javascript">
 	
-		//=============    ∞Àªˆ / page µŒ∞°¡ˆ ∞ÊøÏ ∏µŒ  Event  √≥∏Æ =============	
+		//=============    Í≤ÄÏÉâ / page ÎëêÍ∞ÄÏßÄ Í≤ΩÏö∞ Î™®Îëê  Event  Ï≤òÎ¶¨ =============	
 		function fncGetPageList(currentPage) {
 			$("#currentPage").val(currentPage)
 			$("form").attr("method" , "POST").attr("action" , "/claim/listClaim").submit();
 		}
 		
-		
-		//============= "∞Àªˆ"  Event  √≥∏Æ =============	
 		 $(function() {
-			 //==> DOM Object GET 3∞°¡ˆ πÊπ˝ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
-		
-		
-		//============= userId ø° »∏ø¯¡§∫∏∫∏±‚  Event  √≥∏Æ(Click) =============	
-		 $(function() {
-		
-			//==> DOM Object GET 3∞°¡ˆ πÊπ˝ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
-			});
-						
-			//==> userId LINK Event End User ø°∞‘ ∫∏¿œºˆ ¿÷µµ∑œ 
-			$( "td:nth-child(2)" ).css("color" , "red");
-			
-		});	
-		
-		
-		//============= userId ø° »∏ø¯¡§∫∏∫∏±‚  Event  √≥∏Æ (double Click)=============
-		 $(function() {
-			 
-			//==> DOM Object GET 3∞°¡ˆ πÊπ˝ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "td:nth-child(5) > i" ).on("click" , function() {
+			//==> DOM Object GET 3Í∞ÄÏßÄ Î∞©Î≤ï ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( ".btn.btn-primary" ).on("click" , function() {
+				var claimNo = $(this).data("param");
 
-					var userId = $(this).next().val();
-				
 					$.ajax( 
 							{
-								url : "/user/json/getUser/"+userId ,
+								url : "/claim/json/updateClaim/"+claimNo+"/1",
 								method : "GET" ,
 								dataType : "json" ,
 								headers : {
 									"Accept" : "application/json",
 									"Content-Type" : "application/json"
 								},
-								success : function(JSONData , status) {
-
-									var displayValue = "<h6>"
-																+"æ∆¿Ãµ : "+JSONData.userId+"<br/>"
-																+"¿Ã  ∏ß : "+JSONData.userName+"<br/>"
-																+"¿Ã∏ﬁ¿œ : "+JSONData.email+"<br/>"
-																+"ROLE : "+JSONData.role+"<br/>"
-																+"µÓ∑œ¿œ : "+JSONData.regDate+"<br/>"
-																+"</h6>";
-									$("h6").remove();
-									$( "#"+userId+"" ).html(displayValue);
+								success : function() {
+									$('#aa'+claimNo).hide();
+									$('#bb'+claimNo).show();
+								
 								}
 						});
-						////////////////////////////////////////////////////////////////////////////////////////////
 					
 			});
 			
-			//==> userId LINK Event End User ø°∞‘ ∫∏¿œºˆ ¿÷µµ∑œ 
-			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-			$("h7").css("color" , "red");
-			
-			//==> æ∆∑°øÕ ∞∞¿Ã ¡§¿««— ¿Ã¿Ø¥¬ ??
-			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+			$( ".btn.btn-default" ).on("click" , function() {
+				var claimNo = $(this).data("param1");
+					$.ajax( 
+							{
+								url : "/claim/json/updateClaim/"+claimNo+"/2",
+								method : "GET" ,
+								dataType : "json" ,
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								success : function(data) {
+									
+									$('#aa'+claimNo).show();
+									$('#bb'+claimNo).hide();
+									
+								}
+						});
+					
+			});
+		
 		});	
 	
 	</script>
 	
 
+
+<body>
 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
-<body>
+	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/singo1.jpg');">
 	
-	
-	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/hero_bg_1.jpg');">
-      <div class="container">
+      <div class="container mb-3">
 
-        <h2 class="text-white display-4 mb-5">Schedule</h2>
-
-        <ul class="nav nav-pills tab-nav mb-4" id="pills-tab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="pills-sunday-tab" data-toggle="pill" href="#pills-sunday" role="tab" aria-controls="pills-sunday" aria-selected="true">Sunday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-monday-tab" data-toggle="pill" href="#pills-monday" role="tab" aria-controls="pills-monday" aria-selected="true">Monday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-tuesday-tab" data-toggle="pill" href="#pills-tuesday" role="tab" aria-controls="pills-tuesday" aria-selected="false">Tuesday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-wednesday-tab" data-toggle="pill" href="#pills-wednesday" role="tab" aria-controls="pills-wednesday" aria-selected="false">Wednesday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-thursday-tab" data-toggle="pill" href="#pills-thursday" role="tab" aria-controls="pills-thursday" aria-selected="false">Thursday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-friday-tab" data-toggle="pill" href="#pills-friday" role="tab" aria-controls="pills-friday" aria-selected="false">Friday</a>
-          </li>
-        </ul>
-        <c:set var="i" value="0"/>
-        <div class="tab-content" id="pills-tabContent">
-        <c:forEach var="claim" items="${list}">
-					<c:set var ="i" value="${i+1 }"/>
-          <div class="tab-pane fade show active" id="pills-sunday" role="tabpanel" aria-labelledby="pills-sunday-tab">
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span><h5class="h6">Ω≈∞Ì¥Á«—ªÁ∂˜</h5></div>
-                                <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>Ω≈∞Ì«— ªÁ∂˜</div>
-                <div class="col-sm-2 col-md-2 col-lg-2">Ω≈∞Ì∫–∑˘</div>
-                <div class="col-sm-2 col-md-2 col-lg-2">Ω≈∞Ì∞‘Ω√π∞</div>
-                                <div class="col-sm-2 col-md-2 col-lg-2">Ω≈∞ÌΩ√∞£</div>
-                <div class="col-sm-2 col-md-2 col-lg-2 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            
-          </div>
-</c:forEach>
-          <div class="tab-pane fade" id="pills-monday" role="tabpanel" aria-labelledby="pills-monday-tab">
-            
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Bruce Mars</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Yoga</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Josh White</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Bruce Mars</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-
-          </div>
-
-          
-        </div>
-
+        <h1 class="text-white display-5 mb-3">Ïã†Í≥†Í¥ÄÎ¶¨</h1>
+        <div class="row">
+        <div class="col-md-7 text-left">
+			    	<p class="text-primary">
+			    		Ï†ÑÏ≤¥  ${resultPage.totalCount } Í±¥Ïàò, ÌòÑÏû¨ ${resultPage.currentPage}  ÌéòÏù¥ÏßÄ
+			    	</p>
+			    </div>
+    <div class="col-md-5 text-right">
+        <form class="form-inline" name="detailForm">
+        <div class="form-group">
+						    <select class="form-control" id="searchCondition"name="searchCondition" >		
+						<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>ÏµúÏã†Ïàú</option>
+						<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>Ïã†Í≥†ÏÇ¨Ïú†</option>
+						
+							</select>
+					  </div>
+					  
+					    <div class="form-group">
+						    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="Í≤ÄÏÉâÏñ¥" value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+					  </div>
         
-
-      </div>      
+        	<button type="button" class="btn btn-info">Í≤ÄÏÉâ</button>
+        	
+        	  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+        </form>
+    
     </div>
-	<!--  »≠∏È±∏º∫ div Start /////////////////////////////////////-->
-	<div class="container">
-	
-		<div class="page-header text-info">
-	       <h2>Ω≈∞Ì∏Ò∑œ¡∂»∏</h2>
-	    </div>
-	    
-	    <!-- table ¿ß¬  ∞Àªˆ Start /////////////////////////////////////-->
-	    <div class="row">
-	    
-		    <div class="col-md-8 text-left">
-		    	<p class="text-primary">
-		    		¿¸√º  ${resultPage.totalCount } ∞«ºˆ, «ˆ¿Á ${resultPage.currentPage}  ∆‰¿Ã¡ˆ
-		    	</p>
-		    </div>
-		    
-		    <div class="col-md-4 text-right">
-			    <form class="form-inline" name="detailForm">
-			    
-				  <div class="form-group">
-				    <select class="form-control input-sm" name="searchCondition" >
-						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>»∏ø¯ID</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>»∏ø¯∏Ì</option>
-					</select>
-				  </div>
-				  
-				  <div class="form-group ">
-				    <label class="sr-only " for="searchKeyword">∞ÀªˆæÓ</label>
-				    <input type="text" class="form-control input-sm" id="searchKeyword" name="searchKeyword"  placeholder="∞ÀªˆæÓ"
-				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
-				  </div>
-				  
-				  <button type="button" class="btn btn-default">∞Àªˆ</button>
-				  
-				  <!-- PageNavigation º±≈√ ∆‰¿Ã¡ˆ ∞™¿ª ∫∏≥ª¥¬ ∫Œ∫– -->
-				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-				  
-				</form>
-	    	</div>
-	    	
-		</div>
-		<!-- table ¿ß¬  ∞Àªˆ Start /////////////////////////////////////-->
-		
-		
-      <!--  table Start /////////////////////////////////////-->
-      <table class="table table-hover table-striped" >
-      
-        <thead>
-          <tr>
-            <th align="center">No</th>
-            <th align="left" >»∏ø¯ ID</th>
-            <th align="left">»∏ø¯∏Ì</th>
-            <th align="left">¿Ã∏ﬁ¿œ</th>
-            <th align="left">∞£∑´¡§∫∏</th>
-          </tr>
-        </thead>
-       
-		<tbody>
-		
-		  <c:set var="i" value="0" />
-		  <c:forEach var="user" items="${list}">
-			<c:set var="i" value="${ i+1 }" />
-			<tr>
-			  <td align="center">${ i }</td>
-			  <td align="left"  title="Click : »∏ø¯¡§∫∏ »Æ¿Œ">${user.userId}</td>
-			  <td align="left">${user.userName}</td>
-			  <td align="left">${user.email}</td>
-			  <td align="left">
-			  	<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
-			  	<input type="hidden" value="${user.userId}">
-			  </td>
-			</tr>
-          </c:forEach>
+        </div>
         
-        </tbody>
-      
+        <div class="tab-content" id="pills-tabContent">
+        
+                  
+            <div class="row-wrap">
+              <div class="row bg-white p-2 align-items-center">
+<div class="col-sm-2 col-md-2 col-lg-2"><strong>Ïã†Í≥†ÎãπÌïú Ïú†Ï†Ä</strong></div>
+                                <div class="col-sm-2 col-md-2 col-lg-2"><strong>Ïã†Í≥†Ìïú Ïú†Ï†Ä</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><strong>Ïã†Í≥†ÏÇ¨Ïú†</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><strong>Ïã†Í≥†Îêú Í∏Ä</strong></div>
+                                <div class="col-sm-2 col-md-2 col-lg-2"><strong>Ïã†Í≥†ÎÇ†Ïßú</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2 text-md-center"><strong>Ïã†Í≥†Ï≤òÎ¶¨</strong></div>     
+              </div>
+            </div>
+        
+          
+         <c:set var="i" value="0"/>
+      <c:forEach var="claim" items="${list}">
+					<c:set var ="i" value="${i+1 }"/> 
+
+            <div class="row-wrap">
+              <div class="row bg-white p-2 align-items-center">
+<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
+                                <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><c:choose>
+				<c:when test = "${claim.claimReasonNo =='1'}">Î™®Ïöï/ÏöïÏÑ§/ÎπÑÎ∞©</c:when>
+				<c:when test = "${claim.claimReasonNo =='2'}">ÏùåÎûÄ/Ìè≠Î†•</c:when>
+				<c:when test = "${claim.claimReasonNo =='3'}">Í∏∞ÌÉÄ</c:when>
+				<c:otherwise> Îæ∞Î°úÎ°±</c:otherwise>
+			</c:choose>		</div>
+                <div class="col-sm-2 col-md-2 col-lg-2">${claim.targetNo}<span class="icon-search mr-2"></span></div>
+                                <div class="col-sm-2 col-md-2 col-lg-2">${claim.claimDate}</div>
+                <div class="col-sm-2 col-md-2 col-lg-2 text-md-right">
+              
+		                 <c:if test="${claim.claimStatus=='0'}"> 
+		    	<button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">ÏäπÏù∏</button>
+				<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} ">Í±∞Î∂Ä</button>
+		                 </c:if>
+		                 
+		                <c:if test="${claim.claimStatus=='1'}">
+		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} " style="display:none;">ÏäπÏù∏</button>
+		                <button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} ">Í±∞Î∂Ä</button>
+		                </c:if>
+		                
+		                <c:if test="${claim.claimStatus=='2'}">
+		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">ÏäπÏù∏</button>
+		<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} " style="display:none;">Í±∞Î∂Ä</button>
+		                                
+		                </c:if> 
+		                </div>     
+	              </div>
+            </div>
+        
+          
+              </c:forEach>
+        </div>
+   
+      </div>
+         <div class="row">
+          <div class="col-md-12 text-center">
+            <div class="site-block-27">
+              <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+	
+
       </table>
-	  <!--  table End /////////////////////////////////////-->
 	  
  	</div>
- 	<!--  »≠∏È±∏º∫ div End /////////////////////////////////////-->
  	
- 	
- 	<!-- PageNavigation Start... -->
-	<jsp:include page="../common/pageNavigator_new.jsp"/>
-	<!-- PageNavigation End... -->
 	
 </body>
 
