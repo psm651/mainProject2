@@ -61,7 +61,7 @@
     </style>
     
     <script>
-    //var postNo = ${postNo}; //'ME10000'; //게시글 번호  하드코딩!!!!!!!!!!!!!!!!!!!!!! 수정(---------------);;;;;;;;;;;;;;;;;;;;;;;;;
+    var postNo = ${post.postNo}; //'ME10000'; //게시글 번호  하드코딩!!!!!!!!!!!!!!!!!!!!!! 수정(---------------);;;;;;;;;;;;;;;;;;;;;;;;;
     $(function() {
     $('[name=replyInsertBtn]').on("click",function(){ //댓글 등록 버튼 클릭시 
         //var insertData = $('[name=replyInsertForm]').serialize(); //replyInsertForm의 내용을 가져옴
