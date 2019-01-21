@@ -9,7 +9,7 @@ public interface DietComDao {
 
 	public void addDietCom(Post post) throws Exception;
 	
-	public Post getDietCom(String postNo) throws Exception;
+	public Post getDietCom(int postNo) throws Exception;
 	
 	public List<Post> listDietCom(Search search) throws Exception;
 
@@ -21,7 +21,7 @@ public interface DietComDao {
 	
 	public void updateThumbnail(Post post) throws Exception;
 
-	public void deleteDietCom(String postNo) throws Exception;
+	public void deleteDietCom(int postNo) throws Exception;
 	
 	public List<Post> listDietComRecom(Search search) throws Exception;
 
