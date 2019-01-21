@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminManageMapper">
+ 	
+ 	
+	 <resultMap id="adminManageSelectMap" type="com.wthealth.domain.User">
+		<result property="userId" 				column="user_id" 				jdbcType="VARCHAR"/>
+		<result property="password"				column="password" 				jdbcType="VARCHAR" />
+		<result property="nickName" 			column="nickname" 				jdbcType="VARCHAR" />
+		<result property="email" 				column="email" 					jdbcType="VARCHAR" />
+		<result property="userImage" 			column="user_image" 			jdbcType="VARCHAR" />
+		<result property="gender" 				column="gender" 				jdbcType="VARCHAR" />
+		<result property="phone" 				column="user_phone" 			jdbcType="VARCHAR" />
+		<result property="regDate" 				column="reg_date" 				jdbcType="DATE" />
+		<result property="dltDate" 			    column="dlt_date" 				jdbcType="DATE" />
+		<result property="holder"    			column="holder"					jdbcType="VARCHAR"/>
+		<result property="bankName"  			column="bank_name"				jdbcType="VARCHAR"/>
+		<result property="accountNum"   		column="account_num"			jdbcType="VARCHAR"/>
+		<result property="claimCount"   		column="claim_count"			jdbcType="NUMERIC"/>
+		<result property="role"   				column="role"					jdbcType="VARCHAR"/>
+		<result property="userStatus"   		column="user_status_code"		jdbcType="VARCHAR"/>
+		<result property="havingPoint"   		column="having_point"			jdbcType="NUMERIC"/>
+		<result property="snsType"   			column="sns_type_code"			jdbcType="VARCHAR"/>
+		<result property="idToken"   			column="id_token"				jdbcType="VARCHAR"/>
+		<result property="accessToken"   		column="access_token"			jdbcType="VARCHAR"/>
+		<result property="refreshToken"   		column="refresh_token"			jdbcType="VARCHAR"/>		
+	</resultMap> 
+	
+	 <resultMap id="pointSelectMap" type="com.wthealth.domain.Point">
+		<result property="pointNo" 				column="point_no" 					jdbcType="NUMERIC"/>
+		<result property="pointDate"			column="point_date" 				jdbcType="DATE" />
+		<result property="usingPoint" 			column="using_point" 				jdbcType="NUMERIC" />
+		<result property="pointStatus" 			column="point_status_code" 			jdbcType="VARCHAR" />
+		<result property="senderId" 			column="sender_id" 					jdbcType="VARCHAR" />
+		<result property="receiverId" 			column="receiver_id" 				jdbcType="VARCHAR" />
+	</resultMap> 
+		
+	<!-- SQL : SELECT ONE :: 관리자 회원정보조회 -->
+	  <select 	id="getAdminManage"	parameterType="string" resultMap="adminManageSelectMap">
+	     SELECT
+ 			 user_id, nickname, email, user_phone, user_image, having_point, holder, bank_name, account_num, user_status_code  
+	     FROM
+ 			 users 
+		 WHERE  
+ 			 user_id = #{value}             
+	 </select> 
+  
+ 	<!-- SQL : UPDATE :: 관리자 회원정보수정 -->
+	  <update 	id="updateUserAdminManage"	parameterType="com.wthealth.domain.User">
+		
+         UPDATE users
+         <set>
+         	password    = #{password},
+         	nickname   = #{nickName},
+         	email       = #{email:VARCHAR},
+         	user_phone  = #{phone:VARCHAR},
+         	gender       = #{gender},
+         <if test="userImage != ''">
+         	user_image   = #{userImage:VARCHAR},
+         </if>         
+         	dlt_date     = TO_CHAR(TO_DATE(sysdate, 'YYYY-MM-DD'), 'YYYYMMDD'),  
+         	holder       = #{holder:VARCHAR},
+         	bank_name    = #{bankName:VARCHAR},
+         	account_num   = #{accountNum:VARCHAR},
+         	user_status_code = #{userStatus:VARCHAR}
+         </set>
+         WHERE user_id = #{userId}
+    </update> 
+
+	 
+		 
+	  <select  id="listUserAdminManage"  parameterType="com.wthealth.common.Search"	resultMap="adminManageSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
+	  			FROM (	SELECT user_id , nickname, reg_date, user_status_code
+						FROM users
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+						 			user_id LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 			user_name LIKE '%'||#{searchKeyword}||'%'
+								</if>
+							</where>
+						</if>
+						
+						<if test="searchFilter==0">
+							ORDER BY reg_date DESC
+						</if>
+						<if test="searchFilter==1">
+							ORDER BY user_status_code DESC
+						</if>	        
+						     ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+
+     <select  id="listPointAdminManage"  parameterType="com.wthealth.common.Search"	resultMap="pointSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
+	  			FROM (	SELECT sender_id, point_date, using_point, point_status_code, receiver_id 
+						FROM point
+			 			<if test="searchKeyword != null">
+							<where>
+						 			sender_id LIKE '%'||#{searchKeyword}||'%'
+							</where>
+						</if> 
+				
+							ORDER BY sender_id DESC
+						        
+						     ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+
+	 <select  id="getUserTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT *
+						FROM users
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
+						 			user_id LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 			user_name LIKE '%'||#{searchKeyword}||'%'
+								</if>
+							</where>
+						</if> ) countTable						
+	 </select>
+	 
+	 <select  id="getPointTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT *
+						FROM point
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchKeyword !='' and searchKeyword != null ">
+						 			sender_id LIKE '%'||#{searchKeyword}||'%'
+								</if>
+							</where>
+						</if> ) countTable						
+	 </select>	 
+	 
+	  
+</mapper>
