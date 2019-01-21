@@ -13,16 +13,16 @@
 	<meta charset="UTF-8">
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	 -->
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ -->
+   
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
@@ -42,22 +42,21 @@
     <link rel="stylesheet" href="/resources/css/style.css">
 	
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-	  <script src="/resources/js/jquery-ui.js"></script>
-	  <script src="/resources/js/popper.min.js"></script>
-	  <script src="/resources/js/bootstrap.min.js"></script>
-	  <script src="/resources/js/owl.carousel.min.js"></script>
-	  <script src="/resources/js/jquery.stellar.min.js"></script>
-	  <script src="/resources/js/jquery.countdown.min.js"></script>
-	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-	  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
-	  <script src="/resources/js/aos.js"></script>
-	
-	  <script src="/resources/js/main.js"></script>
+  <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/resources/js/jquery-ui.js"></script>
+  <script src="/resources/js/popper.min.js"></script>
+  <script src="/resources/js/bootstrap.min.js"></script>
+  <script src="/resources/js/owl.carousel.min.js"></script>
+  <script src="/resources/js/jquery.stellar.min.js"></script>
+  <script src="/resources/js/jquery.countdown.min.js"></script>
+  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
+  <script src="/resources/js/aos.js"></script>
 
+  <script src="/resources/js/main.js"></script>
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<!-- <style>
+<!-- 	<style>
 		body {
             padding-top : 50px;
         }
@@ -67,16 +66,23 @@
 	<script type="text/javascript">
 	
 		//============= "수정"  Event 연결 =============
-		 $(function() {
+/* 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
-				fncfindPassword();
+				fncupdatePoint();
 			});
 		});	
+		 */
 		
+		 $( function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$("#kakaoPay").on("click" , function() {
+					fnckakaoPay();
+				});
+			});
 		
 		//=============이메일" 유효성Check  Event 처리 =============
-		 $(function() {
+/* 		 $(function() {
 			 
 			 $("input[name='email']").on("change" , function() {
 					
@@ -88,24 +94,19 @@
 			});
 			 
 		});	
-		
+		 */
 		///////////////////////////////////////////////////////////////////////
-		function fncfindPassword() {
-			var nickName=$("input[name='nickName']").val();
-			var email=$("input[name='email']").val();
+ 		function fnckakaoPay() {
+			var point=$("input[name='point']").val();
 			
-			if(nickName == null || nickName.length <1){
-				alert("닉네임은  반드시 입력하셔야 합니다.");
+			if(point == null || point.length <1){
+				alert("전송할 포인트는  반드시 입력하셔야 합니다.");
 				return;
 			}
-			if(email == "" || email.length <1 ){
-			    alert("이메일을 입력해주세요.");
-			    return;
-			  }
 				
 				
-			$("form").attr("method" , "POST").attr("action" , "/user/findPassword").submit();
-		}
+			$("form").attr("method" , "POST").attr("action" , "/point/kakaoPay").submit();
+		} 
 		
 		
 	</script>
@@ -119,41 +120,56 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
+	
 	<div class="site-section bg-light">
 	<div class="container">
-		<div class="col-md-6">
-		
+	<div class="col-md-6">
+	
 		<div class="page-header text-center">
-	       <h3 class=" text-muted">비밀번호 찾기</h3>
+	       <h3 class=" text-muted">포인트 충전</h3>
 	   	</div>
 	    
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
 		
+		<%-- <div class="form-group">
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">회원</label>
+		    <div class="col-sm-4"> 
+		   	 <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" readonly>
+		     </div>
+		  </div> --%>
+		  
+		  <input type="hidden"id="userId" name="userId" value="${user.userId }" />
+		  
+		 
+		
 		  <div class="form-group">
-		    <label for="nickName" class="col-sm-4 control-label">닉 네 임</label>
+		    <label for="havingPoint" class="col-sm-4 control-label">보유 포인트</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" >
-		    </div>
+			     <span id="havingPoint" class="help-block">
+		      	 	<strong class="text-muted">${user.havingPoint }P</strong>
+		      	</span>
+		      </div>
 		  </div>
 		
 		  <div class="form-group">
-		    <label for="email" class="col-sm-4 control-label">이메일</label>
+		    <label for="point" class="col-sm-4 control-label">충전 금액</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+		      <input type="text" class="form-control" id="point" name="point">
 		    </div>
 		  </div>
 		  
+		   <div class="form-group"> 
+		   	<div class="col-md-10 mb-3 mb-md-2 text-center">
+				<img id="kakaoPay" src="/resources/images/payment_icon_yellow_medium.png" height="30">
+			 </div> 
+			</div>
 		  
-		  
-		  <div class="form-group">
-		    <div class="col-md-10 mb-3 mb-md-2 text-center">
-		      <button type="button" class="btn btn-primary"  >찾 &nbsp;기</button>
-		    </div>
-		  </div>
+	
 		</form>
 		<!-- form Start /////////////////////////////////////-->
-	    
+	    </div>
+	    </div>
  	</div>
 	<!--  화면구성 div Start /////////////////////////////////////-->
  	

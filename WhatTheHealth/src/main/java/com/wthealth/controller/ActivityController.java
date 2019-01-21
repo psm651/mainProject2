@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
@@ -40,10 +41,10 @@ public class ActivityController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping( value="listMyPost" )
-	public String listMyPost( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, HttpSession session) throws Exception{
+/*	@RequestMapping( value="listActivity", method=RequestMethod.GET  )
+	public String listActivity( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, HttpSession session) throws Exception{
 		
-		System.out.println("/activity/listMyPost : GET / POST");
+		System.out.println("/activity/listActivity : GET");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -64,6 +65,33 @@ public class ActivityController {
 		model.addAttribute("search", search);
 		
 		return "forward:/activity/listActivity.jsp";
+
+	}*/
+	
+	@RequestMapping( value="listMyPost" )
+	public String listMyPost( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, HttpSession session) throws Exception{
+		
+		System.out.println("/activity/listMyPost : GET / POST");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		String postId = ((User)session.getAttribute("user")).getUserId();
+		
+		// Business logic 수행
+		Map<String , Object> map = activityService.listMyPost(search, postId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("postList", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/activity/listMyPost.jsp";
 	}
 
 }

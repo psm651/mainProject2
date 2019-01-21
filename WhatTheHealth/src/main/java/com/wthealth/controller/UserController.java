@@ -1,7 +1,7 @@
 package com.wthealth.controller;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
@@ -25,11 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.wthealth.controller.KakaoLogin;
-import com.wthealth.domain.NaverLogin;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.wthealth.domain.NaverLogin;
 import com.wthealth.domain.User;
 import com.wthealth.service.user.UserService;
 
@@ -64,10 +62,12 @@ public class UserController {
 		System.out.println(this.getClass());
 	}
 	
-	@Value("#{commonProperties['pageUnit']}")
-	int pageUnit;
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
+	
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
 	
 	
 	@RequestMapping( value="login", method=RequestMethod.GET )
@@ -75,11 +75,12 @@ public class UserController {
 		
 		System.out.println("/user/login : GET");
 
-		return "redirect:/user/login.jsp";
+		return "forward:/user/login.jsp";
 	}
-	
+
+
 	@RequestMapping( value="login", method=RequestMethod.POST )
-	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
+	public String login(@ModelAttribute("user") User user , HttpSession session, HttpServletResponse response ) throws Exception{
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
@@ -88,17 +89,65 @@ public class UserController {
 		
 		System.out.println("로그인 왜안돼:"+dbUser);
 		System.out.println(user.getPassword());
-		System.out.println(dbUser.getPassword());
+		/*System.out.println(dbUser.getPassword());
 		System.out.println(dbUser.getUserStatus());
-		
-		
-		if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
+		*/
+		if(dbUser==null){	
+			System.out.println("db에 없을 때");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('존재하지 않는 회원입니다.');</script>");
+			out.flush();
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "/user/login.jsp";
+			
+		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
+			System.out.println("일치하지않을때");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.');</script>");
+			out.flush();
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "/user/login.jsp";
+			
+		}else if(dbUser.getUserStatus().equals("1")){
+			System.out.println("탈퇴회원");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('탈퇴한 회원입니다.');</script>");
+			out.flush();
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "/user/login.jsp";
+			
+		}else if(dbUser.getUserStatus().equals("2")){
+			System.out.println("블랙리스트");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('블랙리스트 처리된 회원입니다.');</script>");
+			out.flush();
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "/user/login.jsp";
+			
+		}else if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
 			session.setAttribute("user", dbUser);
 			System.out.println("if문 들어왔나");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			
 		}
-		System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
 		
-		return "redirect:/main.jsp";
+		return "forward:/main.jsp";
+		
+		/*if(){
+			
+			System.out.println("없는 회원일때");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('존재하지 않는 회원입니다.');</script>");
+			out.flush();
+			return "/user/login.jsp";
+			
+		}*/
+		
 	}
 		
 	
@@ -125,15 +174,17 @@ public class UserController {
 
 		System.out.println("/user/addUser : POST");
 		//Business Logic
-		if(uploadFile.getOriginalFilename()!=null) {
-			String filePath = "C:\\Users\\bit\\git\\WhatTheHealth\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
+		if(! uploadFile.getOriginalFilename().equals("")) {
+			String filePath = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
 			File file = new File(filePath , uploadFile.getOriginalFilename());
 			uploadFile.transferTo(file); 
 			user.setUserImage(uploadFile.getOriginalFilename());
 			userService.addUser(user);
 			System.out.println("사진 있을 때: "+user.getUserImage());
 			
-		} else {
+		} else if(uploadFile.getOriginalFilename().equals("")) {
+			
+			user.setUserImage("");
 			userService.addUser(user);
 			System.out.println("없을때: "+user.getUserImage());
 		}
@@ -142,7 +193,7 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="kakaoLogin", produces ="applcation/json", method= {RequestMethod.GET, RequestMethod.POST} )
-	public String kakaoLogin(@RequestParam("code") String code , HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+	public String kakaoLogin(@RequestParam("code") String code , HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception{
 
 		System.out.println("kakaoLogin: GET/POST");
 		System.out.println("code: "+code);
@@ -151,11 +202,13 @@ public class UserController {
 		JsonNode token = KakaoLogin.getAccessToken(code);
 
 		JsonNode profile = KakaoLogin.getKakaoUserInfo(token.path("access_token").toString());
-		System.out.println(profile);
+		System.out.println("카카오프로필 : "+profile);
 		User user = KakaoLogin.changeData(profile);
+		System.out.println("카카오유저1111: "+user);
 		user.setUserId("k"+user.getUserId());
 		user.setAccessToken(token.path("access_token").toString());
 		user.setSnsType("1");
+		System.out.println("카카오유저2222: "+user);
 
 		/*System.out.println(session);
 		session.setAttribute("user", vo);
@@ -164,12 +217,15 @@ public class UserController {
 		
 		if(userService.getUser(user.getUserId())==null) {
 			//vo.setPassword(vo.getUserId());
-			session.setAttribute("user", user);
-			return "redirect:/user/kakaoLogin.jsp";
+			//session.setAttribute("kakaoUser", user);
+			model.addAttribute("user", user);
+			System.out.println("카카오유저333: "+user);
+			return "forward:/user/addSNSUser.jsp";
+			
 		} else if(userService.getUser(user.getUserId())!=null) {
 			User dbUser=userService.getUser(user.getUserId());
 			session.setAttribute("user", dbUser);
-			System.out.println("세션에 들어갔나 ");
+			System.out.println("세션에 들어갔나 "+session.getAttribute("user"));
 			System.out.println(user.toString());
 		}
 		//userService.addUser(vo);
@@ -177,24 +233,24 @@ public class UserController {
 	
 		 //vo = service.kakaoLogin(vo);  
 		//return "redirect:/main.jsp";
-		return "redirect:/main.jsp";
+		return "forward:/user/kakaoLogin.jsp";
 	}
 	
 	@RequestMapping(value="naverLogin")
-	public ModelAndView naverLogin(HttpSession session) {
+	public String naverLogin(HttpSession session, Model model) {
 		/* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
 		String naverAuthUrl = naverLogin.getAuthorizationUrl(session);
 		System.out.println("controller 호출");
 		System.out.println(naverAuthUrl);
 		
 		//model.addAttribute("user/naverLogin", naverAuthUrl);
-		//model.addAttribute("url", naverAuthUrl);
-		return new ModelAndView("/user/loginNaver.jsp", "url", naverAuthUrl);
-		//return "redirect:/user/callBack.jsp";
+		model.addAttribute("url", naverAuthUrl);
+		//return new ModelAndView("/user/loginNaver.jsp", "url", naverAuthUrl);
+		return "forward:/user/loginNaver.jsp";
 	}
 
 	@RequestMapping(value="callback")
-	public ModelAndView callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) throws IOException {
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) throws Exception {
 		/* 네아로 인증이 성공적으로 완료되면 code 파라미터가 전달되며 이를 통해 access token을 발급 */
 		System.out.println("callbackkkkk");
 		OAuth2AccessToken oauthToken = naverLogin.getAccessToken(session, code, state);
@@ -207,9 +263,12 @@ public class UserController {
 		String name = jsonparse.JsonToString(jsonobj, "name");
 
 		User user = new User();
-		user.setUserId(snsId);
+		user.setUserId("n"+snsId);
+		user.setIdToken(snsId);
 		user.setNickName(name);
-
+		user.setGender(gender);
+		user.setSnsType("2");
+		user.setPassword(snsId);
 		System.out.println(name);
 		try {
 			userService.addUser(user);
@@ -217,10 +276,24 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		session.setAttribute("user",user);
-		return new ModelAndView("/user/callBack.jsp", "result", user);
-		//return "redirect:/user/login.jsp";
+		
+		if(userService.getUser(user.getUserId())==null) {
+			//vo.setPassword(vo.getUserId());
+			//session.setAttribute("kakaoUser", user);
+			model.addAttribute("user", user);
+			System.out.println("네이버유저333: "+user);
+			return "forward:/user/addSNSUser.jsp";
+			
+		} else if(userService.getUser(user.getUserId())!=null) {
+			User dbUser=userService.getUser(user.getUserId());
+			session.setAttribute("user", dbUser);
+			System.out.println("세션에 들어갔나 "+session.getAttribute("user"));
+			System.out.println(user.toString());
+		}
+	
+		//model.addAttribute("user", user);
+		//return new ModelAndView("/user/callBack.jsp", "result", user);
+		return "forward:/main.jsp";
 	}
 	
 	@RequestMapping( value="getUser", method=RequestMethod.GET )
@@ -250,24 +323,30 @@ public class UserController {
 	@RequestMapping( value="updateUser", method=RequestMethod.POST )
 	public String updateUser( @ModelAttribute("user") User user , @RequestParam("uploadFile") MultipartFile uploadFile, Model model , HttpSession session) throws Exception{
 
+		System.out.println("이건처음유젇니다!!!!!"+user);
 		System.out.println("/user/updateUser : POST");
 		//Business Logic
 		
-		if(uploadFile.getOriginalFilename()!=null) {
+		if(uploadFile.getOriginalFilename().equals("")) {
 			user.setUserImage(uploadFile.getOriginalFilename());
 			userService.updateUser(user);
 			System.out.println("같을때: "+user.getUserImage());
-		} else {
-			String filePath = "C:\\Users\\bit\\git\\WhatTheHealth\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
+		} else if(! uploadFile.getOriginalFilename().equals("")) {
+			String filePath = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
 			File file = new File(filePath , uploadFile.getOriginalFilename());
 			uploadFile.transferTo(file); 
 			user.setUserImage(uploadFile.getOriginalFilename());
 			userService.updateUser(user);
 			System.out.println("다를때: "+user.getUserImage());
 		}
+		//위대한 성민오빠님 추가문 
+		user=userService.getUser(user.getUserId());
+		System.out.println("이러니까 안되지 으이구으이구으유!!"+user);
+		//여기까지- 근데 세션에 유저업데이트된거 넣을필요있나??아이디나 롤만있음되자나...아닌가 뚱카롱먹고싶다
 		String sessionId=((User)session.getAttribute("user")).getUserId();
 		if(sessionId.equals(user.getUserId())){
 			session.setAttribute("user", user);
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
 		}
 		
 		return "redirect:/user/getUser?userId="+user.getUserId();
@@ -286,19 +365,39 @@ public class UserController {
 	}
 
 	@RequestMapping( value="deleteUser", method=RequestMethod.POST )
-	public String deleteUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
+	public String deleteUser( @ModelAttribute("user") User user , Model model , HttpSession session, HttpServletResponse response) throws Exception{
 
 		System.out.println("/user/deleteUser : POST");
 		//Business Logic
-		userService.deleteUser(user);
+		
 		
 		String sessionId=((User)session.getAttribute("user")).getUserId();
 		String sessionPw = ((User)session.getAttribute("user")).getPassword();
 		if(sessionId.equals(user.getUserId()) && sessionPw.equals(user.getPassword())){
-			session.invalidate();
-		}
-		
-		return "redirect:/main.jsp";
+			userService.deleteUser(user);	
+			session.removeAttribute("user");
+			System.out.println("탈퇴하기");
+			
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('탈퇴가 완료되었습니다.');</script>");
+			out.flush();
+		/*	response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('탈퇴가 완료되었습니다.');</script>");
+			System.out.println("asdfasdfasdfasdfasdfasdf");
+			out.flush();*/
+			
+			return "../main.jsp";
+		} else
+			//session.invalidate();
+			System.out.println("탈퇴하기 실패");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('아이디 혹은 비밀번호가 일치하지 않습니다.');</script>");
+			out.flush();
+
+		return "/user/deleteUser.jsp";
 	}
 	
 	@RequestMapping( value="findId", method=RequestMethod.GET )
@@ -310,13 +409,32 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="findId", method=RequestMethod.POST )
-	public String findId(@RequestParam("nickName") String nickName, @ModelAttribute("user") User user) throws Exception{
+	public String findId(@RequestParam("nickName") String nickName, @ModelAttribute("user") User user, HttpServletResponse response) throws Exception{
 
 		System.out.println("/user/findId : POST");
 		//Business Logic
-		user = userService.findId(nickName);
+		User dbUser=userService.findId(nickName);
+		System.out.println(dbUser);
 		
-		return "redirect:/user/login.jsp";
+		if(dbUser == null) {
+			System.out.println("아이디 찾기 실패");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('닉네임 혹은 이메일이 일치하지 않습니다.');</script>");
+			out.flush();
+			return "/user/findId.jsp";
+			
+		} else if(user.getNickName().equals(dbUser.getNickName()) && user.getEmail().equals(dbUser.getEmail())) {
+			//String findId = dbUser.getUserId();
+			System.out.println("아이디 찾기 성공");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('회원님의 아이디는 "+dbUser.getUserId()+"입니다.');</script>");
+			out.flush();
+			return "/user/login.jsp";
+			
+		}
+		return "/user/login.jsp";
 	}
 	
 	
@@ -329,22 +447,42 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="findPassword", method=RequestMethod.POST )
-	public String findPassword(@RequestParam("nickName") String nickName) throws Exception{
+	public String findPassword(@RequestParam("nickName") String nickName, @ModelAttribute("user") User user, HttpServletResponse response) throws Exception{
 
 		System.out.println("/user/findPassword : POST");
 		//Business Logic
-		User user = userService.findId(nickName);
+		User dbuser = userService.findId(nickName);
+		System.out.println(dbuser);
 		
 		String authNum = "";
 		authNum = RandomNum();
 		
-	    sendPassword(user.getEmail(), authNum);
-	    
-	    user.setPassword(authNum);
+	    		
+		if(dbuser == null) {
+			System.out.println("비밀번호 찾기 실패");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('닉네임 혹은 이메일이 일치하지 않습니다.');</script>");
+			out.flush();
+			return "/user/findPassword.jsp";
+			
+		} else if(user.getNickName().equals(dbuser.getNickName()) && user.getEmail().equals(dbuser.getEmail())) {
+			//String findId = dbUser.getUserId();
+			System.out.println("비밀번호 찾기 성공");
+			
+			sendPassword(user.getEmail(), authNum);
+			user.setPassword(authNum);
+			userService.findPassword(user);
+			
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('임시 비밀번호가 이메일로 전송되었습니다.');</script>");
+			out.flush();
+			return "/user/login.jsp";
+			
+		}
 		
-		userService.findPassword(user);
-		
-		return "redirect:/user/login.jsp";
+		return "/user/login.jsp";
 	}
 	
 	public String RandomNum() {

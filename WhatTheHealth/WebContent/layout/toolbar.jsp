@@ -69,7 +69,12 @@
 		 });
 		 
 		 $( "a[href='#' ]:contains('내 스케줄 관리')").on("click", function(){
+			 if("${sessionScope.user == null}"){
+				 alert("로그인이 필요한 서비스입니다.");
+				 self.location = "/user/login"
+			 } else if("${sessionScope.user != null}"){
 				self.location = "/schedule/listSchedule"	//UserId??????????
+			 }
 		 });
 		 
 		 /* $( "a[href='#' ]:contains('식단')").on("click", function(){
@@ -117,7 +122,7 @@
 		 });
 		 
 		 $( "a[href='#' ]:contains('활동정보')").on("click", function(){
-				self.location = "/activity/listActivity"
+				self.location = "/activity/listMyPost"
 		 });
 		 
 		 $( "a[href='#' ]:contains('포인트')").on("click", function(){
@@ -218,23 +223,25 @@
             </div>
             <div class="col-6">
               <div class="d-flex ml-auto">
-              
-                <a href="#" class="d-flex align-items-center ml-auto mr-4">
-                	<c:if test="${user.userId != null}"> 
+            
+               	
+                <a href="#" class="d-flex align-items-center ml-auto mr-4"> 
+               	 <c:if test="${sessionScope.user != null}"> 
                   <span class="icon-envelope mr-2"></span>
-                  <span class="d-none d-md-inline-block">${user.nickName}님 환영합니다!</span>
+                  <span class="d-none d-md-inline-block">${sessionScope.user.nickName}님 환영합니다!</span>
                    </c:if>
                 </a>
+               
                
                 <!-- <a href="tel://12912830302" class="d-flex align-items-center">
                   <span class="icon-phone mr-2"></span>
                   <span class="d-none d-md-inline-block">+1 291 2830 302</span>
                 </a> -->
                 <a href="#" class="d-flex align-items-center">
-                 <c:if test="${user.userId == null}"> 
+                 <c:if test="${sessionScope.user == null}"> 
                   <span class="d-none d-md-inline-block">Login</span>
                   </c:if>
-                   <c:if test="${user.userId != null}"> 
+                   <c:if test="${sessionScope.user != null}"> 
                    <span class="d-none d-md-inline-block">Logout</span>
                    </c:if>
                 </a>
@@ -251,7 +258,7 @@
           <div class="py-1">
             <div class="row align-items-center">
               <div class="col-3">
-                <h2 class="mb-0 site-logo" id="main">What the <strong>Health</strong> </a></h2>
+                <h2 class="mb-0 site-logo" id="main">What the <strong>Health</strong> </h2>
               </div>
               <div class="col-9">
                 <nav class="site-navigation text-right" role="navigation">
@@ -292,7 +299,7 @@
                           <li><a href="#">식단 커뮤니티</a></li>
                         </ul>
                       </li>
-                      </li>
+                   
                       <li class = "has-children">
                       	<a href="#">소모임</a>
                       </li>

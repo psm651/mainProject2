@@ -11,54 +11,58 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.User;
-import com.wthealth.service.favorite.FavoriteService;
+import com.wthealth.service.reply.ReplyService;
 
 @Controller
-@RequestMapping("/activity/*")
-public class FavoriteController {
+@RequestMapping("/reply/*")
+public class ReplyControlle_jisu {
 	
 	@Autowired
-	@Qualifier("favoriteServiceImpl")
-	private FavoriteService favoriteService;
+	@Qualifier("replyServiceImpl")
+	private ReplyService replyService;
 	
-	public FavoriteController() {
+	public ReplyControlle_jisu() {
 		System.out.println(this.getClass());
 	}
 	
+	// ==> classpath:config/common.properties , classpath:config/commonservice.xml
+	// 참조 할것
+	// ==> 아래의 두개를 주석을 풀어 의미를 확인 할것
 	@Value("#{commonProperties['pageUnit']}")
+	// @Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
-	
+
 	@Value("#{commonProperties['pageSize']}")
+	// @Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-
-	@RequestMapping(value = "listMyInterest11")
-	public String listMyInterest(@ModelAttribute("search")Search search, HttpSession session, Model model) throws Exception{
-		System.out.println("/listMyInterest111");
+	
+	@RequestMapping(value = "listMyReply11")
+	public String listMyReply(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception{
+		System.out.println("/listMyReply: 1111");
 		
-		if(search.getCurrentPage() == 0) {
+		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
+		Map<String , Object> map=replyService.listMyReply(search, userId);
 		
-		Map<String, Object> map = favoriteService.listMyInterest(search, userId);
-		
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(),pageUnit, pageSize); 
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		model.addAttribute("interestList", map.get("list"));
-		model.addAttribute("userId", map.get("userId"));
+		model.addAttribute("replyList", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
-		return "forward:/activity/listMyInterest.jsp";
+		return "forward:/activity/listMyReply.jsp";
 	}
 	
 }
