@@ -28,7 +28,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 	//@ContextConfiguration(locations = { "classpath:config/context-common.xml" })
 	public class ExInfoTest {
 
-		//==>@RunWith,@ContextConfiguration �̿� Wiring, Test �� instance DI
+		//==>@RunWith,@ContextConfiguration 占싱울옙 Wiring, Test 占쏙옙 instance DI
 		@Autowired
 		@Qualifier("exInfoServiceImpl")
 		private ExInfoService exInfoService;
@@ -39,15 +39,15 @@ import com.wthealth.service.exinfo.ExInfoService;
 			Post post = new Post();
 			post.setUserId("admin");
 			post.setNickName("tes3ttt");
-			post.setTitle("���ڰ���");
+			post.setTitle("占쏙옙占쌘곤옙占쏙옙");
 			post.setVideo("video.video");
-			post.setContents("�̹������� �̷��� ���� �˷��帳�ϴ�.�����ٶ󸶹ٻ������ī Ÿ����");
+			post.setContents("占싱뱄옙占쏙옙占쏙옙占쏙옙 占싱뤄옙占쏙옙 占쏙옙占쏙옙 占싯뤄옙占썲립占싹댐옙.占쏙옙占쏙옙占쌕라마바삼옙占쏙옙占쏙옙占식� 타占쏙옙占쏙옙");
 			post.setPhoto("wwww.wwwww");
 			post.setCategory("1");
 			post.setDeleteStatus("0");
 			post.setLikeCount(100);
 			
-			//exInfo �Խù� ��� 
+			//exInfo 占쌉시뱄옙 占쏙옙占� 
 			post.setExCalorie(755);
 			post.setExPlace("0");
 			post.setExPart("3");
@@ -56,19 +56,19 @@ import com.wthealth.service.exinfo.ExInfoService;
 			
 		
 			exInfoService.addExInfo(post);
-			System.out.println("���� �� : "+post.getExInfoNo());
+			System.out.println("占쏙옙占쏙옙 占쏙옙 : "+post.getExInfoNo());
 			
 			String postNo = "EI"+post.getExInfoNo();
-			post.setPostNo(postNo);
+		//	post.setPostNo(postNo);
 			
 			Assert.assertEquals(755, post.getExCalorie());
 			Assert.assertEquals("0", post.getExPlace());
 			Assert.assertEquals("3", post.getExPart());
 			Assert.assertEquals("15:15", post.getExVideoTime());
 			
-			Assert.assertEquals("���ڰ���", post.getTitle());
+			Assert.assertEquals("占쏙옙占쌘곤옙占쏙옙", post.getTitle());
 			Assert.assertEquals("video.video", post.getVideo());
-			Assert.assertEquals("�̹������� �̷��� ���� �˷��帳�ϴ�.�����ٶ󸶹ٻ������ī Ÿ����", post.getContents());
+			Assert.assertEquals("占싱뱄옙占쏙옙占쏙옙占쏙옙 占싱뤄옙占쏙옙 占쏙옙占쏙옙 占싯뤄옙占썲립占싹댐옙.占쏙옙占쏙옙占쌕라마바삼옙占쏙옙占쏙옙占식� 타占쏙옙占쏙옙", post.getContents());
 			Assert.assertEquals("wwww.wwwww", post.getPhoto());
 			Assert.assertEquals("0", post.getCategory());
 			Assert.assertEquals("0", post.getExPlace());
@@ -83,20 +83,20 @@ import com.wthealth.service.exinfo.ExInfoService;
 			
 			Post post = new Post();
 			
-			//post �Խù� ����
-			post.setPostNo("EI10018");
-			post.setTitle("����");
-			post.setVideo("����");
-			post.setContents("����");
-			post.setPhoto("����");
+			//post 占쌉시뱄옙 占쏙옙占쏙옙
+			post.setPostNo(10018);
+			post.setTitle("占쏙옙占쏙옙");
+			post.setVideo("占쏙옙占쏙옙");
+			post.setContents("占쏙옙占쏙옙");
+			post.setPhoto("占쏙옙占쏙옙");
 			post.setCategory("3");
 			
 			exInfoService.updatePost(post);
 			
-			Assert.assertEquals("����", post.getTitle());
-			Assert.assertEquals("����", post.getVideo());
-			Assert.assertEquals("����", post.getContents());
-			Assert.assertEquals("����", post.getPhoto());	
+			Assert.assertEquals("占쏙옙占쏙옙", post.getTitle());
+			Assert.assertEquals("占쏙옙占쏙옙", post.getVideo());
+			Assert.assertEquals("占쏙옙占쏙옙", post.getContents());
+			Assert.assertEquals("占쏙옙占쏙옙", post.getPhoto());	
 			Assert.assertEquals("3", post.getCategory());	
 			
 		}
@@ -104,15 +104,15 @@ import com.wthealth.service.exinfo.ExInfoService;
 		public void testUpdateExInfo() throws Exception{
 		
 			Post post = new Post();
-			//exInfo �Խù� ���� 
-			post.setPostNo("EI10018");
+			//exInfo 占쌉시뱄옙 占쏙옙占쏙옙 
+			post.setPostNo(10018);
 			post.setExCalorie(8888);
 			post.setExPlace("3");
 			post.setExPart("3");
 			post.setExVideoTime("18:15");
 			
 			
-			//exInfo service �Խù� ��� 
+			//exInfo service 占쌉시뱄옙 占쏙옙占� 
 			exInfoService.updateExInfo(post);
 			
 			Assert.assertEquals(8888, post.getExCalorie());
@@ -133,9 +133,9 @@ import com.wthealth.service.exinfo.ExInfoService;
 			
 			System.out.println(post);
 			
-			Assert.assertEquals("���¿� ��", post.getTitle());
+			Assert.assertEquals("占쏙옙占승울옙 占쏙옙", post.getTitle());
 			Assert.assertEquals("0", post.getExPart());
-			Assert.assertEquals("16:07��", post.getExVideoTime());
+			Assert.assertEquals("16:07占쏙옙", post.getExVideoTime());
 			
 		}
 		
@@ -162,7 +162,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 			search.setCurrentPage(1);
 			search.setPageSize(3);
 			search.setSearchCondition("0");
-			search.setSearchKeyword("��");
+			search.setSearchKeyword("占쏙옙");
 			search.setSearchFilter("3");
 			
 			map = exInfoService.listExInfo(search);
