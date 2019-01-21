@@ -182,7 +182,7 @@
 					    <div class="col-md-10 mb-3 mb-md-2 text-center">
 					      <button type="button" class="btn btn-primary" id="login" >로 &nbsp;그 &nbsp;인</button>
 					      
-					      <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://192.168.0.10:8080/user/kakaoLogin&response_type=code';" 
+					      <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code';" 
 					      src="/resources/images/kakao_login_btn_medium.png"  height="40">
 					      
 					      <img id="naver_id_login" src="/resources/images/naver_login_small.png" height="40">

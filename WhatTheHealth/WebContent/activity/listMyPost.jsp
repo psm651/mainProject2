@@ -103,13 +103,13 @@
 		 });
 		
 		
-		 $(function() {
+		  $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#pills-monday-tab" ).on("click" , function() {
 				self.location = "/reply/listMyReply"
 			});
 		 });
-		 
+		  
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#pills-tuesday-tab" ).on("click" , function() {
@@ -209,13 +209,13 @@
             <a class="nav-link active" id="pills-sunday-tab" data-toggle="pill" href="#pills-sunday" role="tab" aria-controls="pills-sunday" aria-selected="true">작성한 게시물</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="pills-monday-tab" data-toggle="pill" href="#pills-monday" role="tab" aria-controls="pills-monday" aria-selected="true">작성한 댓글</a>
+            <a class="nav-link" id="pills-monday-tab" data-toggle="pill" href="#pills-monday" role="tab" aria-controls="pills-monday" aria-selected="false">작성한 댓글</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="pills-tuesday-tab" data-toggle="pill" href="#pills-tuesday" role="tab" aria-controls="pills-tuesday" aria-selected="true">관심 게시물</a>
+            <a class="nav-link" id="pills-tuesday-tab" data-toggle="pill" href="#pills-tuesday" role="tab" aria-controls="pills-tuesday" aria-selected="false">관심 게시물</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="pills-wednesday-tab" data-toggle="pill" href="#pills-wednesday" role="tab" aria-controls="pills-wednesday" aria-selected="true">참여 소모임</a>
+            <a class="nav-link" id="pills-wednesday-tab" data-toggle="pill" href="#pills-wednesday" role="tab" aria-controls="pills-wednesday" aria-selected="false">참여 소모임</a>
           </li>
         </ul>
    
