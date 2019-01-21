@@ -9,11 +9,8 @@ import com.wthealth.domain.Post;
 public interface ExInfoService {
 
 	
-	public int addExInfo(Post post) throws Exception;
-	
-	
-	public void addPost(Post post) throws Exception;
-	
+	public void addExInfo(Post post) throws Exception;
+		
 	public Post getExInfo(String postNo) throws Exception;
 	
 	

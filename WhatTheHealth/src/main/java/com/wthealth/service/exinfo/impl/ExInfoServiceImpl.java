@@ -31,14 +31,10 @@ public class ExInfoServiceImpl implements ExInfoService {
 	}
 	
 	@Override
-	public int addExInfo(Post post) throws Exception {
-		return exInfoDao.addExInfo(post);
+	public void addExInfo(Post post) throws Exception {
+		exInfoDao.addExInfo(post);
 	}
 	
-	@Override
-	public void addPost(Post post) throws Exception{
-		exInfoDao.addPost(post);
-	}
 	
 	@Override
 	public void updateExInfo(Post post) throws Exception {
