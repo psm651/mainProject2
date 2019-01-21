@@ -22,8 +22,8 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addReply"		parameterType="com.wthealth.domain.Reply" useGeneratedKeys="true" keyProperty="replyNo" >
 	 	INSERT
-		INTO reply ( reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status) 
-		VALUES	 (	seq_reply_reply_no.nextval, '0', SYSDATE, #{postNo} , 
+		INTO reply ( reply_no , parent_reply_no, rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status) 
+		VALUES	 (	seq_reply_reply_no.nextval, seq_reply_reply_no.currval, '0', SYSDATE, #{postNo} , 
 							#{text} , #{writerId} , #{blindStatus:VARCHAR} , #{deleteStatus:VARCHAR})
 		<selectKey resultType="int" keyProperty = "replyNo" order="AFTER">
 			SELECT seq_reply_reply_no.currval FROM dual
@@ -34,12 +34,21 @@
 	<insert 	id="addReReply"		parameterType="com.wthealth.domain.Reply"  useGeneratedKeys="true" keyProperty="replyNo" >
 	 	INSERT
 		INTO reply ( reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status) 
-		VALUES	 (	seq_reply_reply_no.nextval, #{parentReplyNo:NUMERIC} , #{reReplyNo} , SYSDATE, #{postNo} , 
+		VALUES	 (	seq_reply_reply_no.nextval, #{parentReplyNo} , '1', SYSDATE, #{postNo} , 
 							#{text} , #{writerId} , #{blindStatus:VARCHAR} , #{deleteStatus:VARCHAR})
 		<selectKey resultType="int" keyProperty = "replyNo" order="AFTER">
 			SELECT seq_reply_reply_no.currval FROM dual
 		</selectKey>
 	 </insert>
+	 
+	  <!-- SQL : UPDATE -->
+	 <update	id="updateReply"	parameterType="com.wthealth.domain.Reply" >
+	   	UPDATE reply
+	   	<set>
+	   		text = #{text}
+	   	</set>
+	   	WHERE reply_no = #{replyNo}
+	 </update>
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getReply"	parameterType="int"	resultMap="replySelectMap">
@@ -68,15 +77,24 @@
 	 </update> -->
 		 
 	<!-- SQL : SELECT LIST -->
-	<select  id="listReply"  parameterType="map"	resultMap="replySelectMap">
+<!-- 	<select  id="listReply"  parameterType="map"	resultMap="replySelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
 											FROM reply
-											WHERE post_No = #{postNo}
+											WHERE post_No = #{postNo} and delete_status != '1'
+											ORDER BY parent_reply_no, reply_no
 									 	) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select> -->
+	 
+	 <!-- SQL : SELECT LIST -->
+	<select  id="listReply"  parameterType="int"	resultMap="replySelectMap">
+	  	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
+											FROM reply
+											WHERE post_No = #{postNo} <!-- AND delete_status IS NULL OR delete_status='0'    -->
+											ORDER BY parent_reply_no, reply_no
 	 </select>
 	 
 	 <!-- SQL : SELECT LIST -->
@@ -106,8 +124,8 @@
 	 <select  id="getTotalCount"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
-						FROM reply
-						WHERE post_No = #{value}
+											FROM reply
+											WHERE post_No = #{postNo} <!-- AND delete_status IS NULL OR delete_status= '0' -->
 					 ) countTable						
 	 </select>
 	 
@@ -116,7 +134,7 @@
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
 						FROM reply
-						WHERE writer_id = #{value}
+						WHERE writer_id = #{value} 
 					 ) countTable						
 	 </select>
 	 

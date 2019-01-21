@@ -17,8 +17,10 @@ public interface ClaimDao {
 	
 	public Claim getClaim(int claimNo) throws Exception;
 
-	public Post getClaimedPost(int targetNo);
+	public Post getClaimedPost(String targetNo);
 
 	public Reply getClaimedReply(int targetNo);
+
+	public int getTotalCount(Search search);
 	
 }

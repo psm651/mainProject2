@@ -1,52 +1,100 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
+	 -->
 	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+<!--    <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
    
     <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+ <!--   <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+ 
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/css/animate.css">
+    
+    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
+  
+    <link rel="stylesheet" href="/resources/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/css/style.css">
+	
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+  <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/resources/js/jquery-ui.js"></script>
+  <script src="/resources/js/popper.min.js"></script>
+  <script src="/resources/js/bootstrap.min.js"></script>
+  <script src="/resources/js/owl.carousel.min.js"></script>
+  <script src="/resources/js/jquery.stellar.min.js"></script>
+  <script src="/resources/js/jquery.countdown.min.js"></script>
+  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
+  <script src="/resources/js/aos.js"></script>
+
+  <script src="/resources/js/main.js"></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
+	<!-- <style>
  		body {
             padding-top : 50px;
         }
-     </style>
+     </style> -->
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 		
-		//============= È¸¿øÁ¤º¸¼öÁ¤ Event  Ã³¸® =============	
+		//============= íšŒì›ì •ë³´ìˆ˜ì • Event  ì²˜ë¦¬ =============	
 		 $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#update" ).on("click" , function() {
 					self.location = "/user/updateUser?userId=${user.userId}"
 				});
 		});
 		
 		 $(function() {
-				//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "#delete" ).on("click" , function() {
 						self.location = "/user/deleteUser?userId=${user.userId}"
+					});
+			});
+		 
+		 $(function() {
+				//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				 $( "#chatting" ).on("click" , function() {
+						self.location = "/user/updateUser?userId=${user.userId}"
+					});
+			});
+		 
+		 $(function() {
+				//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				 $( "#point" ).on("click" , function() {
+						self.location = "/point/updatePoint?receiverId=${user.userId}"
 					});
 			});
 		
@@ -60,58 +108,92 @@
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 	
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
+	 <div class="site-section bg-light">
 	<div class="container">
 	
-		<div class="page-header">
-	       <h3 class=" text-muted">È¸¿øÁ¤º¸Á¶È¸</h3>
-	       <h5 class="text-muted">³» Á¤º¸¸¦ <strong class="text-danger">ÃÖ½ÅÁ¤º¸·Î °ü¸®</strong>ÇØ ÁÖ¼¼¿ä.</h5>
+		<div class="page-header text-center">
+	       <h3 class=" text-muted">íšŒì›ì •ë³´ì¡°íšŒ</h3>
 	    </div>
+	    
+	    <form class="p-5 bg-white">
+	    
+	    <c:if test="${sessionScope.user.userId == param.userId}">
+	    
+	    <div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>í”„ë¡œí•„ ì‚¬ì§„</strong></div>
+			<div class="col-xs-8 col-md-4"><img src = "/resources/images/userImage/${user.userImage}" align="middle" height="200"/></div>
+		</div>
+		
+		<hr/>
 	
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>¾Æ ÀÌ µğ</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ì•„ ì´ ë””</strong></div>
 			<div class="col-xs-8 col-md-4">${user.userId}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>º¸À¯Æ÷ÀÎÆ®</strong></div>
-			<div class="col-xs-8 col-md-4">${user.havingPoint}Á¡</div>
-		</div>
-		
-		<hr/>
-		
-		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>´Ğ ³× ÀÓ</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ë‹‰ ë„¤ ì„</strong></div>
 			<div class="col-xs-8 col-md-4">${user.nickName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>¼º  º°</strong></div>
-			<div class="col-xs-8 col-md-4">${user.gender == 0 ? '¿©ÀÚ' : '³²ÀÚ'}</div>
+	  		<div class="col-xs-4 col-md-2 "><strong>ë³´ìœ  í¬ì¸íŠ¸</strong></div>
+			<div class="col-xs-8 col-md-4">${user.havingPoint}P</div>
+		</div>
+		
+		<hr/>
+		
+		
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>ì„±  ë³„</strong></div>
+			<div class="col-xs-8 col-md-4">${user.gender == 0 ? 'ì—¬ì' : 'ë‚¨ì'}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>ÈŞ´ëÀüÈ­</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>íœ´ëŒ€ì „í™”</strong></div>
 			<div class="col-xs-8 col-md-4">${user.phone}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2"><strong>ÀÌ ¸Ş ÀÏ</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ì´ ë©” ì¼</strong></div>
 			<div class="col-xs-8 col-md-4">${user.email}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>°¡ÀÔÀÏÀÚ</strong></div>
+	  		<div class="col-xs-4 col-md-2"><strong>ì˜ˆ ê¸ˆ ì£¼</strong></div>
+			<div class="col-xs-8 col-md-4">${user.holder}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>ì€ í–‰ ëª…</strong></div>
+			<div class="col-xs-8 col-md-4">${user.bankName}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>ê³„ì¢Œë²ˆí˜¸</strong></div>
+			<div class="col-xs-8 col-md-4">${user.accountNum}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>ê°€ì…ì¼ì</strong></div>
 			<div class="col-xs-8 col-md-4">${user.regDate}</div>
 		</div>
 		
@@ -119,16 +201,74 @@
 		
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary" id="update">È¸¿øÁ¤º¸¼öÁ¤</button>
-	  			<button type="button" class="btn btn-primary" id="delete">Å»Åğ</button>
+	  			<button type="button" class="btn btn-primary" id="update">íšŒì›ì •ë³´ìˆ˜ì •</button>
+	  			<button type="button" class="btn btn-primary" id="delete">íƒˆí‡´</button>
 	  		</div>
 		</div>
 		
 		
 		<br/>
+		</c:if>
 		
+		<c:if test="${sessionScope.user.userId != param.userId}">
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>í”„ë¡œí•„ ì‚¬ì§„</strong></div>
+			<div class="col-xs-8 col-md-4"><img src = "/resources/images/userImage/${user.userImage}" align="middle" height="200"/></div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  	<div class="col-xs-4 col-md-2"><strong>ì•„ ì´ ë””</strong></div>
+		<div class="col-xs-8 col-md-4">${user.userId}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  	<div class="col-xs-4 col-md-2 "><strong>ë‹‰ ë„¤ ì„</strong></div>
+		<div class="col-xs-8 col-md-4">${user.nickName}</div>
+		</div>
+		
+		<hr/>
+		<c:if test="${user.userStatus == 0}">
+		<div class="row">
+	  		<div class="col-md-12 text-center ">
+	  			<button type="button" class="btn btn-primary" id="chatting">1:1 ì±„íŒ…</button>
+	  			<button type="button" class="btn btn-primary" id="point">í¬ì¸íŠ¸ ì˜ê¸°</button>
+	  		</div>
+		</div>
+		</c:if>
+		
+		<c:if test="${user.userStatus == 1}">
+		<div class="row">
+	  		<div class="col-md-12 text-center ">
+	  			<span id="receiverId" class="help-block">
+		      	 	<strong class="text-danger">íƒˆí‡´í•œ íšŒì›ì…ë‹ˆë‹¤.</strong>
+		      	</span>
+	  		</div>
+		</div>
+		</c:if>
+		
+		<c:if test="${user.userStatus == 2}">
+		<div class="row">
+	  		<div class="col-md-12 text-center ">
+	  			<span id="receiverId" class="help-block">
+		      	 	<strong class="text-danger">ë¸”ë™ë¦¬ìŠ¤íŠ¸ ì²˜ë¦¬ëœ íšŒì›ì…ë‹ˆë‹¤.</strong>
+		      	</span>
+	  		</div>
+		</div>
+		</c:if>
+		
+		<br/>
+		
+		</c:if>
+	
+		</form>
+		</div>
  	</div>
- 	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+ 	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
 
 </body>
 

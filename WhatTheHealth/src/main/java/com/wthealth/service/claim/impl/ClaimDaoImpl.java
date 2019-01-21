@@ -57,13 +57,19 @@ public class ClaimDaoImpl implements ClaimDao {
 	}
 
 	@Override
-	public Post getClaimedPost(int targetNo) {
+	public Post getClaimedPost(String targetNo) {
 		return sqlSession.selectOne("ClaimMapper.getClaimedPost",targetNo);
 	}
 
 	@Override
 	public Reply getClaimedReply(int targetNo) {
 		return sqlSession.selectOne("ClaimMapper.getClaimedReply",targetNo);
+	}
+
+	@Override
+	public int getTotalCount(Search search) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("ClaimMapper.getTotalCount",search);
 	}
 
 }
