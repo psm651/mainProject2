@@ -200,6 +200,7 @@ public class PointController {
 	public String kakaoPayReady(@RequestParam("userId") String userId,
 								@RequestParam("point") int point, Model model) throws Exception {
 		
+		System.out.println("카카오페이 요청");
 		//Map<String, Object> map = commonService.getAceessToken(code);
 		
 		String url = pointService.getPaymentReady(null, point);
@@ -210,6 +211,8 @@ public class PointController {
 	
 	@RequestMapping(value="kakaoPaySuccess")
 	public String kakaoPayApprove(@RequestParam("pg_token") String pgToken, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("카카오페이 승인");
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
