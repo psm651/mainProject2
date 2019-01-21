@@ -8,7 +8,7 @@
  ${refresh}
 
 	 <script>
-		self.location = '/user/addSNSUser.jsp';
+		self.location = '/';
 	</script>
 </body>
 
