@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
@@ -59,7 +63,7 @@ public class MainController {
 	public String getMainPage(@ModelAttribute("search") Search search, Model model) throws Exception{
 		
 		System.out.println("MainController Come in");
-		//?‚ ?”¨ë³? ì¶”ì²œ?š´?™, ?‹?‹¨/?š´?™ ì¶”ì²œ, ?„ë°•í•œ ?†Œëª¨ì„ Business Logic
+		//?ï¿½ï¿½?ï¿½ï¿½ï¿½? ì¶”ì²œ?ï¿½ï¿½?ï¿½ï¿½, ?ï¿½ï¿½?ï¿½ï¿½/?ï¿½ï¿½?ï¿½ï¿½ ì¶”ì²œ, ?ï¿½ï¿½ë°•í•œ ?ï¿½ï¿½ëª¨ì„ Business Logic
 /*		Map<String, Object> ex= exComService.listExComRecom(search);	
 		Map<String, Object> diet = dietComService.listDietComRecom(search);
 		Map<String, Object> meeting = meetingService.listMeeting(search);
@@ -99,6 +103,13 @@ public class MainController {
 		return "forward:/main/listSearchMain.jsp";
 			
 	}
+
+	@RequestMapping(value="profileUpload")
+    public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		System.out.println("111111");
+    
+    	mainService.profileUpload(file, request, response);
+    } 	
 	
 
 	
