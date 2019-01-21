@@ -31,11 +31,56 @@
 	<style>
        body > div.container{
         	border: 3px solid #D6CDB7;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         
-        img { width:500px; }
-        
+         img { width:500px; }
+		
+		#first{
+		  margin: 0 auto;
+  		  padding: 10px 0;
+		}
+
+		#second{
+		  margin: 0 auto;
+  		  padding: 10px 0;
+		}		
+		
+		
+		#first .card{
+		
+  			margin: 0;
+  			padding: 0;
+ 			display: -webkit-box;
+  			display: -moz-box;
+ 			display: -ms-flexbox;
+  			display: -moz-flex;
+  			display: -webkit-flex;
+  			display: flex;
+ 			justify-content: space-between;
+    		width:150px;
+       		height: 100px;
+		
+		}
+				#second .card{
+		
+  			margin: 0;
+  			padding: 0;
+ 			display: -webkit-box;
+  			display: -moz-box;
+ 			display: -ms-flexbox;
+  			display: -moz-flex;
+  			display: -webkit-flex;
+  			display: flex;
+ 			justify-content: space-between;
+    		width:150px;
+       		height: 100px;
+		
+		}
+		
+		 
+    		
+
 
     </style>
     
@@ -74,24 +119,57 @@
 					  success : function(data, status){
 			
 					  
-				
+						  var name = "칼로리";
+						  var amount = "1인분";
 						  var display = "";
 						  var totalDisplay = "";
 					 
 					  	$.each(data, function(index){
 		                 
-
-						 display = "<tr><th scope='row'>"+(index+1)+"</th>"+
+					  		if(index<=5){
+					  			display = 
+									'<div class="col-sm">'+
+										'<div class="card">'+
+					  						'<div class="card-header">'+data[index].foodName+'</div>'+
+					  						'<div class="card-body">'+
+					  						'<p>'+data[index].foodCalorie+'</p>'+ 
+					      		    		'<p>'+data[index].amountFood+'</p>'+
+					  			   		 	'</div>'+
+										 '</div>'+
+									 '</div>';
+								$("#first").append(display);	 
+					  		}else if(5<index && index<=11){
+					  			
+					  		console.log(index);
+					  			display = 
+									'<div class="col-sm">'+
+										'<div class="card">'+
+					  						'<div class="card-header">'+
+					    					 data[index].foodName +
+					  						'</div>'+
+					  						'<div class="card-body">'+
+					  						'<p>'+data[index].foodCalorie+'</p>'+ 
+					      		    		'<p>'+data[index].amountFood+'</p>'+
+					  			   		 	'</div>'+
+										 '</div>'+
+									 '</div>';
+								$("#second").append(display);	
+					  	
+					  		}
+						/* display = "<tr><th scope='row'>"+(index+1)+"</th>"+
 					  				 "<td>"+data[index].foodName+"</td>"+
 						 			 "<td>"+data[index].amountFood+"</td>"+
 						 	 		 "<td>"+data[index].foodCalorie+"</td>"+
-									 "<td align='left'><a href='#' id='button' class='btn btn-default btn-xs' role='button'>추가</a></td></tr>";	
+									 "<td align='left'><a href='#' id='button' class='btn btn-default btn-xs' role='button'>추가</a></td></tr>"; */	
 						 
-						totalDisplay += display;					 
-							 /* $("#append").append(display); */
+					/* 	display = "";			 
+									 
+									 
+						totalDisplay += display;	 */				 
+							 
 							 
 					  	});
-					  	$("#append").html(totalDisplay);
+					 /*  	$("#append").html(totalDisplay); */
 				  }//end of success
 				  
 				}); // end of ajax
@@ -100,19 +178,25 @@
 	}); 
 
    $(function(){
-        $(document).on("click",".btn ",function(){
-
-        	var trArray = new Array();
-        	var tr = $(this).parents("tr").children("td");
-        	var text = tr.text();
-			       
+	   
+   
+        $(document).on("click",".card ",function(){
+			alert('');
+        	var tdArray = new Array();
+        	var td = $(this).parents("tr").children("td");
+  
+             td.each(function(i){
+                 tdArray.push(td.eq(i).text());
+                 $(".col-md-1").append(tdArray[i]);
+              }); 
+           
+            
+/*         	var foodName = tdArray[0];
+        	var foodCalorie = tdArray[1];
+        	var foodAmount = tdArray[2]; */
         	
-        	
-        	console.log(tr);
-        	console.log(text);
-    //        #append > tr:nth-child(1) > td:nth-child(5) 
-       /*     	var tr0 = $(this);
-       		var tr1 = $(this).parents("td"); */
+    
+    		
         });
      }); 
      
@@ -144,12 +228,12 @@
 			<button type="button" class="btn pull-right" align="right">검색</button>
 		
 		<br/><br/><br/><br/>
-		<hr/>
+	
 		<br/><br/><br/>
 		
 
 		
-	<table class="table table-hover">
+<!-- 	<table class="table table-hover">
   		<thead>
     		<tr>
     		  <th scope="col">번호</th>
@@ -164,10 +248,48 @@
 	</table>		
 	
 	<br/><br/>
+ -->
+<!-- 	<div class="col-md-1">
+	</div> -->
 	
 
-</div>		
+<div class="container-fluid">
+
+<div class="row" id="first">
+</div>
+
+
+<div class="row" id="second">
+</div>
+
+
+
+<!--  	<div class="row">
+		<div class="col-sm">
+			<div class="card">
+  				<div class="card-header">
+    			Quote
+  				</div>
+  				<div class="card-body">
+      		    <hr>칼로리</hr><span>dd</span>
+    	
+  			    </div>
+			</div>
+		</div> -->
 		
+	  
+
+
+
+
+
+
+
+
+
+		</div>
+		
+	</div>		
 		
 </body>
 
