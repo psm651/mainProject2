@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Post {
 	
-	private String postNo;
+	private int postNo;
 	private String userId;
 	private String title;
 	private String contents;
@@ -17,6 +17,7 @@ public class Post {
 	private int likeCount;
 	private String category;
 	private Date postDate;
+	private String postSubNo;
 	///////////////////커뮤니티////////////////////
 	private int exScNo;
 	private int dietScNo;
@@ -28,10 +29,9 @@ public class Post {
 	private String exVideoTime;
 	//////////////////위치태그///////////////////
 	private String locationTagName;
-	private double xCoordinate;
-	private double yCoordinate;
+	private String coordinate;
 	private String address;
-	/////////////////Favorite vo/////////////
+	/////////////////관심사/////////////
 	private int favoriteNo;
 	private String pressedStatus;
 	private String favoriteType;
@@ -39,11 +39,11 @@ public class Post {
 	public Post() {
 	}
 
-	public String getPostNo() {
+	public int getPostNo() {
 		return postNo;
 	}
 
-	public void setPostNo(String postNo) {
+	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
 
@@ -207,20 +207,12 @@ public class Post {
 		this.locationTagName = locationTagName;
 	}
 
-	public double getxCoordinate() {
-		return xCoordinate;
+	public String getCoordinate() {
+		return coordinate;
 	}
 
-	public void setxCoordinate(double xCoordinate) {
-		this.xCoordinate = xCoordinate;
-	}
-
-	public double getyCoordinate() {
-		return yCoordinate;
-	}
-
-	public void setyCoordinate(double yCoordinate) {
-		this.yCoordinate = yCoordinate;
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	public String getAddress() {
@@ -255,16 +247,23 @@ public class Post {
 		this.favoriteType = favoriteType;
 	}
 
+	public String getPostSubNo() {
+		return postSubNo;
+	}
+
+	public void setPostSubNo(String postSubNo) {
+		this.postSubNo = postSubNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", userId=" + userId + ", title=" + title + ", contents=" + contents
 				+ ", nickName=" + nickName + ", photo=" + photo + ", video=" + video + ", clickCount=" + clickCount
 				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + ", likeCount=" + likeCount
-				+ ", category=" + category + ", postDate=" + postDate + ", exScNo=" + exScNo + ", dietScNo=" + dietScNo
-				+ ", exInfoNo=" + exInfoNo + ", exCalorie=" + exCalorie + ", exPlace=" + exPlace + ", exPart=" + exPart
-				+ ", exVideoTime=" + exVideoTime + ", locationTagName=" + locationTagName + ", xCoordinate="
-				+ xCoordinate + ", yCoordinate=" + yCoordinate + ", address=" + address + ", favoriteNo=" + favoriteNo
+				+ ", category=" + category + ", postDate=" + postDate + ", postSubNo=" + postSubNo + ", exScNo="
+				+ exScNo + ", dietScNo=" + dietScNo + ", exInfoNo=" + exInfoNo + ", exCalorie=" + exCalorie
+				+ ", exPlace=" + exPlace + ", exPart=" + exPart + ", exVideoTime=" + exVideoTime + ", locationTagName="
+				+ locationTagName + ", coordinate=" + coordinate + ", address=" + address + ", favoriteNo=" + favoriteNo
 				+ ", pressedStatus=" + pressedStatus + ", favoriteType=" + favoriteType + "]";
 	}
-
 }

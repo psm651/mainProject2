@@ -111,10 +111,17 @@
 
 
               <div class="row form-group">
-                <div class="col-md-12 mb-5 mb-md-0">
+                <div class="col-md-11 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
-                  <input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
                 </div>
+                <div class="col-md-11 mb-5 mb-md-0">
+                	<input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
+                </div>
+                <div class="col-md-1 mb-5 mb-md-0">
+              	    <button type="button" class="btn btn-default btn-sm">
+         			 <span class="glyphicon glyphicon-map-marker"></span> 지도
+     			   </button>
+     			 </div>
               </div>
 
               <div class="row form-group">
