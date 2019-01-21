@@ -138,7 +138,7 @@ public class ScheduleController {
 	*/
 	@RequestMapping(value="listSchedule")
 	public String listProduct(/*@RequestParam("userId") String userId,*/ Model model, HttpSession session) throws Exception{
-		
+		System.out.println("¿©±ä°¡");
 		System.out.println("/listSchedule : GET / POST");
 		String userId=((User)session.getAttribute("user")).getUserId();
 		Map<String, Object> map = new HashMap<String, Object>();
