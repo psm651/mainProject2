@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="../resources/css/style.css">
    
    <script type="text/javascript">
-
+  
     function favoriteList(){
            $.ajax({
                url : '/favorite/json/listFavorite/'+'${post.postNo}',
@@ -162,7 +162,7 @@
         <div class="row align-items-center">
           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
             <h4 class="mb-3">${post.title}</h4>
-             <small>좋아요 수  : ${post.likeCount}</small>
+             <small>좋아요 수  : ${post.likeCount}</small> 
              <small>조회 수 : ${post.clickCount}</small>            
             <p class="mb-4">${post.contents}</p>
            
@@ -187,6 +187,7 @@
       </div>
     </div>
 
+   <jsp:include page="/reply/listReply.jsp" /> 
 
 </body>
 </html>

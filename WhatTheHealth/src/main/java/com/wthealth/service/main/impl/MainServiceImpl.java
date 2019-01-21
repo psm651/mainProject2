@@ -57,13 +57,21 @@ public class MainServiceImpl implements MainService {
 		
 	      response.setContentType("text/html;charset=utf-8");
 		  PrintWriter out = response.getWriter();
+<<<<<<< HEAD
 		  // ¾÷·ÎµåÇÒ Æú´õ °æ·Î
+=======
+		// ì—…ë¡œë“œí•  í´ë” ê²½ë¡œ
+>>>>>>> refs/heads/new/jjbly
 	     //String realFolder = request.getSession().getServletContext().getRealPath("images");
-	      String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+	      String realFolder = "C:\\Users\\bitcamp\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
 	      System.out.println(realFolder);
 	      UUID uuid = UUID.randomUUID();
 
+<<<<<<< HEAD
 	   // ¾÷·ÎµåÇÒ ÆÄÀÏ ÀÌ¸§
+=======
+	   // ì—…ë¡œë“œí•  íŒŒì¼ ì´ë¦„
+>>>>>>> refs/heads/new/jjbly
 	      String orgFileName = file.getOriginalFilename();
 	      String strFileName = uuid.toString() + orgFileName;
 
