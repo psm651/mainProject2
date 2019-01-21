@@ -82,14 +82,14 @@ CREATE TABLE point (
 	using_point 		NUMBER(10)		NOT NULL,
 	point_status_code		VARCHAR2(3)		NOT NULL,
 	sender_id 		VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
-	receiver_id		VARCHAR2(20)	REFERENCES users(user_id),
+	receiver_id		VARCHAR2(100),
 	PRIMARY KEY(point_no)
 );
 
 CREATE TABLE post (
-	post_no		VARCHAR2(10)	NOT NULL,
+	post_no		NUMBER	NOT NULL,
 	title	VARCHAR2(100)	NOT NULL,
-	contents	CLOB	NOT NULL,
+	contents	VARCHAR2(4000)	NOT NULL,
 	user_id	VARCHAR2(20)	NOT NULL	REFERENCES USERS(user_id),
 	post_date	DATE,
 	photo	VARCHAR2(100),
@@ -100,8 +100,7 @@ CREATE TABLE post (
 	category	VARCHAR2(3),
 	delete_status	VARCHAR2(3),
 	locationtag_name	VARCHAR2(100),
-	x_coordinate	NUMBER(20),
-	y_coordinate	NUMBER(20),
+	coordinate	VARCHAR2(100),
 	diet_sc_no	NUMBER(10),
 	ex_sc_no	NUMBER(10),
 	address 	VARCHAR2(100),
@@ -110,13 +109,14 @@ CREATE TABLE post (
 	ex_place	VARCHAR2(3),
 	ex_part		VARCHAR2(3),
 	ex_videotime	VARCHAR2(20),	
+	post_sub_no		VARCHAR2(20),
 	PRIMARY KEY(post_no)
 );
 
 CREATE TABLE hashtag ( 
 	hashtag_no NUMBER NOT NULL,
 	hashtag 	VARCHAR2(50) NOT NULL,
-	post_no		VARCHAR2(10)	NOT NULL 	REFERENCES POST(post_no),
+	post_no		NUMBER	NOT NULL 	REFERENCES POST(post_no),
 	PRIMARY KEY(hashtag_no)
 );
 
@@ -129,7 +129,7 @@ CREATE TABLE claim (
 	claim_status VARCHAR2(3) NOT NULL,
 	claim_reason VARCHAR2(3)NOT NULL,
 	claim_contents VARCHAR2(400),
-	claim_target_no VARCHAR2(20),
+	claim_target_no NUMBER,
 	PRIMARY KEY(claim_no)
 );
 
@@ -162,16 +162,17 @@ CREATE TABLE EX_SC(
 	ex_sc_calorie NUMBER(5),
 	ex_sc_date DATE,
 	ex_sc_time DATE,
-	post_no VARCHAR2(10) REFERENCES POST(post_no),
+	post_no NUMBER REFERENCES POST(post_no),
 	delete_status VARCHAR2(3),
 	PRIMARY KEY(ex_sc_no)
 );
 
 CREATE TABLE FAVORITE(
-	post_no	VARCHAR2(10)	NOT NULL	REFERENCES POST(post_no),
+	post_no	NUMBER	NOT NULL	REFERENCES POST(post_no),
 	favorite_no	NUMBER	NOT NULL,
 	user_id	VARCHAR2(20)	NOT NULL	REFERENCES USERS(user_id),
 	favorite_type	VARCHAR2(3)	NOT NULL,
+	pressed-status	VARCHAR2(3),
 	PRIMARY KEY(favorite_no)	
 );
 
@@ -195,7 +196,7 @@ CREATE TABLE reply (
 	parent_reply_no	NUMBER	REFERENCES reply(reply_no),
 	rereply_no	NUMBER(3)	DEFAULT '0',
 	reply_date	DATE	NOT NULL,
-	post_no	VARCHAR2(10)	NOT NULL	REFERENCES post(post_no),
+	post_no	NUMBER	NOT NULL	REFERENCES post(post_no),
 	text	VARCHAR2(500)	NOT NULL,
 	writer_id	VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
 	blind_status	VARCHAR2(3),
@@ -205,7 +206,7 @@ CREATE TABLE reply (
 
 CREATE TABLE meeting (
 	meet_no	NUMBER	NOT NULL,
-	post_no	VARCHAR2(10)	NOT NULL,
+	post_no	NUMBER	NOT NULL,
 	depo_amount	NUMBER(10),
 	depo_bank	VARCHAR2(20),
 	depo_account	VARCHAR2(30),
@@ -226,7 +227,7 @@ CREATE TABLE join (
 	join_date	DATE	NOT NULL,
 	join_status	VARCHAR2(3)	NOT NULL,
 	depo_status	VARCHAR2(3),
-	post_no	VARCHAR2(10)	NOT NULL	REFERENCES post(post_no),
+	post_no	NUMBER	NOT NULL	REFERENCES post(post_no),
 	party_id	VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
 	delete_status	VARCHAR2(3),
 	PRIMARY KEY(join_no)

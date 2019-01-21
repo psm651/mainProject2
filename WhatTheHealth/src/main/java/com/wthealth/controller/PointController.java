@@ -1,8 +1,10 @@
 package com.wthealth.controller;
 
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.Point;
 import com.wthealth.domain.User;
+import com.wthealth.service.meeting.MeetingService;
 import com.wthealth.service.point.PointService;
 import com.wthealth.service.user.UserService;
 
@@ -35,6 +38,10 @@ public class PointController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	@Autowired
+	@Qualifier("meetingServiceImpl")
+	private MeetingService meetingService;
 
 	public PointController() {
 		// TODO Auto-generated constructor stub
@@ -90,33 +97,118 @@ public class PointController {
 	}
 	
 	@RequestMapping(value="updatePoint", method=RequestMethod.POST)
-	public void updatePoint(@ModelAttribute("point") Point point, HttpServletRequest request, Model model ) throws Exception{
+	public String updatePoint(@RequestParam("point") int usingPoint, @ModelAttribute("point") Point point, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
 
 		System.out.println("/point/updatePoint : POST");
 		//Business Logic
-		pointService.updatePoint(point);
-		
+
 		User sendUser = userService.getUser(point.getSenderId());
-		int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
-		sendUser.setHavingPoint(sendPoint);
 		
-		User receiveUser = userService.getUser(point.getReceiverId());
-		int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
-		receiveUser.setHavingPoint(receivePoint);
+		if(usingPoint > sendUser.getHavingPoint()) {
+			
+			System.out.println("보유 포인트보다 더 많이 보내려고할때");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('보유 포인트를 초과해서 쏠 수 없습니다.');</script>");
+			out.flush();
+			return "/point/updatePoint.jsp";
+			
+		} else {
+			
+			point.setUsingPoint(usingPoint);
+			pointService.updatePoint(point);
+	
+			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
+			sendUser.setHavingPoint(sendPoint);
+			userService.updateHavingPoint(sendUser);
+			System.out.println("전송한 포인트: "+sendPoint);
+			session.setAttribute("user", sendUser);
+			System.out.println("포인트 바뀌라고 "+session.getAttribute("user"));
+			
+			User receiveUser = userService.getUser(point.getReceiverId());
+			int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
+			receiveUser.setHavingPoint(receivePoint);
+			userService.updateHavingPoint(receiveUser);
+			System.out.println("받은 포인트: "+receivePoint);
+			
+			return "forward:/point/listPoint";
+		}
+	}
+	
+	@RequestMapping(value="updateDeposit", method=RequestMethod.GET)
+	public String updateDeposit(@RequestParam("joinNo") int joinNo, Model model, HttpSession session) throws Exception{
+
+		System.out.println("/point/updateDeposit : GET");
+		//Business Logic
+		String senderId = ((User)session.getAttribute("user")).getUserId();
+		String meetingPostNo = meetingService.getJoin(joinNo).getPostNo();
+		String receiveMeeting = meetingService.getMeeting(meetingPostNo).getPost().getTitle();
+		
+		Point point = new Point();
+		point.setPointStatus("1");
+		point.setSenderId(senderId);
+		point.setReceiverId(receiveMeeting);
+		
+		model.addAttribute("point", point);
+		model.addAttribute("joinNo", joinNo);
+		
+		return "forward:/point/updateDeposit.jsp";
+	}
+	
+	@RequestMapping(value="updateDeposit", method=RequestMethod.POST)
+	public String updateDeposit(@RequestParam("point") int usingPoint, @RequestParam("joinNo") int joinNo, @ModelAttribute("point") Point point, HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) throws Exception{
+
+		System.out.println("/point/updateDeposit : POST");
+		//Business Logic
+		User sendUser = userService.getUser(point.getSenderId());
+		
+		if(usingPoint > sendUser.getHavingPoint()) {
+			
+			System.out.println("보유 포인트보다 더 많이 보내려고할때");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('보유 포인트를 초과해서 전송할 수 없습니다.');</script>");
+			out.flush();
+			return "/point/updateDeposit.jsp";
+			
+		} else {
+			System.out.println("선금전송ㅇㅇㅇㅇㅇ");
+			point.setUsingPoint(usingPoint);
+			pointService.updatePoint(point);
+			
+			System.out.println("되라ㅏㅏㅏㅏ");
+	
+			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
+			sendUser.setHavingPoint(sendPoint);
+			userService.updateHavingPoint(sendUser);
+			System.out.println("전송한 포인트: "+sendPoint);
+			session.setAttribute("user", sendUser);
+			System.out.println("포인트 바뀌라고 "+session.getAttribute("user"));
+			
+			meetingService.updateDeposit(joinNo);
+			System.out.println("선금전송완료: "+meetingService.getJoin(joinNo));
+			
+			/*String receiveMeeting = meetingService.getMeeting(point.getReceiverId()).getPost().getTitle();
+			System.out.println("소모임 이름: "+receiveMeeting);
+			model.addAttribute("receiveMeeting", receiveMeeting);*/
+			
+			return "forward:/point/listPoint";
+		}
 	}
 	
 	@RequestMapping(value="kakaoPay")
 	public String kakaoPayReady(@RequestParam("userId") String userId,
-								@RequestParam("point") int point) throws Exception {
+								@RequestParam("point") int point, Model model) throws Exception {
 		
 		//Map<String, Object> map = commonService.getAceessToken(code);
 		
 		String url = pointService.getPaymentReady(null, point);
+		model.addAttribute("point",point);
 		
 		return "redirect:"+url;
 	}
 	
-	@RequestMapping(value="kakaoPay/success")
+	@RequestMapping(value="kakaoPaySuccess")
 	public String kakaoPayApprove(@RequestParam("pg_token") String pgToken, HttpSession session, Model model) throws Exception {
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
@@ -124,17 +216,18 @@ public class PointController {
 		System.out.println("pg_token :: "+pgToken);
 		
 		Map<String, Object> result = pointService.getPaymentApprove(null, pgToken);
-		
+		System.out.println("111111111111111");
 		Point point = new Point();
 		point.setUsingPoint((int)result.get("point"));
 		point.setSenderId(userId);
 		pointService.addPoint(point);
-		
+		System.out.println("222222222222222222");
 		System.out.println(result);
 		
 		User user = userService.getUser(userId);
-		user.setHavingPoint((int)result.get("point"));
+		user.setHavingPoint((int)result.get("point")+user.getHavingPoint());
 		userService.updateHavingPoint(user);
+		session.setAttribute("user", user);
 		
 		// 가격 amount.total && amout.vat (부가세)
 		// 수량 quantity
@@ -143,12 +236,13 @@ public class PointController {
 		/*
 		 * approvedDate & point
 		 * */
-		model.addAllAttributes(result);
+		//model.addAllAttributes(result);
+		model.addAttribute("result", result);
 		model.addAttribute("user", user);
 		model.addAttribute("point", pointService.getPoint(point.getPointNo()));
 		
-		return "forward:/point/chargeSuccessPoint.jsp";
-		
+		return "redirect:/point/listPoint";
+		//return "forward:/point/kakaoPaySuccess?pg_token="+pgToken;
 	}
 
 }
