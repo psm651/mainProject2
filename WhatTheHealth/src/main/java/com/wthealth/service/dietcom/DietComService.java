@@ -23,9 +23,12 @@ public interface DietComService {
 	
 	public void updateClickCount(Post post) throws Exception;
 	
+	public void updateLikeCount(Post post) throws Exception;
+	
+	public void updateThumbnail(Post post) throws Exception;
+	
 	public void deleteDietCom(String postNo) throws Exception;
 
 	public Map<String, Object> listDietComRecom(Search search) throws Exception;
 	
-	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

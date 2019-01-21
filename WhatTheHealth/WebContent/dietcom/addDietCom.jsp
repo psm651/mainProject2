@@ -56,8 +56,6 @@
 		//var contents = $('#summernote').summernote('code');
 		//var contents = document.getElementById("contents").value; //글 내용 인식 못함.
 		var contents = $("textarea[name=contents]").val();
-		alert(title);
-		alert(contents);
 		
 		console.log(contents.length);
 
@@ -88,20 +86,7 @@
 			resetData();
 		});
 	});	
-	
-	/* $( function(){
-		 $( "#searchButton").on("click" , function() {
-			 $.ajax(
-	 					{
-	 						url:"/app.js",
-	 						method:"POST",
-	 						dataType:"javaScript",
-							success: function(data) {
-								$("#video").html(data);
-							}
-					});
-			});
-	}); */
+
 	
 </script>
 

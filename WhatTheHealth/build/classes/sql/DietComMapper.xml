@@ -27,6 +27,9 @@
 		<result property="xCoordinate" column="x_coordinate" jdbcType="NUMERIC" />
 		<result property="yCoordinate" column="y_coordinate" jdbcType="NUMERIC" />
 		<result property="address" column="address" jdbcType="VARCHAR" />
+		<result property="favoriteNo" column="favorite_no" jdbcType="NUMERIC" />
+		<result property="favoriteType" column="favorite_type" jdbcType="VARCHAR" />
+		<result property="pressedStatus" column="pressed_status" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<insert id="addDietCom" parameterType="com.wthealth.domain.Post">
@@ -44,27 +47,18 @@
 	</insert>
 
 	<select id="getDietCom" resultMap="postSelectMap" parameterType="string">
-		SELECT
-		post_no, user_id, title, contents, photo, video,
-		click_count,
-		blind_status, delete_status, like_count,
-		category, post_date,
-		diet_sc_no, locationtag_name, x_coordinate, y_coordinate, address
-		FROM
-		post
+		SELECT *
+		FROM post
 		WHERE post_no = #{value}
 	</select>
 
 	<update id="updateDietCom" parameterType="com.wthealth.domain.Post">
 		UPDATE post
 		<set>
-			post_no = #{postNo},
-			user_id = #{userId},
 			title = #{title},
 			contents = #{contents},
 			photo = #{photo:VARCHAR},
-			video =
-			#{video:VARCHAR},
+			video = #{video:VARCHAR},
 			click_count = #{clickCount:NUMERIC},
 			blind_status =
 			#{blindStatus:VARCHAR},
@@ -86,7 +80,33 @@
 	<update id="updateClickCount" parameterType="com.wthealth.domain.Post">
 		UPDATE post
 		<set>
+			click_count = #{clickCount:NUMERIC}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
+	
+	<update id="updateLikeCount" parameterType="com.wthealth.domain.Post">
+		UPDATE post
+		<set>
 			like_count = #{likeCount:NUMERIC}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
+	
+	<select id="getTotalCountByLikeCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT u.nickname, u.user_image
+		FROM users u, favorite f
+		WHERE f.user_id = u.user_id
+		AND f.post_no = #{postNo}
+		AND f.favorite_type='0'
+		) countTable
+	</select>
+	
+	<update id="updateThumbnail" parameterType="com.wthealth.domain.Post">
+		UPDATE post
+		<set>
+			photo = #{photo:VARCHAR}
 		</set>
 		WHERE post_no = #{postNo}
 	</update>

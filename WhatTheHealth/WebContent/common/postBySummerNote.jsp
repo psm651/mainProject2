@@ -38,7 +38,7 @@
         	 data2.append("file", file);
         	 console.log(data2)
                 $.ajax({
-                    url: '/dietCom/profileUpload',
+                    url: '/profileUpload',
                     method: "POST",
                     enctype : 'multipart/form-data',
                     data : data2,
@@ -47,17 +47,39 @@
                     processData: false,
                     success: function(url) {
                     	console.log(url)
-                    	alert(url);
-                        $('#summernote').summernote('insertImage', url);
+                    	 while(true){
+                             var re = doesFileExist(url);
+                             console.log("re : "+re)
+                             if(re){
+                            	 $('#summernote').summernote('insertImage', url);
+                                break;   
+                             }
+                          }
                     }
                 });
             }
     }); 
-
+	 
+	 function doesFileExist(urlToFile){
+         var xhr = new XMLHttpRequest();
+         xhr.open('HEAD', urlToFile, false);
+         xhr.send();
+         
+         if (xhr.status == "404") {
+            return false;
+         } else {
+            return true;
+         }
+      }
+	 
+	 function summerNoteUpdate(text){
+			console.log(text);
+			document.getElementById("summernote").append(text);
+		}
 </script>
 	
 	<!-- <div id="summernote"></div>  -->
-	<textarea id="summernote" id="contents" name="contents"></textarea>
+	<textarea id="summernote" name="contents"></textarea>
 	
 </body>
 </html>

@@ -11,16 +11,11 @@
 	<!-- <script src="/resources/js/jquery-3.3.1.min.js"></script> -->
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../resources/css/style.css">
-	<!-- <script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
-	<script src="https://www.googleapis.com/youtube/v3/search?part=snippet&q=php&key=AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg"></script>
-	 -->
-	 
-	<!-- scripts -->
-     <script src="/resources/js/jquery-3.3.1.min.js"></script>
-    
+	
+	<script src="https://apis.google.com/js/client.js?onload=init" ></script>
+	<!-- <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script> -->
+	<!-- <script src="https://www.googleapis.com/youtube/v3/search?part=snippet&q=php&key=AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg"></script> -->
 
-     <script src="https://apis.google.com/js/client.js?onload=init"></script>
 	 
 	<style>   
           #video {
@@ -29,49 +24,50 @@
       border: 1px solid red;
   }
   </style>
-<script type="text/javascript">
+  
+	<script type="text/javascript">
 	function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
 
-$(function() {
-    $("form").on("submit", function(e) {
-       e.preventDefault();
-       console.log(encodeURIComponent($("#search").val()));
-       console.log($("#search").val());
-       // prepare the request
-       var request = gapi.client.youtube.search.list({ //Once the API is loaded, we would request the search data by using the following function call: gapi.client.youtube.search.list.
-            part: "snippet",
-            type: "video",
-            q: $("#search").replace(/%20/g, "+").val(), 
-            maxResults: 3,
-            order: "viewCount",
-            publishedAfter: "2018-11-01T00:00:00Z"
-       }); 
-       // execute the request
-       request.execute(function(response) {
-          var results = response.result;
-          $("#results").html("");
-          $.each(results.items, function(index, item) {
-            //$.get("tpl/item.html", function(data) {
-                $("#results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
-           // });
-          });
-          resetVideoHeight();
-       });
-    });
-    
-    $(window).on("resize", resetVideoHeight);
-});
-
-function resetVideoHeight() {
-    $(".video").css("height", $("#results").width() * 9/16);
-}
-
-function init() {
-    gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
-    gapi.client.load("youtube", "v3", function() {
-        // yt api is ready
-    });
-}
+	$(function() {
+	    $("form").on("submit", function(e) {
+	       e.preventDefault();
+	       console.log(encodeURIComponent($("#search").val()));
+	       console.log($("#search").val());
+	       // prepare the request
+	       var request = gapi.client.youtube.search.list({ //Once the API is loaded, we would request the search data by using the following function call: gapi.client.youtube.search.list.
+	            part: "snippet",
+	            type: "video",
+	            q: $("#search").replace(/%20/g, "+").val(), 
+	            maxResults: 3,
+	            order: "viewCount",
+	            publishedAfter: "2018-11-01T00:00:00Z"
+	       }); 
+	       // execute the request
+	       request.execute(function(response) {
+	          var results = response.result;
+	          $("#results").html("");
+	          $.each(results.items, function(index, item) {
+	            //$.get("tpl/item.html", function(data) {
+	                $("#results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+	           // });
+	          });
+	          resetVideoHeight();
+	       });
+	    });
+	    
+	    $(window).on("resize", resetVideoHeight);
+	});
+	
+	function resetVideoHeight() {
+	    $(".video").css("height", $("#results").width() * 9/16);
+	}
+	
+	function init() {
+	    gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
+	    gapi.client.load("youtube", "v3", function() {
+	        // yt api is ready
+	    });
+	}
 
 </script>
 </head>

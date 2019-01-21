@@ -25,9 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.Favorite;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
 import com.wthealth.service.dietcom.DietComService;
+import com.wthealth.service.favorite.FavoriteService;
 
 @Controller
 @RequestMapping("/dietCom/*")
@@ -36,6 +38,10 @@ public class DietComController {
 	@Autowired
 	@Qualifier("dietComServiceImpl")
 	private DietComService dietComService;
+	
+	@Autowired
+	@Qualifier("favoriteServiceImpl")
+	private FavoriteService favoriteService;
 	
 	public DietComController() {
 		System.out.println(this.getClass());
@@ -51,10 +57,7 @@ public class DietComController {
 		@RequestMapping(value = "addDietCom", method = RequestMethod.GET)
 		public String addDietCom() throws Exception{
 			System.out.println("/addDietCom : GET");
-						 
-			Post dietCom = new Post();
-			dietCom.setUserId("user1");
-			
+									
 			return "forward:/dietcom/addDietCom.jsp";
 		}
 		
@@ -65,21 +68,14 @@ public class DietComController {
 			User user = (User)session.getAttribute("user");
 			post.setUserId(user.getUserId());
 			
-			System.out.println("¿À´Ï?");
 			dietComService.addDietCom(post);
+			dietComService.updateThumbnail(post);
 			
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		
-		@RequestMapping(value="profileUpload")
-		   public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{
-			System.out.println("111111");
-			
-			dietComService.profileUpload(file, request, response);
-		   } 
-		
 		@RequestMapping(value = "getDietCom", method = RequestMethod.GET)
-		public String getDietCom(@RequestParam("postNo") String postNo, Model model, HttpSession session) throws Exception{
+		public String getDietCom(@RequestParam("postNo") String postNo, Model model) throws Exception{
 			System.out.println("/getDietCom :GET");
 			
 			Post post = dietComService.getDietCom(postNo);
@@ -89,18 +85,35 @@ public class DietComController {
 			post.setClickCount(clickCount);
 			dietComService.updateClickCount(post);
 
+			int totalLikeCount = favoriteService.getTotalLikeCount(postNo);
+			int likeCount = post.getLikeCount();
+			post.setLikeCount(totalLikeCount);
+			dietComService.updateLikeCount(post);
+			
 			model.addAttribute("post",post);
 			
 			return "forward:/dietcom/getDietCom.jsp";
 		}
 		
 		@RequestMapping(value = "updateDietCom", method= RequestMethod.GET)
-		public String updateDietCom(@ModelAttribute("post") Post post) throws Exception{
-			System.out.println("/updateDietCom");
+		public String updateDietCom(@RequestParam("postNo") String postNo, Model model) throws Exception{
+			System.out.println("/updateDietCom : GET");
+			
+			Post post = dietComService.getDietCom(postNo);
+			
+			model.addAttribute("post",post);
+			
+			return "forward:/dietcom/updateDietCom.jsp";
+		}
+		
+		@RequestMapping(value = "updateDietCom", method= RequestMethod.POST)
+		public String updateDietCom(@ModelAttribute("post") Post post, @RequestParam("postNo") String postNo) throws Exception{
+			System.out.println("/updateDietCom : POST");
 			
 			dietComService.updateDietCom(post);
+			dietComService.updateThumbnail(post);
 			
-			return "redirect:/dietCom/updateDietCom?postNo="+post.getPostNo();
+			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		
 		@RequestMapping(value="deleteDietCom", method = RequestMethod.POST)

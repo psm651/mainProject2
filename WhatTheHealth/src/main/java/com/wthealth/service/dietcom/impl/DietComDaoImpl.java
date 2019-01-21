@@ -53,6 +53,17 @@ public class DietComDaoImpl implements DietComDao {
 		sqlSession.update("DietComMapper.updateClickCount", post);
 		
 	}
+	
+	@Override
+	public void updateLikeCount(Post post) throws Exception {
+		sqlSession.update("DietComMapper.updateLikeCount", post);
+	}
+
+	@Override
+	public void updateThumbnail(Post post) throws Exception {
+		sqlSession.update("DietComMapper.updateThumbnail",post);
+		
+	}
 
 	@Override
 	public void deleteDietCom(String postNo) throws Exception {

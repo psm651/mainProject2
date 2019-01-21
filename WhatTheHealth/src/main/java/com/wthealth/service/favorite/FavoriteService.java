@@ -11,18 +11,22 @@ import com.wthealth.domain.User;
 
 public interface FavoriteService {
 	
-	public Favorite addLike(Favorite like) throws Exception;
+	public Favorite addLike(Favorite favorite) throws Exception;
 
-	public Favorite addInterest(Favorite interest) throws Exception;
-
+	public Favorite addInterest(Favorite favorite) throws Exception;
+	
 	public void deleteLike(int favoriteNo) throws Exception;
 
 	public void deleteInterest(int favoriteNo) throws Exception;
+	
+	public Favorite getFavorite(Favorite favorite) throws Exception;
 	
 	public  Map<String, Object> listLikePeople(Search search,String postNo) throws Exception;
 	
 	public Map<String, Object> listMyInterest(Search search, String userId) throws Exception;
 	
-	public void updateLikeCount(String postNo) throws Exception;
+	public List<Favorite> listFavorite(Favorite favorite) throws Exception;
+	
+	public int getTotalLikeCount(String postNo) throws Exception;
 	
 }

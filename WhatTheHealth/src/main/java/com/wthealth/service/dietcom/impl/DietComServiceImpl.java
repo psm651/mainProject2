@@ -40,35 +40,6 @@ public class DietComServiceImpl implements DietComService {
 	}
 	
 	@Override
-	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		// 업로드할 폴더 경로
-		//String realFolder = request.getSession().getServletContext().getRealPath("images");
-		String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
-		System.out.println(realFolder);
-		UUID uuid = UUID.randomUUID();
-
-		// 업로드할 파일 이름
-		String orgFileName = file.getOriginalFilename();
-		String strFileName = uuid.toString() + orgFileName;
-
-		System.out.println("원본 파일명 : " + orgFileName);
-		System.out.println("저장할 파일명 : " + strFileName);
-
-		String filepath = realFolder + "\\" + strFileName;
-		System.out.println("파일경로 : " + filepath);
-
-		File f = new File(filepath);
-		if (!f.exists()) {
-			f.mkdirs();
-		}
-		file.transferTo(f);
-		out.print("/resources/images/upload/"+strFileName);
-		out.close();
-	}
-	
-	@Override
 	public Post getDietCom(String postNo) throws Exception {
 		return dietComDao.getDietCom(postNo);
 	}
@@ -94,6 +65,22 @@ public class DietComServiceImpl implements DietComService {
 	@Override
 	public void updateClickCount(Post post) throws Exception {
 		dietComDao.updateClickCount(post);
+	}
+	
+	@Override
+	public void updateLikeCount(Post post) throws Exception {
+		dietComDao.updateLikeCount(post);
+	}
+
+	@Override
+	public void updateThumbnail(Post post) throws Exception {
+		String contents = post.getContents();
+		String photoName = contents.split("upload/")[1];
+		photoName = photoName.split(">")[0];
+		
+		post.setPhoto(photoName);
+		
+		dietComDao.updateThumbnail(post);
 		
 	}
 
