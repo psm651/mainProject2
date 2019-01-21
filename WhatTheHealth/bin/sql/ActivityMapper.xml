@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ActivityMapper">
+ 	
+ 	
+	<resultMap id="postSelectMap" type="com.wthealth.domain.Post">
+      <result property="postNo" column="post_no" jdbcType="VARCHAR" />
+      <result property="userId" column="user_id" jdbcType="VARCHAR" />
+      <result property="title" column="title" jdbcType="VARCHAR" />
+      <result property="contents" column="contents" jdbcType="VARCHAR" />
+      <result property="photo" column="photo" jdbcType="VARCHAR" />
+      <result property="video" column="video" jdbcType="VARCHAR" />
+      <result property="clickCount" column="click_count" jdbcType="NUMERIC" />
+      <result property="blindStatus" column="blind_status" jdbcType="VARCHAR" />
+      <result property="deleteStatus" column="delete_status"	jdbcType="VARCHAR" />
+      <result property="likeCount" column="like_count" jdbcType="NUMERIC" />
+      <result property="category" column="category" jdbcType="VARCHAR" />
+      <result property="postDate" column="post_date" jdbcType="DATE" />
+      <result property="exScNo" column="ex_sc_no" jdbcType="NUMERIC" />
+      <result property="dietScNo" column="diet_sc_no" jdbcType="NUMERIC" />
+      <result property="locationTagName" column="locationtag_name" jdbcType="VARCHAR" />
+      <result property="xCoordinate" column="x_coordinate" jdbcType="NUMERIC" />
+      <result property="yCoordinate" column="y_coordinate" jdbcType="NUMERIC" />
+      <result property="address" column="address" jdbcType="VARCHAR" />
+   </resultMap>
+	
+	<!-- SQL : SELECT LIST -->
+    <select id="listMyPost" resultMap="postSelectMap" parameterType="map">
+      SELECT *
+      FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+         FROM ( SELECT p.post_no, p.category, p.title, p.post_date, p.user_id
+            FROM post p, users u WHERE p.user_id = u.user_id AND p.user_id = #{postId}
+               ORDER BY p.post_date DESC ) inner_table
+      	WHERE ROWNUM &lt;= #{search.endRowNum} )
+      WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
+   </select>	 
+
+	 <!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="string"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT p.post_no, p.category, p.title, p.post_date, p.user_id
+            FROM post p, users u WHERE p.user_id = u.user_id AND p.user_id = #{value} ) countTable						
+	 </select>
+	 
+</mapper>

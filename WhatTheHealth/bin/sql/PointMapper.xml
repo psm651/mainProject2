@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PointMapper">
+ 	
+ 	
+	<resultMap id="pointSelectMap" type="com.wthealth.domain.Point">
+		<result property="pointNo" 			column="point_no" 			jdbcType="NUMERIC"/>
+		<result property="pointDate" 	column="point_date" 		jdbcType="DATE" />
+		<result property="usingPoint"	column="using_point" 		jdbcType="NUMERIC" />
+		<result property="pointStatus" 			column="point_status_code" 				jdbcType="VARCHAR"  />
+		<result property="senderId" 			column="sender_id" 				jdbcType="VARCHAR"  />
+		<result property="receiverId" 			column="receiver_id" 				jdbcType="VARCHAR"  />	
+		<result property="havingPoint" 			column="having_point" 				jdbcType="NUMERIC"  />	
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addPoint"		parameterType="com.wthealth.domain.Point" >
+	 	INSERT
+		INTO point( point_no , point_date , using_point , point_status_code , sender_id, receiver_id ) 
+		VALUES	 (	seq_point_point_no.nextval , SYSDATE , #{usingPoint} , '0', #{senderId}, #{receiverId:VARCHAR})
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getPoint"	parameterType="int"	resultMap="pointSelectMap">
+		SELECT
+			point_no , point_date , using_point , point_status_code , sender_id, receiver_id		
+		FROM point
+		WHERE point_no = #{value}
+	 </select>
+
+	 
+	 <!-- SQL : INSERT -->
+	 <insert 	id="updatePoint"		parameterType="com.wthealth.domain.Point" >
+	 	INSERT
+		INTO point( point_no , point_date , using_point , point_status_code , sender_id, receiver_id ) 
+		VALUES	 (	seq_point_point_no.nextval , SYSDATE , #{usingPoint} , #{pointStatus}, #{senderId}, #{receiverId})
+	 </insert>
+	 
+		 
+	 <!-- SQL : SELECT LIST -->
+	<select  id="listPoint"  parameterType="map"	resultMap="pointSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT p.point_date, p.using_point, p.point_status_code, p.receiver_id, p.sender_id, u.having_point
+	  										FROM point p, users u WHERE p.sender_id = u.user_id AND p.sender_id = #{senderId}
+											<if test="searchFilter != null">
+												<if test="searchFilter==0">
+													ORDER BY point_date DESC
+												</if>
+												<if test="searchFilter==1">
+													ORDER BY point_status_code DESC
+												</if>
+											</if>
+											ORDER BY point_date DESC) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select>
+	 
+	 <!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="string"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT p.point_date, p.using_point, p.point_status_code, p.receiver_id, u.having_point
+	  				FROM point p, users u WHERE p.sender_id = u.user_id AND p.sender_id = #{value} ) countTable						
+	 </select>
+	 
+</mapper>

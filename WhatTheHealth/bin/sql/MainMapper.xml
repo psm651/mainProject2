@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MainMapper">
+ 	
+ 	<resultMap id="mainMapper" type="com.wthealth.domain.Post">	
+     	 <!-- user정보 -->
+     	 <result property="userId" 		column="user_id"			 jdbcType="VARCHAR" />
+     	 <result property="nickName" 		column="nickname"		 	 jdbcType="VARCHAR" />	 
+     	 <!-- 게시물  -->
+     	 <result property="postNo" 			column="post_no"			 jdbcType="VARCHAR" />
+     	 <result property="title" 			column="title"				 jdbcType="VARCHAR" />
+     	 <result property="photo"			column="photo" 				 jdbcType="VARCHAR" />
+     	 <result property="video"			column="video" 				 jdbcType="VARCHAR" />
+     	 <result property="contents" 		column="contents"			 jdbcType="VARCHAR" />
+     	 <result property="clickCount"  	column="click_count"		 jdbcType="NUMERIC" />
+      	 <result property="blindStatus"	 	column="blind_status" 		 jdbcType="VARCHAR" />
+      	 <result property="deleteStatus" 	column="delete_status" 		 jdbcType="VARCHAR" />
+      	 <result property="likeCount" 		column="like_count" 		 jdbcType="NUMERIC" />
+     	 <result property="category" 		column="category" 		 	 jdbcType="VARCHAR" />
+      	 <result property="postDate" 		column="post_date"	 	 	 jdbcType="DATE" />
+      	 <!-- 운동정보 -->
+      	 <result property="exInfoNo"	 	column="ex_info_no" 		 jdbcType="NUMERIC" />
+      	 <result property="exCalorie" 		column="ex_calorie" 		 jdbcType="NUMERIC" />
+      	 <result property="exPlace" 		column="ex_place" 		 	jdbcType="VARCHAR" />
+      	 <result property="exPart" 			column="ex_part" 		 	jdbcType="VARCHAR" />
+      	 <result property="exVideoTime" 	column="ex_videotime" 		 jdbcType="VARCHAR" />
+      	 <!-- 스케줄 -->
+      	 <result property="exScNo" 			column="ex_sc_no" 	     	 jdbcType="NUMERIC" />
+      	 <result property="dietScNo" 		column="diet_sc_no" 	 	 jdbcType="NUMERIC" />
+		 <!-- 위치태그 --> 
+      	 <result property="locationTagName" column="locationtag_name"	 jdbcType="VARCHAR" />
+     	 <result property="xCoordinate" 	column="x_coordinate" 		 jdbcType="NUMERIC" />
+     	 <result property="yCoordinate" 	column="y_coordinate" 		 jdbcType="NUMERIC" />
+     	 <result property="address"			column="address" 			 jdbcType="VARCHAR" />
+   </resultMap>
+   
+   	<resultMap id="hashTagSelectMap" type="com.wthealth.domain.HashTag">
+		<result property="hashTagNo" 			column="hashtag_no" 					jdbcType="NUMERIC"/>
+		<result property="hashTag"				column="hashtag" 						jdbcType="VARCHAR" />
+		<result property="postNo" 				column="post_no" 						jdbcType="VARCHAR" />
+	</resultMap>
+
+ 	
+ 	<!-- SQL :: Main 검색 list  -->
+ 	<select  id="listSearchMain"  parameterType="com.wthealth.common.Search"	resultMap="mainMapper">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
+	  			FROM (		  	
+                    SELECT 
+                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname    
+                    FROM 
+                         post p, ex_info e, hashtag t, (SELECT 
+                                           					u.user_id, u.nickname
+                                      					FROM 
+                                           					users u, post p
+                                      					WHERE 
+                                           					u.user_id = p.user_id
+                                      					GROUP BY
+                                         					u.user_id, u.nickname) nick 
+                    WHERE
+                      nick.user_id = p.user_id AND 
+					  p.delete_status = '0' AND
+					  t.post_no(+) = p.post_no
+  			
+ 					    <if test="searchFilter != null ">
+ 					   		 <!-- exinfo -->
+					    	<if test="searchFilter == 1">
+					    		 AND p.category = '1' 
+					    	</if>
+					    	<!-- excom -->
+					    	<if test="searchFilter == 2">
+					    		 AND p.category = '2' 
+					    	</if>
+					    	<!-- dietcom -->
+					    	<if test="searchFilter == 3">
+					    		 AND p.category = '3' 
+					    	</if>		
+					    	<!-- meeting -->			    		   	  					    		   	  
+					        <if test="searchFilter == 4">
+					    		 AND p.cateogry = '4' 
+					        </if>
+					 
+					   </if>   
+					   <if test="searchCondition != null ">
+							<if test="searchCondition == 0 and searchKeyword !='' ">
+								 AND p.title LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 1 and searchKeyword !='' ">
+							     AND p.locationtag_name LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 3 and searchKeyword !='' ">
+							     AND t.hashtag LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 4 and searchKeyword !='' ">
+							     AND p.contents LIKE '%'||#{searchKeyword}||'%'
+							</if>
+					  </if> 
+					  
+			         GROUP BY 
+				     p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname, t.hashtag 
+					    	) inner_table
+	   			WHERE ROWNUM &lt;= #{endRowNum} )
+	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+
+	 <select  id="getTotalCount"  parameterType="com.wthealth.common.Search" resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT 
+                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname      
+                    FROM 
+                         post p, ex_info e, hashtag t, (SELECT 
+                                           					u.user_id, u.nickname
+                                      					FROM 
+                                           					users u, post p
+                                      					WHERE 
+                                           					u.user_id = p.user_id
+                                      					GROUP BY
+                                         					u.user_id, u.nickname) nick 
+                    WHERE
+                      nick.user_id = p.user_id AND 
+					  p.delete_status = '0' AND
+					  t.post_no(+) = p.post_no
+					  
+ 					    <if test="searchFilter != null ">
+ 					   		 <!-- exinfo -->
+					    	<if test="searchFilter == 1">
+					    		 AND p.category = '1' 
+					    	</if>
+					    	<!-- excom -->
+					    	<if test="searchFilter == 2">
+					    		 AND p.category = '2' 
+					    	</if>
+					    	<!-- dietcom -->
+					    	<if test="searchFilter == 3">
+					    		 AND p.category = '3' 
+					    	</if>		
+					    	<!-- meeting -->			    		   	  					    		   	  
+					        <if test="searchFilter == 4">
+					    		 AND p.cateogry = '4' 
+					        </if>
+					 
+					   </if>   
+					   <if test="searchCondition != null ">
+							<if test="searchCondition == 0 and searchKeyword !='' ">
+								 AND p.title LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 1 and searchKeyword !='' ">
+							     AND p.locationtag_name LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 3 and searchKeyword !='' ">
+							     AND t.hashtag LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 4 and searchKeyword !='' ">
+							     AND p.contents LIKE '%'||#{searchKeyword}||'%'
+							</if>
+					  </if> 
+			         GROUP BY 
+				     p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname 
+				) countTable									
+	 </select>
+	  
+	  
+</mapper>

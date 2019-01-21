@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MeetingMapper">
+ 	
+ 	
+	<resultMap id="meetingSelectMap" type="com.wthealth.domain.Meeting">
+		<result property="meetNo" 			column="meet_no" 			jdbcType="NUMERIC"/>
+		<result property="depoAmount" 	column="depo_amount" 		jdbcType="NUMERIC" />
+		<result property="depoBank" 				column="depo_bank" 					jdbcType="VARCHAR" />
+		<result property="depoAccount" 				column="depo_account" 					jdbcType="VARCHAR" />
+		<result property="depoDeadline" 			column="depo_deadline" 		jdbcType="DATE" />
+		<result property="depoAccHolder" 				column="depo_acc_holder" 					jdbcType="VARCHAR" />
+		<result property="entryfee" 			column="entryfee" 				jdbcType="NUMERIC"  />
+		<result property="minParty" 		column="min_party" 			jdbcType="NUMERIC" />
+		<result property="maxParty" 		column="max_party" 			jdbcType="NUMERIC" />
+		<result property="cheifId" 		column="chief_id" 			jdbcType="VARCHAR" />
+		<result property="depoCondition" 		column="depo_condition" 			jdbcType="VARCHAR" />
+		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
+		<result property="deadlineTime" 		column="deadline_time" 			jdbcType="DATE" />
+		<result property="post.postNo"	column="post_no" 		jdbcType="VARCHAR" />
+		<result property="post.deleteStatus"	column="delete_status" 		jdbcType="VARCHAR" />
+		<result property="post.postDate"	column="post_Date" 		jdbcType="DATE" />
+		<result property="post.postNo" 	column="post_no" 	jdbcType="VARCHAR" />
+		<result property="post.userId" 	column="user_id" 	jdbcType="VARCHAR" />
+		<result property="post.title" 	column="title" 	jdbcType="VARCHAR" />
+		<result property="post.contents" 	column="contents" 	jdbcType="VARCHAR" />
+		<result property="post.photo"	column="photo" 	jdbcType="VARCHAR" />
+		<result property="post.video"	column="video" 	jdbcType="VARCHAR" />
+		<result property="post.clickCount" 	column="click_count" 	jdbcType="NUMERIC" />
+		<result property="post.blindStatus" 	column="blind_status" 	jdbcType="VARCHAR" />
+		<result property="post.deleteStatus"	column="delete_status"		jdbcType="VARCHAR" />
+		<result property="post.likeCount" 	column="like_count"		jdbcType="NUMERIC" />
+		<result property="post.category"		column="category"		jdbcType="VARCHAR" />
+		<result property="post.postDate"		column="post_date"		jdbcType="DATE" />
+		<result property="post.exScNo"		column="ex_sc_no"		jdbcType="NUMERIC" />
+		<result property="post.dietScNo"		column="diet_sc_no"		jdbcType="NUMERIC" />
+		<result property="post.locationTagName"		column="locationtag_name"		jdbcType="VARCHAR" />
+		<result property="post.xCoordinate"		column="x_coordinate"		jdbcType="NUMERIC" />
+		<result property="post.yCoordinate"		column="y_coordinate"		jdbcType="NUMERIC" />
+		<result property="post.address"		column="address"	jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="joinSelectMap" type="com.wthealth.domain.Join">
+		<result property="joinNo" 			column="join_no" 			jdbcType="VARCHAR"/>
+		<result property="joinDate" 	column="join_date" 		jdbcType="DATE" />
+		<result property="joinStatus" 				column="join_status" 					jdbcType="VARCHAR" />
+		<result property="depoStatus" 				column="depo_status" 					jdbcType="VARCHAR" />
+		<result property="postNo" 			column="post_no" 		jdbcType="VARCHAR" />
+		<result property="partyId" 				column="party_id" 					jdbcType="VARCHAR" />
+		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
+		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
+	</resultMap>
+	
+	<resultMap id="postSelectMap" 	type="com.wthealth.domain.Post">
+		<result property="postNo" 	column="post_no" 	jdbcType="VARCHAR" />
+		<result property="userId" 	column="user_id" 	jdbcType="VARCHAR" />
+		<result property="title" 	column="title" 	jdbcType="VARCHAR" />
+		<result property="contents" 	column="contents" 	jdbcType="VARCHAR" />
+		<result property="photo"	column="photo" 	jdbcType="VARCHAR" />
+		<result property="video"	column="video" 	jdbcType="VARCHAR" />
+		<result property="clickCount" 	column="click_count" 	jdbcType="NUMERIC" />
+		<result property="blindStatus" 	column="blind_status" 	jdbcType="VARCHAR" />
+		<result property="deleteStatus"	column="delete_status"		jdbcType="VARCHAR" />
+		<result property="likeCount" 	column="like_count"		jdbcType="NUMERIC" />
+		<result property="category"		column="category"		jdbcType="VARCHAR" />
+		<result property="postDate"		column="post_date"		jdbcType="DATE" />
+		<result property="exScNo"		column="ex_sc_no"		jdbcType="NUMERIC" />
+		<result property="dietScNo"		column="diet_sc_no"		jdbcType="NUMERIC" />
+		<result property="locationTagName"		column="locationtag_name"		jdbcType="VARCHAR" />
+		<result property="xCoordinate"		column="x_coordinate"		jdbcType="NUMERIC" />
+		<result property="yCoordinate"		column="y_coordinate"		jdbcType="NUMERIC" />
+		<result property="address"		column="address"	jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addMeeting"		parameterType="com.wthealth.domain.Meeting" useGeneratedKeys="true" keyProperty="meetNo">
+	 	INSERT
+		INTO meeting ( meet_no , post_no, depo_amount , depo_bank , depo_account, depo_deadline, depo_acc_holder, entryfee , 
+									min_party, max_party, chief_id, depo_condition, meet_time, deadline_time ) 
+		VALUES	 (	seq_meeting_meet_no.nextval, 'ME'||seq_meeting_meet_no.currval, #{depoAmount:NUMERIC} , #{depoBank:VARCHAR} , #{depoAccount:VARCHAR} , 
+							#{depoDeadline:DATE} , #{depoAccHolder:VARCHAR} , #{entryfee:NUMERIC} , #{minParty:NUMERIC}
+							, #{maxParty:NUMERIC}, #{cheifId}, #{depoCondition}, #{meetTime}, #{deadlineTime:DATE})
+		<selectKey resultType="int" keyProperty = "meetNo" order="AFTER">
+			SELECT seq_meeting_meet_no.currval FROM dual
+		</selectKey>
+	 </insert>
+	 
+	 <!-- SQL : INSERT -->
+	<!-- <insert 	id="addMeetingPost"		parameterType="com.wthhealth.domain.Meeting" >
+	 	INSERT
+		INTO post (post_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
+							category, post_date, locationtag_name, x_coordinate, y_coordinate, address)
+		VALUES (	'ME'||#{meetNo}, #{post.userId}, #{post.title}, #{post.contents}, #{post.photo:VARCHAR}, #{post.video:VARCHAR}, '0', NULL, NULL, '0', '4', SYSDATE,
+							 #{post.locationTagName:VARCHAR}, #{post.xCoordinate:NUMERIC}, #{post.yCoordinate:NUMERIC}, #{post.address:VARCHAR})
+	</insert>   -->
+	<insert 	id="addMeetingPost"		parameterType="com.wthealth.domain.Post" >
+	 	INSERT
+		INTO post (post_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
+							category, post_date, locationtag_name, x_coordinate, y_coordinate, address)
+		VALUES (	#{postNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, '0', NULL, NULL, '0', '4', SYSDATE,
+							 #{locationTagName:VARCHAR}, #{xCoordinate:NUMERIC}, #{yCoordinate:NUMERIC}, #{address:VARCHAR})
+	</insert>
+
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getMeeting"	parameterType="String"	resultMap="meetingSelectMap">
+		SELECT
+		m.meet_no , m.depo_amount , m.depo_bank , m.depo_account, m.depo_deadline, m.depo_acc_holder, m.entryfee, 
+									m.min_party, m.max_party, m.chief_id, m.depo_condition, m.meet_time, m.deadline_time, m.post_no,
+									p.user_id, p.title, p.contents, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
+									p.category, p.post_date, p.locationtag_name, p.x_coordinate, p.y_coordinate, p.address
+		FROM meeting m, post p
+		WHERE m.post_no = p.post_no and p.post_no = #{value}
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getMeetingPost"	parameterType="String"	resultMap="postSelectMap">
+		SELECT
+		post_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
+							category, post_date, locationtag_name, x_coordinate, y_coordinate, address
+		FROM post
+		WHERE post_no = #{value}
+	 </select>
+	 
+	<!-- SQL : UPDATE -->
+	 <!--  <update	id="updateMeeting"		parameterType="meeting" >
+	   	UPDATE meeting
+	   	<set>
+	   		delete_status = '1'
+	   	</set>
+	   	WHERE meet_no = #{meetNo}
+	 </update> -->
+	 
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="deleteMeeting"	parameterType="String" >
+	   	UPDATE post
+	   	<set>
+	   		delete_status = '1'
+	   	</set>
+	   	WHERE post_no = #{value}
+	 </update>
+	 
+	 <!-- SQL : INSERT -->
+	<insert 	id="addJoin"		parameterType="com.wthealth.domain.Join"  useGeneratedKeys="true" keyProperty="joinNo">
+	 	INSERT
+		INTO join ( join_no, join_date, join_status, depo_status, post_no, party_id, delete_status)
+		VALUES	 (	seq_join_join_no.nextval, SYSDATE, #{joinStatus}, #{depoStatus:VARCHAR}, 
+							#{postNo}, #{partyId}, #{deleteStatus:VARCHAR} )
+		<selectKey resultType="int" keyProperty = "joinNo" order="AFTER">
+			SELECT seq_join_join_no.currval FROM dual
+		</selectKey>
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getJoin"	parameterType="int"	resultMap="joinSelectMap">
+		SELECT
+		join_no , join_date , join_status , depo_status, post_no, party_id, delete_status 
+		FROM join
+		WHERE join_no = #{value}
+	 </select>
+	 
+	<!-- SQL : UPDATE -->
+	 <update	id="deleteJoin"		parameterType="String" >
+	   	UPDATE join
+	   	<set>
+	   		delete_status = '1'
+	   	</set>
+	   	WHERE join_no = #{value}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateDeposit"		parameterType="int" >
+	   	UPDATE join
+	   	<set>
+	   		depo_status = '1'
+	   	</set>
+	   	WHERE join_no = #{value}
+	 </update>
+	
+	<!-- SQL : SELECT LIST -->
+	<select  id="listMeeting"  parameterType="com.wthealth.common.Search"	resultMap="meetingSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT m.meet_no, m.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
+	  												p.user_id, p.title, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
+													p.category, p.post_date
+											FROM meeting m, post p
+											<where>
+												 m.post_no = p.post_no
+												 <if test="searchCondition == 0 and searchKeyword !='' ">
+												 and p.title LIKE '%'||#{searchKeyword}||'%'
+												 </if>
+												 <if test="searchCondition == 1 and searchKeyword !='' ">
+												 and p.contents LIKE '%'||#{searchKeyword}||'%'
+												 </if>
+												 <if test="searchCondition == 2 and searchKeyword !='' ">
+												 and p.user_id LIKE '%'||#{searchKeyword}||'%'
+												 </if>
+											</where>
+											<if test="searchFilter == 0">
+												 ORDER BY p.like_count
+											</if>
+											<if test="searchFilter == 1">
+												 ORDER BY p.post_date
+											</if>
+											) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+	 <!-- SQL : SELECT LIST -->
+	<select  id="listJoinedMeeting"  parameterType="map"		resultMap="joinSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time
+											FROM join j, meeting m
+											WHERE j.post_no = m.post_no
+										
+												<if test = "search.searchFilter == 0 or search.searchFilter == '' or search.searchFilter == null" >
+													ORDER BY j.join_no DESC
+												</if>
+												<if test = "search.searchFilter == 1" >
+													ORDER BY j.join_no
+												</if>
+												<if test = "search.searchFilter == 2" >
+													ORDER BY m.meet_time, j.join_no
+												</if>
+										
+											 ) inner_table
+						WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	 </select>
+	 	<!--  위 두번째 subQuery 의  
+	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
+	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
+	 			< 는 keyword 로 &lt; 를	사용.
+	 			
+	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
+	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
+
+				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
+		-->
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT m.meet_no, m.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
+	  												p.user_id, p.title, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
+													p.category, p.post_date
+											FROM meeting m, post p
+											<where>
+												 m.post_no = p.post_no
+												 <if test="searchCondition == 0 and searchKeyword !='' ">
+												 and p.title LIKE '%'||#{searchKeyword}||'%'
+												 </if>
+												 <if test="searchCondition == 1 and searchKeyword !='' ">
+												 and p.contents LIKE '%'||#{searchKeyword}||'%'
+												 </if>
+												 <if test="searchCondition == 2 and searchKeyword !='' ">
+												 and p.user_id LIKE '%'||#{searchKeyword}||'%'
+												 </if>
+											</where>
+											<if test="searchFilter == 0">
+												 ORDER BY p.like_count
+											</if>
+											<if test="searchFilter == 1">
+												 ORDER BY p.post_date
+											</if>
+					 ) countTable						
+	 </select>
+	 
+	 
+	 <!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCountJoin"  parameterType="String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time
+											FROM join j, meeting m
+											WHERE j.post_no = m.post_no
+					 ) countTable						
+	 </select>
+	 
+</mapper>

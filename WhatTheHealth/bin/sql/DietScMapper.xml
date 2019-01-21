@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DietScMapper">
+ 	
+ 	
+	<resultMap id="dietScSelectMap" type="com.wthealth.domain.DietSchedule">
+		<result property="dietScNo" 			column="DIET_SC_NO" 				jdbcType="NUMERIC"/>
+		<result property="userId"				column="USER_ID" 					jdbcType="VARCHAR" />
+		<result property="dietScDate" 		column="DIET_SC_DATE" 			jdbcType="DATE" />
+		<result property="mealTime" 		column="MEAL_TIME" 				jdbcType="VARCHAR" />
+		<result property="bmi" 				column="BMI_VALUE" 				jdbcType="NUMERIC" />
+		<result property="weight" 			column="WEIGHT" 					jdbcType="NUMERIC" />	
+		<result property="deleteStatus" 		column="delete_status" 				jdbcType="VARCHAR" />	
+			
+	</resultMap>
+	
+	<resultMap id="foodSelectMap" type="com.wthealth.domain.Food">
+		<result property="foodName" 			column="food_name" 			jdbcType="VARCHAR"/>
+		<result property="foodCalorie"			column="food_calorie" 			jdbcType="NUMERIC" />
+		<result property="amountFood" 			column="amount_food" 			jdbcType="NUMERIC" />
+		<result property="dietScNo" 				column="diet_sc_no" 			jdbcType="NUMERIC" />
+	</resultMap>
+
+
+	  <!-- SQL : INSERT -->
+   	<insert    id="addDietSchedule"  parameterType="com.wthealth.domain.DietSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
+      	INSERT
+		INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , bmi_value, weight, delete_status) 
+		VALUES	 (	seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , sysdate, #{mealTime}, #{bmi} , #{weight},'0' )
+      		<selectKey resultType="int" keyProperty ="dietScNo" order="AFTER">
+         		SELECT seq_diet_sc_diet_sc_no.currval FROM dual
+      		</selectKey>
+      	</insert>
+    
+    
+	 <!-- SQL : INSERT MEAL-->
+	 <insert 	id="addMeal"		parameterType="com.wthealth.domain.Food" >
+	 	INSERT
+		INTO meal( meal_no, diet_sc_no, food_name, food_calorie, amount_food) 
+		VALUES  (seq_meal_meal_no.NEXTVAL , #{dietScNo} , #{foodName}, #{foodCalorie}, #{amountFood} )
+	 </insert>
+	 
+	 <!-- SQL : SELECT  -->
+	<!--  <select 	id="getDietSchedule"	 parameterType="int"	 resultMap="dietScSelectMap">
+		SELECT
+		m.food_name, m.food_claorie, m.amount_food, d.bmi_value, d.weight
+		FROM meal m, diet_sc d 
+		WHERE m.diet_sc_no = d.diet_sc_no AND m.diet_sc_no = #{dietScNo}
+	 </select> -->
+	 
+	 <select 	id="getDietSchedule"	 parameterType="int"	 resultMap="dietScSelectMap">
+		SELECT *
+		FROM diet_sc 
+		WHERE diet_sc_no = #{dietScNo}
+	 </select>
+	 
+	<!--  <select 	id="getMeal"	 parameterType="int"	 resultMap="dietScSelectMap">
+		SELECT
+		food_name, food_claorie, amount_food
+		FROM meal
+		WHERE diet_sc_no = #{dietScNo}
+	 </select>
+	  -->
+	 	  <!--  SQL : UPDATE-->
+	 <update	id="updateDietSchedule"	parameterType="com.wthealth.domain.DietSchedule"  >
+	   	UPDATE diet_sc
+	   	<set>
+			bmi_value 	= 	#{bmi:NUMERIC} ,
+			weight	=	#{weight:NUMERIC},
+			delete_status	=	#{deleteStatus:VARCHAR},
+	   	</set>
+	   	WHERE diet_sc_no = #{dietScNo}
+	 </update>
+	 
+	 <update	id="deleteDietSchedule"	parameterType="int"  >
+	   	UPDATE diet_sc
+	   	<set>
+			delete_status	=	#{deleteStatus:VARCHAR},
+	   	</set>
+	   	WHERE diet_sc_no = #{dietScNo}
+	 </update>
+	
+	 <!-- SQL : DELETE -->
+	 <delete	id="deleteMeal"	parameterType="com.wthealth.domain.DietSchedule" >
+	   	DELETE
+	   	FROM meal
+	   	WHERE diet_sc_no = #{dietScNo}
+	 </delete>
+		 
+	<!-- SQL : SELECT LIST 일단 유저아이디만 받아서, 나중에 날짜도 받아야하는지 확인 -->
+	<select  id="listDietSchedule"  parameterType="String" resultMap="dietScSelectMap">
+	  SELECT *
+        FROM (    SELECT *
+                       FROM diet_sc
+                       WHERE user_id = #{userId} )
+      
+	 </select>
+	 
+	 <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT * FROM diet_sc ) countTable			
+	 </select>
+	 	
+</mapper>

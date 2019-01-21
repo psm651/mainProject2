@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ExInfoMapper">
+ 	
+ 	
+	<resultMap id="exInfoSelectMap" type="com.wthealth.domain.Post">	
+     	 <!-- user정보 -->
+     	 <result property="userId" 		column="user_id"			 jdbcType="VARCHAR" />
+     	 <result property="nickName" 		column="nickname"		 	 jdbcType="VARCHAR" />	 
+     	 <!-- 게시물  -->
+     	 <result property="postNo" 			column="post_no"			 jdbcType="VARCHAR" />
+     	 <result property="title" 			column="title"				 jdbcType="VARCHAR" />
+     	 <result property="photo"			column="photo" 				 jdbcType="VARCHAR" />
+     	 <result property="video"			column="video" 				 jdbcType="VARCHAR" />
+     	 <result property="contents" 		column="contents"			 jdbcType="VARCHAR" />
+     	 <result property="clickCount"  	column="click_count"		 jdbcType="NUMERIC" />
+      	 <result property="blindStatus"	 	column="blind_status" 		 jdbcType="VARCHAR" />
+      	 <result property="deleteStatus" 	column="delete_status" 		 jdbcType="VARCHAR" />
+      	 <result property="likeCount" 		column="like_count" 		 jdbcType="NUMERIC" />
+     	 <result property="category" 		column="category" 		 	 jdbcType="VARCHAR" />
+      	 <result property="postDate" 		column="post_date"	 	 	 jdbcType="DATE" />
+      	 <!-- 운동정보 -->
+      	 <result property="exInfoNo"	 	column="ex_info_no" 		 jdbcType="NUMERIC" />
+      	 <result property="exCalorie" 		column="ex_calorie" 		 jdbcType="NUMERIC" />
+      	 <result property="exPlace" 		column="ex_place" 		 	jdbcType="VARCHAR" />
+      	 <result property="exPart" 			column="ex_part" 		 	jdbcType="VARCHAR" />
+      	 <result property="exVideoTime" 	column="ex_videotime" 		 jdbcType="VARCHAR" />
+      	 <!-- 스케줄 -->
+      	 <result property="exScNo" 			column="ex_sc_no" 	     	 jdbcType="NUMERIC" />
+      	 <result property="dietScNo" 		column="diet_sc_no" 	 	 jdbcType="NUMERIC" />
+		 <!-- 위치태그 --> 
+      	 <result property="locationTagName" column="locationtag_name"	 jdbcType="VARCHAR" />
+     	 <result property="xCoordinate" 	column="x_coordinate" 		 jdbcType="NUMERIC" />
+     	 <result property="yCoordinate" 	column="y_coordinate" 		 jdbcType="NUMERIC" />
+     	 <result property="address"			column="address" 			 jdbcType="VARCHAR" />
+   </resultMap>
+	
+	
+	<!-- SQL : INSERT :: POST TABLE 등록-->
+	  <insert id="addPost" parameterType="com.wthealth.domain.Post">
+
+	    INSERT INTO
+	    	post(post_no, title, video, contents, photo, category, post_date, user_id, delete_status, like_count)
+	    VALUES
+	    	(#{postNo}, #{title}, #{video}, #{contents}, #{photo:VARCHAR}, #{category:VARCHAR},
+	    	  sysdate, #{userId},  #{deleteStatus:VARCHAR}, #{likeCount:NUMERIC})
+		    
+
+	  </insert>
+	  
+	<!-- SQL : INSERT :: EX_INFO TABLE 등록-->  
+ 	   <insert id="addExInfo" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="exInfoNo">
+	
+	    	INSERT INTO
+	    		ex_info
+	   		VALUES
+	    		(seq_ex_info_ex_info_no.nextval, 'EI'||seq_ex_info_ex_info_no.currval
+	    		, #{exCalorie}, #{exPlace}, #{exPart}, #{exVideoTime} )
+	   
+	   	<selectKey resultType="int" keyProperty="exInfoNo" order="AFTER">
+			SELECT seq_ex_info_ex_info_no.CURRVAL FROM dual
+		</selectKey> 
+		   		
+	  </insert>	    
+	  
+ 	<!-- SQL : UPDATE :: 게시물 수정  -->
+	 <update 	id="updatePost"	parameterType="com.wthealth.domain.Post">
+		UPDATE post
+         <set>
+  			title = #{title}, 
+  			video = #{video}, 
+  			contents = #{contents}, 
+  			photo = #{photo}, 
+  			category = #{category},
+  			delete_status = #{deleteStatus:VARCHAR}			
+         </set>
+       WHERE post_no = #{postNo}
+    </update>
+
+ 	<!-- SQL : UPDATE :: 운동정보게시물 수정  -->
+	 <update 	id="updateExInfo"	parameterType="com.wthealth.domain.Post">
+		UPDATE ex_info			
+         <set>
+  			ex_calorie = #{exCalorie}, 
+  			ex_place = #{exPlace}, 
+  			ex_part = #{exPart}, 
+  			ex_videotime = #{exVideoTime}						         
+         </set>
+       		 WHERE post_no = #{postNo}
+     </update>
+	 	  
+	  
+
+	
+	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
+	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
+		SELECT 
+  			p.title, e.ex_part, p.video, e.ex_videoTime, e.ex_calorie, p.contents, e.ex_info_no
+	    FROM 
+  			post p, ex_info e
+		WHERE
+  			p.post_no = e.post_no AND e.post_no = #{value}             
+	 </select>
+  
+
+		 
+	<select  id="listExInfoPost"  parameterType="com.wthealth.common.Search"	resultMap="exInfoSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
+	  			FROM (		  	
+                    SELECT 
+                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname      
+                    FROM 
+                         post p, ex_info e, (SELECT 
+                                           		u.user_id, u.nickname
+                                      		FROM 
+                                           		users u, post p
+                                      		WHERE 
+                                           		u.user_id = p.user_id
+                                      		GROUP BY
+                                         		u.user_id, u.nickname) nick 
+                    WHERE
+                      nick.user_id = p.user_id AND
+                      e.post_no = p.post_no AND 
+					  p.delete_status = '0' 
+					  <!--   AND p.category = '1'-->
+  			
+ 					    <if test="searchFilter != null ">
+					    	<if test="searchFilter == 0">
+					    		 AND e.ex_part = '0' 
+					    	</if>
+					    	<if test="searchFilter == 1">
+					    		 AND e.ex_part = '1' 
+					    	</if>
+					    	<if test="searchFilter == 2">
+					    		 AND e.ex_part = '2' 
+					    	</if>					    		   	  					    		   	  
+					        <if test="searchFilter == 3">
+					    		 AND e.ex_part = '3' 
+					        </if>
+					        <if test="searchFilter == 4">
+					    		 AND e.ex_part = '4' 
+					        </if>
+					   </if>   
+					   <if test="searchCondition != null ">
+							<if test="searchCondition == 0 and searchKeyword !='' ">
+								 AND title LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 1 and searchKeyword !='' ">
+							     AND contents LIKE '%'||#{searchKeyword}||'%'
+							</if>
+						
+					  </if> 
+			         GROUP BY 
+				     p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname 
+					    	) inner_table
+	   			WHERE ROWNUM &lt;= #{endRowNum} )
+	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+
+	 <select  id="getTotalCount"  parameterType="com.wthealth.common.Search" resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT 
+                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname      
+                    FROM 
+                         post p, ex_info e, (SELECT 
+                                           		u.user_id, u.nickname
+                                      		FROM 
+                                           		users u, post p
+                                      		WHERE 
+                                           		u.user_id = p.user_id
+                                      		GROUP BY
+                                         		u.user_id, u.nickname) nick 
+                    WHERE
+                      nick.user_id = p.user_id AND
+                      e.post_no = p.post_no AND 
+					  p.delete_status = '0' 
+					 <if test="searchFilter != null ">
+					    	<if test="searchFilter == 0">
+					    		 AND e.ex_part = '0' 
+					    	</if>
+					    	<if test="searchFilter == 1">
+					    		 AND e.ex_part = '1' 
+					    	</if>
+					    	<if test="searchFilter == 2">
+					    		 AND e.ex_part = '2' 
+					    	</if>					    		   	  					    		   	  
+					        <if test="searchFilter == 3">
+					    		 AND e.ex_part = '3' 
+					        </if>
+					        <if test="searchFilter == 4">
+					    		 AND e.ex_part = '4' 
+					        </if>
+					   </if>   
+					   <if test="searchCondition != null ">
+							<if test="searchCondition == 0 and searchKeyword !='' ">
+								 AND title LIKE '%'||#{searchKeyword}||'%'
+							</if>
+							<if test="searchCondition == 1 and searchKeyword !='' ">
+							     AND contents LIKE '%'||#{searchKeyword}||'%'
+							</if>
+						
+					  </if> 
+			         GROUP BY 
+				     p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname 
+				) countTable									
+	 </select>
+	  
+	  
+</mapper>
