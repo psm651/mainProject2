@@ -37,9 +37,7 @@ public class CalculatorRestController {
 		return calBmi;
 	}
 	
-	
-	
-	//search Food 
+ 
 	@RequestMapping(value = "json/getSearchFood/{searchFood}", method=RequestMethod.GET)
 	public List<Food> getSearchFood(@PathVariable String searchFood) throws Exception{
 		
@@ -63,37 +61,31 @@ public class CalculatorRestController {
         element.sendKeys(searchFood);
         // Now submit the form. WebDriver will find the form for us from the element
         element.submit();
-
-        ///////////////////////////////////////////////////////////////////////////
-      
      
         List<WebElement> getFood = driver.findElements(By.cssSelector(".food_search_results > li"));
-        
 
-        Food food = new Food();
         
-        System.out.println("?””ë²„ê¹…");
-  
+        int i=0;
         for(WebElement foods:getFood) {
-        	
-           System.out.println("for ë¬? ?•ˆ");
+           Food food = new Food();
            String[] tempName = foods.getText().split("\n");
            food.setFoodName(tempName[0].replaceAll(" ", ""));
-           System.out.println(food.getFoodName());
-          
-           String[] tempAmountfood = tempName[1].substring(6).split(",");
-           /*food.setAmountFood(Integer.parseInt(tempAmountfood.replaceAll(" ", "")));
-           System.out.println(food.getAmountFood());
-           
-           String tempCalorie = tempCalorie[1].substring(7);
-           food.setFoodCalorie(Integer.parseInt(tempCalorie[0].replaceAll(" ", "")));   
-           System.out.println(food.getFoodCalorie());*/
-           
 
-                
+           System.out.println(i);
+           String[] tempAmountfood = tempName[1].substring(6).split(",");
+           food.setAmountFood(tempAmountfood[0].replaceAll(" ", ""));
+
+           
+           String tempCalorie = tempAmountfood[1].substring(7);
+           food.setFoodCalorie(Integer.parseInt(tempCalorie.replaceAll(" ", "")));   
+           System.out.println(food);
+           
            foodInfo.add(food);
-        }
-        
+         
+           }
+
+        System.out.println(foodInfo);
+      
         // Should see: "cheese! - Google Search"
         System.out.println("Page title is: " + driver.getTitle());
         

@@ -28,7 +28,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 	//@ContextConfiguration(locations = { "classpath:config/context-common.xml" })
 	public class ExInfoTest {
 
-		//==>@RunWith,@ContextConfiguration ÀÌ¿ë Wiring, Test ÇÒ instance DI
+		//==>@RunWith,@ContextConfiguration ï¿½Ì¿ï¿½ Wiring, Test ï¿½ï¿½ instance DI
 		@Autowired
 		@Qualifier("exInfoServiceImpl")
 		private ExInfoService exInfoService;
@@ -39,24 +39,24 @@ import com.wthealth.service.exinfo.ExInfoService;
 			Post post = new Post();
 			post.setUserId("admin");
 			post.setNickName("tes3ttt");
-			post.setTitle("°¡ÀÚ°¡ÀÚ");
+			post.setTitle("ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½");
 			post.setVideo("video.video");
-			post.setContents("ÀÌ¹ø³»¿ëÀº ÀÌ·¸°Ô ÇÔÀ» ¾Ë·Áµå¸³´Ï´Ù.°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÀÚÂ÷Ä« Å¸ÆÄÇÏ");
+			post.setContents("ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½å¸³ï¿½Ï´ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ó¸¶¹Ù»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä« Å¸ï¿½ï¿½ï¿½ï¿½");
 			post.setPhoto("wwww.wwwww");
 			post.setCategory("1");
 			post.setDeleteStatus("0");
 			post.setLikeCount(100);
 			
-			//exInfo °Ô½Ã¹° µî·Ï 
+			//exInfo ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ 
 			post.setExCalorie(755);
 			post.setExPlace("0");
 			post.setExPart("3");
 			post.setExVideoTime("15:15");
 			
 			
-			//exInfo service °Ô½Ã¹° µî·Ï 
+		
 			exInfoService.addExInfo(post);
-			System.out.println("½ÇÇà ÈÄ : "+post.getExInfoNo());
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : "+post.getExInfoNo());
 			
 			String postNo = "EI"+post.getExInfoNo();
 			post.setPostNo(postNo);
@@ -65,13 +65,10 @@ import com.wthealth.service.exinfo.ExInfoService;
 			Assert.assertEquals("0", post.getExPlace());
 			Assert.assertEquals("3", post.getExPart());
 			Assert.assertEquals("15:15", post.getExVideoTime());
-		
-			//Post °Ô½Ã¹° µî·Ï 
-			exInfoService.addPost(post);
 			
-			Assert.assertEquals("°¡ÀÚ°¡ÀÚ", post.getTitle());
+			Assert.assertEquals("ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½", post.getTitle());
 			Assert.assertEquals("video.video", post.getVideo());
-			Assert.assertEquals("ÀÌ¹ø³»¿ëÀº ÀÌ·¸°Ô ÇÔÀ» ¾Ë·Áµå¸³´Ï´Ù.°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÀÚÂ÷Ä« Å¸ÆÄÇÏ", post.getContents());
+			Assert.assertEquals("ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½å¸³ï¿½Ï´ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ó¸¶¹Ù»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä« Å¸ï¿½ï¿½ï¿½ï¿½", post.getContents());
 			Assert.assertEquals("wwww.wwwww", post.getPhoto());
 			Assert.assertEquals("0", post.getCategory());
 			Assert.assertEquals("0", post.getExPlace());
@@ -86,20 +83,20 @@ import com.wthealth.service.exinfo.ExInfoService;
 			
 			Post post = new Post();
 			
-			//post °Ô½Ã¹° ¼öÁ¤
+			//post ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 			post.setPostNo("EI10018");
-			post.setTitle("¼öÁ¤");
-			post.setVideo("¼öÁ¤");
-			post.setContents("¼öÁ¤");
-			post.setPhoto("¼öÁ¤");
+			post.setTitle("ï¿½ï¿½ï¿½ï¿½");
+			post.setVideo("ï¿½ï¿½ï¿½ï¿½");
+			post.setContents("ï¿½ï¿½ï¿½ï¿½");
+			post.setPhoto("ï¿½ï¿½ï¿½ï¿½");
 			post.setCategory("3");
 			
 			exInfoService.updatePost(post);
 			
-			Assert.assertEquals("¼öÁ¤", post.getTitle());
-			Assert.assertEquals("¼öÁ¤", post.getVideo());
-			Assert.assertEquals("¼öÁ¤", post.getContents());
-			Assert.assertEquals("¼öÁ¤", post.getPhoto());	
+			Assert.assertEquals("ï¿½ï¿½ï¿½ï¿½", post.getTitle());
+			Assert.assertEquals("ï¿½ï¿½ï¿½ï¿½", post.getVideo());
+			Assert.assertEquals("ï¿½ï¿½ï¿½ï¿½", post.getContents());
+			Assert.assertEquals("ï¿½ï¿½ï¿½ï¿½", post.getPhoto());	
 			Assert.assertEquals("3", post.getCategory());	
 			
 		}
@@ -107,7 +104,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 		public void testUpdateExInfo() throws Exception{
 		
 			Post post = new Post();
-			//exInfo °Ô½Ã¹° ¼öÁ¤ 
+			//exInfo ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 			post.setPostNo("EI10018");
 			post.setExCalorie(8888);
 			post.setExPlace("3");
@@ -115,7 +112,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 			post.setExVideoTime("18:15");
 			
 			
-			//exInfo service °Ô½Ã¹° µî·Ï 
+			//exInfo service ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ 
 			exInfoService.updateExInfo(post);
 			
 			Assert.assertEquals(8888, post.getExCalorie());
@@ -136,9 +133,9 @@ import com.wthealth.service.exinfo.ExInfoService;
 			
 			System.out.println(post);
 			
-			Assert.assertEquals("Â÷½Â¿ø ¸ö", post.getTitle());
+			Assert.assertEquals("ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½", post.getTitle());
 			Assert.assertEquals("0", post.getExPart());
-			Assert.assertEquals("16:07ºÐ", post.getExVideoTime());
+			Assert.assertEquals("16:07ï¿½ï¿½", post.getExVideoTime());
 			
 		}
 		
@@ -165,7 +162,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 			search.setCurrentPage(1);
 			search.setPageSize(3);
 			search.setSearchCondition("0");
-			search.setSearchKeyword("°¡");
+			search.setSearchKeyword("ï¿½ï¿½");
 			search.setSearchFilter("3");
 			
 			map = exInfoService.listExInfo(search);
