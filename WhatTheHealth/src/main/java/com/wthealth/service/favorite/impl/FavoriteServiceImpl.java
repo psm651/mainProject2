@@ -31,13 +31,13 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 	
 	@Override
-	public Favorite addLike(Favorite like) throws Exception {
-		return favoriteDao.addLike(like);
+	public Favorite addLike(Favorite favorite) throws Exception {
+		return favoriteDao.addLike(favorite);
 	}
 
 	@Override
-	public Favorite addInterest(Favorite interest) throws Exception {
-		return favoriteDao.addInterest(interest);
+	public Favorite addInterest(Favorite favorite) throws Exception {
+		return favoriteDao.addInterest(favorite);
 	}
 
 	@Override
@@ -49,16 +49,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 	public void deleteInterest(int favoriteNo) throws Exception {
 		favoriteDao.deleteInterest(favoriteNo);
 	}
-	
+			
 	@Override
-	public void updateLikeCount(String postNo) throws Exception{
-		favoriteDao.updateLikeCount(postNo);
+	public Favorite getFavorite(Favorite favorite) throws Exception {
+		return favoriteDao.getFavorite(favorite);
 	}
 	
 	@Override
 	public  Map<String, Object> listLikePeople(Search search,String postNo) throws Exception {
 		List<User> list = favoriteDao.listLikePeople(search, postNo);
-		int totalCount = favoriteDao.getTotalCount(postNo);
+		int totalCount = favoriteDao.getTotalCountByPostNo(postNo);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -69,7 +69,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Override
 	public Map<String, Object> listMyInterest(Search search, String userId) throws Exception{
 		List<Favorite> list = favoriteDao.listMyInterest(search, userId);
-		int totalCount = favoriteDao.getTotalCount(userId);
+		int totalCount = favoriteDao.getTotalCountByUserId(userId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -77,5 +77,15 @@ public class FavoriteServiceImpl implements FavoriteService {
 		return map;
 		
 	}
-	
+
+	@Override
+	public List<Favorite> listFavorite(Favorite favorite) throws Exception {
+		return favoriteDao.listFavorite(favorite);
+	}
+
+	@Override
+	public int getTotalLikeCount(String postNo) throws Exception {
+		return favoriteDao.getTotalLikeCount(postNo);
+	}
+
 }

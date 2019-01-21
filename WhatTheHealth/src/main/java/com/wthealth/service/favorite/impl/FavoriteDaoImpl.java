@@ -30,14 +30,14 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 	
 	@Override
-	public Favorite addLike(Favorite like) throws Exception {
-		return sqlSession.selectOne("FavoriteMapper.addLike", like);
+	public Favorite addLike(Favorite favorite) throws Exception {
+		return sqlSession.selectOne("FavoriteMapper.addLike", favorite);
 
 	}
 
 	@Override
-	public Favorite addInterest(Favorite interest) throws Exception {
-		return sqlSession.selectOne("FavoriteMapper.addInterest", interest);
+	public Favorite addInterest(Favorite favorite) throws Exception {
+		return sqlSession.selectOne("FavoriteMapper.addInterest", favorite);
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 	
 	@Override
-	public void updateLikeCount(String postNo) throws Exception{
-		sqlSession.update("FavoriteMapper.updateLikeCount", postNo);
+	public Favorite getFavorite(Favorite favorite) throws Exception {
+		return sqlSession.selectOne("FavoriteMapper.getFavorite", favorite);
 	}
 	
 	@Override
@@ -72,9 +72,35 @@ public class FavoriteDaoImpl implements FavoriteDao {
 		
 		return sqlSession.selectList("FavoriteMapper.listMyInterest", map);
 	}
+		
+	@Override
+	public int getTotalCountByUserId(String userId) throws Exception {
+		return sqlSession.selectOne("FavoriteMapper.getTotalCountByUserId", userId);
+	}
 	
 	@Override
-	public int getTotalCount(String userId) throws Exception {
-		return sqlSession.selectOne("FavoriteMapper.getTotalCount", userId);
+	public int getTotalCountByPostNo(String postNo) throws Exception {
+		return sqlSession.selectOne("FavoriteMapper.getTotalCountByPostNo",postNo);
 	}
+
+	@Override
+	public List<Favorite> listFavorite(Favorite favorite) throws Exception {
+		return sqlSession.selectList("FavoriteMapper.listFavorite", favorite);
+	}
+
+	@Override
+	public int getTotalCountByFavorite(String userId, String postNo, String favoriteType) throws Exception {				
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("postNo", postNo);
+		map.put("favoriteType", favoriteType);
+		
+		return sqlSession.selectOne("FavoriteMapper.getTotalCountByFavorite",map);
+	}
+
+	@Override
+	public int getTotalLikeCount(String postNo) throws Exception {
+		return sqlSession.selectOne("FavoriteMapper.getTotalLikeCount", postNo);
+	}
+
 }

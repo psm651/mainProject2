@@ -42,12 +42,12 @@ public class DietScServiceTest {
 	public void testAddDietSc() throws Exception {
 		
 		Food food1 = new Food();
-		food1.setAmountFood(500); 
+		food1.setAmountFood("500"); 
 		food1.setFoodCalorie(500);
 		food1.setFoodName("¹Ù³ª³ª");
 		
 		Food food2 = new Food();
-		food2.setAmountFood(100);
+		food2.setAmountFood("100");
 		food2.setFoodCalorie(1500);
 		food2.setFoodName("¼Ò°öÃ¢");
 		
@@ -82,12 +82,12 @@ public class DietScServiceTest {
 	public void testAddMeal() throws Exception {
 		
 		Food food1 = new Food();
-		food1.setAmountFood(500);
+		food1.setAmountFood("500");
 		food1.setFoodCalorie(500);
 		food1.setFoodName("Ä¡Å²");
 		
 		Food food2 = new Food();
-		food2.setAmountFood(100);
+		food2.setAmountFood("100");
 		food2.setFoodCalorie(1500);
 		food2.setFoodName("ÇÇÀÚ");
 		
@@ -159,13 +159,13 @@ public class DietScServiceTest {
 	 public void testUpdateDietSc() throws Exception{
 		 
 		Food food1 = new Food();
-		food1.setAmountFood(500);
+		food1.setAmountFood("500");
 		food1.setFoodCalorie(500);
 		food1.setFoodName("¼º¹Î");
 		food1.setDietScNo(10046);
 		
 		Food food2 = new Food();
-		food2.setAmountFood(100);
+		food2.setAmountFood("100");
 		food2.setFoodCalorie(1500);
 		food2.setFoodName("¼Ò°öÃ¢");
 		food2.setDietScNo(10046);

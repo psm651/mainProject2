@@ -54,11 +54,9 @@
 		
          UPDATE users
          <set>
-         	password    = #{password},
          	nickname   = #{nickName},
          	email       = #{email:VARCHAR},
          	user_phone  = #{phone:VARCHAR},
-         	gender       = #{gender},
          <if test="userImage != ''">
          	user_image   = #{userImage:VARCHAR},
          </if>         
@@ -102,7 +100,7 @@
 
      <select  id="listPointAdminManage"  parameterType="com.wthealth.common.Search"	resultMap="pointSelectMap">
 	  	SELECT *
-	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
+	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq                                               
 	  			FROM (	SELECT sender_id, point_date, using_point, point_status_code, receiver_id 
 						FROM point
 			 			<if test="searchKeyword != null">

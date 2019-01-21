@@ -4,7 +4,7 @@ public class Food {
 
 	private String foodName;
 	private int foodCalorie;
-	private int amountFood;
+	private String amountFood;
 	private int dietScNo;
 
 	public Food() {
@@ -26,11 +26,11 @@ public class Food {
 		this.foodCalorie = foodCalorie;
 	}
 
-	public int getAmountFood() {
+	public String getAmountFood() {
 		return amountFood;
 	}
 
-	public void setAmountFood(int amountFood) {
+	public void setAmountFood(String amountFood) {
 		this.amountFood = amountFood;
 	}
 

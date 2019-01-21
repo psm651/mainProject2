@@ -2,6 +2,8 @@ package com.wthealth.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.User;
 import com.wthealth.service.favorite.FavoriteService;
 
 @Controller
@@ -33,21 +36,24 @@ public class FavoriteController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping(value = "listMyInterest")
-	public String listMyInterest(@ModelAttribute("search")Search search, @RequestParam("userId") String userId, Model model) throws Exception{
-		System.out.println("/listMyInterest");
+
+	@RequestMapping(value = "listMyInterest11")
+	public String listMyInterest(@ModelAttribute("search")Search search, HttpSession session, Model model) throws Exception{
+		System.out.println("/listMyInterest111");
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
 		
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		
 		Map<String, Object> map = favoriteService.listMyInterest(search, userId);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(),pageUnit, pageSize); 
 		System.out.println(resultPage);
 		
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("interestList", map.get("list"));
 		model.addAttribute("userId", map.get("userId"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);

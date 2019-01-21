@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -14,10 +13,15 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-<script type="text/javascript">
+</head>
+<body>		  
+
+	<script type="text/javascript">
 
 	 $(document).ready(function() {
         $('#summernote').summernote({
+        		placeholder : 'ÎÇ¥Ïö©ÏùÑ ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî.',
+        		lang : 'ko-KR',
         		height: 500,
         		width : 750,
         		callbacks: {
@@ -34,7 +38,7 @@
         	 data2.append("file", file);
         	 console.log(data2)
                 $.ajax({
-                    url: '/dietCom/profileUpload',
+                    url: '/profileUpload',
                     method: "POST",
                     enctype : 'multipart/form-data',
                     data : data2,
@@ -43,23 +47,39 @@
                     processData: false,
                     success: function(url) {
                     	console.log(url)
-                    	alert(url);
-                        $('#summernote').summernote('insertImage', url);
+                    	 while(true){
+                             var re = doesFileExist(url);
+                             console.log("re : "+re)
+                             if(re){
+                            	 $('#summernote').summernote('insertImage', url);
+                                break;   
+                             }
+                          }
                     }
                 });
             }
     }); 
-
+	 
+	 function doesFileExist(urlToFile){
+         var xhr = new XMLHttpRequest();
+         xhr.open('HEAD', urlToFile, false);
+         xhr.send();
+         
+         if (xhr.status == "404") {
+            return false;
+         } else {
+            return true;
+         }
+      }
+	 
+	 function summerNoteUpdate(text){
+			console.log(text);
+			document.getElementById("summernote").append(text);
+		}
 </script>
-
-<title>Ωƒ¥‹ ƒøπ¬¥œ∆º ±€æ≤±‚ ∆‰¿Ã¡ˆ</title>
-</head>
-<body>
-
-	<!-- <div id="summernote"><p>Hello Summernote</p></div> -->
 	
+	<!-- <div id="summernote"></div>  -->
 	<textarea id="summernote" name="contents"></textarea>
-		  
 	
 </body>
 </html>

@@ -7,14 +7,15 @@ public class Favorite {
 	private int favoriteNo;
 	private String userId;
 	private String postNo;
-	private String favoriteType;
-	private String category;
+	private String favoriteType; //0: 좋아요, 1: 관심게시물
+	private String category; //post의 category
 	private String contents;
 	private String title;
 	private Date postDate;
 	private String userImage;
 	private String nickName;
 	private int likeCount;
+	private String pressedStatus; //0: 누르지 않은 상태, 1: 눌러져있는 상태
 	
 	public Favorite() {
 	}
@@ -107,12 +108,21 @@ public class Favorite {
 		this.likeCount = likeCount;
 	}
 
+	public String getPressedStatus() {
+		return pressedStatus;
+	}
+
+	public void setPressedStatus(String pressedStatus) {
+		this.pressedStatus = pressedStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "Favorite [favoriteNo=" + favoriteNo + ", userId=" + userId + ", postNo=" + postNo + ", favoriteType="
 				+ favoriteType + ", category=" + category + ", contents=" + contents + ", title=" + title
 				+ ", postDate=" + postDate + ", userImage=" + userImage + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + "]";
+				+ likeCount + ", pressedStatus=" + pressedStatus + "]";
 	}
+
 
 }

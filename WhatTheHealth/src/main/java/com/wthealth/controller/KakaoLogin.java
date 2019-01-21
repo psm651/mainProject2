@@ -105,7 +105,7 @@ public class KakaoLogin {
 
 		user.setUserId(userInfo.path("id").asText());
 		user.setIdToken(userInfo.path("id").asText());// id -> vo 넣기
-		user.setPassword(userInfo.path("password").asText());
+		user.setPassword(userInfo.path("id").asText());
 
 		if (userInfo.path("kaccount_email_verified").asText().equals("true")) { // 이메일 받기 허용 한 경우
 			user.setEmail(userInfo.path("kaccount_email").asText()); // email -> vo 넣기

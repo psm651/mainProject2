@@ -45,7 +45,7 @@ public class Claim {
 	}
 
 	public void setClaimDate(String claimDate) {
-		this.claimDate = claimDate;
+		this.claimDate = claimDate.substring(0, 10);
 	}
 
 	public String getClaimSortNo() {

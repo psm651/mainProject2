@@ -20,7 +20,7 @@ import com.wthealth.domain.Post;
 import com.wthealth.service.exinfo.ExInfoService;
 
 @Controller
-@RequestMapping("/exinfo/*")
+@RequestMapping("/exInfo/*")
 public class ExInfoController {
 
 	//Field
@@ -50,7 +50,7 @@ public class ExInfoController {
 			post.setPhoto(originalFileName);
 			
 			//Business Logic
-			exInfoService.addPost(post);
+			exInfoService.addExInfo(post);
 			
 		return "redirect:/exinfo/getExInfo?prodNo="+post.getPostNo();
 	}
@@ -67,13 +67,13 @@ public class ExInfoController {
 	@RequestMapping(value="updateExInfo", method=RequestMethod.POST)
 	public String updateExInfo(@ModelAttribute Post post, @RequestParam("originalFileName") MultipartFile file) throws Exception {
 
-		//?ŒŒ?¼ path 
+		//?ï¿½ï¿½?ï¿½ï¿½ path 
 		String path = ""; 
-		//?ŒŒ?¼ ?´ë¦?
+		//?ï¿½ï¿½?ï¿½ï¿½ ?ï¿½ï¿½ï¿½?
 		String originalFileName = file.getOriginalFilename();
-		//File ê°ì²´?— ?Œ¨?Š¤??, ?´ë¦? ?ƒ?„± 
+		//File ê°ì²´?ï¿½ï¿½ ?ï¿½ï¿½?ï¿½ï¿½??, ?ï¿½ï¿½ï¿½? ?ï¿½ï¿½?ï¿½ï¿½ 
 		File uploadFile = new File(path, originalFileName);
-		//uploadFile ê°ì²´ë¥? ? „?†¡
+		//uploadFile ê°ì²´ï¿½? ?ï¿½ï¿½?ï¿½ï¿½
 		file.transferTo(uploadFile);
 		
 		post.setPhoto(originalFileName);
@@ -89,19 +89,20 @@ public class ExInfoController {
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
+	
 		search.setPageSize(pageSize);
-		
+	
 		//Business Logic
 		Map<String, Object> map = exInfoService.listExInfo(search);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
+		System.out.println(map.get("list"));
 		//MV
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		
-		
+				
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
