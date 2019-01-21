@@ -81,7 +81,16 @@ public class ReplyDaoImpl implements ReplyDao {
 		map.put("writerId", writerId);
 		return sqlSession.selectList("ReplyMapper.listMyReply", map);
 	}
-	
-	
 
+	@Override
+	public List<Reply> listReply(String postNo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("ReplyMapper.listReply", postNo);
+	}
+
+	@Override
+	public void updateReply(Reply reply) throws Exception {
+		sqlSession.update("ReplyMapper.updateReply", reply);
+	}
+	
 }

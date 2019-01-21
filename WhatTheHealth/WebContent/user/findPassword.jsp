@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,44 +10,72 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	
-	<!-- ¬¸¡∂ : http://getbootstrap.com/css/   ¬¸¡∂ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Ï∞∏Ï°∞ : http://getbootstrap.com/css/   Ï∞∏Ï°∞ -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	 -->
 	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/css/animate.css">
+    
+    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
+  
+    <link rel="stylesheet" href="/resources/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/css/style.css">
+	
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+	  <script src="/resources/js/jquery-ui.js"></script>
+	  <script src="/resources/js/popper.min.js"></script>
+	  <script src="/resources/js/bootstrap.min.js"></script>
+	  <script src="/resources/js/owl.carousel.min.js"></script>
+	  <script src="/resources/js/jquery.stellar.min.js"></script>
+	  <script src="/resources/js/jquery.countdown.min.js"></script>
+	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
+	  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
+	  <script src="/resources/js/aos.js"></script>
+	
+	  <script src="/resources/js/main.js"></script>
+
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
+	<!-- <style>
 		body {
             padding-top : 50px;
         }
-    </style>
+    </style> -->
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		//============= "ºˆ¡§"  Event ø¨∞· =============
+		//============= "ÏàòÏ†ï"  Event Ïó∞Í≤∞ =============
 		 $(function() {
-			//==> DOM Object GET 3∞°¡ˆ πÊπ˝ ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3Í∞ÄÏßÄ Î∞©Î≤ï ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
 				fncfindPassword();
 			});
 		});	
 		
 		
-		//=============¿Ã∏ﬁ¿œ" ¿Ø»øº∫Check  Event √≥∏Æ =============
+		//=============Ïù¥Î©îÏùº" Ïú†Ìö®ÏÑ±Check  Event Ï≤òÎ¶¨ =============
 		 $(function() {
 			 
 			 $("input[name='email']").on("change" , function() {
@@ -55,7 +83,7 @@
 				 var email=$("input[name='email']").val();
 			    
 				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("¿Ã∏ﬁ¿œ «¸Ωƒ¿Ã æ∆¥’¥œ¥Ÿ.");
+			    	alert("Ïù¥Î©îÏùº ÌòïÏãùÏù¥ ÏïÑÎãôÎãàÎã§.");
 			     }
 			});
 			 
@@ -64,11 +92,16 @@
 		///////////////////////////////////////////////////////////////////////
 		function fncfindPassword() {
 			var nickName=$("input[name='nickName']").val();
+			var email=$("input[name='email']").val();
 			
 			if(nickName == null || nickName.length <1){
-				alert("¥–≥◊¿”¿∫  π›µÂΩ√ ¿‘∑¬«œº≈æﬂ «’¥œ¥Ÿ.");
+				alert("ÎãâÎÑ§ÏûÑÏùÄ  Î∞òÎìúÏãú ÏûÖÎ†•ÌïòÏÖîÏïº Ìï©ÎãàÎã§.");
 				return;
 			}
+			if(email == "" || email.length <1 ){
+			    alert("Ïù¥Î©îÏùºÏùÑ ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî.");
+			    return;
+			  }
 				
 				
 			$("form").attr("method" , "POST").attr("action" , "/user/findPassword").submit();
@@ -85,42 +118,44 @@
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 	
-	<!--  »≠∏È±∏º∫ div Start /////////////////////////////////////-->
+	<!--  ÌôîÎ©¥Íµ¨ÏÑ± div Start /////////////////////////////////////-->
+	<div class="site-section bg-light">
 	<div class="container">
-	
+		<div class="col-md-6">
+		
 		<div class="page-header text-center">
-	       <h3 class=" text-muted">∫Òπ–π¯»£ √£±‚</h3>
+	       <h3 class=" text-muted">ÎπÑÎ∞ÄÎ≤àÌò∏ Ï∞æÍ∏∞</h3>
 	   	</div>
 	    
 	    <!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal">
+		<form class="p-5 bg-white">
 		
 		  <div class="form-group">
-		    <label for="nickName" class="col-sm-offset-1 col-sm-3 control-label">¥– ≥◊ ¿”</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="¥–≥◊¿”" >
+		    <label for="nickName" class="col-sm-4 control-label">Îãâ ÎÑ§ ÏûÑ</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="ÎãâÎÑ§ÏûÑ" >
 		    </div>
 		  </div>
 		
 		  <div class="form-group">
-		    <label for="email" class="col-sm-offset-1 col-sm-3 control-label">¿Ã∏ﬁ¿œ</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="¿Ã∏ﬁ¿œ">
+		    <label for="email" class="col-sm-4 control-label">Ïù¥Î©îÏùº</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="email" name="email" placeholder="Ïù¥Î©îÏùº">
 		    </div>
 		  </div>
 		  
 		  
 		  
 		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >√£ &nbsp;±‚</button>
+		    <div class="col-md-10 mb-3 mb-md-2 text-center">
+		      <button type="button" class="btn btn-primary"  >Ï∞æ &nbsp;Í∏∞</button>
 		    </div>
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
 	    
  	</div>
-	<!--  »≠∏È±∏º∫ div Start /////////////////////////////////////-->
+	<!--  ÌôîÎ©¥Íµ¨ÏÑ± div Start /////////////////////////////////////-->
  	
 </body>
 

@@ -1,2 +1,26 @@
 /com/
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+/config/
+/log4j.properties
+>>>>>>> refs/heads/new/seongmin
 /sql/
+=======
+/config/
+/log4j.properties
+>>>>>>> refs/heads/master
+/sql/
+=======
+<<<<<<< HEAD
+/sql/
+=======
+<<<<<<< HEAD
+/sql/
+=======
+>>>>>>> refs/heads/new/horan
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master

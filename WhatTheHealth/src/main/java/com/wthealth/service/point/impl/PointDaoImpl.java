@@ -96,8 +96,8 @@ public class PointDaoImpl implements PointDao {
 		int quantity = 1;
 
 	       String param = PAYMENT_TEST_PARAM+"&item_name="+item+"&quantity="+quantity+"&total_amount="+point
-	        			+ "&tax_free_amount=0&approval_url=http://127.0.0.1:8080/point/kakaoPay/success"
-	        			+ "&fail_url=http://127.0.0.1:8080/point/kakaoPay/fail&cancel_url=http://127.0.0.1:8080/point/kakaoPay/cancel";
+	        			+ "&tax_free_amount=0&approval_url=http://192.168.0.10:8080/point/kakaoPaySuccess.jsp"
+	        			+ "&fail_url=http://192.168.0.10:8080/point/kakaoPay/fail&cancel_url=http://192.168.0.10:8080/point/kakaoPay/cancel";
 	
 	       JSONObject obj = URLConnection.getJSON_PARAM(URLConnection.HTTPMETHOD_POST, PAYMENT_READY_URL, param,
 	       		"application/x-www-form-urlencoded; charset=utf-8",
@@ -111,33 +111,36 @@ public class PointDaoImpl implements PointDao {
 	@Override
 	public String getKakaoPayReady(int point) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("kakao.getPaymentReady()");
+		System.out.println("kakao.getPaymentReady(point)");
 
 		String item = "point";
 		int quantity = 1;
 
         String param = PAYMENT_TEST_PARAM+"&item_name="+item+"&quantity="+quantity+"&total_amount="+point
-        				+ "&tax_free_amount=0&approval_url=http://127.0.0.1:8080/payment/kakaoPay/success"
-        				+ "&fail_url=http://127.0.0.1:8080/payment/kakaoPay/fail&cancel_url=http://127.0.0.1:8080/payment/kakaoPay/cancel";
+        				+ "&tax_free_amount=0&approval_url=http://192.168.0.10:8080/point/kakaoPaySuccess.jsp"
+        				+ "&fail_url=http://192.168.0.10:8080/payment/kakaoPay/fail&cancel_url=http://192.168.0.10:8080/payment/kakaoPay/cancel";
 		
-        //System.out.println(param);
+        System.out.println(param);
         
         JSONObject obj = URLConnection.getJSON_PARAM(URLConnection.HTTPMETHOD_POST, PAYMENT_READY_URL, param,
         		"application/x-www-form-urlencoded; charset=utf-8",
         		"Authorization","KakaoAK "+ADMIN_KEY);
+        
+        System.out.println("1");
 		this.tid = obj.get("tid").toString();
-		
+		 System.out.println("222");
+		 System.out.println(obj.get("next_redirect_pc_url").toString());
 		return obj.get("next_redirect_pc_url").toString();
 	}
 
 	@Override
 	public Map<String, Object> getKakaoPayApprove(String token, String pgToken) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("kakao.getPaymentApprove()");
+		System.out.println("kakao.getPaymentApprove(token, pgToken)");
         
         String param = PAYMENT_TEST_PARAM+"&tid="+tid+"&pg_token="+pgToken;
         
-        //System.out.println(param);
+        System.out.println(param);
 
 		JSONObject obj = URLConnection.getJSON_PARAM(URLConnection.HTTPMETHOD_POST, PAYMENT_APPROVE_URL, param, 
         		"application/x-www-form-urlencoded; charset=utf-8",
@@ -154,7 +157,7 @@ public class PointDaoImpl implements PointDao {
 	@Override
 	public Map<String, Object> getKakaoPayApprove(String pgToken) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("kakao.getPaymentApprove()");
+		System.out.println("kakao.getPaymentApprove(pgToken)");
         
         String param = PAYMENT_TEST_PARAM+"&tid="+tid+"&pg_token="+pgToken;
         

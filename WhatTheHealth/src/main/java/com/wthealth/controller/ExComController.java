@@ -48,7 +48,7 @@ public class ExComController {
 		
 		exComService.addExCom(post);
 		
-		return "forward:/excom/getExCom?postNo"+post.getPostNo();
+		return "redirect:/exCom/getExCom?postNo"+post.getPostNo();
 	}
 	
 	@RequestMapping(value = "getExCom", method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class ExComController {
 		
 		exComService.updateExCom(post);
 		
-		return "redirect:/excom/updateExCom?postNo="+post.getPostNo();
+		return "redirect:/exCom/updateExCom?postNo="+post.getPostNo();
 	}
 	
 	@RequestMapping(value="deleteExCom", method = RequestMethod.POST)

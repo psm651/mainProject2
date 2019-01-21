@@ -1,11 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<title>ì‹ë‹¨ ì»¤ë®¤ë‹ˆí‹° ê¸€ì“°ê¸° í˜ì´ì§€</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
+	<script src="../resources/js/jquery-3.3.1.min.js"></script>
+	
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
 
@@ -17,44 +23,56 @@
     <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="../resources/css/animate.css">
     
-    
     <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
-  
     <link rel="stylesheet" href="../resources/css/aos.css">
-
     <link rel="stylesheet" href="../resources/css/style.css">
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-<script type="text/javascript">
+    
+	<!-- include libraries(jQuery, bootstrap) -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 	
+	<!-- include summernote css/js-->
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+	
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+	<script src="../resources/js/app.js"></script>
+	
+	<style>
+		#video {
+      width: 300px;
+      height: 120px;
+      border: 1px solid red;
+  }
+	</style>
+<script type="text/javascript">
+  
 	function fncAddDietCom(){
 
 		var title = $("input[name='title']").val();
-		var contents = $('#summernote').summernote('code');
-		//var contents = document.getElementById("contents").value;
-		alert(contents.length);
+		
+		//var contents = $("input[name='contents']").val();
+		//var contents = $('#summernote').summernote('code');
+		//var contents = document.getElementById("contents").value; //ê¸€ ë‚´ìš© ì¸ì‹ ëª»í•¨.
+		var contents = $("textarea[name=contents]").val();
+		
+		console.log(contents.length);
 
 		if(title == null || title.length<1){
-			alert("Á¦¸ñÀº ¹İµå½Ã ÀÔ·ÂÇÏ¿©¾ß ÇÕ´Ï´Ù.");
+			alert("ì œëª©ì€ ë°˜ë“œì‹œ ì…ë ¥í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤.");
 			return;
 		}
 		if(contents == null || contents.length<1){
-			alert("±Û ³»¿ëÀº ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+			alert("ê¸€ ë‚´ìš©ì€ ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 			return;
 		}
 
-		$("form").attr("method","POST").attr("action","/dietCom/addDietCom").attr("enctype","multipart/form-data").submit();	
+		$("form").attr("method","POST").attr("action","/dietCom/addDietCom").submit();	
 	}
 	
 		
-	//============= "µî·Ï"  Event ¿¬°á =============
+	//============= "ë“±ë¡"  Event ì—°ê²° =============
 	 $(function() {
 		$( "button.btn.btn-primary" ).on("click" , function() {
 			fncAddDietCom();
@@ -62,40 +80,40 @@
 	});	
 	
 	
-	//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
+	//============= "ì·¨ì†Œ"  Event ì²˜ë¦¬ ë°  ì—°ê²° =============
 	$(function() {
 		$("a[href='#' ]").on("click" , function() {
 			resetData();
 		});
 	});	
 
+	
 </script>
 
-<title>½Ä´Ü Ä¿¹Â´ÏÆ¼ ±Û¾²±â ÆäÀÌÁö</title>
 </head>
 <body>
 	<div class="site-wrap">
 		 <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" /> 
    	<!-- ToolBar End /////////////////////////////////////-->
-	<!-- Åø¹Ù ÀÎÅ¬·çµå ½ÃÀÛ! -->
+	<!-- íˆ´ë°” ì¸í´ë£¨ë“œ ì‹œì‘! -->
 	
 	</div>
-<form enctype="multipart/form-data">
+<form>
 	
 	<div class="site-section bg-light">
       <div class="container">
-       <h4 class="info-title margin-five no-margin-top">½Ä´Ü Ä¿¹Â´ÏÆ¼ °Ô½Ã±Û µî·ÏÇÏ±â</h4>
+       <h4 class="info-title margin-five no-margin-top">ì‹ë‹¨ ì»¤ë®¤ë‹ˆí‹° ê²Œì‹œê¸€ ë“±ë¡í•˜ê¸°</h4>
         <div class="row">
        
           <div class="col-md-12 col-lg-8 mb-5">
           
-            <form action="#" class="p-5 bg-white">
+
 
               <div class="row form-group">
                 <div class="col-md-12 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
-                  <input type="text" class="form-control" id="title" name="title" placeholder="±Û Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.">
+                  <input type="text" class="form-control" id="title" name="title" placeholder="ê¸€ ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.">
                 </div>
               </div>
 
@@ -111,17 +129,21 @@
                   <input type="submit" value="Send Message" class="btn btn-primary pill px-4 py-2">
                 </div>
               </div> -->
-  
-            </form>
-          </div>
 
+          </div>
+          </form>
+          
           <div class="col-lg-4">
             <div class="p-4 mb-3 bg-white">
-              <h3 class="h5 text-black mb-3">YouTube °Ë»öÃ¢</h3>
-              <p class="mb-0 font-weight-bold">Address</p>
-              <p class="mb-4">203 Fake St. Mountain View, San Francisco, California, USA</p>
+              <h3 class="h5 text-black mb-3 ">YouTube ê²€ìƒ‰ì°½</h3>
+               <form name="youtubeForm">
+              <p><input type="text" id="search" placeholder="ì˜ìƒì„ ê²€ìƒ‰í•´ë³´ì•„ìš”~" autocomplete="on" class="form-control" /></p>
+              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p>
+			  </form>
+            </div>
 
             </div>
+           
             
           </div>
         </div>
@@ -130,10 +152,10 @@
               
 		<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">µî·Ï</button>
-				<a class="btn btn-primary btn" href="#" role="button">Ãë &nbsp;¼Ò</a>
+		      <button type="button" class="btn btn-primary">ë“±ë¡</button>
+				<a class="btn btn-primary btn" href="#" role="button">ì·¨ &nbsp;ì†Œ</a>
 		    </div>
 		  </div>
-	</form>
+	
 </body>
 </html>
