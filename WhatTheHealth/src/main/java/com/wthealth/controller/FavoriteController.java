@@ -37,9 +37,9 @@ public class FavoriteController {
 	int pageSize;
 	
 
-	@RequestMapping(value = "listMyInterest11")
+	@RequestMapping(value = "listMyInterest")
 	public String listMyInterest(@ModelAttribute("search")Search search, HttpSession session, Model model) throws Exception{
-		System.out.println("/listMyInterest111");
+		System.out.println("/listMyInterest");
 		
 		if(search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
