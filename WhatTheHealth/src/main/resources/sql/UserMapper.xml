@@ -94,7 +94,9 @@
 	 <update	id="updateUser"	parameterType="com.wthealth.domain.User" >
 	   	UPDATE users
 	   	<set>
+	   		<if test="password != ''">
 	   		password 	= #{password} ,
+	   		</if>
 			nickname	= #{nickName},
 			email 		= #{email:VARCHAR} ,
 			<if test="userImage != ''">

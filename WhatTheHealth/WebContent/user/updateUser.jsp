@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%@ page pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 <!--  ///////////////////////// JSTL  ////////////////////////// -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,52 +10,85 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	
-	<!-- ÂüÁ¶ : http://getbootstrap.com/css/   ÂüÁ¶ -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- ì°¸ì¡° : http://getbootstrap.com/css/   ì°¸ì¡° -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   <!-- <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
    
     <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<!--    <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/css/animate.css">
+    
+    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
+  
+    <link rel="stylesheet" href="/resources/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/css/style.css">
+	
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+	  <script src="/resources/js/jquery-ui.js"></script>
+	  <script src="/resources/js/popper.min.js"></script>
+	  <script src="/resources/js/bootstrap.min.js"></script>
+	  <script src="/resources/js/owl.carousel.min.js"></script>
+	  <script src="/resources/js/jquery.stellar.min.js"></script>
+	  <script src="/resources/js/jquery.countdown.min.js"></script>
+	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
+	  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
+	  <script src="/resources/js/aos.js"></script>
+	
+	  <script src="/resources/js/main.js"></script>
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style>
+	<!-- <style>
 		body {
             padding-top : 50px;
         }
-    </style>
+    </style> -->
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		//============= "¼öÁ¤"  Event ¿¬°á =============
+		//============= "ìˆ˜ì •"  Event ì—°ê²° =============
 		 $(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
 				fncUpdateUser();
 			});
 		});	
 		
 		
-		//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
+		//============= "ì·¨ì†Œ"  Event ì²˜ë¦¬ ë°  ì—°ê²° =============
 		$(function() {
-			//==> DOM Object GET 3°¡Áö ¹æ¹ı ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			//==> DOM Object GET 3ê°€ì§€ ë°©ë²• ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("a[href='#' ]").on("click" , function() {
-				$("form")[0].reset();
+				history.go(-1);
 			});
 		});	
 		
-		//=============ÀÌ¸ŞÀÏ" À¯È¿¼ºCheck  Event Ã³¸® =============
+		//=============ì´ë©”ì¼" ìœ íš¨ì„±Check  Event ì²˜ë¦¬ =============
 		 $(function() {
 			 
 			 $("input[name='email']").on("change" , function() {
@@ -63,7 +96,7 @@
 				 var email=$("input[name='email']").val();
 			    
 				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("ÀÌ¸ŞÀÏ Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù.");
+			    	alert("ì´ë©”ì¼ í˜•ì‹ì´ ì•„ë‹™ë‹ˆë‹¤.");
 			     }
 			});
 			 
@@ -71,7 +104,13 @@
 		
 		 function CheckNickname(){
 				//alert("ddd")
+				var usedNickname = $("#usedNickname").val();
+					console.log(usedNickname);
+				if(usedNickname !=  $("input[name='nickName']").val() ){
+					console.log("ddd");
+					console.log(usedNickname);
 				$.ajax( 
+						
 						{
 							url : "/user/json/checkNickname" ,
 							method : "POST" ,
@@ -93,23 +132,48 @@
 								}
 								
 								if(!JSONData){
-									//alert("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù.")
+									//alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤.")
 									$("#checkNickname").css("color","red")
 								}
 							}							
 				
 					});
+				} 
+				if(usedNickname ==  $("input[name='nickName']").val() ){
+					console.log("zzz");
+					$("#checkNickname").css("color","green")
+				}
 			}
 		
 		///////////////////////////////////////////////////////////////////////
 		function fncUpdateUser() {
+			var pw=$("input[name='password']").val();
+			var pw_confirm=$("input[name='password2']").val();
 			var nickName=$("input[name='nickName']").val();
+			var checkNickname = document.getElementById('checkNickname').style.color;
 			
 			if(nickName == null || nickName.length <1){
-				alert("´Ğ³×ÀÓÀº  ¹İµå½Ã ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+				alert("ë‹‰ë„¤ì„ì€  ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 				return;
 			}
-
+			
+			if( pw != pw_confirm ) {				
+				alert("ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì´ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+				$("input:text[name='password2']").focus();
+				$("#checkPW").css("color","red")
+				return;
+			}
+			
+			if( pw == pw_confirm ) {				
+				$("#checkPW").css("color","green")
+			
+			}
+			
+			if(checkNickname == 'red'){
+				alert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë‹‰ë„¤ì„ì…ë‹ˆë‹¤.")
+				return;
+			}
+	
 				
 			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
 		}
@@ -119,125 +183,129 @@
 </head>
 
 <body>
+	<input type="hidden" id="usedNickname" value="${sessionScope.user.nickName }"/>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 	
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
+	 <div class="site-section bg-light">
 	<div class="container">
 	
 		<div class="page-header text-center">
-	       <h3 class=" text-muted">È¸¿øÁ¤º¸¼öÁ¤</h3>
-	       <h5 class="text-muted">³» Á¤º¸¸¦ <strong class="text-danger">ÃÖ½ÅÁ¤º¸·Î °ü¸®</strong>ÇØ ÁÖ¼¼¿ä.</h5>
+	       <h3 class=" text-muted">íšŒì›ì •ë³´ìˆ˜ì •</h3>
 	    </div>
 	    
 	    <!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal" enctype="multipart/form-data">
+		<form class="p-5 bg-white" enctype="multipart/form-data">
 		
 		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">¾Æ ÀÌ µğ</label>
-		    <div class="col-sm-4">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="userId" class="font-weight-bold">ì•„ ì´ ë””</label>
 		      <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" readonly>
 		       <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">¾ÆÀÌµğ´Â ¼öÁ¤ºÒ°¡</strong>
+		      	<strong class="text-danger">ì•„ì´ë””ëŠ” ìˆ˜ì •ë¶ˆê°€</strong>
 		      </span>
 		    </div>
 		  </div>
 		
 		  <div class="form-group">
-		    <label for="password" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£</label>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password" name="password" placeholder="º¯°æºñ¹Ğ¹øÈ£">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="password" class="font-weight-bold">ë¹„ë°€ë²ˆí˜¸</label>
+		      <input type="password" class="form-control" id="password" name="password" >
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="password2" class="col-sm-offset-1 col-sm-3 control-label">ºñ¹Ğ¹øÈ£ È®ÀÎ</label>
-		    <i class="glyphicon glyphicon-ok" id="checkPW"></i>
-		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="º¯°æºñ¹Ğ¹øÈ£ È®ÀÎ">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="password2" class="font-weight-bold">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
+		     <span class="icon-check mr-3" id="checkPW"></span>
+		      <input type="password" class="form-control" id="password2" name="password2" >
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="nickName" class="col-sm-offset-1 col-sm-3 control-label">´Ğ ³× ÀÓ</label>
-		     <i class="glyphicon glyphicon-ok" id="checkNickname"></i>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="nickName" name="nickName" value="${user.nickName}" oninput="CheckNickname()" placeholder="º¯°æ´Ğ³×ÀÓ">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="nickName" class="font-weight-bold">ë‹‰ ë„¤ ì„</label>
+		   <span class="icon-check mr-3" id="checkNickname"></span>
+		      <input type="text" class="form-control" id="nickName" name="nickName" value="${user.nickName}" oninput="CheckNickname()">
 		    </div>
 		  </div>
 		  
 		 
 		  <div class="form-group">
-		    <label for="phone" class="col-sm-offset-1 col-sm-3 control-label">ÈŞ´ëÀüÈ­</label>
-		     <div class="col-sm-4">
-		     	<input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"  placeholder="º¯°æ¹øÈ£">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="phone" class="font-weight-bold">íœ´ëŒ€ì „í™”</label>
+		     	<input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"  >
 		    </div>
 		  </div>
 		  
 		   <div class="form-group">
-		    <label for="email" class="col-sm-offset-1 col-sm-3 control-label">ÀÌ¸ŞÀÏ</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="email" name="email" value="${user.email}" placeholder="º¯°æÀÌ¸ŞÀÏ">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="email" class="font-weight-bold">ì´ë©”ì¼</label>
+		      <input type="text" class="form-control" id="email" name="email" value="${user.email}" >
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		  	<label for="gender" class="col-sm-offset-1 col-sm-3 control-label">¼ºº°</label>
-		  		 <div class="col-sm-offset-1  col-sm-2 text-center">
-		  			<input type='radio' name='gender' value='0' checked />¿©
-		  			<input type='radio' name='gender' value='1'  />³²
+		  <div class="col-md-12 mb-3 mb-md-0">
+		  	<label for="gender" class="font-weight-bold">ì„±ë³„</label><br/>
+		  			<input type='radio' name='gender' value='0' checked />ì—¬
+		  			<input type='radio' name='gender' value='1'  />ë‚¨
 		  		</div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="uploadFile" class="col-sm-offset-1 col-sm-3 control-label">ÇÁ·ÎÇÊ »çÁø</label>
-		    <div class="col-sm-4">
-		      <input type="file" class="form-control" id="uploadFile" name="uploadFile">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="uploadFile" class="font-weight-bold">í”„ë¡œí•„ ì‚¬ì§„</label><br/>
+		      <img src="/resources/images/userImage/${user.userImage}" align="middle" height="200"/><br/>
+		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="${user.userImage}">
 		    </div>
 		  </div>
+
 		  
 		   <div class="form-group">
-		    <label for="holder" class="col-sm-offset-1 col-sm-3 control-label">¿¹ ±İ ÁÖ</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="holder" name="holder"  value="${user.holder}" placeholder="¿¹±İÁÖ">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="holder" class="font-weight-bold">ì˜ˆ ê¸ˆ ì£¼</label>
+		      <input type="text" class="form-control" id="holder" name="holder"  value="${user.holder}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="bankName" class="col-sm-offset-1 col-sm-3 control-label">Àº Çà ¸í</label>
-		    <div class="col-sm-4">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="bankName" class="font-weight-bold">ì€ í–‰ ëª…</label>
 		       <select class="form-control" name="bankName" id="bankName">
-				  	<option value="±¹¹Î" >±¹¹Î</option>
-					<option value="½ÅÇÑ" >½ÅÇÑ</option>
-					<option value="¿ì¸®" >¿ì¸®</option>
-					<option value="³óÇù" >³óÇù</option>
-					<option value="ÇÏ³ª" >ÇÏ³ª</option>
+		       		<option value="" ></option>
+				  	<option value="êµ­ë¯¼" >êµ­ë¯¼</option>
+					<option value="ì‹ í•œ" >ì‹ í•œ</option>
+					<option value="ìš°ë¦¬" >ìš°ë¦¬</option>
+					<option value="ë†í˜‘" >ë†í˜‘</option>
+					<option value="í•˜ë‚˜" >í•˜ë‚˜</option>
 				</select>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
-		    <label for="accountNum" class="col-sm-offset-1 col-sm-3 control-label">°èÁÂ¹øÈ£</label>
-		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="accountNum" name="accountNum"  value="${user.accountNum}" placeholder="°èÁÂ¹øÈ£">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="accountNum" class="font-weight-bold">ê³„ì¢Œë²ˆí˜¸</label>
+		      <input type="text" class="form-control" id="accountNum" name="accountNum"  value="${user.accountNum}">
 		    </div>
 		  </div>
 		  
 		  
 		  
 		  <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >¼ö &nbsp;Á¤</button>
-			  <a class="btn btn-primary btn" href="#" role="button">Ãë &nbsp;¼Ò</a>
+		    <div class="col-md-10 mb-3 mb-md-2 text-center">
+		      <button type="button" class="btn btn-primary"  >ìˆ˜ &nbsp;ì •</button>
+			  <a class="btn btn-primary btn" href="#" role="button">ì·¨ &nbsp;ì†Œ</a>
 		    </div>
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
-	    
+	    </div>
  	</div>
-	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
  	
 </body>
 

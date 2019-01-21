@@ -13,14 +13,14 @@
 	<meta charset="UTF-8">
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	 -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
+	
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -57,7 +57,7 @@
 
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<!-- <style>
+<!-- 	<style>
 		body {
             padding-top : 50px;
         }
@@ -70,7 +70,7 @@
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
-				fncfindPassword();
+				fncupdatePoint();
 			});
 		});	
 		
@@ -90,21 +90,16 @@
 		});	
 		
 		///////////////////////////////////////////////////////////////////////
-		function fncfindPassword() {
-			var nickName=$("input[name='nickName']").val();
-			var email=$("input[name='email']").val();
+		function fncupdatePoint() {
+			var point=$("input[name='point']").val();
 			
-			if(nickName == null || nickName.length <1){
-				alert("닉네임은  반드시 입력하셔야 합니다.");
+			if(point == null || point.length <1){
+				alert("전송할 포인트는  반드시 입력하셔야 합니다.");
 				return;
 			}
-			if(email == "" || email.length <1 ){
-			    alert("이메일을 입력해주세요.");
-			    return;
-			  }
 				
-				
-			$("form").attr("method" , "POST").attr("action" , "/user/findPassword").submit();
+			alert("전송되었습니다.");	
+			$("form").attr("method" , "POST").attr("action" , "/point/updatePoint").submit();
 		}
 		
 		
@@ -121,26 +116,32 @@
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="site-section bg-light">
 	<div class="container">
-		<div class="col-md-6">
-		
+	<div class="col-md-6">
+	
 		<div class="page-header text-center">
-	       <h3 class=" text-muted">비밀번호 찾기</h3>
+	       <h3 class=" text-muted">포인트 쏘기</h3>
 	   	</div>
 	    
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
 		
+		<input type="hidden" name=pointStatus value="${point.pointStatus }"/>
+		<input type="hidden" name=senderId value="${point.senderId }"/>
+		<input type="hidden" name=receiverId value="${point.receiverId }"/>
+		
 		  <div class="form-group">
-		    <label for="nickName" class="col-sm-4 control-label">닉 네 임</label>
+		    <label for="receiverId"  class="col-sm-4 control-label">받는 회원</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" >
-		    </div>
+			     <span id="receiverId" class="help-block">
+		      	 	<strong class="text-muted">${point.receiverId }</strong>
+		      	</span>
+		      </div>
 		  </div>
 		
 		  <div class="form-group">
-		    <label for="email" class="col-sm-4 control-label">이메일</label>
+		    <label for="point" class="col-sm-4 control-label">전송 포인트</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+		      <input type="text" class="form-control" id="point" name="point">
 		    </div>
 		  </div>
 		  
@@ -148,12 +149,13 @@
 		  
 		  <div class="form-group">
 		    <div class="col-md-10 mb-3 mb-md-2 text-center">
-		      <button type="button" class="btn btn-primary"  >찾 &nbsp;기</button>
+		      <button type="button" class="btn btn-primary pill"  >쏘 &nbsp;기</button>
 		    </div>
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
-	    
+	    </div>
+	    </div>
  	</div>
 	<!--  화면구성 div Start /////////////////////////////////////-->
  	
