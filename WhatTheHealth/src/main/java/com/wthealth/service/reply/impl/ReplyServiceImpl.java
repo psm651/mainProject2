@@ -39,6 +39,11 @@ public class ReplyServiceImpl implements ReplyService {
 	public void addReReply(Reply reply) throws Exception {
 		replyDao.addReReply(reply);
 	}
+	
+	@Override
+	public void updateReply(Reply reply) throws Exception {
+		replyDao.updateReply(reply);
+	}
 
 	@Override
 	public Reply getReply(int replyNo) throws Exception {
@@ -78,6 +83,13 @@ public class ReplyServiceImpl implements ReplyService {
 		map.put("totalCount", new Integer(totalCount));
 		
 		return map;
+	}
+
+	@Override
+	public List<Reply> listReply(String postNo) throws Exception {
+		List<Reply> list = replyDao.listReply(postNo);
+		
+		return list;
 	}
 
 }

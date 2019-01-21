@@ -12,6 +12,9 @@ public interface ReplyDao {
 	//INSERT ´ë´ñ±Û
 	public void addReReply(Reply reply) throws Exception;
 	
+	//UPDATE 
+	public void updateReply(Reply reply) throws Exception;
+	
 	//SELECT ONE
 	public Reply getReply(int replyNo) throws Exception;
 	
@@ -32,5 +35,8 @@ public interface ReplyDao {
 	
 	//SELECT LIST MY REPLY 
 	public List<Reply> listMyReply(Search search, String writerId) throws Exception;
+	
+	//SELECT LIST MY REPLY 
+	public List<Reply> listReply(String postNo) throws Exception;
 	
 }

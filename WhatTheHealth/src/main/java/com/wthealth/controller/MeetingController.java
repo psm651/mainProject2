@@ -123,24 +123,29 @@ public class MeetingController {
 	}
 	
 	@RequestMapping(value="listJoinedMeeting")
-	public String listJoinedMeeting(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception{
-		System.out.println("/listJoinedMeeting");
-		
-		if(search.getCurrentPage() ==0 ){
-			search.setCurrentPage(1);
-		}
-		search.setPageSize(pageSize);
-		User user = (User)session.getAttribute("user");
-		
-		Map<String , Object> map=meetingService.listJoinedMeeting(search, user.getUserId());
-		
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
-		
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("resultPage", resultPage);
-		model.addAttribute("search", search);
-		
-		return "forward:/meeting/listJoinedMeeting.jsp";
+	   public String listJoinedMeeting(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception{
+	      System.out.println("/listJoinedMeeting");
+	      
+	      if(search.getCurrentPage() ==0 ){
+	         search.setCurrentPage(1);
+	      }
+	      search.setPageSize(pageSize);
+	      User user = (User)session.getAttribute("user");
+	      
+	      Map<String , Object> map=meetingService.listJoinedMeeting(search, user.getUserId());
+	      
+	      Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+	      System.out.println(resultPage);
+	      
+	      model.addAttribute("meetingList", map.get("list"));
+	      model.addAttribute("resultPage", resultPage);
+	      model.addAttribute("search", search);
+	      
+	      return "forward:/activity/listJoinedMeeting.jsp";
+	   }
+	
+	@RequestMapping(value="youtube")
+	public String youtube() throws Exception{
+		return "forward:/meeting/index.html";
 	}
 }
