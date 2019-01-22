@@ -47,25 +47,35 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT p.point_date, p.using_point, p.point_status_code, p.receiver_id, p.sender_id, u.having_point
 	  										FROM point p, users u 
-	  										WHERE p.sender_id = u.user_id
-<!-- 											<if test="searchFilter != null">
-												<if test="searchFilter==0">
+	  										WHERE p.sender_id = u.user_id  AND p.sender_id = #{senderId}
+ 											<if test="search.searchFilter != null">
+												<if test="search.searchFilter==0">
 													ORDER BY point_date DESC
 												</if>
-												<if test="searchFilter==1">
+												<if test="search.searchFilter==1">
 													ORDER BY point_status_code DESC
 												</if>
-											</if> -->
-											ORDER BY point_date DESC) inner_table
+											</if> 
+											<if test="search.searchFilter == null or search.searchFilter == ''">
+											ORDER BY point_date DESC
+											</if>) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	 </select>
 	 
 	 <!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="string"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT p.point_date, p.using_point, p.point_status_code, p.receiver_id, u.having_point
-	  				FROM point p, users u WHERE p.sender_id = u.user_id AND p.sender_id = #{value} ) countTable						
+	  				FROM point p, users u WHERE p.sender_id = u.user_id AND p.sender_id = #{senderId}
+ 											<if test="search.searchFilter != null">
+												<if test="search.searchFilter==0">
+													ORDER BY point_date DESC
+												</if>
+												<if test="search.searchFilter==1">
+													ORDER BY point_status_code DESC
+												</if>
+											</if> ) countTable						
 	 </select>
 	 
 </mapper>

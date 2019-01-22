@@ -56,7 +56,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 	
 	@Override
-	public  Map<String, Object> listLikePeople(Search search,String postNo) throws Exception {
+	public  Map<String, Object> listLikePeople(Search search,int postNo) throws Exception {
 		List<User> list = favoriteDao.listLikePeople(search, postNo);
 		int totalCount = favoriteDao.getTotalCountByPostNo(postNo);
 		
@@ -84,7 +84,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 	}
 
 	@Override
-	public int getTotalLikeCount(String postNo) throws Exception {
+	public int getTotalLikeCount(int postNo) throws Exception {
 		return favoriteDao.getTotalLikeCount(postNo);
 	}
 

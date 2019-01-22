@@ -117,6 +117,11 @@ public class PointController {
 			
 			point.setUsingPoint(usingPoint);
 			pointService.updatePoint(point);
+			
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('전송되었습니다.');</script>");
+			out.flush();
 	
 			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
 			sendUser.setHavingPoint(sendPoint);
@@ -141,7 +146,7 @@ public class PointController {
 		System.out.println("/point/updateDeposit : GET");
 		//Business Logic
 		String senderId = ((User)session.getAttribute("user")).getUserId();
-		String meetingPostNo = meetingService.getJoin(joinNo).getPostNo();
+		int meetingPostNo = meetingService.getJoin(joinNo).getPostNo();
 		String receiveMeeting = meetingService.getMeeting(meetingPostNo).getPost().getTitle();
 		
 		Point point = new Point();
@@ -177,6 +182,11 @@ public class PointController {
 			pointService.updatePoint(point);
 			
 			System.out.println("되라ㅏㅏㅏㅏ");
+			
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();	 
+			out.println("<script>alert('전송되었습니다.');</script>");
+			out.flush();
 	
 			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
 			sendUser.setHavingPoint(sendPoint);
@@ -200,6 +210,7 @@ public class PointController {
 	public String kakaoPayReady(@RequestParam("userId") String userId,
 								@RequestParam("point") int point, Model model) throws Exception {
 		
+		System.out.println("카카오페이 요청");
 		//Map<String, Object> map = commonService.getAceessToken(code);
 		
 		String url = pointService.getPaymentReady(null, point);
@@ -210,6 +221,8 @@ public class PointController {
 	
 	@RequestMapping(value="kakaoPaySuccess")
 	public String kakaoPayApprove(@RequestParam("pg_token") String pgToken, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("카카오페이 승인");
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		

@@ -63,7 +63,7 @@
 	
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
-			alert(currentPage);
+			//alert(currentPage);
 			$("#currentPage").val(currentPage);
 			$("form").attr("method" , "POST").attr("action" , "/point/listPoint").submit();
 		}
@@ -176,7 +176,7 @@
               
                 <div class="col-md-4 mb-5 mb-md-1 text-center"></div>
                 <div class="col-md-3 mb-5 mb-md-1 text-center">
-			    <form class="form-inline" name="detailForm">
+			    
  					   <div class="row form-group">
 				  <div class="col-md-8 text-left text-primary"><strong>보유 포인트</strong>
 			     <span id="havingPoint" class="help-block">
@@ -191,7 +191,6 @@
 			</div>
 	
 				  
-				  </form>
 				
 	    	</div>
               
@@ -212,7 +211,7 @@
                      
               </div>
 
-         <form>
+ 
             <c:set var="i" value="0"/>
     	 	<c:forEach var="point" items="${list}">
 			<c:set var ="i" value="${i+1}"/>   
@@ -247,17 +246,16 @@
             </div>
             
                      </c:forEach>
-                <input type="hidden" id="currentPage" name="currentPage" value=""/>
-            </form>
+
             
 
             
           </div>
-              
+                  <jsp:include page="../common/pageNavigator_new.jsp"/>
         </div>
   
      
-        <jsp:include page="../common/pageNavigator_new.jsp"/>
+    
 
 	
 </body>

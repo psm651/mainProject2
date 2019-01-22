@@ -20,16 +20,16 @@ public interface FavoriteDao {
 	
 	public List<Favorite> listFavorite(Favorite favorite) throws Exception;
 	
-	public List<User> listLikePeople(Search search,String postNo) throws Exception;
+	public List<User> listLikePeople(Search search,int postNo) throws Exception;
 	
 	public List<Favorite> listMyInterest(Search search, String userId) throws Exception;
 	
 	public int getTotalCountByUserId(String userId) throws Exception;
 	
-	public int getTotalCountByPostNo(String postNo) throws Exception;
+	public int getTotalCountByPostNo(int postNo) throws Exception;
 	
-	public int getTotalCountByFavorite(String userId, String postNo, String favoriteType) throws Exception;
+	public int getTotalCountByFavorite(String userId, int postNo, String favoriteType) throws Exception;
 	
-	public int getTotalLikeCount(String postNo) throws Exception;
+	public int getTotalLikeCount(int postNo) throws Exception;
 
 }

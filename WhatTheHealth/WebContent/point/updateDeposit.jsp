@@ -84,8 +84,6 @@
 				alert("전송할 포인트는  반드시 입력하셔야 합니다.");
 				return;
 			}
-				
-			alert("전송되었습니다.")	
 			$("form").attr("method" , "POST").attr("action" , "/point/updateDeposit").submit();
 		}
 		

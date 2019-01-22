@@ -69,10 +69,10 @@
 		 });
 		 
 		 $( "a[href='#' ]:contains('내 스케줄 관리')").on("click", function(){
-			 if("${sessionScope.user == null}"){
+			 if(${sessionScope.user == null}){				 
 				 alert("로그인이 필요한 서비스입니다.");
 				 self.location = "/user/login"
-			 } else if("${sessionScope.user != null}"){
+			 } else if(${sessionScope.user != null}){
 				self.location = "/schedule/listSchedule"	//UserId??????????
 			 }
 		 });
@@ -104,7 +104,7 @@
 		 
 		 /////////////////////////////////////// 소모임 메뉴바 ////////////////////////////////////
 		 $( "a[href='#' ]:contains('소모임')").on("click", function(){
-				self.location = "/meeing/listMeeting"
+				self.location = "/meeting/listMeeting"
 		 });
 		 
 		/////////////////////////////////////// 라이브방송 메뉴바 ////////////////////////////////////

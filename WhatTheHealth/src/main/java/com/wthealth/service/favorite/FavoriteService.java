@@ -21,12 +21,12 @@ public interface FavoriteService {
 	
 	public Favorite getFavorite(Favorite favorite) throws Exception;
 	
-	public  Map<String, Object> listLikePeople(Search search,String postNo) throws Exception;
+	public  Map<String, Object> listLikePeople(Search search,int postNo) throws Exception;
 	
 	public Map<String, Object> listMyInterest(Search search, String userId) throws Exception;
 	
 	public List<Favorite> listFavorite(Favorite favorite) throws Exception;
 	
-	public int getTotalLikeCount(String postNo) throws Exception;
+	public int getTotalLikeCount(int postNo) throws Exception;
 	
 }

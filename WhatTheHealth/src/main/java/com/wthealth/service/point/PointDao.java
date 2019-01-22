@@ -22,7 +22,7 @@ public interface PointDao {
 		public void updatePoint(Point point) throws Exception ;
 		
 		// 게시판 Page 처리를 위한 전체Row(totalCount)  return
-		public int getTotalCount(String senderId) throws Exception ;
+		public int getTotalCount(Search search, String senderId) throws Exception ;
 		
 		public String getKakaoPayReady(String token, int point) throws Exception;
 		

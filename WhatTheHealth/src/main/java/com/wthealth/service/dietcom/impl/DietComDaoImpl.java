@@ -31,7 +31,7 @@ public class DietComDaoImpl implements DietComDao {
 	}
 	
 	@Override
-	public Post getDietCom(String postNo) throws Exception {
+	public Post getDietCom(int postNo) throws Exception {
 		return sqlSession.selectOne("DietComMapper.getDietCom", postNo);
 	}
 
@@ -66,7 +66,7 @@ public class DietComDaoImpl implements DietComDao {
 	}
 
 	@Override
-	public void deleteDietCom(String postNo) throws Exception {
+	public void deleteDietCom(int postNo) throws Exception {
 		sqlSession.update("DietComMapper.deleteDietCom", postNo);
 	}
 

@@ -24,7 +24,8 @@
 		<result property="post.postNo"	column="post_no" 		jdbcType="VARCHAR" />
 		<result property="post.deleteStatus"	column="delete_status" 		jdbcType="VARCHAR" />
 		<result property="post.postDate"	column="post_Date" 		jdbcType="DATE" />
-		<result property="post.postNo" 	column="post_no" 	jdbcType="VARCHAR" />
+		<result property="post.postNo" 	column="post_no" 	jdbcType="NUMERIC" />
+		<result property="post.postSubNo" 	column="post_sub_no" 	jdbcType="VARCHAR" />
 		<result property="post.userId" 	column="user_id" 	jdbcType="VARCHAR" />
 		<result property="post.title" 	column="title" 	jdbcType="VARCHAR" />
 		<result property="post.contents" 	column="contents" 	jdbcType="VARCHAR" />
@@ -39,8 +40,7 @@
 		<result property="post.exScNo"		column="ex_sc_no"		jdbcType="NUMERIC" />
 		<result property="post.dietScNo"		column="diet_sc_no"		jdbcType="NUMERIC" />
 		<result property="post.locationTagName"		column="locationtag_name"		jdbcType="VARCHAR" />
-		<result property="post.xCoordinate"		column="x_coordinate"		jdbcType="NUMERIC" />
-		<result property="post.yCoordinate"		column="y_coordinate"		jdbcType="NUMERIC" />
+		<result property="post.coordinate"		column="coordinate"		jdbcType="VARCHAR" />
 		<result property="post.address"		column="address"	jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -49,14 +49,16 @@
 		<result property="joinDate" 	column="join_date" 		jdbcType="DATE" />
 		<result property="joinStatus" 				column="join_status" 					jdbcType="VARCHAR" />
 		<result property="depoStatus" 				column="depo_status" 					jdbcType="VARCHAR" />
-		<result property="postNo" 			column="post_no" 		jdbcType="VARCHAR" />
+		<result property="postNo" 			column="post_no" 		jdbcType="NUMERIC" />
 		<result property="partyId" 				column="party_id" 					jdbcType="VARCHAR" />
 		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
 		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
+		<result property="meetTitle" 		column="title" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="postSelectMap" 	type="com.wthealth.domain.Post">
-		<result property="postNo" 	column="post_no" 	jdbcType="VARCHAR" />
+		<result property="postNo" 	column="post_no" 	jdbcType="NUMERIC" />
+		<result property="postSubNo" 	column="post_sub_no" 	jdbcType="VARCHAR" />
 		<result property="userId" 	column="user_id" 	jdbcType="VARCHAR" />
 		<result property="title" 	column="title" 	jdbcType="VARCHAR" />
 		<result property="contents" 	column="contents" 	jdbcType="VARCHAR" />
@@ -71,19 +73,18 @@
 		<result property="exScNo"		column="ex_sc_no"		jdbcType="NUMERIC" />
 		<result property="dietScNo"		column="diet_sc_no"		jdbcType="NUMERIC" />
 		<result property="locationTagName"		column="locationtag_name"		jdbcType="VARCHAR" />
-		<result property="xCoordinate"		column="x_coordinate"		jdbcType="NUMERIC" />
-		<result property="yCoordinate"		column="y_coordinate"		jdbcType="NUMERIC" />
+		<result property="coordinate"		column="coordinate"		jdbcType="VARCHAR" />
 		<result property="address"		column="address"	jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addMeeting"		parameterType="com.wthealth.domain.Meeting" useGeneratedKeys="true" keyProperty="meetNo">
 	 	INSERT
-		INTO meeting ( meet_no , post_no, depo_amount , depo_bank , depo_account, depo_deadline, depo_acc_holder, entryfee , 
+		INTO meeting ( meet_no, post_no, depo_amount , depo_bank , depo_account, depo_deadline, depo_acc_holder, entryfee , 
 									min_party, max_party, chief_id, depo_condition, meet_time, deadline_time ) 
-		VALUES	 (	seq_meeting_meet_no.nextval, 'ME'||seq_meeting_meet_no.currval, #{depoAmount:NUMERIC} , #{depoBank:VARCHAR} , #{depoAccount:VARCHAR} , 
-							#{depoDeadline:DATE} , #{depoAccHolder:VARCHAR} , #{entryfee:NUMERIC} , #{minParty:NUMERIC}
-							, #{maxParty:NUMERIC}, #{cheifId}, #{depoCondition}, #{meetTime}, #{deadlineTime:DATE})
+		VALUES	 (	seq_meeting_meet_no.nextval, seq_post_post_no.nextval, #{depoAmount:NUMERIC} , #{depoBank:VARCHAR} , 
+							#{depoAccount:VARCHAR}, #{depoDeadline:DATE} , #{depoAccHolder:VARCHAR} , #{entryfee:NUMERIC} , 
+							#{minParty:NUMERIC}, #{maxParty:NUMERIC}, #{cheifId}, #{depoCondition}, #{meetTime:DATE}, #{deadlineTime:DATE})
 		<selectKey resultType="int" keyProperty = "meetNo" order="AFTER">
 			SELECT seq_meeting_meet_no.currval FROM dual
 		</selectKey>
@@ -99,28 +100,28 @@
 	</insert>   -->
 	<insert 	id="addMeetingPost"		parameterType="com.wthealth.domain.Post" >
 	 	INSERT
-		INTO post (post_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
-							category, post_date, locationtag_name, x_coordinate, y_coordinate, address)
-		VALUES (	#{postNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, '0', NULL, NULL, '0', '4', SYSDATE,
-							 #{locationTagName:VARCHAR}, #{xCoordinate:NUMERIC}, #{yCoordinate:NUMERIC}, #{address:VARCHAR})
+		INTO post (post_no, post_sub_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
+							category, post_date, locationtag_name, coordinate, address)
+		VALUES (	#{postNo}, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, 0, NULL, NULL, '0', '4', SYSDATE,
+							 #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 	</insert>
 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getMeeting"	parameterType="String"	resultMap="meetingSelectMap">
+	 <select 	id="getMeeting"	parameterType="int"	resultMap="meetingSelectMap">
 		SELECT
 		m.meet_no , m.depo_amount , m.depo_bank , m.depo_account, m.depo_deadline, m.depo_acc_holder, m.entryfee, 
 									m.min_party, m.max_party, m.chief_id, m.depo_condition, m.meet_time, m.deadline_time, m.post_no,
 									p.user_id, p.title, p.contents, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
-									p.category, p.post_date, p.locationtag_name, p.x_coordinate, p.y_coordinate, p.address
+									p.category, p.post_date, p.locationtag_name, p.coordinate, p.address
 		FROM meeting m, post p
 		WHERE m.post_no = p.post_no and p.post_no = #{value}
 	 </select>
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getMeetingPost"	parameterType="String"	resultMap="postSelectMap">
+	 <select 	id="getMeetingPost"	parameterType="int"	resultMap="postSelectMap">
 		SELECT
 		post_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
-							category, post_date, locationtag_name, x_coordinate, y_coordinate, address
+							category, post_date, locationtag_name, coordinate, address
 		FROM post
 		WHERE post_no = #{value}
 	 </select>
@@ -136,7 +137,7 @@
 	 
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="deleteMeeting"	parameterType="String" >
+	 <update	id="deleteMeeting"	parameterType="int" >
 	   	UPDATE post
 	   	<set>
 	   		delete_status = '1'
@@ -216,20 +217,10 @@
 	<select  id="listJoinedMeeting"  parameterType="map"		resultMap="joinSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time
-											FROM join j, meeting m
-											WHERE j.post_no = m.post_no
-										
-												<if test = "search.searchFilter == 0 or search.searchFilter == '' or search.searchFilter == null" >
+	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time, p.title
+											FROM join j, meeting m, post p
+											WHERE j.post_no = m.post_no AND j.post_no = p.post_no
 													ORDER BY j.join_no DESC
-												</if>
-												<if test = "search.searchFilter == 1" >
-													ORDER BY j.join_no
-												</if>
-												<if test = "search.searchFilter == 2" >
-													ORDER BY m.meet_time, j.join_no
-												</if>
-										
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
@@ -277,9 +268,10 @@
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCountJoin"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time
-											FROM join j, meeting m
-											WHERE j.post_no = m.post_no
+	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time, p.title
+											FROM join j, meeting m, post p
+											WHERE j.post_no = m.post_no AND j.post_no = p.post_no
+													ORDER BY j.join_no DESC
 					 ) countTable						
 	 </select>
 	 
