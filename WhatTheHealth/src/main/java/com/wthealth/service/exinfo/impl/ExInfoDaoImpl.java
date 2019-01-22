@@ -35,7 +35,7 @@ public class ExInfoDaoImpl implements ExInfoDao{
 
 	
 	@Override
-	public Post getExInfo(String postNo) throws Exception {
+	public Post getExInfo(int postNo) throws Exception {
 		return sqlSession.selectOne("ExInfoMapper.getExInfo", postNo);
 	}
 

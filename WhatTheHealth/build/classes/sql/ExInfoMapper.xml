@@ -8,65 +8,53 @@
  	
  	
 	<resultMap id="exInfoSelectMap" type="com.wthealth.domain.Post">	
-     	 <!-- user정보 -->
-     	 <result property="userId" 		column="user_id"			 jdbcType="VARCHAR" />
-     	 <result property="nickName" 		column="nickname"		 	 jdbcType="VARCHAR" />	 
-     	 <!-- 게시물  -->
-     	 <result property="postNo" 			column="post_no"			 jdbcType="VARCHAR" />
-     	 <result property="title" 			column="title"				 jdbcType="VARCHAR" />
-     	 <result property="photo"			column="photo" 				 jdbcType="VARCHAR" />
-     	 <result property="video"			column="video" 				 jdbcType="VARCHAR" />
-     	 <result property="contents" 		column="contents"			 jdbcType="CLOB" javaType="java.lang.String"/>
-     	 <result property="clickCount"  	column="click_count"		 jdbcType="NUMERIC" />
-      	 <result property="blindStatus"	 	column="blind_status" 		 jdbcType="VARCHAR" />
-      	 <result property="deleteStatus" 	column="delete_status" 		 jdbcType="VARCHAR" />
-      	 <result property="likeCount" 		column="like_count" 		 jdbcType="NUMERIC" />
-     	 <result property="category" 		column="category" 		 	 jdbcType="VARCHAR" />
-      	 <result property="postDate" 		column="post_date"	 	 	 jdbcType="DATE" />
-      	 <!-- 운동정보 -->
-      	 <result property="exInfoNo"	 	column="ex_info_no" 		 jdbcType="NUMERIC" />
-      	 <result property="exCalorie" 		column="ex_calorie" 		 jdbcType="NUMERIC" />
-      	 <result property="exPlace" 		column="ex_place" 		 	jdbcType="VARCHAR" />
-      	 <result property="exPart" 			column="ex_part" 		 	jdbcType="VARCHAR" />
-      	 <result property="exVideoTime" 	column="ex_videotime" 		 jdbcType="VARCHAR" />
-      	 <!-- 스케줄 -->
-      	 <result property="exScNo" 			column="ex_sc_no" 	     	 jdbcType="NUMERIC" />
-      	 <result property="dietScNo" 		column="diet_sc_no" 	 	 jdbcType="NUMERIC" />
-		 <!-- 위치태그 --> 
-      	 <result property="locationTagName" column="locationtag_name"	 jdbcType="VARCHAR" />
-     	 <result property="xCoordinate" 	column="x_coordinate" 		 jdbcType="NUMERIC" />
-     	 <result property="yCoordinate" 	column="y_coordinate" 		 jdbcType="NUMERIC" />
-     	 <result property="address"			column="address" 			 jdbcType="VARCHAR" />
+		<result property="postNo" 			column="post_no" 			jdbcType="NUMERIC" />
+		<result property="postSubNo" 		column="post_sub_no" 		jdbcType="VARCHAR" />
+		<result property="userId" 			column="user_id" 			jdbcType="VARCHAR" />
+		<result property="title" 			column="title" 				jdbcType="VARCHAR" />
+		<result property="contents" 		column="contents" 			jdbcType="VARCHAR" />
+		<result property="photo" 			column="photo" 				jdbcType="VARCHAR" />
+		<result property="video" 			column="video" 				jdbcType="VARCHAR" />
+		<result property="clickCount" 		column="click_count" 		jdbcType="NUMERIC" />
+		<result property="blindStatus" 		column="blind_status" 		jdbcType="VARCHAR" />
+		<result property="deleteStatus" 	column="delete_status"		jdbcType="VARCHAR" />
+		<result property="likeCount" 		column="like_count" 		jdbcType="NUMERIC" />
+		<result property="category" 		column="category" 			jdbcType="VARCHAR" />
+		<result property="postDate" 		column="post_date" 			jdbcType="DATE" />
+		<result property="exScNo" 			column="ex_sc_no" 			jdbcType="NUMERIC" />
+		<result property="dietScNo" 		column="diet_sc_no" 		jdbcType="NUMERIC" />
+		<result property="locationTagName"  column="locationtag_name"	jdbcType="VARCHAR" />
+		<result property="coordinate" 		column="coordinate" 		jdbcType="VARCHAR" />
+		<result property="address" 			column="address" 			jdbcType="VARCHAR" />
+		
+		<result property="favoriteNo"		column="favorite_no" 		jdbcType="NUMERIC" />
+		<result property="favoriteType" 	column="favorite_type" 		jdbcType="VARCHAR" />
+		<result property="pressedStatus" 	column="pressed_status" 	jdbcType="VARCHAR" />
+		
+ 		<result property="exInfoNo"	 		column="ex_info_no" 		jdbcType="NUMERIC" />
+      	<result property="exCalorie" 		column="ex_calorie" 		jdbcType="NUMERIC" />
+      	<result property="exPlace" 		column="ex_place" 		 	jdbcType="VARCHAR" />
+      	<result property="exPart" 			column="ex_part" 		 	jdbcType="VARCHAR" />
+      	<result property="exVideoTime" 	column="ex_videotime" 		jdbcType="VARCHAR" />		
+		
    </resultMap>
 	
-	
-	<!-- SQL : INSERT :: POST TABLE 등록-->
-	  <insert id="addPost" parameterType="com.wthealth.domain.Post">
-
-	    INSERT INTO
-	    	post(post_no, title, video, contents, photo, category, post_date, user_id, delete_status, like_count)
-	    VALUES
-	    	(#{postNo}, #{title}, #{video}, #{contents}, #{photo:VARCHAR}, #{category:VARCHAR},
-	    	  sysdate, #{userId},  #{deleteStatus:VARCHAR}, #{likeCount:NUMERIC})
-		    
-
-	  </insert>
-	  
+		  
 	<!-- SQL : INSERT :: EX_INFO TABLE 등록-->  
- 	   <insert id="addExInfo" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="exInfoNo">
+ 	   <insert id="addExInfo" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="postNo">
 	
 	    	INSERT INTO
-	    		post(post_no, title, contetns, user_id, post_date, photo, video, like_count, category, 
+	    		post(post_no, post_sub_no, title, contents, user_id, post_date, like_count, category, 
 	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime)
 	   		VALUES
-	    		('EI'||seq_ex_info_ex_info_no.currval, #{title}, #{contents}, #{userId}, sysdate, #{photo:VARCHAR}, 
-	    		  #{video:VARCHAR}, #{likeCount}, #{category}, seq_ex_info_ex_info_no.nextval, #{exCalorie}, #{exPlace},
-	    		 #{exPart}, #{exVideoTime} )
-	   
-	   	<!-- <selectKey resultType="int" keyProperty="exInfoNo" order="AFTER">
-			SELECT seq_ex_info_ex_info_no.CURRVAL FROM dual
-		</selectKey>  -->
-		   		
+	    		(seq_post_post_no.nextval, 'EI'||seq_ex_info_ex_info_no.currval, #{title}, #{contents}, #{userId}, sysdate,
+	    		 #{likeCount:NUMERIC}, #{category:VARCHAR}, seq_ex_info_ex_info_no.nextval, #{exCalorie:NUMERIC}, #{exPlace:VARCHAR},
+	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR} )
+	    		 
+		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
+        	 SELECT seq_post_post_no.currval FROM dual
+     	</selectKey>	
+     	
 	  </insert>	    
 	  
  	<!-- SQL : UPDATE :: 게시물 수정  -->

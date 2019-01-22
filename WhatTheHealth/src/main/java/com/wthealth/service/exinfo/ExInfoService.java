@@ -11,8 +11,7 @@ public interface ExInfoService {
 	
 	public void addExInfo(Post post) throws Exception;
 		
-	public Post getExInfo(String postNo) throws Exception;
-	
+	public Post getExInfo(int postNo) throws Exception;
 	
 	public void updateExInfo(Post post) throws Exception;
 	

@@ -59,7 +59,7 @@ public class MainServiceImpl implements MainService {
 		  PrintWriter out = response.getWriter();
 	     // �뾽濡쒕뱶�븷 �뤃�뜑 寃쎈줈
 	     //String realFolder = request.getSession().getServletContext().getRealPath("images");
-	      String realFolder = "C:\\Users\\bitcamp\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+	      String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
 	      System.out.println(realFolder);
 	      UUID uuid = UUID.randomUUID();
 

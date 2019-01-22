@@ -129,7 +129,7 @@ import com.wthealth.service.exinfo.ExInfoService;
 			
 			Post post = new Post();
 			
-			post = exInfoService.getExInfo("EI10005");
+		//	post = exInfoService.getExInfo("EI10005");
 			
 			System.out.println(post);
 			
