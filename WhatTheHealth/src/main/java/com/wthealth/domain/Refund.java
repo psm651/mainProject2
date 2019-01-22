@@ -9,10 +9,12 @@ public class Refund {
 	private int refundMoney;
 	private String bankName;
 	private String holder;
-	private int accountNum;
+	private String accountNum;
 	private Date refundReqDate;
 	private String userId;
-	private String refundStatus;
+	private String refundStatus; //0: 환급 예정, 1:환급 완료
+	private int bankCode;
+	private int dateOfBirth; //생년월일+한자리 ex)9404162
 	
 	public Refund() {
 	}
@@ -57,11 +59,11 @@ public class Refund {
 		this.holder = holder;
 	}
 
-	public int getAccountNum() {
+	public String getAccountNum() {
 		return accountNum;
 	}
 
-	public void setAccountNum(int accountNum) {
+	public void setAccountNum(String accountNum) {
 		this.accountNum = accountNum;
 	}
 
@@ -88,7 +90,29 @@ public class Refund {
 	public void setRefundStatus(String refundStatus) {
 		this.refundStatus = refundStatus;
 	}
-	
-	
+
+	public int getBankCode() {
+		return bankCode;
+	}
+
+	public void setBankCode(int bankCode) {
+		this.bankCode = bankCode;
+	}
+
+	public int getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(int dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	@Override
+	public String toString() {
+		return "Refund [refundNo=" + refundNo + ", refundDate=" + refundDate + ", refundMoney=" + refundMoney
+				+ ", bankName=" + bankName + ", holder=" + holder + ", accountNum=" + accountNum + ", refundReqDate="
+				+ refundReqDate + ", userId=" + userId + ", refundStatus=" + refundStatus + ", bankCode=" + bankCode
+				+ ", dateOfBirth=" + dateOfBirth + "]";
+	}
 	
 }

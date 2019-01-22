@@ -43,7 +43,7 @@ public class FavoriteRestController {
 	}
 	
 	@RequestMapping(value = "json/addLike/{postNo}", method = RequestMethod.GET)
-	public int addLike(@ModelAttribute Favorite favorite, @PathVariable String postNo,HttpSession session) throws Exception{
+	public int addLike(@ModelAttribute Favorite favorite, @PathVariable int postNo,HttpSession session) throws Exception{
 		System.out.println("/favorite/json/addLike : GET");
 		System.out.println(favorite);
 		
@@ -59,7 +59,7 @@ public class FavoriteRestController {
 	}
 	
 	@RequestMapping(value = "json/addInterest/{postNo}", method = RequestMethod.GET)
-	public int addInterest(@ModelAttribute Favorite favorite, @PathVariable String postNo,HttpSession session) throws Exception{
+	public int addInterest(@ModelAttribute Favorite favorite, @PathVariable int postNo,HttpSession session) throws Exception{
 		System.out.println("/favorite/json/addInterest : GET");
 		System.out.println(favorite);
 		
@@ -74,7 +74,7 @@ public class FavoriteRestController {
 	}
 	
 	@RequestMapping(value = "json/deleteLike/{postNo}", method = RequestMethod.GET)
-	public int deleteLike(@PathVariable String postNo, HttpSession session) throws Exception{
+	public int deleteLike(@PathVariable int postNo, HttpSession session) throws Exception{
 		System.out.println("/favorite/json/deleteLike : GET");	
 		
 		Favorite favorite = new Favorite();
@@ -93,7 +93,7 @@ public class FavoriteRestController {
 	}
 	
 	@RequestMapping(value = "json/deleteInterest/{postNo}", method = RequestMethod.GET)
-	public int deleteInterest(@PathVariable String postNo, HttpSession session) throws Exception{
+	public int deleteInterest(@PathVariable int postNo, HttpSession session) throws Exception{
 		System.out.println("/favorite/json/deleteInterest : GET");
 		Favorite favorite = new Favorite();
 		
@@ -110,7 +110,7 @@ public class FavoriteRestController {
 	}
 	
 	@RequestMapping(value = "json/listLikePeople/{postNo}", method = RequestMethod.GET)  // 수정해야할듯.
-	public Map<String, Object> listLikePeople(@ModelAttribute("search") Search search, @PathVariable String postNo) throws Exception{
+	public Map<String, Object> listLikePeople(@ModelAttribute("search") Search search, @PathVariable int postNo) throws Exception{
 		System.out.println("/favorite/json/listLikePeople : GET");
 		System.out.println("search : "+search);
 		
@@ -129,7 +129,7 @@ public class FavoriteRestController {
 	}
 		
 	@RequestMapping(value = "json/listFavorite/{postNo}", method = RequestMethod.GET)
-	public List<Favorite> listFavorite(@ModelAttribute("favorite") Favorite favorite, @PathVariable String postNo, HttpSession session) throws Exception{
+	public List<Favorite> listFavorite(@ModelAttribute("favorite") Favorite favorite, @PathVariable int postNo, HttpSession session) throws Exception{
 		System.out.println("/favorite/json/listFavorite : GET");
 		
 		User user = (User)session.getAttribute("user");

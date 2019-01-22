@@ -20,15 +20,15 @@ import com.wthealth.service.refund.RefundDao;
 @Repository("refundDaoImpl")
 public class RefundDaoImpl implements RefundDao {
 
-	private final static String CLIENT_ID = "l7xx89273312031c4c37a9ff6d29ae9c34f0";
-	private final static String CLIENT_SECRET = "c396f9034254409d9da68ab3da3757c8";
+	//private final static String CLIENT_ID = "l7xx89273312031c4c37a9ff6d29ae9c34f0";
+	//private final static String CLIENT_SECRET = "c396f9034254409d9da68ab3da3757c8";
 
-	private final static String REDIRECT_URI = "http://127.0.0.1:8080/refund/oauthAccount";
-	private final static String GET_TOKEN_API_URI = "https://testapi.open-platform.or.kr/oauth/2.0/token"; // AccessToken획득
-	private final static String REAL_NAME_URI = "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name"; // 계좌실명조회
-	private final static String USER_ME_URI = "https://testapi.open-platform.or.kr/user/me"; // 사용자정보조회
-	private final static String DEPOSIT_URI = "https://openapi.open-platform.or.kr/transfer/deposit"; // 입금이체1
-
+	//private final static String REDIRECT_URI = "http://127.0.0.1:8080/refund/oauthAccount";
+	//private final static String GET_TOKEN_API_URI = "https://testapi.open-platform.or.kr/oauth/2.0/token"; // AccessToken획득
+	//private final static String REAL_NAME_URI = "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name"; // 계좌실명조회
+	//private final static String DEPOSIT_URI = "https://openapi.open-platform.or.kr/transfer/deposit"; // 입금이체1
+	//private final static String USER_ME_URI = "https://testapi.open-platform.or.kr/user/me"; // 사용자정보조회
+	
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
@@ -78,7 +78,7 @@ public class RefundDaoImpl implements RefundDao {
 	}
 
 	// authType : 0는 최초인증, 1은 재인증, 2는 인증생략
-	@Override
+	/*@Override
 	public String getAuthorizationUrl(int authType) throws Exception {
 		String url = "redirect:https://testapi.open-platform.or.kr/oauth/2.0/authorize2?response_type=code&client_id="
 				+ CLIENT_ID + "&redirect_uri=" + REDIRECT_URI
@@ -110,10 +110,10 @@ public class RefundDaoImpl implements RefundDao {
 		System.out.println("사용자번호 :: " + user_seq_no);
 
 		return obj;
-	}
+	}*/
 
-	@Override
-	public String getAccessToken2() throws Exception {
+	/*@Override
+	public String getAccessToken2() throws Exception { //access token return
 		String param = "client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET
 				+ "&scope=oob&grant_type=client_credentials";
 
@@ -121,15 +121,15 @@ public class RefundDaoImpl implements RefundDao {
 				param, "application/x-www-form-urlencoded;charset=UTF-8");
 
 		return obj.get("access_token").toString();
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public String getUserClientId(String accessToken, String userSeqNo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public Map<String, Object> getAccount(String accessToken, String accountNum, int accountHolderinfo, String bankCode)
 			throws Exception {
 		
@@ -141,9 +141,9 @@ public class RefundDaoImpl implements RefundDao {
 		String dtime = fmt.format(cal.getTime());
 
 		JSONObject param = new JSONObject();
-		param.put("bank_code_std", bankCode);
-		param.put("account_num", accountNum);
-		param.put("account_holder_info", accountHolderinfo);
+		param.put("bank_code_std", "004");
+		param.put("account_num", "84860204104911");
+		param.put("account_holder_name", "박정연");
 		param.put("tran_dtime", dtime);
 
 		System.out.println(REAL_NAME_URI + "?" + param);
@@ -163,6 +163,6 @@ public class RefundDaoImpl implements RefundDao {
 	public List<String> listBankCode() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 }
