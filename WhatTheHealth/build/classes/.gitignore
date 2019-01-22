@@ -4,6 +4,8 @@
 /config/
 /log4j.properties
 /sql/
+<<<<<<< HEAD
+=======
 =======
 /sql/
 =======
@@ -16,3 +18,4 @@
 /log4j.properties
 /sql/
 >>>>>>> refs/heads/new/horan
+>>>>>>> refs/remotes/origin/master

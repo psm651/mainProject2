@@ -64,6 +64,8 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
 			alert(currentPage);
+			var currentPages = $("#currentPage").val();
+			alert(currentPages);
 			$("#currentPage").val(currentPage);
 			$("form").attr("method" , "POST").attr("action" , "/point/listPoint").submit();
 		}
@@ -247,17 +249,18 @@
             </div>
             
                      </c:forEach>
-                <input type="hidden" id="currentPage" name="currentPage" value=""/>
+             <!--   <input type="hidden" id="currentPage" name="currentPage" value=""/>  -->
+                
             </form>
             
 
             
           </div>
-              
+               <jsp:include page="../common/pageNavigator_new.jsp"/>
         </div>
   
      
-        <jsp:include page="../common/pageNavigator_new.jsp"/>
+       
 
 	
 </body>
