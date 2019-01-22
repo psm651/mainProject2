@@ -66,7 +66,7 @@ public class RefundController {
 		
 		refundService.addRefund(refund);
 		
-		return "redirect:/refund/listRefund.jsp";
+		return "redirect:/refund/listRefund";
 	}
 	
 	@RequestMapping( value="listRefund" )

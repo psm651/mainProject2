@@ -67,12 +67,9 @@
 	<script type="text/javascript">
 	
 	 $( function (){
-         $( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
-              self.location="/refund/authorizeAccount.jsp";
-           });
          $( "a[href='#' ]:contains('환급하기')").on("click", function(){
-             self.location="/refund/addRefund.jsp";
-          });
+              self.location="/refund/authorizeAccount.jsp";   ////////////////////////////////보류
+           });
         });
 	
 	</script>
@@ -87,7 +84,7 @@
 	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/coins.jpg');">
       <div class="container mb-5">
 
-        <h1 class="text-white display-5 mb-5">환급내역 조회</h1>
+        <h1 class="text-white display-5 mb-5">회원 환급내역 조회(관리자 페이지)</h1>
         
           <div class="row">
         	<div class="col-md-3 text-left text-primary">
@@ -113,8 +110,6 @@
 				  <div class="col-md-12 text-left text-primary"><strong>보유 포인트</strong>
 			     <span id="havingPoint" class="help-block">
 		      	 	<strong class="text">${user.havingPoint}P</strong>
-		      	 	<a href="#" class="btn btn-primary pill px-4">계좌등록하기</a>
-		      	 	<a href="#" class="btn btn-primary pill px-4">환급하기</a>
 		      	</span>
 		      </div>
 			</div>
@@ -155,7 +150,7 @@
               
               	<div class="col-sm-1 col-md-1 col-lg-1">${refund.bankName}</div>
            		<div class="col-sm-2 col-md-2 col-lg-2">${refund.accountNum}</div>
-           		<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundMoney}원</div>
+           		<div class="col-sm-1 col-md-1 col-lg-1">${refund.refundMoney}원</div>
               	<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundReqDate}</div>
               	<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundDate}</div>
               	
@@ -165,7 +160,9 @@
               	<c:if test="${refund.refundStatus=='1'}">
               	<div class="col-sm-2 col-md-2 col-lg-2">완료</div>
               	</c:if>
-                	
+              	<div class="col-sm-1 col-md-1 col-lg-1">
+              	<a href="#" class="btn btn-primary pill px-4">환급하기</a>
+                </div>	
               </div>
             </div>
             
