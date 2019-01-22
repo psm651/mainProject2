@@ -242,7 +242,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2">${i}</div>
-			<div class="col-sm-2 col-md-2 col-lg-4 text-center">${reply.postNo }</div> 
+			<div class="col-sm-2 col-md-2 col-lg-4 text-center">${reply.postTitle}</div> 
             <div class="col-sm-2 col-md-2 col-lg-4 text-center">${reply.text }</div>
             <div class="col-sm-2 col-md-2 col-lg-2">${reply.replyDate }</div>    
               </div>

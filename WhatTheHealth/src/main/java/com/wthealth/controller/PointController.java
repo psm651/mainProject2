@@ -146,7 +146,7 @@ public class PointController {
 		System.out.println("/point/updateDeposit : GET");
 		//Business Logic
 		String senderId = ((User)session.getAttribute("user")).getUserId();
-		String meetingPostNo = meetingService.getJoin(joinNo).getPostNo();
+		int meetingPostNo = meetingService.getJoin(joinNo).getPostNo();
 		String receiveMeeting = meetingService.getMeeting(meetingPostNo).getPost().getTitle();
 		
 		Point point = new Point();

@@ -251,7 +251,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2" >${i}</div>
-            <div class="col-sm-2 col-md-2 col-lg-4 text-center">${meeting.postNo }</div>
+            <div class="col-sm-2 col-md-2 col-lg-4 text-center">${meeting.meetTitle}</div>
             
             <c:if test="${meeting.joinStatus =='0'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">대기</div>
