@@ -15,6 +15,8 @@ public class Reply {
 	private String blindStatus;
 	private String deleteStatus;
 	private String postTitle;
+	private String category;
+	private String userImage;
 	
 	///Constructor
 	public Reply() {
@@ -101,12 +103,31 @@ public class Reply {
 		this.postTitle = postTitle;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
+	}
+
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", parentReplyNo=" + parentReplyNo + ", reReplyNo=" + reReplyNo
 				+ ", replyDate=" + replyDate + ", postNo=" + postNo + ", text=" + text + ", writerId=" + writerId
-				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + ", postTitle=" + postTitle + "]";
+				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + ", postTitle=" + postTitle
+				+ ", category=" + category + ", userImage=" + userImage + "]";
 	}
+
+
 	
 };
 

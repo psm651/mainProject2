@@ -49,7 +49,7 @@
 		<result property="joinDate" 	column="join_date" 		jdbcType="DATE" />
 		<result property="joinStatus" 				column="join_status" 					jdbcType="VARCHAR" />
 		<result property="depoStatus" 				column="depo_status" 					jdbcType="VARCHAR" />
-		<result property="postNo" 			column="post_no" 		jdbcType="VARCHAR" />
+		<result property="postNo" 			column="post_no" 		jdbcType="NUMERIC" />
 		<result property="partyId" 				column="party_id" 					jdbcType="VARCHAR" />
 		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
 		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
