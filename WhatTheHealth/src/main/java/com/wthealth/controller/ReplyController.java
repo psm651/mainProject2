@@ -1,5 +1,6 @@
 package com.wthealth.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.Reply;
 import com.wthealth.domain.User;
 import com.wthealth.service.reply.ReplyService;
 

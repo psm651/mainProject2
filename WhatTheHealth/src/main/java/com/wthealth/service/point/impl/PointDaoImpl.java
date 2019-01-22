@@ -82,9 +82,13 @@ public class PointDaoImpl implements PointDao {
 	}
 
 	@Override
-	public int getTotalCount(String senderId) throws Exception {
+	public int getTotalCount(Search search, String senderId) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("PointMapper.getTotalCount", senderId);
+		Map<String , Object>  map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("senderId", senderId);
+		
+		return sqlSession.selectOne("PointMapper.getTotalCount", map);
 	}
 	
 	// accessToken 으로 카카오페이 준비

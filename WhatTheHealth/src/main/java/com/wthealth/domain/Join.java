@@ -9,10 +9,11 @@ public class Join {
 	private Date joinDate;
 	private String joinStatus;
 	private String depoStatus;
-	private String postNo;
+	private int postNo;
 	private String partyId;
 	private String deleteStatus;
 	private Date meetTime;
+	private String meetTitle;
 	
 	///Constructor
 	public Join() {
@@ -51,11 +52,11 @@ public class Join {
 		this.depoStatus = depoStatus;
 	}
 
-	public String getPostNo() {
+	public int getPostNo() {
 		return postNo;
 	}
 
-	public void setPostNo(String postNo) {
+	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
 
@@ -84,11 +85,18 @@ public class Join {
 		this.meetTime = meetTime;
 	}
 
+	public String getMeetTitle() {
+		return meetTitle;
+	}
+
+	public void setMeetTitle(String meetTitle) {
+		this.meetTitle = meetTitle;
+	}
+
 	@Override
 	public String toString() {
 		return "Join [joinNo=" + joinNo + ", joinDate=" + joinDate + ", joinStatus=" + joinStatus + ", depoStatus="
 				+ depoStatus + ", postNo=" + postNo + ", partyId=" + partyId + ", deleteStatus=" + deleteStatus
-				+ ", meetTime=" + meetTime + "]";
+				+ ", meetTime=" + meetTime + ", meetTitle=" + meetTitle + "]";
 	}
-	
 }

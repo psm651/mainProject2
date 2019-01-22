@@ -14,6 +14,7 @@ public class Reply {
 	private String writerId;
 	private String blindStatus;
 	private String deleteStatus;
+	private String postTitle;
 	
 	///Constructor
 	public Reply() {
@@ -92,12 +93,20 @@ public class Reply {
 		this.deleteStatus = deleteStatus;
 	}
 
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", parentReplyNo=" + parentReplyNo + ", reReplyNo=" + reReplyNo
 				+ ", replyDate=" + replyDate + ", postNo=" + postNo + ", text=" + text + ", writerId=" + writerId
-				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + "]";
-	};
+				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + ", postTitle=" + postTitle + "]";
+	}
 	
 };
 
