@@ -1,10 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /com/
 /config/
 /log4j.properties
 /sql/
 =======
 /sql/
+=======
+>>>>>>> refs/heads/new/horan
 /com/
 /config/
+<<<<<<< HEAD
+>>>>>>> refs/heads/new/horan
+=======
+/log4j.properties
+/sql/
 >>>>>>> refs/heads/new/horan

@@ -50,19 +50,19 @@ public class MeetingServiceImpl implements MeetingService {
 	}*/
 
 	@Override
-	public void deleteMeeting(String postNo) throws Exception {
+	public void deleteMeeting(int postNo) throws Exception {
 		meetingDao.deleteMeeting(postNo);
 	}
 
 	
 
 	@Override
-	public Meeting getMeeting(String postNo) throws Exception {
+	public Meeting getMeeting(int postNo) throws Exception {
 		return meetingDao.getMeeting(postNo);
 	}
 
 	@Override
-	public Post getMeetingPost(String postNo) throws Exception {
+	public Post getMeetingPost(int postNo) throws Exception {
 		return meetingDao.getMeetingPost(postNo);
 	}
 
