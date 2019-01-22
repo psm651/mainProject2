@@ -98,7 +98,6 @@
 				return;
 			}
 				
-			alert("전송되었습니다.");	
 			$("form").attr("method" , "POST").attr("action" , "/point/updatePoint").submit();
 		}
 		

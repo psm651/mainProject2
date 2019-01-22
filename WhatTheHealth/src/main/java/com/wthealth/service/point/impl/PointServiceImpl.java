@@ -43,7 +43,7 @@ public class PointServiceImpl implements PointService {
 	public Map<String, Object> listPoint(Search search, String senderId) throws Exception {
 		// TODO Auto-generated method stub
 		List<Point> list= pointDao.listPoint(search,senderId);
-		int totalCount = pointDao.getTotalCount(senderId);
+		int totalCount = pointDao.getTotalCount(search, senderId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );

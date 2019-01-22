@@ -27,7 +27,7 @@ import com.wthealth.service.user.UserService;
 
 @Controller
 @RequestMapping("/point/*")
-public class PointController {
+public class PointController2 {
 	
 	///Field
 	@Autowired
@@ -43,7 +43,7 @@ public class PointController {
 	@Qualifier("meetingServiceImpl")
 	private MeetingService meetingService;
 
-	public PointController() {
+	public PointController2() {
 		// TODO Auto-generated constructor stub
 		System.out.println(this.getClass());
 	}
