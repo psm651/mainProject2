@@ -128,12 +128,23 @@
 		 $(function() {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
+			$( "#title" ).on("click" , function() {
+				
+				var category = $(this).data("param1");
+				var postNo = $(this).data("param2");
+				
+				if(category == '1'){
+				 self.location ="/exinfo/getExInfo?postNo="+postNo;
+				} else if(category == '2'){
+				 self.location ="/exCom/getExCom?postNo="+postNo;
+				} else if(category == '3'){
+				 self.location ="/dietCom/getDietCom?postNo="+postNo;
+				} else if(category == '4'){
+				 self.location ="/meeting/getMeeting?postNo="+postNo;
+				}
+				
 			});
 						
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( "td:nth-child(2)" ).css("color" , "red");
 			
 		});	
 		
@@ -254,7 +265,7 @@
             <div class="col-sm-2 col-md-2 col-lg-2 text-center">소모임</div>
             </c:if>
             
-            <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center"><strong>${post.title }</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center" data-param1="${post.category }" data-param2="${post.postNo }" id="title"><strong>${post.title }</strong></div>
             <div class="col-sm-2 col-md-2 col-lg-2">${post.postDate }</div>  
               </div>
             </div>
@@ -265,101 +276,18 @@
                
                
   
-             <div class="tab-pane fade" id="pills-monday" role="tabpanel" aria-labelledby="pills-monday-tab">
-                  
-            <div class="row-wrap">
-              <div class="row bg-white p-2 align-items-center">
-			  <div class="col-sm-2 col-md-2 col-lg-2"><strong>No</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2"><strong>카테고리</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2  text-center"><strong>원문제목</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-4  text-center"><strong>내용</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2"><strong><span class="icon-clock-o mr-2"></span>작성날짜</strong></div>   
-              </div>
-            </div>
-       
           
-         <c:set var="i" value="0"/>
-      	 <c:forEach var="reply" items="${replyList}">
-         <c:set var ="i" value="${i+1 }"/> 
-
-            <div class="row-wrap">
-            <div class="row bg-white p-4 align-items-center">
-			<div class="col-sm-2 col-md-2 col-lg-2">${reply.postNo}</div>
-<%--             <div class="col-sm-2 col-md-2 col-lg-2">${post.category }</div> --%>
-            <div class="col-sm-2 col-md-2 col-lg-4">${reply.text }</div>
-            <div class="col-sm-2 col-md-2 col-lg-2">${reply.replyDate }</div>    
-              </div>
-            </div>
-        
-          
-              </c:forEach>
-               </div>
-               
-               
-                 <div class="tab-pane fade" id="pills-tuesday" role="tabpanel" aria-labelledby="pills-tuesday-tab">
-                  
-            <div class="row-wrap">
-              <div class="row bg-white p-2 align-items-center">
-			  <div class="col-sm-2 col-md-2 col-lg-2"><strong>No</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2"><strong>카테고리</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-4  text-center"><strong>제목</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2"><strong><span class="icon-clock-o mr-2"></span>작성날짜</strong></div>   
-              </div>
-            </div>
-       
-          
-         <c:set var="i" value="0"/>
-      	 <c:forEach var="interest" items="${interestList}">
-         <c:set var ="i" value="${i+1 }"/> 
-
-            <div class="row-wrap">
-            <div class="row bg-white p-4 align-items-center">
-			<div class="col-sm-2 col-md-2 col-lg-2">${interest.postNo}</div>
-            <div class="col-sm-2 col-md-2 col-lg-2">${interest.category }</div>
-            <div class="col-sm-2 col-md-2 col-lg-4">${interest.title }</div>
-            <div class="col-sm-2 col-md-2 col-lg-2">${interest.postDate }</div>    
-              </div>
-            </div>
-        
-          
-              </c:forEach>
-               </div>
-               
-             <div class="tab-pane fade" id="pills-wednesday" role="tabpanel" aria-labelledby="pills-wednesday-tab">
-                  
-            <div class="row-wrap">
-              <div class="row bg-white p-2 align-items-center">
-			  <div class="col-sm-2 col-md-2 col-lg-2"><strong>No</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2"><strong>참여상태</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-4  text-center"><strong>이름</strong></div>
-              <div class="col-sm-2 col-md-2 col-lg-2"><strong><span class="icon-clock-o mr-2"></span>참여날짜</strong></div>   
-              </div>
-            </div>
-       
-          
-         <c:set var="i" value="0"/>
-      	 <c:forEach var="meeting" items="${meetingList}">
-         <c:set var ="i" value="${i+1 }"/> 
-
-            <div class="row-wrap">
-            <div class="row bg-white p-4 align-items-center">
-			<div class="col-sm-2 col-md-2 col-lg-2">${meeting.joinNo}</div>
-            <div class="col-sm-2 col-md-2 col-lg-2">${meeting.joinStatus }</div>
-            <div class="col-sm-2 col-md-2 col-lg-4">${meeting.postNo }</div>
-            <div class="col-sm-2 col-md-2 col-lg-2">${meeting.joinDate }</div>    
-              </div>
-            </div>
-        
-          
-              </c:forEach>
                </div>
                
                
         </div>
+           <jsp:include page="../common/pageNavigator_new.jsp"/>
    </div>
+   
+ 
       </div>
-        <jsp:include page="../common/pageNavigator_new.jsp"/>
-    </div>
+       
+ 
 
         
       

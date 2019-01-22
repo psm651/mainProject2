@@ -75,7 +75,7 @@ public class DietComController {
 		}
 		
 		@RequestMapping(value = "getDietCom", method = RequestMethod.GET)
-		public String getDietCom(@RequestParam("postNo") String postNo, Model model) throws Exception{
+		public String getDietCom(@RequestParam("postNo") int postNo, Model model) throws Exception{
 			System.out.println("/getDietCom :GET");
 			
 			Post post = dietComService.getDietCom(postNo);
@@ -96,7 +96,7 @@ public class DietComController {
 		}
 		
 		@RequestMapping(value = "updateDietCom", method= RequestMethod.GET)
-		public String updateDietCom(@RequestParam("postNo") String postNo, Model model) throws Exception{
+		public String updateDietCom(@RequestParam("postNo") int postNo, Model model) throws Exception{
 			System.out.println("/updateDietCom : GET");
 			
 			Post post = dietComService.getDietCom(postNo);
@@ -117,7 +117,7 @@ public class DietComController {
 		}
 		
 		@RequestMapping(value="deleteDietCom", method = RequestMethod.POST)
-		public String deleteDietCom(@RequestParam("post") String postNo, Model model) throws Exception{
+		public String deleteDietCom(@RequestParam("post") int postNo, Model model) throws Exception{
 			System.out.println("/deleteDietCom : POST");
 			
 			dietComService.deleteDietCom(postNo);

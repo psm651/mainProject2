@@ -6,7 +6,7 @@ public class Favorite {
 	
 	private int favoriteNo;
 	private String userId;
-	private String postNo;
+	private int postNo;
 	private String favoriteType; //0: 좋아요, 1: 관심게시물
 	private String category; //post의 category
 	private String contents;
@@ -32,11 +32,11 @@ public class Favorite {
 		this.userId = userId;
 	}
 
-	public String getPostNo() {
+	public int getPostNo() {
 		return postNo;
 	}
 
-	public void setPostNo(String postNo) {
+	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
 
@@ -123,6 +123,5 @@ public class Favorite {
 				+ ", postDate=" + postDate + ", userImage=" + userImage + ", nickName=" + nickName + ", likeCount="
 				+ likeCount + ", pressedStatus=" + pressedStatus + "]";
 	}
-
 
 }

@@ -82,9 +82,13 @@ public class PointDaoImpl implements PointDao {
 	}
 
 	@Override
-	public int getTotalCount(String senderId) throws Exception {
+	public int getTotalCount(Search search, String senderId) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("PointMapper.getTotalCount", senderId);
+		Map<String , Object>  map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("senderId", senderId);
+		
+		return sqlSession.selectOne("PointMapper.getTotalCount", map);
 	}
 	
 	// accessToken 으로 카카오페이 준비
@@ -96,8 +100,8 @@ public class PointDaoImpl implements PointDao {
 		int quantity = 1;
 
 	       String param = PAYMENT_TEST_PARAM+"&item_name="+item+"&quantity="+quantity+"&total_amount="+point
-	        			+ "&tax_free_amount=0&approval_url=http://192.168.0.10:8080/point/kakaoPaySuccess.jsp"
-	        			+ "&fail_url=http://192.168.0.10:8080/point/kakaoPay/fail&cancel_url=http://192.168.0.10:8080/point/kakaoPay/cancel";
+	        			+ "&tax_free_amount=0&approval_url=http://127.0.0.1:8080/point/kakaoPaySuccess.jsp"
+	        			+ "&fail_url=http://127.0.0.1:8080/point/kakaoPay/fail&cancel_url=http://127.0.0.1:8080/point/kakaoPay/cancel";
 	
 	       JSONObject obj = URLConnection.getJSON_PARAM(URLConnection.HTTPMETHOD_POST, PAYMENT_READY_URL, param,
 	       		"application/x-www-form-urlencoded; charset=utf-8",
@@ -117,8 +121,8 @@ public class PointDaoImpl implements PointDao {
 		int quantity = 1;
 
         String param = PAYMENT_TEST_PARAM+"&item_name="+item+"&quantity="+quantity+"&total_amount="+point
-        				+ "&tax_free_amount=0&approval_url=http://192.168.0.10:8080/point/kakaoPaySuccess.jsp"
-        				+ "&fail_url=http://192.168.0.10:8080/payment/kakaoPay/fail&cancel_url=http://192.168.0.10:8080/payment/kakaoPay/cancel";
+        				+ "&tax_free_amount=0&approval_url=http://127.0.0.1:8080/point/kakaoPaySuccess.jsp"
+        				+ "&fail_url=http://127.0.0.1:8080/payment/kakaoPay/fail&cancel_url=http://127.0.0.1:8080/payment/kakaoPay/cancel";
 		
         System.out.println(param);
         

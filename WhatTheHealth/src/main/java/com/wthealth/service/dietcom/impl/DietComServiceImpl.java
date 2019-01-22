@@ -40,7 +40,7 @@ public class DietComServiceImpl implements DietComService {
 	}
 	
 	@Override
-	public Post getDietCom(String postNo) throws Exception {
+	public Post getDietCom(int postNo) throws Exception {
 		return dietComDao.getDietCom(postNo);
 	}
 
@@ -85,7 +85,7 @@ public class DietComServiceImpl implements DietComService {
 	}
 
 	@Override
-	public void deleteDietCom(String postNo) throws Exception {
+	public void deleteDietCom(int postNo) throws Exception {
 		dietComDao.deleteDietCom(postNo);
 
 	}

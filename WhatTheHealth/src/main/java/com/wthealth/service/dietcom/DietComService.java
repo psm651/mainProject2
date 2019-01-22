@@ -15,7 +15,7 @@ public interface DietComService {
 
 	public void addDietCom(Post post) throws Exception;
 	
-	public Post getDietCom(String postNo) throws Exception;
+	public Post getDietCom(int postNo) throws Exception;
 
 	public Map<String, Object> listDietCom(Search search) throws Exception;
 
@@ -27,7 +27,7 @@ public interface DietComService {
 	
 	public void updateThumbnail(Post post) throws Exception;
 	
-	public void deleteDietCom(String postNo) throws Exception;
+	public void deleteDietCom(int postNo) throws Exception;
 
 	public Map<String, Object> listDietComRecom(Search search) throws Exception;
 	

@@ -98,7 +98,7 @@
 	<div class="container">
 	
 	<div class="page-header text-center">
-	       <h3 class=" text-muted">포인트 충전 성공</h3>
+	       <h3 class=" text-muted">충전이 완료되었습니다!</h3>
 	    </div>
 	    
 	    <form class="p-5 bg-white">
@@ -111,12 +111,12 @@
 		<hr/>
 		
 		<div class="row">
-	  		<div class="col-xs-4 col-md-2 "><strong>보유 포인트</strong></div>
+	  		<div class="col-xs-4 col-md-2 "><strong>기존 포인트</strong></div>
 			<div class="col-xs-8 col-md-4">${user.havingPoint}P</div>
 		</div>
 		
 		<hr/>
-		
+<%-- 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>충전 포인트</strong></div>
 			<div class="col-xs-8 col-md-4">${result.point}P</div>
@@ -129,7 +129,7 @@
 			<div class="col-xs-8 col-md-4">${result.approvedDate}</div>
 		</div>
 		
-		<hr/>
+		<hr/> --%>
 		
 		<div class="form-group">
 		    <div class="col-md-12 text-center">

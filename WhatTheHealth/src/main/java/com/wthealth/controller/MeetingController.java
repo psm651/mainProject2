@@ -47,21 +47,29 @@ public class MeetingController {
 	public String addMeeting() throws Exception{
 		System.out.println("/addMeeting : GET");
 		
-		return "redirect:/meeting/addMeeting.jsp" ;
+		return "forward:/meeting/addMeeting.jsp" ;
 	}
 	
 	@RequestMapping(value="addMeeting", method=RequestMethod.POST)
-	public String addMeeting(@ModelAttribute("meeting") Meeting meeting) throws Exception{
-		System.out.println("/addLiveStream: POST");
+	public String addMeeting(@ModelAttribute("meeting") Meeting meeting, HttpSession session) throws Exception{
+		System.out.println("/addMeeting: POST");
+		
+		User user = (User)session.getAttribute("user");
+		meeting.setCheifId(user.getUserId());
+		
+		Post post = meeting.getPost();
+		post.setUserId(user.getUserId());
+
+		meeting.setPost(post);
+		
 		meetingService.addMeeting(meeting);
-		/*Post post = meeting.getPost();
-		post.setPostNo("ME"+meeting.getMeetNo());
+		/*post.setPostNo("ME"+meeting.getMeetNo());
 		meetingService.addMeetingPost(post);*/
-		return "forward:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
+		return "forward:/meeting/getMeeting?postNo="+meeting.getPost().getPostNo();
 	}
 	
 	@RequestMapping(value="getMeeting", method=RequestMethod.GET)
-	public String getMeeting(@RequestParam("postNo") String postNo, Model model) throws Exception{
+	public String getMeeting(@RequestParam("postNo") int postNo, Model model) throws Exception{
 		System.out.println("/getMeeting: GET");
 		Meeting meeting = meetingService.getMeeting(postNo);
 		model.addAttribute("meeting", meeting);
@@ -70,7 +78,7 @@ public class MeetingController {
 	}
 	
 	@RequestMapping(value="deleteMeeting", method=RequestMethod.GET)
-	public String deleteMeeting(@RequestParam("postNo") String postNo) throws Exception{
+	public String deleteMeeting(@RequestParam("postNo") int postNo) throws Exception{
 		System.out.println("/deleteMeeting: GET");
 		meetingService.deleteMeeting(postNo);
 		

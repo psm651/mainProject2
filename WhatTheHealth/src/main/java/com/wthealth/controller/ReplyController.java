@@ -1,6 +1,9 @@
 package com.wthealth.controller;
 
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.Reply;
+import com.wthealth.domain.User;
 import com.wthealth.service.reply.ReplyService;
 
 @Controller
@@ -61,7 +66,7 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value = "listMyReply")
-	public String listMyReply(@ModelAttribute("search") Search search, @RequestParam("userId") String userId, Model model) throws Exception{
+	public String listMyReply(@ModelAttribute("search") Search search, HttpSession session, Model model) throws Exception{
 		System.out.println("/listMyReply");
 		
 		if(search.getCurrentPage() ==0 ){
@@ -69,16 +74,17 @@ public class ReplyController {
 		}
 		search.setPageSize(pageSize);
 		
+		String userId = ((User)session.getAttribute("user")).getUserId();
 		Map<String , Object> map=replyService.listMyReply(search, userId);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		model.addAttribute("list", map.get("list"));
+		model.addAttribute("replyList", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
-		return "forward:/reply/listMyReply.jsp";
+		return "forward:/activity/listMyReply.jsp";
 	}
 	
 }

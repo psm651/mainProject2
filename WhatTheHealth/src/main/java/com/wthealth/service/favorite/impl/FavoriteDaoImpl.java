@@ -56,7 +56,7 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 	
 	@Override
-	public List<User> listLikePeople(Search search,String postNo) throws Exception {
+	public List<User> listLikePeople(Search search,int postNo) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("search", search);
 		map.put("postNo", postNo);
@@ -79,7 +79,7 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 	
 	@Override
-	public int getTotalCountByPostNo(String postNo) throws Exception {
+	public int getTotalCountByPostNo(int postNo) throws Exception {
 		return sqlSession.selectOne("FavoriteMapper.getTotalCountByPostNo",postNo);
 	}
 
@@ -89,7 +89,7 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 
 	@Override
-	public int getTotalCountByFavorite(String userId, String postNo, String favoriteType) throws Exception {				
+	public int getTotalCountByFavorite(String userId, int postNo, String favoriteType) throws Exception {				
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("postNo", postNo);
@@ -99,7 +99,7 @@ public class FavoriteDaoImpl implements FavoriteDao {
 	}
 
 	@Override
-	public int getTotalLikeCount(String postNo) throws Exception {
+	public int getTotalLikeCount(int postNo) throws Exception {
 		return sqlSession.selectOne("FavoriteMapper.getTotalLikeCount", postNo);
 	}
 
