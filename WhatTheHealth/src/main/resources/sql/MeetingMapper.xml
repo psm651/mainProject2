@@ -53,6 +53,7 @@
 		<result property="partyId" 				column="party_id" 					jdbcType="VARCHAR" />
 		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
 		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
+		<result property="meetTitle" 		column="title" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="postSelectMap" 	type="com.wthealth.domain.Post">
@@ -216,20 +217,10 @@
 	<select  id="listJoinedMeeting"  parameterType="map"		resultMap="joinSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time
-											FROM join j, meeting m
-											WHERE j.post_no = m.post_no
-										
-												<if test = "search.searchFilter == 0 or search.searchFilter == '' or search.searchFilter == null" >
+	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time, p.title
+											FROM join j, meeting m, post p
+											WHERE j.post_no = m.post_no AND j.post_no = p.post_no
 													ORDER BY j.join_no DESC
-												</if>
-												<if test = "search.searchFilter == 1" >
-													ORDER BY j.join_no
-												</if>
-												<if test = "search.searchFilter == 2" >
-													ORDER BY m.meet_time, j.join_no
-												</if>
-										
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
@@ -277,9 +268,10 @@
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCountJoin"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time
-											FROM join j, meeting m
-											WHERE j.post_no = m.post_no
+	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time, p.title
+											FROM join j, meeting m, post p
+											WHERE j.post_no = m.post_no AND j.post_no = p.post_no
+													ORDER BY j.join_no DESC
 					 ) countTable						
 	 </select>
 	 

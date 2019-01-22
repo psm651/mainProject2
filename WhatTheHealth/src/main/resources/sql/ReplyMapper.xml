@@ -17,6 +17,7 @@
 		<result property="writerId" 				column="writer_id" 					jdbcType="VARCHAR" />
 		<result property="blindStatus" 			column="blind_status" 				jdbcType="VARCHAR"  />
 		<result property="deleteStatus" 		column="delete_status" 			jdbcType="VARCHAR" />
+		<result property="postTitle" 		column="title" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -101,10 +102,10 @@
 	<select  id="listMyReply"  parameterType="map"	resultMap="replySelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
-											FROM reply
-											WHERE writer_id = #{writerId}
-											ORDER BY reply_no DESC
+	  					FROM		(	SELECT r.reply_no , r.parent_reply_no , r.rereply_no , r.reply_date , r.post_no, r.text, r.writer_id, r.blind_status , r.delete_status, p.title
+											FROM reply r, post p
+											WHERE r.writer_id = #{writerId} AND r.post_no = p.post_no
+											ORDER BY r.reply_no DESC
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
@@ -132,9 +133,10 @@
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCountMyList"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
-						FROM reply
-						WHERE writer_id = #{value} 
+	  	FROM(	SELECT r.reply_no , r.parent_reply_no , r.rereply_no , r.reply_date , r.post_no, r.text, r.writer_id, r.blind_status , r.delete_status, p.title
+											FROM reply r, post p
+											WHERE r.writer_id = #{writerId} AND r.post_no = p.post_no
+											ORDER BY r.reply_no DESC
 					 ) countTable						
 	 </select>
 	 
