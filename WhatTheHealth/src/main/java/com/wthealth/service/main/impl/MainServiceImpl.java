@@ -57,29 +57,21 @@ public class MainServiceImpl implements MainService {
 		
 	      response.setContentType("text/html;charset=utf-8");
 		  PrintWriter out = response.getWriter();
-<<<<<<< HEAD
-		  // ¾÷·ÎµåÇÒ Æú´õ °æ·Î
-=======
-		// ì—…ë¡œë“œí•  í´ë” ê²½ë¡œ
->>>>>>> refs/heads/new/jjbly
+
 	     //String realFolder = request.getSession().getServletContext().getRealPath("images");
 	      String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
 	      System.out.println(realFolder);
 	      UUID uuid = UUID.randomUUID();
 
-<<<<<<< HEAD
-	   // ¾÷·ÎµåÇÒ ÆÄÀÏ ÀÌ¸§
-=======
 	   // ì—…ë¡œë“œí•  íŒŒì¼ ì´ë¦„
->>>>>>> refs/heads/new/jjbly
 	      String orgFileName = file.getOriginalFilename();
 	      String strFileName = uuid.toString() + orgFileName;
 
-	      System.out.println("¿øº» ÆÄÀÏ¸í : " + orgFileName);
-	      System.out.println("ÀúÀåÇÒ ÆÄÀÏ¸í : " + strFileName);
+	      System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ : " + orgFileName);
+	      System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ : " + strFileName);
 
 	      String filepath = realFolder + "\\" + strFileName;
-	      System.out.println("ÆÄÀÏ°æ·Î : " + filepath);
+	      System.out.println("ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ : " + filepath);
 
 	      File f = new File(filepath);
 	      if (!f.exists()) {

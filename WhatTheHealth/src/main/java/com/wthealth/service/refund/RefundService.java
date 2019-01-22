@@ -20,16 +20,19 @@ public interface RefundService {
 
 	public Map<String, Object> listRefundAdmin(Search search) throws Exception;
 	
-	public String getAuthorizationUrl(int authType) throws Exception;
+	//public String getAuthorizationUrl(int authType) throws Exception;
 
-	public String getAccessToken2() throws Exception;
+	//public String getAccessToken2() throws Exception;
 
-	public JSONObject getAccessToken(String code) throws Exception;
+	public JSONObject getAccessToken() throws Exception;
 
-	public String getUserClientId(String accessToken, String userSeqNo) throws Exception;
+	//public String getUserClientId(String accessToken, String userSeqNo) throws Exception;
 
 	public Map<String, Object> getAccount(String accessToken, String accountNum, int accountHolderinfo,
-			String bankCode) throws Exception;
+			int bankCode) throws Exception;
 
 	public List<String> listBankCode() throws Exception;
+	
+	public void doSomething() throws Exception; //환급 출금 시간
+	
 }

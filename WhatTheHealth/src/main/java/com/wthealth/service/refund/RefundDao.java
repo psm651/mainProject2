@@ -23,17 +23,17 @@ public interface RefundDao {
 	// 게시판 Page 처리를 위한 전체Row(totalCount) return
 	public int getTotalCount(Search search) throws Exception;
 
-	public String getAuthorizationUrl(int authType) throws Exception;
+	//public String getAuthorizationUrl(int authType) throws Exception;
 
-	public String getAccessToken2() throws Exception;
+	//public String getAccessToken2() throws Exception;
 
-	public JSONObject getAccessToken(String code) throws Exception;
+	//public JSONObject getAccessToken(String code) throws Exception;
 
-	public String getUserClientId(String accessToken, String userSeqNo) throws Exception;
+	//public String getUserClientId(String accessToken, String userSeqNo) throws Exception;
 
-	public Map<String, Object> getAccount(String accessToken, String accountNum, int accountHolderinfo,
-			String bankCode) throws Exception;
+	//public Map<String, Object> getAccount(String accessToken, String accountNum, int accountHolderinfo,
+			//String bankCode) throws Exception;
 
-	public List<String> listBankCode() throws Exception;
+	//public List<String> listBankCode() throws Exception;
 
 }
