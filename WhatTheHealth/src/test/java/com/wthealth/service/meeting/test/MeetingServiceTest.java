@@ -53,7 +53,7 @@ public class MeetingServiceTest {
 		System.out.println("실행전이 궁금함 :: "+meeting.getMeetNo());
 		meetingService.addMeeting(meeting);
 		System.out.println("결과가 궁금함 :: "+meeting.getMeetNo());
-		meeting = meetingService.getMeeting("ME10026");
+		meeting = meetingService.getMeeting(10026);
 		
 		//==> console 확인
 		System.out.println(meeting);
@@ -124,7 +124,7 @@ public class MeetingServiceTest {
 	
 	//@Test
 	public void testGetMeeting() throws Exception {
-		Meeting meeting = meetingService.getMeeting("ME10034");
+		Meeting meeting = meetingService.getMeeting(10034);
 		
 		Assert.assertEquals("user3", meeting.getCheifId());
 		Assert.assertEquals("0", meeting.getDepoCondition());
@@ -133,11 +133,11 @@ public class MeetingServiceTest {
 	
 	//@Test
 	public void testDeleteMeeting() throws Exception {
-		Post post = meetingService.getMeetingPost("ME10034");
+		Post post = meetingService.getMeetingPost(10034);
 		Assert.assertNotNull(post);
 		
-		meetingService.deleteMeeting("ME10034");
-		post = meetingService.getMeetingPost("ME10034");
+		meetingService.deleteMeeting(10034);
+		post = meetingService.getMeetingPost(10034);
 
 		Assert.assertEquals("1", post.getDeleteStatus());
 	}
@@ -148,7 +148,7 @@ public class MeetingServiceTest {
 		
 		join.setJoinStatus("0");
 		join.setDepoStatus("0");
-		join.setPostNo("ME10041");
+		join.setPostNo(10041);
 		join.setPartyId("user1");
 		
 	

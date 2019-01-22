@@ -20,13 +20,13 @@ public interface MeetingDao {
 	//public void updateMeeting(Meeting meeting) throws Exception;
 	
 	//DELETE 소모임 -> (주의) Update 해야 함
-	public void deleteMeeting(String postNo) throws Exception;
+	public void deleteMeeting(int postNo) throws Exception;
 	
 	//SELECT ONE 소모임
-	public Meeting getMeeting(String postNo) throws Exception;
+	public Meeting getMeeting(int postNo) throws Exception;
 	
 	//SELECT ONE 소모임 from 게시물 table
-	public Post getMeetingPost(String postNo) throws Exception;
+	public Post getMeetingPost(int postNo) throws Exception;
 	
 	//SELECT LIST 소모임
 	public List<Meeting> listMeeting(Search search) throws Exception;
