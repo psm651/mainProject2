@@ -11,8 +11,10 @@
 		<result property="refundDate" column="refund_date" jdbcType="DATE" />
 		<result property="refundMoney" column="refund_money" jdbcType="NUMERIC" />
 		<result property="bankName" column="bank_name" jdbcType="VARCHAR" />
+		<result property="bankCode" column="bank_code" jdbcType="NUMERIC" />
+		<result property="dateOfBirth" column="date_of_birth" jdbcType="NUMERIC" /> 
 		<result property="holder" column="holder" jdbcType="VARCHAR" />
-		<result property="accountNum" column="account_num" jdbcType="NUMERIC" />
+		<result property="accountNum" column="account_num" jdbcType="VARCHAR" />
 		<result property="refundReqDate" column="refund_req_date" jdbcType="DATE" />
 		<result property="userId" column="user_id" jdbcType="VARCHAR" />
 		<result property="refundStatus" column="refund_status" jdbcType="VARCHAR" />
@@ -21,11 +23,20 @@
 	<!-- SQL : INSERT -->
 	<insert id="addRefund" parameterType="com.wthealth.domain.Refund">
 		INSERT
+		INTO refund(refund_no, refund_req_date, refund_money, bank_name, bank_code, holder, account_num,
+		refund_date, user_id, refund_status, date_of_birth)
+		VALUES
+		(seq_refund_refund_no.nextval, SYSDATE, #{refundMoney}, #{bankName}, #{bankCode}, #{holder},
+		#{accountNum}, #{refundDate:DATE}, #{userId}, '0', #{dateOfBirth})
+	</insert>
+	
+	<insert id="addRefundtoAdmin" parameterType="com.wthealth.domain.Refund">
+		INSERT
 		INTO refund(refund_no, refund_req_date, refund_money, bank_name, holder, account_num,
-		refund_date, blind_status, delete_status, user_id, refund_status)
+		refund_date, user_id, refund_status, bank_code, date_of_birth)
 		VALUES
 		(seq_refund_refund_no.nextval, SYSDATE, #{refundMoney}, #{bankName}, #{holder},
-		#{accountNum}, #{refundDate:DATE}, #{userId}, '0')
+		#{accountNum}, #{refundDate:DATE}, #{userId}, '0', #{bankCode}, #{dateOfBirth})
 	</insert>
 	
 	<!-- SQL : UPDATE -->
@@ -37,7 +48,7 @@
 		</set>
 		WHERE user_id = #{value}
 	</update>
-
+	
 	<!-- SQL : SELECT LIST -->
 	<select id="listRefund" resultMap="refundSelectMap"	parameterType="com.wthealth.common.Search">
 		SELECT *

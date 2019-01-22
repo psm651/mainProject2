@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
@@ -47,6 +48,25 @@ public class RefundController {
 	
 	public RefundController() {
 		System.out.println(this.getClass());
+	}
+	
+	@RequestMapping(value= "addRefund", method = RequestMethod.GET)
+	public String addRefund() throws Exception{
+		System.out.println("/addRefund : GET");
+		
+		return "forward:/refund/addRefund.jsp";
+	}
+	
+	@RequestMapping(value= "addRefund", method = RequestMethod.POST)
+	public String addRefund(@ModelAttribute("refund")Refund refund, HttpSession session) throws Exception{
+		System.out.println("/addRefund : POST");
+		
+		User user = (User)session.getAttribute("user");
+		refund.setUserId(user.getUserId());
+		
+		refundService.addRefund(refund);
+		
+		return "redirect:/refund/listRefund.jsp";
 	}
 	
 	@RequestMapping( value="listRefund" )
@@ -87,8 +107,11 @@ public class RefundController {
 		
 		Map<String, Object> accessToken = refundService.getAccessToken(); //token 획득
 		refundService.getAccount((String)accessToken.get("access_token"), "84860204104911", 9404162, 004); //입력되있는 파라미터와 유저가 입력한 정보가 같으면 됨..
-		//refundService.getAccount((String)accessToken.get("access_token"), (int)request.getAttribute("accountNum"), (int)request.getAttribute("holder"),(int)request.getAttribute("bankCode"));
+		//refundService.getAccount((String)accessToken.get("access_token"), (String)request.getAttribute("accountNum"), (int)request.getAttribute("dateOfBirth"),(int)request.getAttribute("bankCode"));
 		
+		Refund refund = new Refund();
+		refund.setHolder((String)request.getAttribute("holder")); //예금주명 저장
+		refund.setUserId(userId);
 		
 		return "redirect:/refund/listRefund";
 		

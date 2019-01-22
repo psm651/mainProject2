@@ -14,7 +14,7 @@ public class Refund {
 	private String userId;
 	private String refundStatus; //0: 환급 예정, 1:환급 완료
 	private int bankCode;
-	private int dateOfBirth; //생년월일+한자리 ex)9404162
+	private int dateOfBirth; //생년월일+한자리 ex)9404162 (accountHolderInfo)
 	
 	public Refund() {
 	}
