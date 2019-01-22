@@ -286,6 +286,7 @@ row content (which contains day/week numbers and events) as well as "helper" (wh
 temporary rendered events).
 */
 .fc-row .fc-content-skeleton {
+	
   position: relative;
   z-index: 4;
   padding-bottom: 2px;
@@ -520,6 +521,11 @@ tr:first-child > td > .fc-day-grid-event {
 
 .fc-day-grid-event .fc-content {
   /* force events to be one-line tall */
+  height : 100px;
+  display: inline-block;
+   word-wrap: break-word;
+   white-space:normal;
+  font-size:20px;
   white-space: nowrap;
   overflow: hidden; }
 
@@ -1102,7 +1108,9 @@ be a descendant of the grid when it is being dragged.
 
 .fc-time-grid-event .fc-time,
 .fc-time-grid-event .fc-title {
-  padding: 0 1px; }
+  padding: 0 1px;
+  
+  width : 10px; }
 
 .fc-time-grid-event .fc-time {
   font-size: .85em;
@@ -1132,6 +1140,7 @@ be a descendant of the grid when it is being dragged.
   /* seperate with a dash, wrapped in nbsp's */ }
 
 .fc-time-grid-event.fc-short .fc-title {
+  
   font-size: .85em;
   /* make the title text the same size as the time */
   padding: 0;
@@ -1291,3 +1300,8 @@ be a descendant of the grid when it is being dragged.
 .fc-unthemed .fc-list-empty {
   /* theme will provide own background */
   background-color: #eee; }
+  
+  .fc-title{
+	width : 10px;
+	word-wrap: break-word;  
+  }
