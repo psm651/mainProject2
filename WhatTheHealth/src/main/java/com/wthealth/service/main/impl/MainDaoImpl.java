@@ -38,4 +38,9 @@ public class MainDaoImpl implements MainDao {
 		return sqlSession.selectOne("MainMapper.getTotalCount", search);
 	}
 
+	@Override
+	public void updateThumbnail(Post post) throws Exception {
+		sqlSession.update("MainMapper.updateThumbnail",post);
+		
+	}
 }

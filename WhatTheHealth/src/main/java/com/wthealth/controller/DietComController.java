@@ -31,6 +31,7 @@ import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
 import com.wthealth.service.dietcom.DietComService;
 import com.wthealth.service.favorite.FavoriteService;
+import com.wthealth.service.main.MainService;
 
 @Controller
 @RequestMapping("/dietCom/*")
@@ -43,6 +44,10 @@ public class DietComController {
 	@Autowired
 	@Qualifier("favoriteServiceImpl")
 	private FavoriteService favoriteService;
+	
+	@Autowired
+	@Qualifier
+	private MainService mainService;
 	
 	public DietComController() {
 		System.out.println(this.getClass());
@@ -71,7 +76,7 @@ public class DietComController {
 			
 			dietComService.addDietCom(post);
 			if(post.getContents().indexOf("upload/") != -1) {
-				dietComService.updateThumbnail(post);
+				mainService.updateThumbnail(post);
 			}
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
@@ -113,7 +118,10 @@ public class DietComController {
 			System.out.println("/updateDietCom : POST");
 			
 			dietComService.updateDietCom(post);
-			dietComService.updateThumbnail(post);
+			dietComService.addDietCom(post);
+			if(post.getContents().indexOf("upload/") != -1) {
+				mainService.updateThumbnail(post);
+			}
 			
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}

@@ -99,14 +99,6 @@
 		) countTable
 	</select>
 	
-	<update id="updateThumbnail" parameterType="com.wthealth.domain.Post">
-		UPDATE post
-		<set>
-			photo = #{photo:VARCHAR}
-		</set>
-		WHERE post_no = #{postNo}
-	</update>
-	
 	<update id="deleteDietCom" parameterType="int">
 		UPDATE post
 		<set>
