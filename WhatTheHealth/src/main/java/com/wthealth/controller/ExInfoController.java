@@ -38,25 +38,19 @@ public class ExInfoController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping(value="addPost", method=RequestMethod.POST)
-	public String addPost(@ModelAttribute("post") Post post, 
-			               @RequestParam("originalFileName") MultipartFile file) throws Exception{
+	@RequestMapping(value="addExInfo", method=RequestMethod.POST)
+	public String addExInfo(@ModelAttribute("post") Post post) throws Exception{
 		
-			String path = "";
-			String originalFileName = file.getOriginalFilename();
-			File uploadFile = new File(path, originalFileName);
-			file.transferTo(uploadFile);
-		
-			post.setPhoto(originalFileName);
 			
 			//Business Logic
 			exInfoService.addExInfo(post);
+			System.out.println(post.getPostNo());
 			
-		return "redirect:/exinfo/getExInfo?prodNo="+post.getPostNo();
+		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}
 	
 	@RequestMapping(value="getExInfo", method=RequestMethod.GET)
-	public String getExInfo(@RequestParam("postNo") String postNo, Model model) throws Exception {
+	public String getExInfo(@RequestParam("postNo") int postNo, Model model) throws Exception {
 		
 		Post post = exInfoService.getExInfo(postNo);
 		model.addAttribute("post", post);
@@ -67,13 +61,13 @@ public class ExInfoController {
 	@RequestMapping(value="updateExInfo", method=RequestMethod.POST)
 	public String updateExInfo(@ModelAttribute Post post, @RequestParam("originalFileName") MultipartFile file) throws Exception {
 
-		//?��?�� path 
+
 		String path = ""; 
-		//?��?�� ?���?
+
 		String originalFileName = file.getOriginalFilename();
-		//File 객체?�� ?��?��??, ?���? ?��?�� 
+
 		File uploadFile = new File(path, originalFileName);
-		//uploadFile 객체�? ?��?��
+
 		file.transferTo(uploadFile);
 		
 		post.setPhoto(originalFileName);

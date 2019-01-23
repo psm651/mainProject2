@@ -177,17 +177,20 @@ CREATE TABLE FAVORITE(
 	PRIMARY KEY(favorite_no)	
 );
 
+
+
 CREATE TABLE REFUND(
-	refund_no	NUMBER	NOT NULL,
-	refund_date	DATE,
-	refund_money	NUMBER(10)	NOT NULL,
-	bank_name	VARCHAR2(20)	NOT NULL,
-	holder	VARCHAR2(10)	NOT NULL,
-	account_num	VARCHAR2(30)	NOT NULL,
-	refund_req_date	DATE	NOT NULL,
-	user_id	VARCHAR2(20)	NOT NULL	REFERENCES USERS(user_id),
-	refund_status	NUMBER(10)	NOT NULL,	
-	PRIMARY KEY(refund_no)
+ 	refund_no   NUMBER   NOT NULL   PRIMARY KEY,
+    refund_date   DATE,
+    refund_money   NUMBER(10)   NOT NULL,
+    bank_name   VARCHAR2(20)   NOT NULL,
+    holder   VARCHAR2(10)   NOT NULL,
+    account_num   VARCHAR2(30)   NOT NULL,
+    refund_req_date   DATE   NOT NULL,
+    user_id   VARCHAR2(20)   REFERENCES USERS(user_id),
+    refund_status   NUMBER(10)   NOT NULL,
+    bank_code   VARCHAR2(20),
+    date_of_birth   VARCHAR2(30)   
 );
 
 
@@ -207,7 +210,6 @@ CREATE TABLE reply (
 
 CREATE TABLE meeting (
 	meet_no	NUMBER	NOT NULL,
-	post_no	NUMBER	NOT NULL,
 	depo_amount	NUMBER(10),
 	depo_bank	VARCHAR2(20),
 	depo_account	VARCHAR2(30),
@@ -218,7 +220,7 @@ CREATE TABLE meeting (
 	max_party	NUMBER(3),
 	chief_id	VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
 	depo_condition	VARCHAR2(3)	NOT NULL,
-	meet_time	DATE	NOT NULL,
+	meet_time	VARCHAR2(50)	NOT NULL,
 	deadline_time	DATE,
 	PRIMARY KEY(meet_no)
 );

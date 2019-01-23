@@ -135,58 +135,18 @@
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
 		 $(function() {
 		
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
-			});
-						
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( "td:nth-child(2)" ).css("color" , "red");
-			
-		});	
-		
-		
-		//============= userId 에 회원정보보기  Event  처리 (double Click)=============
-		 $(function() {
-			 
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "td:nth-child(5) > i" ).on("click" , function() {
-
-					var userId = $(this).next().val();
-				
-					$.ajax( 
-							{
-								url : "/user/json/getUser/"+userId ,
-								method : "GET" ,
-								dataType : "json" ,
-								headers : {
-									"Accept" : "application/json",
-									"Content-Type" : "application/json"
-								},
-								success : function(JSONData , status) {
-
-									var displayValue = "<h6>"
-																+"아이디 : "+JSONData.userId+"<br/>"
-																+"이  름 : "+JSONData.userName+"<br/>"
-																+"이메일 : "+JSONData.email+"<br/>"
-																+"ROLE : "+JSONData.role+"<br/>"
-																+"등록일 : "+JSONData.regDate+"<br/>"
-																+"</h6>";
-									$("h6").remove();
-									$( "#"+userId+"" ).html(displayValue);
-								}
-						});
-						////////////////////////////////////////////////////////////////////////////////////////////
+			 $( "#title" ).on("click" , function() {
+				 
+					var postNo = $(this).data("param1");
 					
-			});
+					 self.location ="/meeting/getMeeting?postNo="+postNo;
+
+				});
 			
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-			$("h7").css("color" , "red");
-			
-			//==> 아래와 같이 정의한 이유는 ??
-			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 		});	
+		
+		
+		
 	
 	</script>
 	
@@ -251,7 +211,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2" >${i}</div>
-            <div class="col-sm-2 col-md-2 col-lg-4 text-center">${meeting.meetTitle}</div>
+            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" data-param1="${meeting.postNo}" ><strong>${meeting.meetTitle}</strong></div>
             
             <c:if test="${meeting.joinStatus =='0'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">대기</div>
@@ -264,7 +224,7 @@
             </c:if>
             
             <c:if test="${meeting.depoStatus =='0'}">
-            <div class="col-sm-2 col-md-2 col-lg-2 text-primary  text-center" id="deposit" data-param="${meeting.joinNo }"><strong>미입금</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-2 text-primary  text-center" id="deposit" data-param2="${meeting.joinNo }">미입금</div>
             </c:if>
             <c:if test="${meeting.depoStatus =='1'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">입금</div>

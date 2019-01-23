@@ -17,9 +17,6 @@
 		<result property="phone" 			column="user_phone" 		jdbcType="VARCHAR" />
 		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
 		<result property="dltDate" 		column="dlt_date" 			jdbcType="DATE" />
-		<result property="holder" 				column="holder" 					jdbcType="VARCHAR" />
-		<result property="bankName" 				column="bank_name" 					jdbcType="VARCHAR" />
-		<result property="accountNum" 				column="account_num" 					jdbcType="VARCHAR" />
 		<result property="claimCount" 				column="claim_count" 					jdbcType="NUMERIC" />
 		<result property="role" 				column="role" 					jdbcType="VARCHAR" />
 		<result property="userStatus" 				column="user_status_code" 					jdbcType="VARCHAR" />
@@ -29,6 +26,11 @@
 		<result property="accessToken" 				column="access_token" 					jdbcType="VARCHAR" />
 		<result property="refreshToken" 				column="refresh_token" 					jdbcType="VARCHAR" />
 		
+		<result property="holder" 				column="holder" 					jdbcType="VARCHAR" />
+		<result property="bankName" 				column="bank_name" 					jdbcType="VARCHAR" />
+		<result property="bankCode" 				column="bank_code" 					jdbcType="NUMERIC" />
+		<result property="accountNum" 				column="account_num" 					jdbcType="VARCHAR" />
+		<result property="dateOfBirth" 				column="date_of_birth" 					jdbcType="NUMERIC" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -111,13 +113,21 @@
 	   	WHERE user_id = #{userId}
 	 </update>
 	 
+	 <select id="getAccount" resultMap="userSelectMap" parameterType="String">
+		SELECT holder, bank_name, bank_code, date_of_birth, account_num
+		FROM users u
+		WHERE user_id = #{userId}
+	</select>
+	
 	 <!-- SQL : UPDATE -->
 	 <update	id="updateAccount"	parameterType="com.wthealth.domain.User" >
 	   	UPDATE users
 	   	<set>
 			holder 		= #{holder},
 			bank_name 	= #{bankName},
-			account_num	= #{accountNum}
+			account_num	= #{accountNum},
+			date_of_birth = #{dateOfBirth},
+			bank_code = #{bankCode}
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>

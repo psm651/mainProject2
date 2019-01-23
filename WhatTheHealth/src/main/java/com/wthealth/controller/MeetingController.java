@@ -69,9 +69,9 @@ public class MeetingController {
 	}
 	
 	@RequestMapping(value="getMeeting", method=RequestMethod.GET)
-	public String getMeeting(@RequestParam("postNo") int postNo, Model model) throws Exception{
+	public String getMeeting(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
 		System.out.println("/getMeeting: GET");
-		Meeting meeting = meetingService.getMeeting(postNo);
+		Meeting meeting = meetingService.getMeeting(meetNo);
 		model.addAttribute("meeting", meeting);
 		
 		return "forward:/meeting/getMeeting.jsp"; ///////////////////다시보기(-)
