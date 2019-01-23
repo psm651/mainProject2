@@ -38,9 +38,52 @@
 <div style="height: 450px;" id='calendarr'></div>
 <div style="height: 50px;" ></div>
 
+<!-- 운동스케줄 Modal 창 -->
+<div class="modal fade" tabindex="-1" role="dialog" id="ex">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">            
+                <h4 class="modal-title">운동등록</h4>
+            </div>
+            <div class="modal-body">
+            
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label class="col-xs-4" for="title">운동명</label>
+                        <input type="text" name="exScName" id="exScName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label class="col-xs-4" for="starts-at">칼로리 소모량</label>
+                        <input type="text" name="exScCalorie" id="exScCalorie" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label class="col-xs-4" for="starts-at">내용</label>
+                        <input type="text" name="exScContents" id="exScContents" />
+                    </div>
+                </div> 
+                
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label class="col-xs-4" for="starts-at">운동시간</label>
+                        <input type="text" name="exScTime" id="exScTime" />
+                    </div>
+                </div>                       
+                               
+                
+                <button type="button" class="btn btn-primary">등록</button>
+           </div>
+         </div>
+       </div>
+   </div>
 
 
 
+
+<!-- 식단스케줄 Modal 창 -->
 <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,11 +122,11 @@
 
 
 
+<link rel='stylesheet' href='/resources/css/fullcalendar.css' />
+<script src='/resources/javascript/jquery.min.js'></script>
+<script src='/resources/javascript/moment.min.js'></script>
+ <script src='/resources/javascript/fullcalendar.js'></script>  
 
-<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-<script src='fullcalendar/jquery.min.js'></script>
-<script src='fullcalendar/moment.min.js'></script>
- <script src='fullcalendar//fullcalendar.js'></script>  
  
  
 
@@ -92,9 +135,30 @@
  
 <!-- <script src='/resources/javascript/fullcalendar1.js'></script> -->
 <script>
-$(function() {
+$(document).ready(ready(function(){
+	var date = new Date();
+	var d = date.getData();
 
-     // page is now ready, initialize the calendar...
+	alert(d)
+	getEvent();	
+});
+
+//사용자 DB일정 가져오기 
+function getEvent(){
+	var userId = ${sessionScope.user.userId};
+	$.ajax({
+		url : "/schedule/json/listSchedule/"+userId ,
+		method : "GET",
+		header : {
+			"Accept" : "application/json",
+			"Content-Type" : "application/json"	
+		}, createCalendarDateResult(result);
+	})
+	
+}
+
+
+$(function() {
 
      $('#calendar').fullCalendar({
         selectable: true,
@@ -108,12 +172,12 @@ $(function() {
             select: function(start, end) {
                 // Display the modal.
                 // You could fill in the start and end fields based on the parameters
-                $('.modal').modal('show');
+                $('#ex').modal('show');
 
             },
             eventClick: function(event, element) {
                 // Display the modal and set the values to the event values.
-                $('.modal').modal('show');
+                $('#ex').modal('show');
                 $('.modal').find('#title').val(event.title);
                 $('.modal').find('#starts-at').val(event.start);
                 $('.modal').find('#ends-at').val(event.end);
@@ -131,6 +195,7 @@ $(function() {
    
 
 $(function() {
+x
 
      // page is now ready, initialize the calendar...
 
@@ -164,14 +229,24 @@ $(function() {
      })
 
    });
-  
+
 $(function(){
-/* 	 $(document).ready(function() { */
- $(".btn").on("click", function(){
-		alert("")
-/* 	 $.ajax({
+/* $(document).ready(function(){ */
+
+ $("button:contains('등록')").on("click", function(){
+		
+		var	foodName = $("#foodName").val();
+		var foodAmount = $("#foodAmount").val();
+		var foodCalorie = $("#foodCalorie").val();
+		
+		    
+		    alert(foodName)
+		      alert(foodAmount)
+		    alert(foodCalorie)
+		  
+	 $.ajax({
 		 
-		url : '/schedule/json/addSchedule' ,
+		url : '/schedule/json/addExSchedule' ,
 		type : 'POST' , 
 		data : JSON.stringify({
 			foodName : $("#foodName").val(),
@@ -187,8 +262,8 @@ $(function(){
 				
          }
  	 
-	 }); */
-});
+	 });
+ });
 });
 
 </script>

@@ -1,10 +1,13 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+
+
+<html lang="ko">
 <head>
    
-   <title>식단 커뮤니티 게시물 조회페이지</title>
+   <title>운동꿀팁 게시물 조회</title>
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
@@ -25,6 +28,17 @@
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
    
+   <style>
+   
+   .img-fluid{
+   	width : 30px;
+   	 height: 30px;
+   	 }
+   </style>
+
+
+
+
    <script type="text/javascript">
   
     function favoriteList(){
@@ -139,10 +153,11 @@
        
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
-               self.location="/dietCom/updateDietCom?postNo=${post.postNo}"
+        		var postNo = $(this).data("param");
+        	  self.location="/exInfo/updateExInfo?postNo="+postNo
             });
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/dietCom/deleteDietCom?postNo=${post.postNo}"
+               self.location="/exInfo/deleteExInfo?postNo=${post.postNo}"
             });
          });
        
@@ -160,13 +175,48 @@
    <div class="site-section">
       <div class="container">
       
+    	<input type="hidden" name="postNo" value="${post.postNo }"/>
         <div class="row align-items-center">
           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
             <h4 class="mb-3">${post.title}</h4>
              <small>좋아요 수  : ${post.likeCount}</small> 
-             <small>조회 수 : ${post.clickCount}</small>            
-            <p class="mb-4">${post.contents}</p>
+             <small>조회 수 : ${post.clickCount}</small> 
+             <hr/>
+            <span><h6>프로그램 간략정보</h6></span>   
+            
+           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
+                <img src="/resources/images/upload/clock.png" alt="Image" class="img-fluid">
+                <span>${post.exVideoTime}</span >
+           </div>   
            
+                    
+            <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
+                <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
+                <span>${post.exCalorie} kcal</span>
+            </div>  
+            
+              <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
+                <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">
+                <c:if test="${post.exPart=='0'}">
+                                     전신  
+                </c:if>
+                <c:if test="${post.exPart=='1'}">
+                                     복부  
+                </c:if>
+                <c:if test="${post.exPart=='2'}">
+                                     상체  
+                </c:if>
+                <c:if test="${post.exPart=='3'}">
+                                     하체  
+                </c:if>
+                <c:if test="${post.exPart=='4'}">
+                                    스트레칭  
+                </c:if>                                                                
+              </div>  
+              
+            <p class="mb-4">${post.contents}</p>
+             
+             
             
              <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
                 <div class="favoriteListHere">
@@ -181,14 +231,15 @@
                    </div>
                 </div>
             
-            <p><a href="#" class="btn btn-primary pill px-4">수정</a>
+            <p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo }">수정</a>
             <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
           </div>
         </div>
       </div>
-    </div>
+    
 
    <jsp:include page="/reply/listReply.jsp" /> 
-
+   </div>
+</div>
 </body>
 </html>

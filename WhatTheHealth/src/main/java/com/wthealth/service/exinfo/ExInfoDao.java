@@ -13,9 +13,7 @@ public interface ExInfoDao {
 	
 	
 	public void updateExInfo(Post post) throws Exception;
-	
-	
-	public void updatePost(Post post) throws Exception;
+
 	
 	public Post getExInfo(int postNo) throws Exception;
 
