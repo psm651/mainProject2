@@ -14,6 +14,7 @@ DROP TABLE HASHTAG CASCADE CONSTRAINTS;
 DROP TABLE CLAIM CASCADE CONSTRAINTS;
 DROP TABLE DIET_SC CASCADE CONSTRAINTS;
 DROP TABLE SOCKET CASCADE CONSTRAINTS;
+DROP TABLE chatting CASCADE CONSTRAINTS;
 
 DROP SEQUENCE seq_point_point_no;
 DROP SEQUENCE seq_post_post_no;
@@ -34,6 +35,9 @@ DROP SEQUENCE seq_meeting_meeting_no;
 DROP SEQUENCE seq_users_user_id;
 DROP SEQUENCE seq_dietcom_dietcom_no;
 DROP SEQUENCE seq_excom_excom_no;
+DROP SEQUENCE seq_chatting_chatting_no;
+
+
 
 CREATE SEQUENCE seq_point_point_no	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_hashtag_hashtag_no		INCREMENT BY 1 START WITH 10000;
@@ -51,6 +55,7 @@ CREATE SEQUENCE seq_socket_socket_no		INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_dietcom_dietcom_no		INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_excom_excom_no		INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_post_post_no	INCREMENT BY 1 START WITH 10000;
+CREATE SEQUENCE seq_chatting_chatting_no   INCREMENT BY 1 START WITH 10000;
 
 
 CREATE TABLE users ( 
@@ -249,5 +254,15 @@ CREATE TABLE socket (
 	live_status		VARCHAR2(3),
 	PRIMARY KEY(socket_no)
 );	
+
+CREATE TABLE chatting ( 
+   chatting_no          NUMBER          NOT NULL,
+   room_id      VARCHAR2(100)      NOT NULL,
+   user1_id       VARCHAR2(20)   NOT NULL   REFERENCES users(user_id),
+   user2_id      VARCHAR2(20)   NOT NULL   REFERENCES users(user_id),
+   user1_status   VARCHAR2(3)   ,
+   user2_status   VARCHAR2(3)   ,
+   PRIMARY KEY(chatting_no)
+);
 
 commit;
