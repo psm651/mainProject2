@@ -6,7 +6,7 @@ import com.wthealth.domain.ExSchedule;
 
 public interface ExScheduleService {
 	
-	public int addExSchedule(ExSchedule exSchedule) throws Exception;
+	public void addExSchedule(ExSchedule exSchedule) throws Exception;
 	
 	public ExSchedule getExSchedule(int exScNo) throws Exception;
 	

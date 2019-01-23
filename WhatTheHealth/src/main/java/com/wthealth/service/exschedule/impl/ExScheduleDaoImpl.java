@@ -1,5 +1,7 @@
 package com.wthealth.service.exschedule.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,9 +27,9 @@ public class ExScheduleDaoImpl implements ExScheduleDao {
 
 	///Method
 	@Override
-	public int addExSchedule(ExSchedule exSchedule) throws Exception {
-		return sqlSession.insert("ExScMapper.addExSchedule", exSchedule);
-		
+	public void addExSchedule(ExSchedule exSchedule) throws Exception {
+		sqlSession.insert("ExScMapper.addExSchedule", exSchedule);
+
 	}
 
 	@Override
@@ -42,9 +44,8 @@ public class ExScheduleDaoImpl implements ExScheduleDao {
 	}
 
 	@Override
-	public void listExSchedule(String userId) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public List<ExSchedule> listExSchedule(String userId) throws Exception {
+		return sqlSession.selectList("ExScMapper.listExSchedule", userId);		
 	}
 
 	@Override

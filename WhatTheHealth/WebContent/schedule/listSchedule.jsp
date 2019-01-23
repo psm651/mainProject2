@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -52,63 +54,79 @@
 <!-- <script src='/resources/javascript/fullcalendar1.js'></script> -->
 <script>
 $(function() {
-
-	  // page is now ready, initialize the calendar...
-
+	
+var result = new Array();
+	
+	<c:forEach items = "${exList}" var = "info">
+	var json = new Object();
+	json.title="${info.exScName}";
+	json.start="${info.exScDate}";
+	json.id="${info.exScNo}";
+	result.push(json);
+	</c:forEach>
+	
+	alert(result[0].id);
+	
 	  $('#calendar').fullCalendar({
-		  selectable: true,
-		  eventClick: function(event, element) {
-			  alert('event on: ' +event);
+		 
+		  selectable: true,  //사용자가 클릭 및 드래그하여 선택을 할 수 있도록
+		   selectHelper: true,//사용자가 드래그되는 동안 "자리"이벤트를 그릴 것인지 여부를 지정할 수 있습니다.
+		
+		   eventClick: function(event, element) {//이벤트 클릭시 기능
+			  alert('event on: ' +event.id);
 			  alert('element on: ' +element);
 			    event.title = "CLICKED!";
 
 			    $('#calendar').fullCalendar('updateEvent', event);
 
 			  },
+			  
 		  header: {
-		        left: 'prev,next today,myCustomButton',
-		        center: 'title',
-		        right: 'basicWeek,basicDay'
+		        left: 'prev,next today,myCustomButton',//왼쪽상단버튼
+		        center: 'title',//가운데
+		        right: 'basicWeek,basicDay'//오른쪽상단버튼
 		        },
-		      defaultView: 'basicWeek',
-		      contentHeight : 400,
-		      editable: true,
-		      dayClick: function(date, jsEvent, view) {
+		        
+		      defaultView: 'basicWeek',//기본뷰 노터치
+		      contentHeight : 400,//운동스케줄 높이
+		      editable: true,//드래그앤드랍 가능하게
+		      selectable:false,//드래그해서 여러칸선택
+		      
+		      eventTextColor:'white',//이벤트 글씨색
+		      eventBorderColor:'#CDA5EE',//이벤트 주변 테두리색
+		      eventBackgroundColor:'#9B969E',//이벤트 속 색
+		      displayEventTime: false, //시간안보이게
+		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
 
-		    	    alert('Clicked on: ' + date.format());
+		    	   	popWin 
+					= window.open("../schedule/addExSchedule?date="+date.format(),
+												"popWin", 
+												"left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
+												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+			 
 
-		    	    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-		    	    alert('Current view: ' + view.name);
-
-		    	    // change the day's background color just for fun
 		    	    $(this).css('background-color', 'red');
-
 		    	  },
-		    	  events: [
-		    		    {
-		    		      title  : 'event1',
-		    		      start  : '2019-01-22'
-		    		    },
-		    		    {
-			    		      title  : 'event1',
-			    		      start  : '2019-01-26'
-			    		    },
-		    		    {
-		    		      title  : 'event2adsfasdlkjfdaslj',
-		    		      backgroundColor : 'orange',
-		    		      url: '../schedule/addEx.jsp',
-		    		      eventResourceEditable: true,
-		    		      start  : '2019-01-22',
-		    		      end    : '2019-01-23'
-		    		    },
-		    		    {
-		    		      title  : 'event3',
-		    		      start  : '2019-01-23T12:30:00',
-		    		      allDay : false // will make the time show
-		    		    }
+		    	  resources: {// 이거뭔지모름/////////////////////////////////////////////
+		    		    url: '/schedule/listSchedule',
+		    		    type: 'POST'
+		    		  },
+		    	  events: [//이벤트 db연동해서가져오기
+		    	
+		    		  <c:forEach items = "${exList}" var = "info">
+		    		
+		    		  
+		    		  {
+		    		  title:'${info.exScName}',
+		    		  id:'${info.exScNo}',
+		    		  start:"${info.exScDate}"
+		    		  },
+		    		 
+		    		  </c:forEach>
+		   
 		    		  ],
-		    		  eventClick: function(event) {
+		    		 /* 나중에 업데이트 연결해야함  
+		    		 eventClick: function(event) {
 		    			    if (event.url) {
 		    			    	$.ajax(
 		    			    			{
@@ -131,7 +149,7 @@ $(function() {
 		    												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 		    			      return false;
 		    			    }
-		    			  },
+		    			  }, */
 		    	  customButtons: {
 		    		    myCustomButton: {
 		    		      text: 'custom!',
@@ -146,9 +164,9 @@ $(function() {
 		    		        }
 		    		      }
 		    		  },
-		    		  select: function(startDate, endDate) {
+		    		 /*  select: function(startDate, endDate) {
 		    		      alert('selected ' + startDate.format() + ' to ' + endDate.format());
-		    		    },
+		    		    }, */
 		    	  views: {
 		    		    week: { // name of view
 		    		      titleFormat: 'YYYY / MM / DD'
@@ -160,6 +178,10 @@ $(function() {
 	});
 	
 
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(function() {
 
 	  // page is now ready, initialize the calendar...

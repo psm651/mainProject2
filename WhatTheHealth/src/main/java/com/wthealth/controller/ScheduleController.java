@@ -1,6 +1,8 @@
 package com.wthealth.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.domain.User;
 import com.wthealth.service.dietschedule.DietScheduleService;
@@ -46,16 +50,16 @@ public class ScheduleController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-/*	
-	@RequestMapping(value="addProduct", method = RequestMethod.GET)
-	public String addProduct() throws Exception {
 
-		System.out.println("/product/addProduct : GET");
-	
+	@RequestMapping(value="addExSchedule", method = RequestMethod.GET)
+	public String addProduct(Model model, @RequestParam("date") String date) throws Exception {
+
+		System.out.println("/schedule/addExSchedule : GET");
+		model.addAttribute("ExScDate", date);
 		
-		return "redirect:/product/addProductView.jsp";
+		return "forward:/schedule/addEx.jsp";
 	}
-	
+	/*		
 	@RequestMapping(value="addProduct", method = RequestMethod.POST)
 	public String addProduct( @ModelAttribute("product") Product product, @RequestParam("fileNa") MultipartFile file ) throws Exception {
 
@@ -138,14 +142,19 @@ public class ScheduleController {
 	*/
 	@RequestMapping(value="listSchedule")
 	public String listProduct(/*@RequestParam("userId") String userId,*/ Model model, HttpSession session) throws Exception{
-		System.out.println("여긴가");
 		System.out.println("/listSchedule : GET / POST");
 		String userId=((User)session.getAttribute("user")).getUserId();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("dietList", dietScheduleService.listDietSchedule(userId));
 		map.put("exList", exScheduleService.listExSchedule(userId));
 		
-
+		
+		System.out.println("123123123123"+map.get("exList"));
+		List<String> calendar = new ArrayList<String>();
+	/*	for (int i = 0; i < map.size(); i++) {
+			
+		}*/
+		//calendar("title", "asdfasdf");
 		// Model 과 View 연결
 		model.addAttribute("dietList", map.get("dietList"));
 		model.addAttribute("exList", map.get("exList"));
