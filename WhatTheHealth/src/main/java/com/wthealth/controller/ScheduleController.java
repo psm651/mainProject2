@@ -150,11 +150,7 @@ public class ScheduleController {
 		
 		
 		System.out.println("123123123123"+map.get("exList"));
-		List<String> calendar = new ArrayList<String>();
-	/*	for (int i = 0; i < map.size(); i++) {
-			
-		}*/
-		//calendar("title", "asdfasdf");
+
 		// Model °ú View ¿¬°á
 		model.addAttribute("dietList", map.get("dietList"));
 		model.addAttribute("exList", map.get("exList"));

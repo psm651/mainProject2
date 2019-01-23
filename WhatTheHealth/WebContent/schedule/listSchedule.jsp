@@ -65,7 +65,6 @@ var result = new Array();
 	result.push(json);
 	</c:forEach>
 	
-	alert(result[0].id);
 	
 	  $('#calendar').fullCalendar({
 		 
