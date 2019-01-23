@@ -101,14 +101,14 @@ public class ExInfoController {
 	}
 	
 	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
-	public String listExInfo(@RequestParam("exPart") int exPart, Model model) throws Exception{
+	public String listExInfo(@RequestParam("exPart") String exPart, Model model) throws Exception{
 	
 		Search search = new Search();
 
 	
 		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
-		search.setSearchFilter(String.valueOf(exPart));
+		search.setSearchFilter(exPart);
 		
 		//Business Logic
 		Map<String, Object> map = exInfoService.listExInfo(search);

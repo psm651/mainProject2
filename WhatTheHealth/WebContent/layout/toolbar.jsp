@@ -42,23 +42,23 @@
 		 });
 		 
 		 $( "a[href='#' ]:contains('상체')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart='0'"
+				self.location = "/exInfo/listExInfo?exPart=0"
 			 });
 		 
 		 $( "a[href='#' ]:contains('하체')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart='1'"
+				self.location = "/exInfo/listExInfo?exPart=1"
 			 });
 		 
 		 $( "a[href='#' ]:contains('복부')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart='2'"
+				self.location = "/exInfo/listExInfo?exPart=2"
 			 });
 		 
 		 $( "a[href='#' ]:contains('스트레칭')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart='3'"
+				self.location = "/exInfo/listExInfo?exPart=3"
 			 });
 		 
 		 $( "a[href='#' ]:contains('전신')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart='4'"
+				self.location = "/exInfo/listExInfo?exPart=4"
 			 });
 		 
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
