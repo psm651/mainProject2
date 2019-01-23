@@ -1,0 +1,9 @@
+@font-face {
+	font-family : "MPGothic";
+	src: url("./THEmpgtM.otf")  format("opentype") ;
+ } 
+ 
+ body { 
+ 	font-family: MPGothic; 
+ 	}
+
