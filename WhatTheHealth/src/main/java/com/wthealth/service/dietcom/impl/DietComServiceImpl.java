@@ -76,18 +76,18 @@ public class DietComServiceImpl implements DietComService {
 	public void updateThumbnail(Post post) throws Exception {
 		String contents = post.getContents();
 		String photoName = contents.split("upload/")[1];
+		
 		photoName = photoName.split(">")[0];
 		
 		post.setPhoto(photoName);
 		
 		dietComDao.updateThumbnail(post);
-		
+			
 	}
 
 	@Override
 	public void deleteDietCom(int postNo) throws Exception {
 		dietComDao.deleteDietCom(postNo);
-
 	}
 
 	@Override

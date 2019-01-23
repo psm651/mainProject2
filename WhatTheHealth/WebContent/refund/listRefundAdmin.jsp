@@ -68,10 +68,27 @@
 	
 	 $( function (){
          $( "a[href='#' ]:contains('환급하기')").on("click", function(){
-              self.location="/refund/authorizeAccount.jsp";   ////////////////////////////////보류
+              //fncDeposit();
+              self.location="/refund/deposit"
            });
         });
-	
+	 
+	 /* function fncDeposit(){
+		 $.ajax({
+	            url : '/refund/json/deposit',
+	            type : "POST",
+	            dataType : "json" ,
+                headers : {
+                   "Accept" : "application/json",
+                   "Content-Type" : "application/json"
+                },
+	            success : function(data){
+	               ${refund.refundStatus == '1'}
+	               }            
+	            });
+		 
+	 } */
+	 
 	</script>
 	
 
@@ -88,7 +105,7 @@
         
           <div class="row">
         	<div class="col-md-3 text-left text-primary">
-                  	 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+                  	 전체  ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage}  페이지
                   	 
                 
              </div>
@@ -113,8 +130,6 @@
 		      	</span>
 		      </div>
 			</div>
-	
-				  
 				  </form>
 				
 	    	</div>
@@ -122,24 +137,23 @@
               
    			</div>
 
-
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center text-center">
                 <div class="col-sm-1 col-md-1 col-lg-1"><strong>No</strong></div>        
                 <div class="col-sm-1 col-md-1 col-lg-1"><strong>은행명</strong></div>                
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>계좌번호</strong></div>
-                <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급 금액</strong></div>
+                <div class="col-sm-1 col-md-1 col-lg-1"><strong>금액</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급 신청한 날짜</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급받은 날짜</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급 여부</strong></div>
+                <div class="col-sm-1 col-md-1 col-lg-1"><strong>관리</strong></div>
               </div>
              </div>
                      
              
-
          <form>
             <c:set var="i" value="0"/>
-    	 	<c:forEach var="refund" items="${list}">
+    	 	<c:forEach var="refund" items="${listAdmin}">
 			<c:set var ="i" value="${i+1}"/>   
       
 			

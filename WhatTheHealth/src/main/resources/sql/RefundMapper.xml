@@ -30,14 +30,14 @@
 		#{accountNum}, #{refundDate:DATE}, #{userId}, '0', #{dateOfBirth})
 	</insert>
 	
-	<insert id="addRefundtoAdmin" parameterType="com.wthealth.domain.Refund">
+	<!-- <insert id="addRefundtoAdmin" parameterType="com.wthealth.domain.Refund">
 		INSERT
 		INTO refund(refund_no, refund_req_date, refund_money, bank_name, holder, account_num,
 		refund_date, user_id, refund_status, bank_code, date_of_birth)
 		VALUES
 		(seq_refund_refund_no.nextval, SYSDATE, #{refundMoney}, #{bankName}, #{holder},
 		#{accountNum}, #{refundDate:DATE}, #{userId}, '0', #{bankCode}, #{dateOfBirth})
-	</insert>
+	</insert> -->
 	
 	<!-- SQL : UPDATE -->
 	<update id="updateRefund" parameterType="com.wthealth.domain.Refund">
@@ -50,24 +50,23 @@
 	</update>
 	
 	<!-- SQL : SELECT LIST -->
-	<select id="listRefund" resultMap="refundSelectMap"	parameterType="com.wthealth.common.Search">
+	<select id="listRefund" resultMap="refundSelectMap"	parameterType="map">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 			FROM ( SELECT *
 				FROM refund
-		<where>
-			<if test="searchFilter == 0">
-				refund_status = '0'
+			WHERE user_id = #{userId:VARCHAR}
+			<if test="search.searchFilter == 0">
+				AND refund_status = '0'
 			</if>
-			<if test="searchFilter == 1">
-				refund_status = '1'					
+			<if test="search.searchFilter == 1">
+				AND refund_status = '1'					
 			</if>
-		</where>
 		ORDER BY refund_no) inner_table
-		WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum}
+		WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum}
 		AND
-		#{endRowNum}
+		#{search.endRowNum}
 	</select>
 	<!-- 위 두번째 subQuery 의 WHERE ROWNUM &lt;= #{endRowNum} ) 는 WHERE ROWNUM <= 
 		#{endRowNum} ) 의미이며.. < 는 keyword 로 &lt; 를 사용. <![CDATA[ ~~~ ]]> 를 이용하여 아래와 
@@ -101,7 +100,21 @@
 	
 	
 	<!-- SQL : SELECT ROW Count -->
-	<select id="getTotalCount" parameterType="com.wthealth.common.Search" resultType="int">
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT *
+			FROM refund
+			WHERE user_id = #{userId:VARCHAR}
+			<if test="search.searchFilter == 0">
+				AND refund_status = '0'
+			</if>
+			<if test="search.searchFilter == 1">
+				AND refund_status = '1'					
+			</if>
+		) countTable
+	</select>
+
+	<select id="getTotalCountForAdmin" parameterType="com.wthealth.common.Search" resultType="int">
 		SELECT COUNT(*)
 		FROM( SELECT *
 			FROM refund
@@ -115,6 +128,5 @@
 		</where>
 		) countTable
 	</select>
-
 </mapper>
 

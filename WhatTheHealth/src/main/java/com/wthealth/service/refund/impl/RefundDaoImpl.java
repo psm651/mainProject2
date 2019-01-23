@@ -47,11 +47,18 @@ public class RefundDaoImpl implements RefundDao {
 	}
 
 	@Override
-	public List<Refund> listRefund(Search search) throws Exception {
+	public List<Refund> listRefund(Search search, String userId) throws Exception {
 		System.out.println("search : " + search);
-		System.out.println("listRefund : " + sqlSession.selectList("RefundMapper.listRefund", search));
-
-		return sqlSession.selectList("RefundMapper.listRefund", search);
+		
+		Map<String , Object>  map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		List<Refund> list = sqlSession.selectList("RefundMapper.listRefund", map);
+		System.out.println("listRefund : "+list);
+		System.out.println("listRefund : " + sqlSession.selectList("RefundMapper.listRefund", map));
+		
+		return list;
 	}
 
 	@Override
@@ -73,8 +80,17 @@ public class RefundDaoImpl implements RefundDao {
 	}
 
 	@Override
-	public int getTotalCount(Search search) throws Exception {
-		return sqlSession.selectOne("RefundMapper.getTotalCount", search);
+	public int getTotalCount(Search search, String userId) throws Exception {
+		Map<String , Object>  map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		return sqlSession.selectOne("RefundMapper.getTotalCount", map);
+	}
+	
+	@Override
+	public int getTotalCountForAdmin(Search search) throws Exception {
+		return sqlSession.selectOne("RefundMapper.getTotalCountForAdmin", search);
 	}
 
 	// authType : 0는 최초인증, 1은 재인증, 2는 인증생략
