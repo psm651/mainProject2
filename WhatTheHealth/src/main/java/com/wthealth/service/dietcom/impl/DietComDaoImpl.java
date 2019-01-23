@@ -60,12 +60,6 @@ public class DietComDaoImpl implements DietComDao {
 	}
 
 	@Override
-	public void updateThumbnail(Post post) throws Exception {
-		sqlSession.update("DietComMapper.updateThumbnail",post);
-		
-	}
-
-	@Override
 	public void deleteDietCom(int postNo) throws Exception {
 		sqlSession.update("DietComMapper.deleteDietCom", postNo);
 	}

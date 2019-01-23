@@ -15,11 +15,7 @@ public interface ExInfoService {
 	
 	public void updateExInfo(Post post) throws Exception;
 	
-
-	public void updatePost(Post post) throws Exception;
-	
 	public Map<String, Object> listExInfo(Search search) throws Exception;
-	
 	
 	public List<Post> listExInfo(String Weather) throws Exception;
 }

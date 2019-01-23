@@ -67,11 +67,11 @@ public class MainServiceImpl implements MainService {
 	      String orgFileName = file.getOriginalFilename();
 	      String strFileName = uuid.toString() + orgFileName;
 
-	      System.out.println("���� ���ϸ� : " + orgFileName);
-	      System.out.println("������ ���ϸ� : " + strFileName);
+	      System.out.println("원본 파일명 : " + orgFileName);
+	      System.out.println("저장할 파일명: " + strFileName);
 
 	      String filepath = realFolder + "\\" + strFileName;
-	      System.out.println("���ϰ�� : " + filepath);
+	      System.out.println("파일경로 : " + filepath);
 
 	      File f = new File(filepath);
 	      if (!f.exists()) {
@@ -80,9 +80,19 @@ public class MainServiceImpl implements MainService {
 	      file.transferTo(f);
 	      out.print("http://127.0.0.1:8080/resources/images/upload/"+strFileName);
 	      out.close();
-		      
-
+	}
+	
+	@Override
+	public void updateThumbnail(Post post) throws Exception {
+		String contents = post.getContents();
+		String photoName = contents.split("upload/")[1];
 		
+		photoName = photoName.split(">")[0];
+		
+		post.setPhoto(photoName);
+		
+		mainDao.updateThumbnail(post);
+			
 	}
 
 }

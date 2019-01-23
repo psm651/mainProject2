@@ -42,11 +42,6 @@ public class ExInfoServiceImpl implements ExInfoService {
 	}
 	
 	@Override
-	public void updatePost(Post post) throws Exception {
-		exInfoDao.updatePost(post);
-	}
-
-	@Override
 	public Post getExInfo(int postNo) throws Exception {
 		return exInfoDao.getExInfo(postNo);
 	}

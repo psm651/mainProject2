@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html>
@@ -6,9 +7,9 @@
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+
 	
-	<!-- ¬¸¡∂ : http://getbootstrap.com/css/   ¬¸¡∂ -->
+	<!-- Ï∞∏Ï°∞ : http://getbootstrap.com/css/   Ï∞∏Ï°∞ -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -20,12 +21,12 @@
 
    
    
-   <!-- jQuery UI toolTip ªÁøÎ CSS-->
+   <!-- jQuery UI toolTip ÏÇ¨Ïö© CSS-->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip ªÁøÎ JS-->
+  <!-- jQuery UI toolTip ÏÇ¨Ïö© JS-->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
-	<!-- ≈€«√∏¥ -->
+	<!-- ÌÖúÌîåÎ¶ø -->
  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
 	
 	<style>
@@ -102,7 +103,7 @@
 
 	
 	$(function(){
-		$(".btn:contains('∞Àªˆ')").on("click", function(){
+		$(".btn:contains('Í≤ÄÏÉâ')").on("click", function(){
 
 			var searchFood = $("#searchFood").val();
 			$.ajax(
@@ -119,8 +120,8 @@
 					  success : function(data, status){
 			
 					  
-						  var name = "ƒÆ∑Œ∏Æ";
-						  var amount = "1¿Œ∫–";
+						  var name = "ÏπºÎ°úÎ¶¨";
+						  var amount = "1Ïù∏Î∂Ñ";
 						  var display = "";
 						  var totalDisplay = "";
 					 
@@ -159,7 +160,7 @@
 					  				 "<td>"+data[index].foodName+"</td>"+
 						 			 "<td>"+data[index].amountFood+"</td>"+
 						 	 		 "<td>"+data[index].foodCalorie+"</td>"+
-									 "<td align='left'><a href='#' id='button' class='btn btn-default btn-xs' role='button'>√ﬂ∞°</a></td></tr>"; */	
+									 "<td align='left'><a href='#' id='button' class='btn btn-default btn-xs' role='button'>Ï∂îÍ∞Ä</a></td></tr>"; */	
 						 
 					/* 	display = "";			 
 									 
@@ -225,7 +226,7 @@
         		
         	}else if(11<index){
         		
-        		return alert("¥ı ¿ÃªÛ √ﬂ∞° «œΩ« ºˆ∞° æ¯Ω¿¥œ¥Ÿ.");
+        		return alert("Îçî Ïù¥ÏÉÅ Ï∂îÍ∞Ä ÌïòÏã§ ÏàòÍ∞Ä ÏóÜÏäµÎãàÎã§.");
         	}
       
      		num += parseInt(foodCalorie);
@@ -251,7 +252,7 @@
    	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info" align="center">ƒÆ∑Œ∏Æ∞ËªÍ±‚</h3>
+	       <h3 class=" text-info" align="center">ÏπºÎ°úÎ¶¨Í≥ÑÏÇ∞Í∏∞</h3>
 	    </div>
 	    
    		 <div class="form-group">
@@ -261,7 +262,7 @@
 		    
 	    </div>
 	    
-			<button type="button" class="btn pull-right" align="right">∞Àªˆ</button>
+			<button type="button" class="btn pull-right" align="right">Í≤ÄÏÉâ</button>
 		
 		<br/><br/><br/><br/>
 	
@@ -271,11 +272,11 @@
 
 <div class="container-fluid">
 
-<!-- √ππ¯¬∞ ¡Ÿ ¿ΩΩƒ¡§∫∏ append -->
+<!-- Ï≤´Î≤àÏß∏ Ï§Ñ ÏùåÏãùÏ†ïÎ≥¥ append -->
 <div class="row" id="first">
 </div>
 
-<!-- µŒπ¯¬∞π¯¬∞ ¡Ÿ ¿ΩΩƒ¡§∫∏ append -->
+<!-- ÎëêÎ≤àÏß∏Î≤àÏß∏ Ï§Ñ ÏùåÏãùÏ†ïÎ≥¥ append -->
 <div class="row" id="second">
 </div>
 
@@ -292,7 +293,7 @@
 
 
 <div class="row">
-<div class="col-xs-4 col-md-2 "><strong>√— ƒÆ∑Œ∏Æ</strong></div>
+<div class="col-xs-4 col-md-2 "><strong>Ï¥ù ÏπºÎ°úÎ¶¨</strong></div>
 <div class="col-xs-8 col-md-4" id="amount" ></div>
 </div>	 
 

@@ -46,9 +46,15 @@
   
   <script type="text/javascript">
  
+   function fncGetExPart(){
+	   var exPart = $("select[name='exPart']").val();
+	   alert(exPart)
+	   self.location="/exInfo/liseExInfo?exPart="+exPart
+   }
+  
    $(function(){
   	$(".post-entry").on("click", function(){
-  		var postNo = $("#postNo").text();  
+  		var postNo =$(this).data("param");
   		self.location = "/exInfo/getExInfo?postNo="+postNo;
   	});
   });
@@ -79,6 +85,22 @@
 
     <div class="site-section">
       <div class="container">
+      <c:if test="${post.category==null}">
+      <h3><strong>운동부위</strong></h3>
+      </c:if>
+
+      <form class="form-inline" name="detailForm">        	
+		<div class="form-group">  
+			<select class="form-control" name="exPart" onchange="javascript:fncGetExPart('1');" >
+				<option value=null>카테고리</option>
+				<option value="0" ${!empty post.exPart && post.exPart =='0' ? "selected" : "" }>전신</option>
+				<option value="1" ${!empty post.exPart && post.exPart =='1' ? "selected" : "" }>복부</option>
+				<option value="2" ${!empty post.exPart && post.exPart =='2' ? "selected" : "" }>상체</option>	
+				<option value="3" ${!empty post.exPart && post.exPart =='3' ? "selected" : "" }>하체</option>	
+				<option value="4" ${!empty post.exPart && post.exPart =='4' ? "selected" : "" }>스트레칭</option>		
+			</select>   			
+		 </div>       
+	  </form> 	      
       <hr/>
       <br/>
       
@@ -103,21 +125,21 @@
         <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
     </c:if>
         <br/>
-        <div class="row mb-5">
         
-
+        
+        <div class="row mb-5">
           <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
           <c:forEach var="post" items="${list}"> 
           
           
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white">
+            <div class="post-entry bg-white" data-param="${post.postNo}">
               <div class="image">
                 <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid">
               </div>
               <div class="text p-4">
-              	<div id="postNo" style="display:none;" >${post.postNo}</div>
+              	
                 <h2 class="h5 text-black"><a href="#">${post.title}</a></h2>
                 <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
  				<p class="mb-0">${post.likeCount}</p>
