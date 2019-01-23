@@ -17,7 +17,7 @@ public class Meeting {
 	private int maxParty;
 	private String cheifId;
 	private String depoCondition;
-	private Date meetTime;
+	private String meetTime;
 	private Date deadlineTime;
 	
 	///Constructor
@@ -121,11 +121,11 @@ public class Meeting {
 		this.depoCondition = depoCondition;
 	}
 
-	public Date getMeetTime() {
+	public String getMeetTime() {
 		return meetTime;
 	}
 
-	public void setMeetTime(Date meetTime) {
+	public void setMeetTime(String meetTime) {
 		this.meetTime = meetTime;
 	}
 

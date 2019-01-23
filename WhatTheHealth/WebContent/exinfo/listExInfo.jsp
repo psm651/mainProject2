@@ -52,7 +52,12 @@
   		self.location = "/exInfo/getExInfo?postNo="+postNo;
   	});
   });
-  
+   
+   $(function() {
+		$("a[href='#' ]").on("click" , function() {
+			self.location = "/exinfo/addExInfo.jsp" 
+		});
+	});	
   </script>
   
   
@@ -64,24 +69,13 @@
 
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
-<!--    <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div> -->
       </div>
       <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
     
 
     
-<!--     <div class="site-blocks-cover inner-page overlay" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-      <div class="container">
-        <div class="row align-items-center justify-content-center">
-          <div class="col-md-7 text-center">
-            <h1 class="mb-5">News &amp; <strong>Updates</strong></h1>
-          </div>
-        </div>
-      </div>
-    </div>   -->
+
 
     <div class="site-section">
       <div class="container">
@@ -104,8 +98,10 @@
   </ul>
 </div>
      
+     
+     <c:if test="${sessionScope.user.role == 'admin'}">
         <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">±Û¾²±â</a></p>
-   
+    </c:if>
         <br/>
         <div class="row mb-5">
         

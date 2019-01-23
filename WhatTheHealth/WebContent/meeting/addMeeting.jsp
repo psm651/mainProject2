@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../resources/css/jquery-ui.css">
     <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
+
     <link rel="stylesheet" href="../resources/css/animate.css">
     
     <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="../resources/css/style.css">
     
 	<!-- include libraries(jQuery, bootstrap) -->
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  -->
 	
 	<!-- include summernote css/js-->
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
@@ -40,14 +40,12 @@
 	<script src="../resources/js/app.js"></script>
 	
 	<!-- include datetimepicker css/js-->
-	<!-- <script type="text/javascript" src="/path/to/moment.js"></script> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-	<script type="text/javascript" src="../resources/js/transition.js"></script>
-	<script type="text/javascript" src="../resources/js/collapse.js"></script>
-	<script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../resources/js/bootstrap-datepicker.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
+	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
+ 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
+	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
+
+	
 	<style>
 		#video {
       width: 300px;
@@ -64,7 +62,7 @@
 		//var contents = $("input[name='contents']").val();
 		//var contents = $('#summernote').summernote('code');
 		//var contents = document.getElementById("contents").value; //글 내용 인식 못함.
-		var contents = $("textarea[name='contents']").val();
+		var contents = $("textarea[name='post.contents']").val();
 		
 		//console.log(contents.length);
 
@@ -95,13 +93,71 @@
 			resetData();
 		});
 	});	
+	
+	function datetime(){
+		//$(".datepicker datepicker-inline").remove();
+		$('div').remove('.datepicker datepicker-inline');
+	};
+	
+	$(document).ready(function(){
+		datetime(); 
+	       });
+	//////////////////////////////////////달력////////////////////////////////
+	 // Initialization
+$('#timepicker-actions-exmpl').datepicker({inline : false})
+// Access instance of plugin
+$('#timepicker-actions-exmpl').data('datepicker') 
 
+	////////////////////////////////////달력달력///////////////////////////////////
+	 // Create start date
+     var start = new Date(),
+        prevDay,
+        startHours = 9;
 
-	$(function(){
-		$('#dpchange').datetimepicker().on('dp.change', function(e){
-			$('#show_date').html(new Date(e.date));
-		});
-	});
+    // 09:00 AM
+    start.setHours(9);
+    start.setMinutes(0);
+
+    // If today is Saturday or Sunday set 10:00 AM
+    if ([6, 0].indexOf(start.getDay()) != -1) {
+        start.setHours(10);
+        startHours = 10
+    }
+
+    $('#timepicker-actions-exmpl').datepicker({
+        timepicker: true,
+        language: 'en',
+        startDate: start,
+        minHours: startHours,
+        maxHours: 18,
+        
+        onSelect: function (fd, d, picker) {
+            // Do nothing if selection was cleared
+            if (!d) return;
+
+            var day = d.getDay();
+
+            // Trigger only if date is changed
+            if (prevDay != undefined && prevDay == day) return;
+            prevDay = day;
+
+            // If chosen day is Saturday or Sunday when set
+            // hour value for weekends, else restore defaults
+            if (day == 6 || day == 0) {
+                picker.update({
+                    minHours: 10,
+                    maxHours: 16
+                })
+            } else {
+                picker.update({
+                    minHours: 9,
+                    maxHours: 18
+                })
+            }
+        }
+    }) 
+////////////////////////////////////달력달력///////////////////////////////////
+
 
 </script>
 
@@ -187,11 +243,11 @@
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">참가비</label>
                 </div>
-                <!-- <div class="col-md-5 mb-5 mb-md-0">
+                <div class="col-md-5 mb-5 mb-md-0">
                 <input type="radio" >참가비있음 
                   &nbsp; &nbsp; &nbsp; &nbsp;
 				<input type="radio" >참가비없음
-				 </div> -->
+			</div>
 				
 			</div>
 			
@@ -234,15 +290,9 @@
 				<div class="col-md-5 mb-5 mb-md-0">
                 	모임시간<!--  <input type="text" class="form-control" id="meetTime" name="meetTime"  placeholder="소모임 시간을 입력해주세요."> -->
                 	<!-- ////////////////// 달려어어어억 ///////////////// -->
-             <div class="row">
-	<div class='col-sm-4'>
-		<input type='text' class="form-control" id='dpchange'/>
-	</div>
-	<div class='col-sm-8'>
-		<div id="show_date" style="border:1px solid black;padding:5px;">변경된 날짜 표시</div>
-	</div>
-</div>
-    
+               <!--  <input type='text' class='datepicker-here' data-language='en' >  -->
+               <input type='text'   class='datepicker-here' data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'  name='meetTime'/> 
+               <!--<div class="datepicker-here" data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'></div>  -->
     			<!-- ////////////////// 달려어어어억 ///////////////// -->
                 </div> 
                 <div class="col-md-5 mb-5 mb-md-0">
@@ -260,7 +310,7 @@
               <div class="row form-group">
                 <div class="col-md-12">
                   <input type = "hidden" id="post.contents" name="post.contents">
-		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
+		  			<jsp:include page="/common/postBySummerNoteForMeeting.jsp"></jsp:include> 
                 </div>
               </div>
               

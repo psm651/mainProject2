@@ -37,7 +37,7 @@ public class ExScServiceTest {
 	@Qualifier("exScheduleServiceImpl")
 	private ExScheduleService exScheduleService;
 
-	//@Test
+	@Test
 	public void testAddExSc() throws Exception {
 		
 
@@ -47,7 +47,7 @@ public class ExScServiceTest {
 		exSchedule.setExScCalorie(150);
 		exSchedule.setExScContents("죽여주네요");
 		exSchedule.setExScName("물구나무");
-		exSchedule.setUserId("testUser");
+		exSchedule.setUserId("user1");
 		
 		exScheduleService.addExSchedule(exSchedule); 
 
@@ -58,7 +58,7 @@ public class ExScServiceTest {
 		Assert.assertEquals(150, exSchedule.getExScCalorie());
 		Assert.assertEquals("죽여주네요", exSchedule.getExScContents());
 		Assert.assertEquals("물구나무", exSchedule.getExScName());
-		Assert.assertEquals("testUser", exSchedule.getUserId());
+		Assert.assertEquals("user1", exSchedule.getUserId());
 	}
 	
 	/*//@Test
@@ -196,7 +196,7 @@ public class ExScServiceTest {
 	 }
 	 */
 	
-	@Test
+	//@Test
 		 public void deleteExSchedule() throws Exception{
 			 
 		 	ExSchedule exSchedule = exScheduleService.getExSchedule(10026);

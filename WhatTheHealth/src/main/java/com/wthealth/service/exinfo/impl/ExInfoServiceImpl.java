@@ -47,7 +47,7 @@ public class ExInfoServiceImpl implements ExInfoService {
 	}
 
 	@Override
-	public Post getExInfo(String postNo) throws Exception {
+	public Post getExInfo(int postNo) throws Exception {
 		return exInfoDao.getExInfo(postNo);
 	}
 

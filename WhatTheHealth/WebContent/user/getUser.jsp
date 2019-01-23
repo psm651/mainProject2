@@ -87,8 +87,12 @@
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "#chatting" ).on("click" , function() {
-						self.location = "/user/updateUser?userId=${user.userId}"
-					});
+					 	var userId = $(this).data("param");
+					 	//var roomId = userId+"+${sessionScope.user.userId}";
+						
+						//$("#append_here").append('<button type="button" class="btn btn-primary" id="receiveRoom" data-param="'+roomId+'">방 입장하기</button>')
+						self.location = "/socket/addChatting?userId2="+userId
+				 });
 			});
 		 
 		 $(function() {
@@ -97,7 +101,16 @@
 						self.location = "/point/updatePoint?receiverId=${user.userId}"
 					});
 			});
-		
+		 
+		 $(function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				 $( "#getChatting" ).on("click" , function() {
+					 var roomId = $(this).data("param");
+						self.location = "/socket/getChatting?roomId="+roomId
+					});
+			});
+		 
+
 	</script>
 	
 </head>
@@ -202,6 +215,11 @@
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-primary" id="update">회원정보수정</button>
+	  			<c:set var="i" value="0"/>
+					<c:forEach var = "chatting" items="${chattinglist}">
+						<c:set var="i" value="${i+1}"/>
+						<button type="button" class="btn btn-primary" id="getChatting" data-param="${chatting.roomId}" >${chatting.chattingNo}</button>
+					</c:forEach>
 	  			<button type="button" class="btn btn-primary" id="delete">탈퇴</button>
 	  		</div>
 		</div>
@@ -234,9 +252,10 @@
 		<hr/>
 		<c:if test="${user.userStatus == 0}">
 		<div class="row">
-	  		<div class="col-md-12 text-center ">
-	  			<button type="button" class="btn btn-primary" id="chatting">1:1 채팅</button>
+	  		<div class="col-md-12 text-center " id="append_here">
+	  			<button type="button" class="btn btn-primary" id="chatting" data-param="${user.userId }">1:1 채팅</button>
 	  			<button type="button" class="btn btn-primary" id="point">포인트 쏘기</button>
+	  			
 	  		</div>
 		</div>
 		</c:if>

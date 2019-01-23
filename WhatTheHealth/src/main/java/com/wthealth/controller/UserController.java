@@ -2,6 +2,7 @@ package com.wthealth.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
@@ -27,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.wthealth.domain.Chatting;
 import com.wthealth.domain.NaverLogin;
 import com.wthealth.domain.User;
+import com.wthealth.service.chatting.ChattingService;
 import com.wthealth.service.user.UserService;
 
 @Controller
@@ -40,6 +43,11 @@ public class UserController {
 	@Qualifier("userServiceImpl")
 	private UserService userService;
 	//setter Method 구현 않음
+	
+	///Field
+	@Autowired
+	@Qualifier("chattingServiceImpl")
+	private ChattingService chattingService;
 	
 	@Resource(name = "mailSender")
 	private JavaMailSender javaMailSender;
@@ -302,8 +310,13 @@ public class UserController {
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUser(userId);
+		/////////////////////채팅리스트 추가추가///////////////////
+		List<Chatting> list = chattingService.listChatting(userId);
+		/////////////////////////////////////////////////////
+		
 		// Model 과 View 연결
 		model.addAttribute("user", user);
+		model.addAttribute("chattinglist", list);
 		
 		return "forward:/user/getUser.jsp";
 	}

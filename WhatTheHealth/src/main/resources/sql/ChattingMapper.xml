@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ChattingMapper">
+ 	
+ 	
+	<resultMap id="chattingSelectMap" type="com.wthealth.domain.Chatting">
+		<result property="chattingNo" 			column="chatting_no" 		jdbcType="NUMERIC"/>
+		<result property="roomId" 				column="room_id" 			jdbcType="VARCHAR" />
+		<result property="user1"				column="user1_id" 			jdbcType="VARCHAR" />
+		<result property="user2" 				column="user2_id" 			jdbcType="VARCHAR"  />
+		<result property="user1Status" 			column="user1_status" 		jdbcType="VARCHAR"  />
+		<result property="user2Status" 			column="user2_status" 		jdbcType="VARCHAR"  />	
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addChatting"		parameterType="com.wthealth.domain.Chatting" >
+	 	INSERT
+		INTO chatting ( chatting_no , room_id , user1_id , user2_id , user1_status, user2_status ) 
+		VALUES	 (	seq_chatting_chatting_no.nextval , #{roomId} , #{user1} , #{user2}, #{user1Status:VARCHAR}, #{user2Status:VARCHAR})
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getChatting"	parameterType="int"	resultMap="chattingSelectMap">
+		SELECT
+			chatting_no , room_id , user1_id , user2_id , user1_status, user2_status		
+		FROM chatting
+		WHERE chatting_no = #{value}
+	 </select>
+	 
+	 
+	 <select  id="listChatting"  parameterType="String"	resultMap="chattingSelectMap">
+	  	SELECT chatting_no , room_id , user1_id , user2_id , user1_status, user2_status
+											FROM chatting
+											WHERE user2_id = #{value} <!-- AND delete_status IS NULL OR delete_status='0'    -->
+											ORDER BY chatting_no
+	 </select>
+
+
+	 
+</mapper>
