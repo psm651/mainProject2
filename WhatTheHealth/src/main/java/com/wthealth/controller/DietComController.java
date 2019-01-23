@@ -46,7 +46,7 @@ public class DietComController {
 	private FavoriteService favoriteService;
 	
 	@Autowired
-	@Qualifier
+	@Qualifier("mainServiceImpl")
 	private MainService mainService;
 	
 	public DietComController() {
