@@ -49,42 +49,30 @@
     
   </head>
   
-    <style>
-  div p {
-  		overflow: hidden; 
- 	    text-overflow: ellipsis;
-  		white-space: nowrap; 
-  		width: 100px;
-  		height: 20px;
-		}
-  </style>
+
   
 	<script type="text/javascript">
-		
-		
-		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
+
+	   //=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
-			alert(currentPage);
-			$("#currentPage").val(currentPage)
+			$("#currentPage").val(currentPage);
 			$("form").attr("method" , "POST").attr("action" , "/adminManage/listUserAdminManage").submit();
 		}
 		
-		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
+	   $(function(){
+		   
+	   	$(".btn:contains('검색')").on("click", function(){
+	   		fncGetPageList(1);
+	   	});
+	   
 			 
-			
-			 
-			 $(".btn:contains('회원정보 확인')").on("click", function(){
-				var userId = $(this).data("param");
-				alert(userId);
-			    self.location = "/adminManage/getUserAdminManage?userId="+userId 
-			 });
+		 $(".btn:contains('회원정보 확인')").on("click", function(){
+			var userId = $(this).data("param");
+		    self.location = "/adminManage/getUserAdminManage?userId="+userId 
 		 });
+		
+		 
+	   });
 		
 						
 		
@@ -100,11 +88,51 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	<body>
 	
-	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/singo3.jpg');">
-      <div class="container mb-3">
+	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/singo1.jpg');">
+    
+    <div class="container mb-3">
 
         <h1 class="text-white display-5 mb-5">User관리</h1>
-
+         <div class="row">
+        	<div class="col-md-7 text-left">
+	    		<p class="text-primary">전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지</p>
+			</div>
+			
+    		<div class="col-md-5 text-right">
+    	
+        	<form class="form-inline" name="detailForm">
+        	
+			<div class="form-group">  
+				<select class="form-control" name="searchFilter" onchange="javascript:fncGetPageList('1');" >
+					<option value=null>계정상태</option>
+					<option value="0" ${!empty search.searchFilter && search.searchFilter=='0' ? "selected" : "" }>일반</option>
+					<option value="1" ${!empty search.searchFilter && search.searchFilter=='1' ? "selected" : "" }>탈퇴</option>
+					<option value="2" ${!empty search.searchFilter && search.searchFilter=='2' ? "selected" : "" }>블랙리스트</option>		
+				</select>   			
+		 	</div>        	
+        	
+        	<div class="form-group">
+				<select class="form-control" id="searchCondition"name="searchCondition" >		
+						<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>아이디</option>
+						<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>닉네임</option>
+				</select>
+		   </div>
+					  
+		   <div class="form-group">
+				<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
+					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+		   </div>
+        
+           <button type="button" class="btn btn-info">검색</button>
+        		
+           <input type="hidden" id="currentPage" name="currentPage" value=""/>
+        	    
+       	    </form>
+    	</div>
+    	</div> 
+    	
+    	<br/><br/>
+    	
         <div class="tab-content" id="pills-tabContent">
 
             <div class="row-wrap">
@@ -115,8 +143,12 @@
                 <div class="col-sm-2 col-md-2 col-lg-2">계정상태</div>    
               </div>
             </div>
+            
+        </div>  
+         <!-- ///////////////////////////////////////// -->
          
-         <form>
+
+         
             <c:set var="i" value="0"/>
     	 	<c:forEach var="user" items="${list}">
 			<c:set var ="i" value="${i+1}"/>          
@@ -125,46 +157,30 @@
               <div class="row bg-white p-2 align-items-center">
 				<div class="col-sm-2 col-md-2 col-lg-2" ><span class="icon-person mr-2" "></span>${user.userId}</div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${user.nickName}</div>
-                <div class="col-sm-2 col-md-2 col-lg-2">${user.regDate}</div>
-                <c:if test="${user.userStatus=='0'}">
-                <div class="col-sm-2 col-md-2 col-lg-2">일반</div>
-                </c:if>
-                 <c:if test="${user.userStatus=='1'}">
-                <div class="col-sm-2 col-md-2 col-lg-2">블랙리스트</div>
-                </c:if>               
-                 <c:if test="${user.userStatus=='2'}">
-                <div class="col-sm-2 col-md-2 col-lg-2">탈퇴</div>
-                </c:if>               
-                <div class="col-sm-2 col-md-2 col-lg-2 text-md-right"><a href="#" class="btn btn-primary pill" data-param="${user.userId}">회원정보 확인</a></div>     
-              </div>
+                	<div class="col-sm-2 col-md-2 col-lg-2">${user.regDate}</div>
+               			 <c:if test="${user.userStatus=='0'}">
+                			<div class="col-sm-2 col-md-2 col-lg-2">일반</div>
+                		</c:if>
+                 		<c:if test="${user.userStatus=='1'}">
+                			<div class="col-sm-2 col-md-2 col-lg-2">탈퇴</div>
+                		</c:if>               
+                 		<c:if test="${user.userStatus=='2'}">
+                			<div class="col-sm-2 col-md-2 col-lg-2">블랙리스트</div>
+                		</c:if>               
+               	<div class="col-sm-2 col-md-2 col-lg-2 text-md-right"><a href="#" class="btn btn-primary pill" data-param="${user.userId}">회원정보 확인</a></div>     
             </div>
-            
-           
-                <input type="hidden" id="currentPage" name="currentPage" value=""/>
-           
-            
+         </div>
+         
           </c:forEach>
-             </form>
-          </div>
+          
+   
+         
               
         </div>
   
-     
-
+ 
         <jsp:include page="../common/pageNavigator_new.jsp"/>
         
   </div>
-
-      
-     
-	
-	  
-
- 
- 	
- 	
-
-	
 </body>
-
 </html>

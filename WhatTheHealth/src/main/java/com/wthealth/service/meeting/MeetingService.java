@@ -22,7 +22,7 @@ public interface MeetingService {
 	public void deleteMeeting(int postNo) throws Exception;
 	
 	//SELECT ONE 소모임
-	public Meeting getMeeting(int postNo) throws Exception;
+	public Meeting getMeeting(int meetNo) throws Exception;
 	
 	//SELECT ONE 소모임 from 게시물 table
 	public Post getMeetingPost(int postNo) throws Exception;

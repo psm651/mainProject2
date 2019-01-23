@@ -17,7 +17,7 @@ public interface ExInfoDao {
 	
 	public void updatePost(Post post) throws Exception;
 	
-	public Post getExInfo(String postNo) throws Exception;
+	public Post getExInfo(int postNo) throws Exception;
 
 	public List<Post> listExInfo(Search search) throws Exception;
 

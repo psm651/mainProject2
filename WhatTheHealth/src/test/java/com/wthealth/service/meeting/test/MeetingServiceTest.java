@@ -46,9 +46,9 @@ public class MeetingServiceTest {
 		
 		Meeting meeting = new Meeting();
 		
-		meeting.setCheifId("user3");
+		meeting.setCheifId("horannabi");
 		meeting.setDepoCondition("0");
-		meeting.setMeetTime(date);
+	//meeting.setMeetTime(date);
 
 		System.out.println("실행전이 궁금함 :: "+meeting.getMeetNo());
 		meetingService.addMeeting(meeting);
@@ -64,18 +64,18 @@ public class MeetingServiceTest {
 		Assert.assertEquals("1970-01-01", meeting.getMeetTime().toString());
 	}
 	
-	//@Test
+	@Test
 	public void testAddMeetingPostBoth() throws Exception{
 		Date date = new Date(20190112);
 		
 		Meeting meeting = new Meeting();
 		
-		meeting.setCheifId("user1");
+		meeting.setCheifId("horannabi");
 		meeting.setDepoCondition("0");
-		meeting.setMeetTime(date);
+		//meeting.setMeetTime(date);
 		
 		Post post = new Post();
-		post.setUserId("user1");
+		post.setUserId("horannabi");
 		post.setTitle("daoimpl에서 둘다 넣기~");
 		post.setContents("될거야!");
 		
@@ -86,9 +86,9 @@ public class MeetingServiceTest {
 		/*post.setPostNo("ME"+meeting.getMeetNo());
 		System.out.println(" postNo이 들어갔나요?:"+post);
 		meetingService.addMeetingPost(post);*/
-		Assert.assertEquals("user1", meeting.getPost().getUserId());
+		Assert.assertEquals("horannabi", meeting.getPost().getUserId());
 		Assert.assertEquals("0", meeting.getDepoCondition());
-		Assert.assertEquals("1970-01-01", meeting.getMeetTime().toString());
+		Assert.assertEquals("70-01-01", meeting.getMeetTime().toString());
 	}
 	
 	//@Test
@@ -183,7 +183,7 @@ public class MeetingServiceTest {
 		Assert.assertEquals("1", join.getDepoStatus());
 	}
 	
-	@Test
+	//@Test
 	public void testListMeeting() throws Exception {
 		Search search = new Search();
 	 	search.setCurrentPage(1);

@@ -214,7 +214,8 @@
         </div>
    
       </div>
-         <div class="row">
+      <jsp:include page="../common/pageNavigator_new.jsp"/>
+         <!-- <div class="row">
           <div class="col-md-12 text-center">
             <div class="site-block-27">
               <ul>
@@ -228,7 +229,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
     </div>
 	
 

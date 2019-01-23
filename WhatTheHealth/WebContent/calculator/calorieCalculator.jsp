@@ -139,8 +139,7 @@
 									 '</div>';
 								$("#first").append(display);	 
 					  		}else if(5<index && index<=11){
-					  			
-					  		console.log(index);
+					  	
 					  			display = 
 									'<div class="col-sm">'+
 										'<div class="card">'+
@@ -179,24 +178,61 @@
 
    $(function(){
 	   
-   
-        $(document).on("click",".card ",function(){
-			alert('');
-        	var tdArray = new Array();
-        	var td = $(this).parents("tr").children("td");
-  
-             td.each(function(i){
-                 tdArray.push(td.eq(i).text());
-                 $(".col-md-1").append(tdArray[i]);
-              }); 
-           
-            
-/*         	var foodName = tdArray[0];
-        	var foodCalorie = tdArray[1];
-        	var foodAmount = tdArray[2]; */
+	   var index = 0; 
+	
+	   var foodAmountCalorie = 0;
+	   
+	   $(document).on("click",".card ",function(){
+			
+        
         	
-    
+        	var cardArray = new Array();
+        	
+        	var foodName = $(this).children(".card-header").text();
+        	var foodCalorie = $(this).children(".card-body").children("p:nth-child(1)").text();
+        	var amountFood = $(this).children(".card-body").children("p:nth-child(2)").text();
+        	
     		
+        	var num = parseInt(foodAmountCalorie);
+        	
+        	var display = "";
+        	
+        	if(index<=5){
+        		display = 
+					'<div class="col-sm">'+
+						'<div class="card">'+
+	  						'<div class="card-header">'+foodName+'</div>'+
+	  						'<div class="card-body">'+
+	  						'<p>'+foodCalorie+'</p>'+ 
+	      		    		'<p>'+amountFood+'</p>'+
+	  			   		 	'</div>'+
+						 '</div>'+
+					 '</div>';
+				$("#firstAppend").append(display);
+        		
+        	}else if(5<index && index<=11){
+        		display = 
+					'<div class="col-sm">'+
+						'<div class="card">'+
+	  						'<div class="card-header">'+foodName +'</div>'+
+	  						'<div class="card-body">'+
+	  						'<p>'+foodCalorie+'</p>'+ 
+	      		    		'<p>'+amountFood+'</p>'+
+	  			   		 	'</div>'+
+						 '</div>'+
+					 '</div>';
+				$("#secondAppend").append(display);	
+        		
+        	}else if(11<index){
+        		
+        		return alert("더 이상 추가 하실 수가 없습니다.");
+        	}
+      
+     		num += parseInt(foodCalorie);
+        	index ++;
+        
+        	$("#amount").append(foodAmountCalorie).text();
+
         });
      }); 
      
@@ -232,57 +268,33 @@
 		<br/><br/><br/>
 		
 
-		
-<!-- 	<table class="table table-hover">
-  		<thead>
-    		<tr>
-    		  <th scope="col">번호</th>
-    		  <th scope="col">음식명</th>
-    		  <th scope="col">1인분</th>
-     		  <th scope="col">칼로리</th>
-   			</tr>
- 	    </thead>
-  	<tbody id="append">
-     
-    </tbody>
-	</table>		
-	
-	<br/><br/>
- -->
-<!-- 	<div class="col-md-1">
-	</div> -->
-	
 
 <div class="container-fluid">
 
+<!-- 첫번째 줄 음식정보 append -->
 <div class="row" id="first">
 </div>
 
-
+<!-- 두번째번째 줄 음식정보 append -->
 <div class="row" id="second">
 </div>
 
 
+<hr/><hr/>
 
-<!--  	<div class="row">
-		<div class="col-sm">
-			<div class="card">
-  				<div class="card-header">
-    			Quote
-  				</div>
-  				<div class="card-body">
-      		    <hr>칼로리</hr><span>dd</span>
-    	
-  			    </div>
-			</div>
-		</div> -->
-		
-	  
+<div class="row" id="firstAppend">
+</div>
+
+<div class="row" id="secondAppend">
+</div>
 
 
 
 
-
+<div class="row">
+<div class="col-xs-4 col-md-2 "><strong>총 칼로리</strong></div>
+<div class="col-xs-8 col-md-4" id="amount" ></div>
+</div>	 
 
 
 

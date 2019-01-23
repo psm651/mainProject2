@@ -7406,22 +7406,22 @@ var DayGrid = /** @class */ (function (_super) {
             classes.push('fc-rigid');
         }
         return '' +
-            '<div class="' + classes.join(' ') + '">' +
-            '<div class="fc-bg">' +
-            '<table class="' + theme.getClass('tableGrid') + '">' +
-            this.renderBgTrHtml(row) +
-            '</table>' +
-            '</div>' +
-            '<div class="fc-content-skeleton">' +
-            '<table>' +
-            (this.getIsNumbersVisible() ?
-                '<thead>' +
-                    this.renderNumberTrHtml(row) +
-                    '</thead>' :
-                '') +
-            '</table>' +
-            '</div>' +
-            '</div>';
+        '<div class="' + classes.join(' ') + '">' +
+        '<div class="fc-bg">' +
+        '<table class="' + theme.getClass('tableGrid') + '">' +
+        this.renderBgTrHtml(row) +
+        '</table>' +
+        '</div>' +
+        '<div class="fc-content-skeleton">' +
+        '<table>' +
+        (this.getIsNumbersVisible() ?
+            '<thead>' +
+                this.renderNumberTrHtml(row) +
+                '</thead>' :
+            '') +
+        '</table>' +
+        '</div>' +
+        '</div>';
     };
     DayGrid.prototype.getIsNumbersVisible = function () {
         return this.getIsDayNumbersVisible() || this.cellWeekNumbersVisible;
@@ -7985,20 +7985,21 @@ var BasicView = /** @class */ (function (_super) {
         var theme = this.calendar.theme;
         return '' +
             '<table class="' + theme.getClass('tableGrid') + '">' +
+            
             (this.opt('columnHeader') ?
-                '<thead class="fc-head">' +
-                    '<tr>' +
-                    '<td class="fc-head-container ' + theme.getClass('widgetHeader') + '">&nbsp;</td>' +
-                    '</tr>' +
-                    '</thead>' :
-                '') +
+                    '<thead class="fc-head">' +
+                        '<tr>' +
+                        '<td class="fc-head-container ' + theme.getClass('widgetHeader') + '">&nbsp;</td>' +
+                        '</tr>' +
+                        '</thead>' :
+                    '') +
+                    
             '<tbody class="fc-body">' +
             '<tr>' +
             '<td class="' + theme.getClass('widgetContent') + '"></td>' +
             '</tr>' +
-            '<tr>' +
-            '</tr>'
             '</tbody>' +
+            '<hr class="fc-divider ' + theme.getClass('widgetContent') + '"/>' +
             '</table>';
     };
     // Generates an HTML attribute string for setting the width of the week number column, if it is known
@@ -10856,9 +10857,14 @@ var Calendar = /** @class */ (function () {
             el.toggleClass('fc-rtl', opts.isRTL);
         });
         this.contentEl = $("<div class='fc-view-container'/>").prependTo(el);
+        if (this.opt('defaultView')=='agendaWeek') {
+			this.initToolbarssaa();
+		}else if(this.opt('defaultView') =='basicWeek'){
         this.initToolbars();
+		}
         this.renderHeader();
         this.renderFooter();
+        console.log( this.opt('defaultView'));
         this.renderView(this.opt('defaultView'));
         if (this.opt('handleWindowResize')) {
             $(window).resize(this.windowResizeProxy = util_1.debounce(// prevents rapid calls
@@ -11065,12 +11071,25 @@ var Calendar = /** @class */ (function () {
         this.footer = new Toolbar_1.default(this, this.computeFooterOptions());
         this.toolbarsManager = new Iterator_1.default([this.header, this.footer]);
     };
+    Calendar.prototype.initToolbarssaa = function () {
+        this.header = new Toolbar_1.default(this, this.computeHeaderOptionssaa());
+        this.footer = new Toolbar_1.default(this, this.computeFooterOptions());
+        this.toolbarsManager = new Iterator_1.default([this.header, this.footer]);
+    };
     Calendar.prototype.computeHeaderOptions = function () {
         return {
             extraClasses: 'fc-header-toolbar',
             layout: this.opt('header')
         };
     };
+    Calendar.prototype.computeHeaderOptionssaa = function () {
+        return {
+            extraClasses: 'fc-header-toolbar',
+      
+        };
+    };
+    
+    
     Calendar.prototype.computeFooterOptions = function () {
         return {
             extraClasses: 'fc-footer-toolbar',
@@ -11080,7 +11099,12 @@ var Calendar = /** @class */ (function () {
     // can be called repeatedly and Header will rerender
     Calendar.prototype.renderHeader = function () {
         var header = this.header;
-        header.setToolbarOptions(this.computeHeaderOptions());
+        if (this.opt('defaultView')=='agendaWeek') {
+        	header.setToolbarOptions(this.computeHeaderOptionssaa());
+		}else if (this.opt('defaultView')=='basicWeek') {
+			header.setToolbarOptions(this.computeHeaderOptions());
+		}
+        
         header.render();
         if (header.el) {
             this.el.prepend(header.el);
@@ -12787,11 +12811,9 @@ var TimeGridFillRenderer_1 = __webpack_require__(242);
 // potential nice values for the slot-duration and interval-duration
 // from largest to smallest
 var AGENDA_STOCK_SUB_DURATIONS = [
-    { hours: 6 },
-    { minutes: 30 },
-    { minutes: 15 },
-    { seconds: 30 },
-    { seconds: 15 }
+    { hours: 12 },
+    { minutes: 30 }
+
 ];
 var TimeGrid = /** @class */ (function (_super) {
     tslib_1.__extends(TimeGrid, _super);
@@ -12950,9 +12972,9 @@ var TimeGrid = /** @class */ (function (_super) {
         this.dayRanges = this.dayDates.map(function (dayDate) {
             return new UnzonedRange_1.default(dayDate.clone().add(dateProfile.minTime), dayDate.clone().add(dateProfile.maxTime));
         });
-        if (this.headContainerEl) {
+       /* if (this.headContainerEl) {
             this.headContainerEl.html(this.renderHeadHtml());
-        }
+        }*/
         this.el.find('> .fc-bg').html('<table class="' + theme.getClass('tableGrid') + '">' +
             this.renderBgTrHtml(0) + // row=0
             '</table>');
@@ -15086,7 +15108,7 @@ ViewRegistry_1.defineView('agendaDay', {
     duration: { days: 1 }
 });
 ViewRegistry_1.defineView('agendaWeek', {
-    type: 'agenda',
+    type: 'basic',
     duration: { weeks: 1 }
 });
 

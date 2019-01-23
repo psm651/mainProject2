@@ -48,91 +48,25 @@
     <link rel="stylesheet" href="/resources/css/style.css">
     
   </head>
-  
-    <style>
-  div p {
-  		overflow: hidden; 
- 	    text-overflow: ellipsis;
-  		white-space: nowrap; 
-  		width: 100px;
-  		height: 20px;
-		}
-  </style>
-  
+ 
+ 
 	<script type="text/javascript">
 	
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
-			alert(currentPage);
-			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/adminManage/listUserAdminManage").submit();
+			$("#currentPage").val(currentPage);
+			$("form").attr("method" , "POST").attr("action" , "/adminManage/listPointAdminManage").submit();
 		}
 		
-		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
-		
-		
-		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		 $(function() {
-		
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
-			});
-						
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( "td:nth-child(2)" ).css("color" , "red");
-			
-		});	
-		
-		
-		//============= userId 에 회원정보보기  Event  처리 (double Click)=============
-		 $(function() {
-			 
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "td:nth-child(5) > i" ).on("click" , function() {
+	   $(function(){
+		   
+	   	$(".btn:contains('검색')").on("click", function(){
+	   		fncGetPageList(1);
+	   	});
 
-					var userId = $(this).next().val();
-				
-					$.ajax( 
-							{
-								url : "/user/json/getUser/"+userId ,
-								method : "GET" ,
-								dataType : "json" ,
-								headers : {
-									"Accept" : "application/json",
-									"Content-Type" : "application/json"
-								},
-								success : function(JSONData , status) {
+		
+		});
 
-									var displayValue = "<h6>"
-																+"아이디 : "+JSONData.userId+"<br/>"
-																+"이  름 : "+JSONData.userName+"<br/>"
-																+"이메일 : "+JSONData.email+"<br/>"
-																+"ROLE : "+JSONData.role+"<br/>"
-																+"등록일 : "+JSONData.regDate+"<br/>"
-																+"</h6>";
-									$("h6").remove();
-									$( "#"+userId+"" ).html(displayValue);
-								}
-						});
-						////////////////////////////////////////////////////////////////////////////////////////////
-					
-			});
-			
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-			$("h7").css("color" , "red");
-			
-			//==> 아래와 같이 정의한 이유는 ??
-			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
-		});	
 	
 	</script>
 	
@@ -143,27 +77,57 @@
 	<body>
 	
 	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/singo3.jpg');">
-      <div class="container mb-3">
+    
+    <div class="container mb-3">
 
         <h1 class="text-white display-5 mb-5">Point관리</h1>
+		 <div class="row">
+        	<div class="col-md-7 text-left">
+	    		<p class="text-primary">전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지</p>
+			</div>
+			
+    		<div class="col-md-5 text-right">
+    	
+        	<form class="form-inline" name="detailForm">
+        	
+			<div class="form-group">  
+				<select class="form-control" name="searchCondition">
+					<option value=null>회원아이디</option>	
+						<option value="0" ${!empty search.searchCondition && search.searchCondition=='0' ? "selected" : "" }>보낸ID</option>
+					<option value="1" ${!empty search.searchCondition && search.searchCondition=='1' ? "selected" : "" }>받는ID</option>
+				</select>   			
+		 	</div>
+		 	  
+ 			<div class="form-group">
+				<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
+					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+		    </div>		 	      	        
+        	
+           <button type="button" class="btn btn-info">검색</button>
+        		
+           <input type="hidden" id="currentPage" name="currentPage" value=""/>        	
+        	
+           </form>
+           
+       </div>
+       </div>    	
 
         <div class="tab-content" id="pills-tabContent">
 
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center">
                 <div class="col-sm-2 col-md-2 col-lg-2">포인트용도</div>
-				<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span><h5class="h6">아이디</h5></div>
+				<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span><h5class="h6">보낸 아이디</h5></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>받는 아이디</div>
                 <div class="col-sm-2 col-md-2 col-lg-2">충전/사용 포인트</div>                
                 <div class="col-sm-2 col-md-2 col-lg-2">포인트잔액</div>
                 <div class="col-sm-2 col-md-2 col-lg-2">날짜</div>
-              </div>
-              
-                     
-              </div>
-            </div>
+              </div>      
+             </div>
+             
+          </div>
          
-         <form>
+    
             <c:set var="i" value="0"/>
     	 	<c:forEach var="point" items="${list}">
 			<c:set var ="i" value="${i+1}"/>   
@@ -179,43 +143,22 @@
               	</c:if>
               	<c:if test="${point.pointStatus=='2'}">
               		<div class="col-sm-2 col-md-2 col-lg-2">포인트쏘기</div>
-              	</c:if>  
-              	            	              	
+              	</c:if>      	              	
 					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${point.senderId}</div>
                 	<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${point.receiverId}</div>
                 	<div class="col-sm-2 col-md-2 col-lg-2" >${point.usingPoint}</div>
     				<div class="col-sm-2 col-md-2 col-lg-2">${point.havingPoint}</div>
                 	<div class="col-sm-2 col-md-2 col-lg-2">${point.pointDate}</div>
-                	
-                	
               </div>
             </div>
             
-           
-                <input type="hidden" id="currentPage" name="currentPage" value=""/>
-            </form>
-            
+  
           </c:forEach>
             
-          </div>
-              
-        </div>
-  
-     
+          
+ </div>
         <jsp:include page="../common/pageNavigator_new.jsp"/>
         
   </div>
-
-      
-     
-	
-	  
-
- 
- 	
- 	
-
-	
 </body>
-
 </html>

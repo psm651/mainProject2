@@ -82,17 +82,23 @@
 						 			user_id LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 			user_name LIKE '%'||#{searchKeyword}||'%'
+						 			nickname LIKE '%'||#{searchKeyword}||'%'
 								</if>
+							<if test="searchFilter != null">
+									<if test="searchFilter == 0 and searchFilter !='' ">
+										AND	user_status_code = '0'
+									</if>
+									<if test="searchFilter == 1 and searchFilter !='' ">
+										AND user_status_code = '1'
+									</if>		
+									<if test="searchFilter == 2 and searchFilter !='' ">
+										AND user_status_code = '2'
+									</if>														
+							</if>  							
 							</where>
+							
 						</if>
-						
-						<if test="searchFilter==0">
-							ORDER BY reg_date DESC
-						</if>
-						<if test="searchFilter==1">
-							ORDER BY user_status_code DESC
-						</if>	        
+						   
 						     ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
@@ -105,7 +111,12 @@
 						FROM point
 			 			<if test="searchKeyword != null">
 							<where>
+								<if test="searchCondition == 0 and searchKeyword !='' ">
 						 			sender_id LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 			receiver_id LIKE '%'||#{searchKeyword}||'%'
+								</if>						 			
 							</where>
 						</if> 
 				
@@ -126,8 +137,20 @@
 						 			user_id LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 			user_name LIKE '%'||#{searchKeyword}||'%'
+						 			nickname LIKE '%'||#{searchKeyword}||'%'
 								</if>
+								<if test="searchFilter != null">
+									<if test="searchFilter == 0 and searchFilter !='' ">
+										AND	user_status_code = '0'
+									</if>
+									<if test="searchFilter == 1 and searchFilter !='' ">
+										AND user_status_code = '1'
+									</if>		
+									<if test="searchFilter == 2 and searchFilter !='' ">
+										AND user_status_code = '2'
+									</if>														
+							</if>  												
+								
 							</where>
 						</if> ) countTable						
 	 </select>
@@ -135,14 +158,18 @@
 	 <select  id="getPointTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT *
-						FROM point
-						<if test="searchCondition != null">
+				FROM point
+					<if test="searchKeyword != null">
 							<where>
-								<if test="searchKeyword !='' and searchKeyword != null ">
+								<if test="searchCondition == 0 and searchKeyword !='' ">
 						 			sender_id LIKE '%'||#{searchKeyword}||'%'
 								</if>
+								<if test="searchCondition == 1 and searchKeyword !='' ">
+						 			receiver_id LIKE '%'||#{searchKeyword}||'%'
+								</if>						 			
 							</where>
-						</if> ) countTable						
+						</if> 
+						) countTable						
 	 </select>	 
 	 
 	  
