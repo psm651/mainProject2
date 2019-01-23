@@ -127,12 +127,23 @@
        
        function fullSiren(){
           
-            $.ajax({
+            /* $.ajax({
                   url : '/claim/json/addClaim/'+'${post.postNo}',
                   type : "GET",
                   success : function(data){
-                     }
-                  });
+                	  popWin 
+                      = window.open("../schedule/addExSchedule?date="+date.format(),
+                                           "popWin", 
+                                           "left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
+                                           "scrollbars=no,scrolling=no,menubar=no,resizable=no");
+                  	}
+                  }); */
+                  
+    	   popWin 
+           = window.open("/claim/addClaim?targetNo="+${post.postNo}+"&menu=post",
+                                "popWin", 
+                                "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
+                                "scrollbars=no,scrolling=no,menubar=no,resizable=no");
             }
           
        

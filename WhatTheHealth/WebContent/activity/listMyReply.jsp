@@ -127,58 +127,27 @@
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
 		 $(function() {
 		
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "td:nth-child(2)" ).on("click" , function() {
-				 self.location ="/user/getUser?userId="+$(this).text().trim();
-			});
-						
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( "td:nth-child(2)" ).css("color" , "red");
-			
-		});	
-		
-		
-		//============= userId 에 회원정보보기  Event  처리 (double Click)=============
-		 $(function() {
-			 
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "td:nth-child(5) > i" ).on("click" , function() {
-
-					var userId = $(this).next().val();
-				
-					$.ajax( 
-							{
-								url : "/user/json/getUser/"+userId ,
-								method : "GET" ,
-								dataType : "json" ,
-								headers : {
-									"Accept" : "application/json",
-									"Content-Type" : "application/json"
-								},
-								success : function(JSONData , status) {
-
-									var displayValue = "<h6>"
-																+"아이디 : "+JSONData.userId+"<br/>"
-																+"이  름 : "+JSONData.userName+"<br/>"
-																+"이메일 : "+JSONData.email+"<br/>"
-																+"ROLE : "+JSONData.role+"<br/>"
-																+"등록일 : "+JSONData.regDate+"<br/>"
-																+"</h6>";
-									$("h6").remove();
-									$( "#"+userId+"" ).html(displayValue);
-								}
-						});
-						////////////////////////////////////////////////////////////////////////////////////////////
+			 $( "#title" ).on("click" , function() {
 					
-			});
+					var category = $(this).data("param1");
+					var postNo = $(this).data("param2");
+					
+					if(category == '1'){
+					 self.location ="/exinfo/getExInfo?postNo="+postNo;
+					} else if(category == '2'){
+					 self.location ="/exCom/getExCom?postNo="+postNo;
+					} else if(category == '3'){
+					 self.location ="/dietCom/getDietCom?postNo="+postNo;
+					} else if(category == '4'){
+					 self.location ="/meeting/getMeeting?postNo="+postNo;
+					}
+					
+				});
 			
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-			$("h7").css("color" , "red");
-			
-			//==> 아래와 같이 정의한 이유는 ??
-			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 		});	
+		
+		
+		
 	
 	</script>
 	
@@ -242,9 +211,8 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2">${i}</div>
-			<div class="col-sm-2 col-md-2 col-lg-4 text-center">${reply.postTitle}</div> 
-			<div class="col-sm-2 col-md-2 col-lg-4 text-center">${reply.category}</div> 
-            <div class="col-sm-2 col-md-2 col-lg-4 text-center">${reply.text }</div>
+			<div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" data-param1="${reply.category }" data-param2="${reply.postNo }" id="title">${reply.postTitle}</div> 
+            <div class="col-sm-2 col-md-2 col-lg-4 text-center"><strong>${reply.text }</strong></div>
             <div class="col-sm-2 col-md-2 col-lg-2">${reply.replyDate }</div>    
               </div>
             </div>

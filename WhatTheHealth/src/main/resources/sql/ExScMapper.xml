@@ -13,9 +13,9 @@
 		<result property="exScName" 		column="ex_sc_title"	 			jdbcType="VARCHAR" />
 		<result property="exScCalorie" 		column="ex_sc_calorie"			jdbcType="NUMERIC" />
 		<result property="exScTime" 		column="ex_sc_time" 			jdbcType="VARCHAR" />
-		<result property="exScContents" 	column="ex_sc_contents" 		jdbcType="NUMERIC" />	
-		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="DATE" />
-		<result property="postNo" 			column="post_no"	 			jdbcType="VARCHAR" />
+		<result property="exScContents" 	column="ex_sc_contents" 		jdbcType="VARCHAR" />	
+		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="VARCHAR" />
+		<result property="postNo" 			column="post_no"	 			jdbcType="NUMERIC" />
 		<result property="deleteStatus" 		column="delete_status"	 			jdbcType="VARCHAR" />
 	</resultMap>
 	
@@ -23,7 +23,8 @@
 	<insert 	id="addExSchedule"		parameterType="com.wthealth.domain.ExSchedule" >
 	 	INSERT
 		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, delete_status) 
-		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId} , #{exScName}, #{exScContents}, #{exScCalorie:NUMERIC} , SYSDATE, TO_CHAR(#{exScTime:VARCHAR},'hh:mi:ss'),#{postNo:VARCHAR},'0' )
+		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId:VARCHAR} , #{exScName:VARCHAR}, #{exScContents:VARCHAR}, #{exScCalorie:NUMERIC} , #{exScDate}, TO_CHAR(#{exScTime:VARCHAR},'hh:mi:ss'),
+		<if test="postNo==0">null</if><if test="postNo!=0">#{postNo}</if>,'0' )
 	 </insert>
 	 <!-- SQL : INSERT MEAL-->
 	
@@ -57,13 +58,10 @@
 	 </update>
 		 
 	<!-- SQL : SELECT LIST 도형이꺼봐야지 -->
-	<select  id="listExSchedule"  resultMap="exScSelectMap">
-	    SELECT *
-        FROM (   SELECT inner_table.* , ROWNUM AS row_seq
-                         FROM  (   SELECT *
-                       FROM ex_sc    ) inner_table
-                  WHERE ROWNUM &lt;= #{endRowNum} )
-      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	<select  id="listExSchedule"  parameterType="java.lang.String" resultMap="exScSelectMap">
+	   SELECT *
+	   FROM ex_sc
+	   WHERE user_id = #{userId}
 	 </select>
 	 
 	 <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">

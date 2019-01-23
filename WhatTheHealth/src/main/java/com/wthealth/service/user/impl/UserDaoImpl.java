@@ -83,6 +83,11 @@ public class UserDaoImpl implements UserDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("UserMapper.getTotalCount", search);
 	}
-	
 
+	@Override
+	public User getAccount(String userId) throws Exception {
+		return sqlSession.selectOne("UserMapper.getAccount", userId);
+	}
+	
+	
 }

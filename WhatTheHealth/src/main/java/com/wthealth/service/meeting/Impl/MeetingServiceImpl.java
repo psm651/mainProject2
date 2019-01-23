@@ -57,8 +57,8 @@ public class MeetingServiceImpl implements MeetingService {
 	
 
 	@Override
-	public Meeting getMeeting(int postNo) throws Exception {
-		return meetingDao.getMeeting(postNo);
+	public Meeting getMeeting(int meetNo) throws Exception {
+		return meetingDao.getMeeting(meetNo);
 	}
 
 	@Override

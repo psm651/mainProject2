@@ -47,8 +47,8 @@
  	
    $(function(){
   	$(".post-entry").on("click", function(){
-  		var postNo = $(this).data("param");
-  		self.location = "/meeting/getMeeting?postNo="+postNo;
+  		var meetNo = $(this).data("param");
+  		self.location = "/meeting/getMeeting?meetNo="+meetNo;
   	});
   });
   
@@ -116,16 +116,16 @@
 
           <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
-          <c:forEach var="post" items="${list}"> 
+          <c:forEach var="meeting" items="${list}"> 
           
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white" data-param="${meeting.post.postNo}">
+            <div class="post-entry bg-white" data-param="${meeting.meetNo}">
               <div class="image">
               	<c:if test="${empty meeting.post.photo}">
                     <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
                 </c:if>
                 <c:if test="${!empty meeting.post.photo}">
-                	<img src="/resources/images/upload/${post.photo}" class="img-fluid" alt="">
+                	<img src="/resources/images/upload/${meeting.post.photo}" class="img-fluid" alt="">
                 </c:if>
               </div>
               <div class="text p-6">

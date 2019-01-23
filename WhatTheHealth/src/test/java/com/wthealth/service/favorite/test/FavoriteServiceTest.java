@@ -97,7 +97,7 @@ public class FavoriteServiceTest {
 		 	
 		}*/
 		
-		@Test
+		/*@Test
 		public void testListLikePeople() throws Exception{
 			
 			Favorite like = new Favorite();
@@ -122,5 +122,5 @@ public class FavoriteServiceTest {
 			list = (List<Object>)map.get("list");
 		 	Assert.assertEquals(1, list.size());
 		 	
-		}
+		}*/
 }

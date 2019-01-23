@@ -33,8 +33,9 @@ public class MeetingDaoImpl implements MeetingDao {
 	///Method
 	@Override
 	public void addMeeting(Meeting meeting) throws Exception {
-		sqlSession.insert("MeetingMapper.addMeeting", meeting);
 		Post post = meeting.getPost();
+		sqlSession.insert("MeetingMapper.addMeeting", meeting);
+		
 		post.setPostSubNo("ME"+meeting.getMeetNo());
 		//post.setPostNo(meeting.getPost());
 		//meeting.getPost().setPostNo("ME"+meeting.getMeetNo());
@@ -59,8 +60,8 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 
 	@Override
-	public Meeting getMeeting(int postNo) throws Exception {
-		return sqlSession.selectOne("MeetingMapper.getMeeting", postNo);
+	public Meeting getMeeting(int meetNo) throws Exception {
+		return sqlSession.selectOne("MeetingMapper.getMeeting", meetNo);
 	}
 
 	@Override

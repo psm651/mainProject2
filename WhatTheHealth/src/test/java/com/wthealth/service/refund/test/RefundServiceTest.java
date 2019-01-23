@@ -30,7 +30,7 @@ public class RefundServiceTest {
 		@Qualifier("refundServiceImpl")
 		private RefundService refundService;
 		
-		@Test
+		/*@Test
 		public void testAddRefund() throws Exception{
 			
 			Refund refund = new Refund();
@@ -51,5 +51,5 @@ public class RefundServiceTest {
 			Assert.assertEquals("Á¤¿¬", refund.getHolder());
 			Assert.assertEquals(10000, refund.getRefundMoney());
 			
-		}
+		}*/
 }

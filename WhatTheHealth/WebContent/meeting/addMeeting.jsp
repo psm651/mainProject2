@@ -62,7 +62,7 @@
 		//var contents = $("input[name='contents']").val();
 		//var contents = $('#summernote').summernote('code');
 		//var contents = document.getElementById("contents").value; //글 내용 인식 못함.
-		var contents = $("textarea[name='contents']").val();
+		var contents = $("textarea[name='post.contents']").val();
 		
 		//console.log(contents.length);
 
@@ -130,6 +130,7 @@ $('#timepicker-actions-exmpl').data('datepicker')
         startDate: start,
         minHours: startHours,
         maxHours: 18,
+        
         onSelect: function (fd, d, picker) {
             // Do nothing if selection was cleared
             if (!d) return;
@@ -242,11 +243,11 @@ $('#timepicker-actions-exmpl').data('datepicker')
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">참가비</label>
                 </div>
-                <!-- <div class="col-md-5 mb-5 mb-md-0">
+                <div class="col-md-5 mb-5 mb-md-0">
                 <input type="radio" >참가비있음 
                   &nbsp; &nbsp; &nbsp; &nbsp;
 				<input type="radio" >참가비없음
-				 </div> -->
+			</div>
 				
 			</div>
 			
@@ -290,7 +291,7 @@ $('#timepicker-actions-exmpl').data('datepicker')
                 	모임시간<!--  <input type="text" class="form-control" id="meetTime" name="meetTime"  placeholder="소모임 시간을 입력해주세요."> -->
                 	<!-- ////////////////// 달려어어어억 ///////////////// -->
                <!--  <input type='text' class='datepicker-here' data-language='en' >  -->
-               <input type='text'   class='datepicker-here' data-timepicker="true" data-language='en' id='timepicker-actions-exmpl' /> 
+               <input type='text'   class='datepicker-here' data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'  name='meetTime'/> 
                <!--<div class="datepicker-here" data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'></div>  -->
     			<!-- ////////////////// 달려어어어억 ///////////////// -->
                 </div> 
@@ -309,7 +310,7 @@ $('#timepicker-actions-exmpl').data('datepicker')
               <div class="row form-group">
                 <div class="col-md-12">
                   <input type = "hidden" id="post.contents" name="post.contents">
-		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
+		  			<jsp:include page="/common/postBySummerNoteForMeeting.jsp"></jsp:include> 
                 </div>
               </div>
               

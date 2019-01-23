@@ -19,12 +19,11 @@
 		<result property="maxParty" 		column="max_party" 			jdbcType="NUMERIC" />
 		<result property="cheifId" 		column="chief_id" 			jdbcType="VARCHAR" />
 		<result property="depoCondition" 		column="depo_condition" 			jdbcType="VARCHAR" />
-		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
+		<result property="meetTime" 		column="meet_time" 			jdbcType="VARCHAR" />
 		<result property="deadlineTime" 		column="deadline_time" 			jdbcType="DATE" />
-		<result property="post.postNo"	column="post_no" 		jdbcType="VARCHAR" />
+		<result property="post.postNo"	column="post_no" 		jdbcType="NUMERIC" />
 		<result property="post.deleteStatus"	column="delete_status" 		jdbcType="VARCHAR" />
 		<result property="post.postDate"	column="post_Date" 		jdbcType="DATE" />
-		<result property="post.postNo" 	column="post_no" 	jdbcType="NUMERIC" />
 		<result property="post.postSubNo" 	column="post_sub_no" 	jdbcType="VARCHAR" />
 		<result property="post.userId" 	column="user_id" 	jdbcType="VARCHAR" />
 		<result property="post.title" 	column="title" 	jdbcType="VARCHAR" />
@@ -45,7 +44,7 @@
 	</resultMap>
 	
 	<resultMap id="joinSelectMap" type="com.wthealth.domain.Join">
-		<result property="joinNo" 			column="join_no" 			jdbcType="VARCHAR"/>
+		<result property="joinNo" 			column="join_no" 			jdbcType="NUMERIC"/>
 		<result property="joinDate" 	column="join_date" 		jdbcType="DATE" />
 		<result property="joinStatus" 				column="join_status" 					jdbcType="VARCHAR" />
 		<result property="depoStatus" 				column="depo_status" 					jdbcType="VARCHAR" />
@@ -80,11 +79,11 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addMeeting"		parameterType="com.wthealth.domain.Meeting" useGeneratedKeys="true" keyProperty="meetNo">
 	 	INSERT
-		INTO meeting ( meet_no, post_no, depo_amount , depo_bank , depo_account, depo_deadline, depo_acc_holder, entryfee , 
+		INTO meeting ( meet_no, depo_amount , depo_bank , depo_account, depo_deadline, depo_acc_holder, entryfee , 
 									min_party, max_party, chief_id, depo_condition, meet_time, deadline_time ) 
-		VALUES	 (	seq_meeting_meet_no.nextval, seq_post_post_no.nextval, #{depoAmount:NUMERIC} , #{depoBank:VARCHAR} , 
+		VALUES	 (	seq_meeting_meet_no.nextval,  #{depoAmount:NUMERIC} , #{depoBank:VARCHAR} , 
 							#{depoAccount:VARCHAR}, #{depoDeadline:DATE} , #{depoAccHolder:VARCHAR} , #{entryfee:NUMERIC} , 
-							#{minParty:NUMERIC}, #{maxParty:NUMERIC}, #{cheifId}, #{depoCondition}, #{meetTime:DATE}, #{deadlineTime:DATE})
+							#{minParty:NUMERIC}, #{maxParty:NUMERIC}, #{cheifId}, #{depoCondition}, #{meetTime}, #{deadlineTime:DATE})
 		<selectKey resultType="int" keyProperty = "meetNo" order="AFTER">
 			SELECT seq_meeting_meet_no.currval FROM dual
 		</selectKey>
@@ -102,7 +101,7 @@
 	 	INSERT
 		INTO post (post_no, post_sub_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
 							category, post_date, locationtag_name, coordinate, address)
-		VALUES (	#{postNo}, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, 0, NULL, NULL, '0', '4', SYSDATE,
+		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, 0, NULL, NULL, '0', '4', SYSDATE,
 							 #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 	</insert>
 
@@ -110,11 +109,11 @@
 	 <select 	id="getMeeting"	parameterType="int"	resultMap="meetingSelectMap">
 		SELECT
 		m.meet_no , m.depo_amount , m.depo_bank , m.depo_account, m.depo_deadline, m.depo_acc_holder, m.entryfee, 
-									m.min_party, m.max_party, m.chief_id, m.depo_condition, m.meet_time, m.deadline_time, m.post_no,
+									m.min_party, m.max_party, m.chief_id, m.depo_condition, m.meet_time, m.deadline_time, p.post_no,
 									p.user_id, p.title, p.contents, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
 									p.category, p.post_date, p.locationtag_name, p.coordinate, p.address
 		FROM meeting m, post p
-		WHERE m.post_no = p.post_no and p.post_no = #{value}
+		WHERE  'ME'||m.meet_no = p.post_sub_no  and m.meet_no = #{value}
 	 </select>
 	 
 	 <!-- SQL : SELECT ONE -->
@@ -186,12 +185,12 @@
 	<select  id="listMeeting"  parameterType="com.wthealth.common.Search"	resultMap="meetingSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT m.meet_no, m.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
+	  					FROM		(	SELECT m.meet_no, p.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
 	  												p.user_id, p.title, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
 													p.category, p.post_date
 											FROM meeting m, post p
 											<where>
-												 m.post_no = p.post_no
+												 'ME'||m.meet_no = p.post_sub_no
 												 <if test="searchCondition == 0 and searchKeyword !='' ">
 												 and p.title LIKE '%'||#{searchKeyword}||'%'
 												 </if>
@@ -239,12 +238,12 @@
 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT m.meet_no, m.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
+	  	FROM(	SELECT m.meet_no, p.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
 	  												p.user_id, p.title, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
 													p.category, p.post_date
 											FROM meeting m, post p
 											<where>
-												 m.post_no = p.post_no
+												 'ME'||m.meet_no = p.post_sub_no
 												 <if test="searchCondition == 0 and searchKeyword !='' ">
 												 and p.title LIKE '%'||#{searchKeyword}||'%'
 												 </if>

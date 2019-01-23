@@ -116,4 +116,10 @@ public class UserServiceImpl implements UserService{
 		userDao.updateAccount(user);
 	}
 
+	@Override
+	public User getAccount(String userId) throws Exception {
+		return userDao.getAccount(userId);
+	}
+	
+	
 }

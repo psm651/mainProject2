@@ -45,9 +45,10 @@ public class ExScServiceTest {
 		ExSchedule exSchedule = new ExSchedule();
 		
 		exSchedule.setExScCalorie(150);
-		exSchedule.setExScContents("죽여주네요");
-		exSchedule.setExScName("물구나무");
+		exSchedule.setExScContents("죽여33주네요");
+		exSchedule.setExScName("물구33나무");
 		exSchedule.setUserId("user1");
+		exSchedule.setPostNo(10002);
 		
 		exScheduleService.addExSchedule(exSchedule); 
 
@@ -56,8 +57,8 @@ public class ExScServiceTest {
 		
 		//==> API 확인
 		Assert.assertEquals(150, exSchedule.getExScCalorie());
-		Assert.assertEquals("죽여주네요", exSchedule.getExScContents());
-		Assert.assertEquals("물구나무", exSchedule.getExScName());
+		Assert.assertEquals("죽여33주네요", exSchedule.getExScContents());
+		Assert.assertEquals("물구33나무", exSchedule.getExScName());
 		Assert.assertEquals("user1", exSchedule.getUserId());
 	}
 	

@@ -1,6 +1,7 @@
 package com.wthealth.controller;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.User;
 import com.wthealth.service.dietschedule.DietScheduleService;
 import com.wthealth.service.exschedule.ExScheduleService;
 
@@ -75,17 +77,28 @@ public class ScheduleRestController {
 		
 	}
 	
+	@RequestMapping(value="json/addExSchedule/{exScDate}", method = RequestMethod.GET)
+	public String addExSchedule(@PathVariable String exScDate) throws Exception {
+
+		System.out.println("/schedule/json/addExSchedule : GET");
+	
+		
+		return "redirect:/schedule/addEx?exScDate="+exScDate;
+	}
 	@RequestMapping(value="json/addExSchedule", method = RequestMethod.POST)
-	public ExSchedule addExSchedule( @RequestBody ExSchedule exSchedule ) throws Exception {
+	public ExSchedule addExSchedule( @RequestBody ExSchedule exSchedule, HttpSession session ) throws Exception {
 
 		System.out.println("json/addExSchedule : POST");
 		//Business Logic
-		ExSchedule exSchedule1=new ExSchedule();
-		if (exScheduleService.addExSchedule(exSchedule)==1) {
-			exSchedule1=exSchedule;
-		}
-	
+		exSchedule.setUserId(((User)session.getAttribute("user")).getUserId());
+		ExSchedule exSchedule1=exSchedule;
 		
+		System.out.println("여기보세요 여기여기여기여기여기여기여기"+exSchedule);
+		exScheduleService.addExSchedule(exSchedule);
+			exSchedule1=exSchedule;
+		
+		System.out.println("33333333333");
+
 		return exSchedule1;
 		
 	}
@@ -186,6 +199,8 @@ public class ScheduleRestController {
 		
 		
 	}
+	
+	
 	
 	
 	
