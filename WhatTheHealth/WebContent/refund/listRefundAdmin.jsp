@@ -65,31 +65,27 @@
   </style>
   
 	<script type="text/javascript">
-	
-	 $( function (){
-         $( "a[href='#' ]:contains('환급하기')").on("click", function(){
-              //fncDeposit();
-              self.location="/refund/deposit"
-           });
-        });
 	 
-	 /* function fncDeposit(){
+	function fncUpdateRefundStatus(refundNo){
+		var wait = "#wait"+refundNo;
+		var refundDate = "#refundDate"+refundNo;
+		var refundButton = "#refundButton"+refundNo;
+		
+		 console.log(refundNo);
 		 $.ajax({
-	            url : '/refund/json/deposit',
-	            type : "POST",
-	            dataType : "json" ,
-                headers : {
-                   "Accept" : "application/json",
-                   "Content-Type" : "application/json"
-                },
+	            url : '/refund/json/updateRefundStatus/'+refundNo,
+	            type : "GET",
 	            success : function(data){
-	               ${refund.refundStatus == '1'}
-	               }            
-	            });
-		 
-	 } */
-	 
+	            		$(refundButton).remove();
+	            		$(refundDate).text(data.refundDate);
+	            		$(wait).text('완료');
+	                          
+	            }
+		 } );
+	}
+	
 	</script>
+	
 	
 
 	
@@ -147,13 +143,24 @@
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급받은 날짜</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급 여부</strong></div>
                 <div class="col-sm-1 col-md-1 col-lg-1"><strong>관리</strong></div>
+                
+                <!-- <tr>
+                	<td align="center">No</td>
+                	<td align="center">은행명</td>
+                	<td align="center">계좌번호</td>
+                	<td align="center">금액</td>
+                	<td align="center">환급 신청한 날짜</td>
+                	<td align="center">환급 여부</td>
+                	<td align="center">관리</td>
+                </tr> -->
+                
               </div>
              </div>
                      
              
          <form>
             <c:set var="i" value="0"/>
-    	 	<c:forEach var="refund" items="${listAdmin}">
+    	 	<c:forEach var="refund" items="${listAdmin}" varStatus="status">
 			<c:set var ="i" value="${i+1}"/>   
       
 			
@@ -161,23 +168,38 @@
               <div class="row bg-white p-2 align-items-center text-center">
               
               <div class="col-sm-1 col-md-1 col-lg-1">${i}</div>
-              
               	<div class="col-sm-1 col-md-1 col-lg-1">${refund.bankName}</div>
            		<div class="col-sm-2 col-md-2 col-lg-2">${refund.accountNum}</div>
            		<div class="col-sm-1 col-md-1 col-lg-1">${refund.refundMoney}원</div>
               	<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundReqDate}</div>
-              	<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundDate}</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2" id="refundDate${refund.refundNo}">${refund.refundDate}</div>
               	
               	<c:if test="${refund.refundStatus=='0'}">
-              	<div class="col-sm-2 col-md-2 col-lg-2">대기</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2" id="wait${refund.refundNo}">대기</div>
               	</c:if>
               	<c:if test="${refund.refundStatus=='1'}">
-              	<div class="col-sm-2 col-md-2 col-lg-2">완료</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2" id="complete${refund.refundNo}">완료</div>
               	</c:if>
+              	
               	<div class="col-sm-1 col-md-1 col-lg-1">
-              	<a href="#" class="btn btn-primary pill px-4">환급하기</a>
+              	<c:if test="${refund.refundStatus=='0'}">
+              	<button type="button" class="btn btn-primary pill text-white px-4" id="refundButton${refund.refundNo}" onclick="fncUpdateRefundStatus(${refund.refundNo})">돈 주자</button>
+              	</c:if>
                 </div>	
               </div>
+              
+             <%--  <tr>
+                	<td align="center">${i}</td>
+                	<td align="center">${refund.bankName}</td>
+                	<td align="center">${refund.accountNum}</td>
+                	<td align="center">${refund.refundMoney}원</td>
+                	<td align="center">${refund.refundReqDate}</td>
+                	<td align="center">${refund.refundDate}</td>
+                	<td align="center">
+                	<c:if test="${refund.refundStatus=='0'}">
+              	<button type="button" class="btn btn-primary pill text-white px-4" id="refundButton" onclick="fncUpdateRefundStatus(${refund.refundNo})">돈 주자</button>
+              	</c:if></td>
+                </tr> --%>
             </div>
             
              </c:forEach>

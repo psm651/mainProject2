@@ -20,24 +20,9 @@ public interface RefundDao {
 
 	public List<Refund> listRefundAdmin(Search search) throws Exception;
 
-	// °Ô½ÃÆÇ Page Ã³¸®¸¦ À§ÇÑ ÀüÃ¼Row(totalCount) return
+	// ï¿½Ô½ï¿½ï¿½ï¿½ Page Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼Row(totalCount) return
 	public int getTotalCount(Search search, String userId) throws Exception;
 	
 	public int getTotalCountForAdmin(Search search) throws Exception;
-
-	//public String getAuthorizationUrl(int authType) throws Exception;
-
-	//public String getAccessToken2() throws Exception;
-
-	//public JSONObject getAccessToken(String code) throws Exception;
-
-	//public String getUserClientId(String accessToken, String userSeqNo) throws Exception;
-
-	//public Map<String, Object> getAccount(String accessToken, String accountNum, int accountHolderinfo,
-			//String bankCode) throws Exception;
-
-	//public List<String> listBankCode() throws Exception;
-	
-	
 
 }

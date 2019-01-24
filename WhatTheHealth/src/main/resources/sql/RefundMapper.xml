@@ -30,23 +30,20 @@
 		#{accountNum}, #{refundDate:DATE}, #{userId}, '0', #{dateOfBirth})
 	</insert>
 	
-	<!-- <insert id="addRefundtoAdmin" parameterType="com.wthealth.domain.Refund">
-		INSERT
-		INTO refund(refund_no, refund_req_date, refund_money, bank_name, holder, account_num,
-		refund_date, user_id, refund_status, bank_code, date_of_birth)
-		VALUES
-		(seq_refund_refund_no.nextval, SYSDATE, #{refundMoney}, #{bankName}, #{holder},
-		#{accountNum}, #{refundDate:DATE}, #{userId}, '0', #{bankCode}, #{dateOfBirth})
-	</insert> -->
+	<select id="getRefund" resultMap="refundSelectMap" parameterType="int">
+		SELECT *
+		FROM refund
+		WHERE refund_no = #{refundNo}
+	</select>
 	
 	<!-- SQL : UPDATE -->
 	<update id="updateRefund" parameterType="com.wthealth.domain.Refund">
 		UPDATE refund
 		<set>
-			refundStatus = '1',
-			refundDate = SYSDATE
+			refund_status = '1',
+			refund_date = SYSDATE
 		</set>
-		WHERE user_id = #{value}
+		WHERE refund_no = #{refundNo}
 	</update>
 	
 	<!-- SQL : SELECT LIST -->

@@ -37,15 +37,15 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="../resources/js/app.js"></script>
 	
 	<style>
 		#video {
-      width: 300px;
-      height: 120px;
+      width: 200px;
+      height: 100px;
       border: 1px solid red;
-  }
+ 	 }
 	</style>
+	
 <script type="text/javascript">
   
 	function fncAddDietCom(){
@@ -57,8 +57,6 @@
 		//var contents = document.getElementById("contents").value; //글 내용 인식 못함.
 		var contents = $("textarea[name=contents]").val();
 		
-		console.log(contents.length);
-
 		if(title == null || title.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
 			return;
@@ -68,26 +66,78 @@
 			return;
 		}
 
-		$("form").attr("method","POST").attr("action","/dietCom/addDietCom").submit();	
+		$("form[name=communityPost]").attr("method","POST").attr("action","/dietCom/addDietCom").submit();	
+	}
+	
+	function resetData(){
+		self.location="/dietCom/listDietCom";
 	}
 	
 		
-	//============= "등록"  Event 연결 =============
-	 $(function() {
-		$( "button.btn.btn-primary" ).on("click" , function() {
-			fncAddDietCom();
-		});
-	});	
-	
-	
-	//============= "취소"  Event 처리 및  연결 =============
-	$(function() {
-		$("a[href='#' ]").on("click" , function() {
-			resetData();
-		});
-	});	
+	////////////////Youtube/////////////////////////////////////////////
+	function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+	   
+	   $(function() {
+		    $('form[name=youtubeForm]').on("submit", function(e) {
+		       e.preventDefault(); //추가적인 이벤트 (터치 이벤트나 포인터 이벤트) 가 일어나지 않도록 함.
+		       console.log(encodeURIComponent($("#search").val()));
+		       console.log($("#search").val());
+		       // prepare the request
+		       var request = gapi.client.youtube.search.list({
+		            part: "snippet",
+		            type: "video",
+		            q: $("#search").val().replace(/%20/g, "+"),
+		            maxResults: 3,
+		            order: "viewCount",
+		            publishedAfter: "2018-11-01T00:00:00Z"
+		       }); 
+		       // execute the request
+		       request.execute(function(response) {
+		          var results = response.result;
+		          console.log(results);
+		          $("#results").html("");
+		          $.each(results.items, function(index, item) {
+		            $.get("../resources/tpl/item.html", function(data) {
+		                $("#results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+		            });
+		          });
+		          resetVideoHeight();
+		       });
+		    });
+	       
+	       $(window).on("resize", resetVideoHeight);
+	   });
+	   
+	   function resetVideoHeight() {
+	       $(".video").css("height", $("#results").width() * 9/16);
+	   }
+	   
+	   function init() {
+	       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
+	       gapi.client.load("youtube", "v3", function() {
+	           console.log("인잇 ㅠㅠ");
+	       });
+	   }
+	   
+	   function youtubeSearch(text){
+			console.log(text);
+			document.getElementById("search").append(text);
+		}
+	   
+	   ///////////////////////////Drag and Drop////////////////////////////////////////
+	   function dragover_handler(ev) {
+		 ev.preventDefault();
+		 // dropEffect를 move로 설정.
+		 ev.dataTransfer.dropEffect = "move"
+		}
+		function drop_handler(ev) {
+		 ev.preventDefault();
+		 // 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
+		 var data = ev.dataTransfer.getData("text");
+		 ev.target.appendChild(document.getElementById(data));
+		}
+        
 
-	
 </script>
 
 </head>
@@ -99,7 +149,7 @@
 	<!-- 툴바 인클루드 시작! -->
 	
 	</div>
-<form>
+<form name="communityPost">
 	
 	<div class="site-section bg-light">
       <div class="container">
@@ -108,8 +158,6 @@
        
           <div class="col-md-12 col-lg-8 mb-5">
           
-
-
               <div class="row form-group">
                 <div class="col-md-11 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
@@ -130,23 +178,29 @@
 		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
                 </div>
               </div>
-              
-              <!-- <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Send Message" class="btn btn-primary pill px-4 py-2">
-                </div>
-              </div> -->
 
+		<input type="submit" value="등록" onclick = "fncAddDietCom()" class="form-control btn btn-danger">
+		<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           </div>
           </form>
           
           <div class="col-lg-4">
-            <div class="p-4 mb-3 bg-white">
+            <div class="p-4 mb-1 bg-white">
+            <div id="results" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">
               <h3 class="h5 text-black mb-3 ">YouTube 검색창</h3>
-               <form name="youtubeForm">
+		<form name = "youtubeForm">
+                    <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
+                    <p><input type="submit" value="search" class="form-control btn btn-success w100"></p>
+                   <!--  <p><button type="button" name="youtubeSearch" class="btn btn-success youtubeSearch">검색</button></p> -->
+                </form>
+                <!-- <div id="results" draggable="true" ondragstart="handleDragStart(event)"  controls="controls"></div> -->
+                </div>
+              <!-- <form name="youtubeForm">
               <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
-              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p>
+              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p> -->
+            <%--  <jsp:include page="/common/youtube.jsp"></jsp:include> --%>
 			  </form>
+			  </div>
             </div>
 
             </div>
@@ -159,10 +213,10 @@
               
 		<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">등록</button>
+		      <!-- <button type="button" name="addContents" class="btn btn-danger">등록</button> -->
 				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>
 		  </div>
-	
+	<script src="https://apis.google.com/js/client.js?onload=init" ></script>
 </body>
 </html>

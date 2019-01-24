@@ -38,7 +38,7 @@
 		category, post_date, diet_sc_no, locationtag_name, coordinate, address)
 		VALUES
 		(seq_post_post_no.nextval, 'DC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
-		#{photo:VARCHAR}, #{video:VARCHAR}, 0, '0', '0', 0, #{category:VARCHAR}, SYSDATE,
+		#{photo:VARCHAR}, #{video:VARCHAR}, 0, '0', '0', 0, '3', SYSDATE,
 		#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
          SELECT seq_post_post_no.currval FROM dual
