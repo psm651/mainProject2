@@ -139,10 +139,7 @@
 				 self.location ="/exCom/getExCom?postNo="+postNo;
 				} else if(category == '3'){
 				 self.location ="/dietCom/getDietCom?postNo="+postNo;
-				} else if(category == '4'){
-				 self.location ="/meeting/getMeeting?postNo="+postNo;
-				}
-				
+				} 
 			});
 						
 			
@@ -260,9 +257,6 @@
             </c:if>
             <c:if test="${post.category =='3'}">
             <div class="col-sm-2 col-md-2 col-lg-2 text-center">식단 커뮤니티</div>
-            </c:if>
-            <c:if test="${post.category =='4'}">
-            <div class="col-sm-2 col-md-2 col-lg-2 text-center">소모임</div>
             </c:if>
             
             <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center" data-param1="${post.category }" data-param2="${post.postNo }" id="title"><strong>${post.title }</strong></div>
