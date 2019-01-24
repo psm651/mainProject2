@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
@@ -49,6 +50,25 @@ public class RefundController {
 		System.out.println(this.getClass());
 	}
 	
+	@RequestMapping(value= "addRefund", method = RequestMethod.GET)
+	public String addRefund() throws Exception{
+		System.out.println("/addRefund : GET");
+		
+		return "forward:/refund/addRefund.jsp";
+	}
+	
+	@RequestMapping(value= "addRefund", method = RequestMethod.POST)
+	public String addRefund(@ModelAttribute("refund")Refund refund, HttpSession session) throws Exception{
+		System.out.println("/addRefund : POST");
+		
+		User user = (User)session.getAttribute("user");
+		refund.setUserId(user.getUserId());
+		
+		refundService.addRefund(refund);
+		
+		return "redirect:/refund/listRefund";
+	}
+	
 	@RequestMapping( value="listRefund" )
 	public String listRefund( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, HttpSession session) throws Exception{
 		
@@ -62,7 +82,7 @@ public class RefundController {
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
 		// Business logic 수행
-		Map<String , Object> map = refundService.listRefund(search);
+		Map<String , Object> map = refundService.listRefund(search,userId);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
@@ -75,10 +95,33 @@ public class RefundController {
 		return "forward:/refund/listRefund.jsp";
 	}
 	
+	@RequestMapping( value="listRefundAdmin" )
+	public String listRefundAdmin( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+		
+		System.out.println("/refund/listRefundAdmin : GET / POST");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map = refundService.listRefundAdmin(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("listAdmin", map.get("listAdmin"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/refund/listRefundAdmin.jsp";
+	}
+	
 	@RequestMapping(value = "authorizeAccount")
-	public String authorizeAccount(HttpSession session, Model model, HttpServletRequest request) throws Exception{
+	public String authorizeAccount(HttpSession session, HttpServletRequest request) throws Exception{
 		System.out.println("/authorizeAccount : POST");
-		//model.addAttribute("refund", refund);
 		//System.out.println("refund:"+refund);
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
@@ -86,9 +129,35 @@ public class RefundController {
 		session.setAttribute("user", user);
 		
 		Map<String, Object> accessToken = refundService.getAccessToken(); //token 획득
-		refundService.getAccount((String)accessToken.get("access_token"), "84860204104911", 9404162, 004); //입력되있는 파라미터와 유저가 입력한 정보가 같으면 됨..
-		//refundService.getAccount((String)accessToken.get("access_token"), (int)request.getAttribute("accountNum"), (int)request.getAttribute("holder"),(int)request.getAttribute("bankCode"));
+		refundService.getAccount((String)accessToken.get("access_token"), "84860204104911", 9404162, "004"); //입력되있는 파라미터와 유저가 입력한 정보가 같으면 됨..
+		//refundService.getAccount((String)accessToken.get("access_token"), (String)request.getAttribute("accountNum"), (int)request.getAttribute("dateOfBirth"),(String)request.getAttribute("bankCode"));
 		
+		Refund refund = new Refund();
+		refund.setHolder((String)request.getAttribute("holder")); //예금주명 저장
+		refund.setUserId(userId);
+		
+		return "redirect:/refund/listRefund";
+		
+	}
+	
+	@RequestMapping(value = "deposit")
+	public String deposit(HttpSession session, HttpServletRequest request, Model model) throws Exception{
+		System.out.println("/deposit : POST");
+		
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		User user = userService.getUser(userId);
+		session.setAttribute("user", user);
+		
+		Map<String, Object> accessToken = refundService.getAccessToken(); //token 획득
+		refundService.deposit((String)accessToken.get("access_token"), "84860204104911", 9404162, "004"); //입력되있는 파라미터와 유저가 입력한 정보가 같으면 됨..
+		//refundService.getAccount((String)accessToken.get("access_token"), (String)request.getAttribute("accountNum"), (int)request.getAttribute("dateOfBirth"),(String)request.getAttribute("bankCode"));
+		
+		Refund refund = new Refund();
+		refund.setHolder((String)request.getAttribute("holder")); //예금주명 저장
+		refund.setUserId(userId);
+		refund.setRefundStatus("1"); //환급 완료
+		
+		model.addAttribute("refund", refund);
 		
 		return "redirect:/refund/listRefund";
 		

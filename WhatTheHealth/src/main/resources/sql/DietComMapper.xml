@@ -99,39 +99,31 @@
 		) countTable
 	</select>
 	
-	<update id="updateThumbnail" parameterType="com.wthealth.domain.Post">
-		UPDATE post
-		<set>
-			photo = #{photo:VARCHAR}
-		</set>
-		WHERE post_no = #{postNo}
-	</update>
-	
 	<update id="deleteDietCom" parameterType="int">
 		UPDATE post
 		<set>
 			delete_status = '1'
 		</set>
-		WHERE post_no = #{value}
+		WHERE post_no = #{postNo}
 	</update>
 
 	<select id="listDietCom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-		FROM ( SELECT *
-		FROM post
+				FROM ( SELECT *
+						FROM post
+						WHERE post_sub_no LIKE 'DC%'
+						AND delete_status = '0'
 		<if test="searchCondition != null">
-			<where>
 				<if test="searchCondition == 0 and searchKeyword !='' ">
-					title LIKE '%'||#{searchKeyword}||'%'
+					AND title LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-					user_id LIKE '%'||#{searchKeyword}||'%'
+					AND user_id LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-					contents LIKE '%'||#{searchKeyword}||'%'
+					AND contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
-			</where>
 		</if>
 		ORDER BY post_no) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
@@ -148,7 +140,8 @@
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 		FROM ( SELECT *
 		FROM	post
-		WHERE	post_no LIKE 'DC%'
+		WHERE	post_sub_no LIKE 'DC%'
+		AND delete_status = '0'
 		AND	ROWNUM &lt;= 3
 		ORDER BY like_count) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
@@ -160,19 +153,19 @@
 		SELECT COUNT(*)
 		FROM( SELECT *
 		FROM post
+		WHERE post_sub_no LIKE 'DC%'
+			AND delete_status = '0'
 		<if test="searchCondition != null">
-			<where>
 				<if test="searchCondition == 0 and searchKeyword !='' ">
-					title LIKE '%'||#{searchKeyword}||'%'
+					AND title LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-					user_id LIKE '%'||#{searchKeyword}||'%'
+					AND user_id LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-					contents LIKE '%'||#{searchKeyword}||'%'
+					AND contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
-			</where>
-		</if>
+			</if>
 		) countTable
 	</select>
 

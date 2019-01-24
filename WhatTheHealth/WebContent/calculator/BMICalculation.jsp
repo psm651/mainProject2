@@ -1,12 +1,11 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
-
-
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html lang="ko">
 	
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
@@ -29,8 +28,8 @@
 
 $(function(){
 	
-	$("button:contains('∞ËªÍ')").on("click", function(){
-		alert("jquery »Æ¿Œ");
+	$("button:contains('Í≥ÑÏÇ∞')").on("click", function(){
+		alert("jquery ÌôïÏù∏");
 		
 		$.ajax	(
 				{
@@ -68,18 +67,18 @@ $(function(){
    	<div class="container">
 	
 		<div class="page-header">
-	       <h3 class=" text-info">BMI∞ËªÍ±‚</h3>
+	       <h3 class=" text-info">BMIÍ≥ÑÏÇ∞Í∏∞</h3>
 	    </div>
 	    
    		<div class="form-group">
-		    <label for="height" class="col-sm-offset-1 col-sm-3 control-label">Ω≈¿Â</label>
+		    <label for="height" class="col-sm-offset-1 col-sm-3 control-label">Ïã†Ïû•</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="height" name="height">
 		    </div>
 	   </div>
 	   
    		<div class="form-group">
-		    <label for="weight" class="col-sm-offset-1 col-sm-3 control-label">√º¡ﬂ</label>
+		    <label for="weight" class="col-sm-offset-1 col-sm-3 control-label">Ï≤¥Ï§ë</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="weight" name="weight">
 		    </div>
@@ -88,8 +87,8 @@ $(function(){
 	   
 	   <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">∞ËªÍ</button>
-			  <a class="btn btn-primary btn" href="#" role="button">√ ±‚»≠</a>
+		      <button type="button" class="btn btn-primary">Í≥ÑÏÇ∞</button>
+			  <a class="btn btn-primary btn" href="#" role="button">Ï¥àÍ∏∞Ìôî</a>
 		    </div>
 	   </div>
 		  

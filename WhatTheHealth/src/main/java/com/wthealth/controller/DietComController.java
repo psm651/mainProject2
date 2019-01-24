@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,7 @@ import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
 import com.wthealth.service.dietcom.DietComService;
 import com.wthealth.service.favorite.FavoriteService;
+import com.wthealth.service.main.MainService;
 
 @Controller
 @RequestMapping("/dietCom/*")
@@ -42,6 +44,10 @@ public class DietComController {
 	@Autowired
 	@Qualifier("favoriteServiceImpl")
 	private FavoriteService favoriteService;
+	
+	@Autowired
+	@Qualifier("mainServiceImpl")
+	private MainService mainService;
 	
 	public DietComController() {
 		System.out.println(this.getClass());
@@ -69,8 +75,9 @@ public class DietComController {
 			post.setUserId(user.getUserId());
 			
 			dietComService.addDietCom(post);
-			dietComService.updateThumbnail(post);
-			
+			if(post.getContents().indexOf("upload/") != -1) {
+				mainService.updateThumbnail(post);
+			}
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		
@@ -107,22 +114,25 @@ public class DietComController {
 		}
 		
 		@RequestMapping(value = "updateDietCom", method= RequestMethod.POST)
-		public String updateDietCom(@ModelAttribute("post") Post post, @RequestParam("postNo") String postNo) throws Exception{
+		public String updateDietCom(@ModelAttribute("post") Post post, @RequestParam("postNo") int postNo) throws Exception{
 			System.out.println("/updateDietCom : POST");
 			
 			dietComService.updateDietCom(post);
-			dietComService.updateThumbnail(post);
+			dietComService.addDietCom(post);
+			if(post.getContents().indexOf("upload/") != -1) {
+				mainService.updateThumbnail(post);
+			}
 			
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		
-		@RequestMapping(value="deleteDietCom", method = RequestMethod.POST)
-		public String deleteDietCom(@RequestParam("post") int postNo, Model model) throws Exception{
-			System.out.println("/deleteDietCom : POST");
+		@RequestMapping(value="deleteDietCom", method=RequestMethod.GET)
+		public String deleteDietCom(@RequestParam("postNo") int postNo) throws Exception{
+			System.out.println("/deleteDietCom : GET");
 			
 			dietComService.deleteDietCom(postNo);
 			
-			return "redirect:/dietcom/listDietCom.jsp";
+			return "redirect:/dietCom/listDietCom";
 		}
 		
 		@RequestMapping(value="listDietCom")

@@ -12,7 +12,7 @@ public interface RefundService {
 
 	public void addRefund(Refund refund) throws Exception;
 
-	public Map<String, Object> listRefund(Search search) throws Exception;
+	public Map<String, Object> listRefund(Search search, String userId) throws Exception;
 
 	public Refund getRefund(int refundNo) throws Exception;
 
@@ -29,7 +29,10 @@ public interface RefundService {
 	//public String getUserClientId(String accessToken, String userSeqNo) throws Exception;
 
 	public Map<String, Object> getAccount(String accessToken, String accountNum, int accountHolderinfo,
-			int bankCode) throws Exception;
+			String bankCode) throws Exception;
+	
+	public Map<String, Object> deposit(String accessToken, String accountNum, int accountHolderinfo,
+			String bankCode) throws Exception;
 
 	public List<String> listBankCode() throws Exception;
 	

@@ -10,8 +10,8 @@ public class ExSchedule {
 	private int exScCalorie;
 	private String exScTime;
 	private String exScContents;
-	private Date exScDate;
-	private String postNo;
+	private String exScDate;
+	private int postNo;
 	private String deleteStatus;
 	
 	public ExSchedule() {
@@ -65,19 +65,19 @@ public class ExSchedule {
 		this.exScContents = exScContents;
 	}
 
-	public Date getExScDate() {
+	public String getExScDate() {
 		return exScDate;
 	}
 
-	public void setExScDate(Date exScDate) {
+	public void setExScDate(String exScDate) {
 		this.exScDate = exScDate;
 	}
 
-	public String getPostNo() {
+	public int getPostNo() {
 		return postNo;
 	}
 
-	public void setPostNo(String postNo) {
+	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
 	

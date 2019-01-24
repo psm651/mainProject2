@@ -12,12 +12,10 @@
   <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/js/jquery-ui.js"></script>
   <script src="/resources/js/popper.min.js"></script>
-  <script src="/resources/js/bootstrap.min.js"></script>
   <script src="/resources/js/owl.carousel.min.js"></script>
   <script src="/resources/js/jquery.stellar.min.js"></script>
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
   <script src="/resources/js/aos.js"></script>
   <script src="/resources/js/main.js"></script>
   
@@ -40,27 +38,27 @@
 		
 		 /////////////////////////////////////// 운동꿀팁 메뉴바 ///////////////////////////////////////
 		 $( "a[href='#' ]:contains('운동꿀팁')").on("click", function(){
-			self.location = "/exInfo/listExInfo"
+			 $(self.location).attr("href", "/exInfo/listExInfo")
 		 });
 		 
 		 $( "a[href='#' ]:contains('상체')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart=0"
+				self.location = "/exInfo/listExInfo?exPart='0'"
 			 });
 		 
 		 $( "a[href='#' ]:contains('하체')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart=1"
+				self.location = "/exInfo/listExInfo?exPart='1'"
 			 });
 		 
 		 $( "a[href='#' ]:contains('복부')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart=2"
+				self.location = "/exInfo/listExInfo?exPart='2'"
 			 });
 		 
 		 $( "a[href='#' ]:contains('스트레칭')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart=3"
+				self.location = "/exInfo/listExInfo?exPart='3'"
 			 });
 		 
 		 $( "a[href='#' ]:contains('전신')").on("click", function(){
-				self.location = "/exInfo/listExInfo?exPart=4"
+				self.location = "/exInfo/listExInfo?exPart='4'"
 			 });
 		 
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
@@ -155,7 +153,7 @@
 		  });
 			 
  		  $( "a[href='#' ]:contains('환급관리')").on("click", function(){
-				self.location = "/refund/listRefund"	//////???????????
+				self.location = "/refund/listRefundAdmin"	
 		  }); 
  		  
  		 	 
@@ -179,7 +177,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     

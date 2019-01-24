@@ -30,8 +30,10 @@ public class ExScheduleServiceImpl implements ExScheduleService {
 
 	///Method
 	@Override
-	public int addExSchedule(ExSchedule exSchedule) throws Exception {
-		return exScheduleDao.addExSchedule(exSchedule);		
+	public void addExSchedule(ExSchedule exSchedule) throws Exception {
+		System.out.println("여기왔당!!!");
+		 exScheduleDao.addExSchedule(exSchedule);
+		 System.out.println("여기도와았다!!!!");
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class ExScheduleServiceImpl implements ExScheduleService {
 
 	@Override
 	public List<ExSchedule> listExSchedule(String userId) throws Exception {
-		return null;
+		return exScheduleDao.listExSchedule(userId);
 		
 	}
 

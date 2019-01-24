@@ -13,8 +13,8 @@ public class Refund {
 	private Date refundReqDate;
 	private String userId;
 	private String refundStatus; //0: 환급 예정, 1:환급 완료
-	private int bankCode;
-	private int dateOfBirth; //생년월일+한자리 ex)9404162
+	private String bankCode;
+	private int dateOfBirth; //생년월일+한자리 ex)9404162 (accountHolderInfo)
 	
 	public Refund() {
 	}
@@ -91,11 +91,11 @@ public class Refund {
 		this.refundStatus = refundStatus;
 	}
 
-	public int getBankCode() {
+	public String getBankCode() {
 		return bankCode;
 	}
 
-	public void setBankCode(int bankCode) {
+	public void setBankCode(String bankCode) {
 		this.bankCode = bankCode;
 	}
 
@@ -114,5 +114,6 @@ public class Refund {
 				+ refundReqDate + ", userId=" + userId + ", refundStatus=" + refundStatus + ", bankCode=" + bankCode
 				+ ", dateOfBirth=" + dateOfBirth + "]";
 	}
+
 	
 }

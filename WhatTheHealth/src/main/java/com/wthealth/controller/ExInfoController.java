@@ -53,30 +53,30 @@ public class ExInfoController {
 	public String getExInfo(@RequestParam("postNo") int postNo, Model model) throws Exception {
 		
 		Post post = exInfoService.getExInfo(postNo);
-		model.addAttribute("post", post);
 		
+		model.addAttribute("post", post);
+				
 		return "forward:/exinfo/getExInfo.jsp"; 
 	}
 	
-	@RequestMapping(value="updateExInfo", method=RequestMethod.POST)
-	public String updateExInfo(@ModelAttribute Post post, @RequestParam("originalFileName") MultipartFile file) throws Exception {
+	@RequestMapping(value="updateExInfo", method=RequestMethod.GET)
+	public String updateExInfo(@RequestParam("postNo") int postNo, Model model) throws Exception {
 
-
-		String path = ""; 
-
-		String originalFileName = file.getOriginalFilename();
-
-		File uploadFile = new File(path, originalFileName);
-
-		file.transferTo(uploadFile);
+		System.out.println(postNo);
+		Post post = exInfoService.getExInfo(postNo);
 		
-		post.setPhoto(originalFileName);
-		exInfoService.updatePost(post);
-		
-		
-		return "redirect:/exinfo/getExInfo?postNo="+post.getPostNo();
+		model.addAttribute("post", post);
+	
+		return "forward:/exinfo/updateExInfo.jsp";
 	}
 	
+	@RequestMapping(value="updateExInfo", method=RequestMethod.POST)
+	public String updateExInfo(@ModelAttribute("post") Post post, Model model) throws Exception {
+
+		exInfoService.updateExInfo(post);
+			
+		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
+	}	
 	@RequestMapping(value="listExInfo")
 	public String listExInfo(@ModelAttribute("search") Search search, Model model) throws Exception{
 	
@@ -100,6 +100,29 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
+	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
+	public String listExInfo(@RequestParam("exPart") int exPart, Model model) throws Exception{
+	
+		Search search = new Search();
+
+	
+		search.setCurrentPage(1);
+		search.setPageSize(pageSize);
+		search.setSearchFilter(String.valueOf(exPart));
+		
+		//Business Logic
+		Map<String, Object> map = exInfoService.listExInfo(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		
+		System.out.println(map.get("list"));
+		//MV
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+				
+		return "forward:/exinfo/listExInfo.jsp";
+	}	
 	
 
 }

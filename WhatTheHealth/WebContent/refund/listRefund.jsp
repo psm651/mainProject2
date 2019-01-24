@@ -67,9 +67,12 @@
 	<script type="text/javascript">
 	
 	 $( function (){
-         $( "a[href='#' ]:contains('계좌인증페이지로가기')").on("click", function(){
+         $( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
               self.location="/refund/authorizeAccount.jsp";
            });
+         $( "a[href='#' ]:contains('환급하기')").on("click", function(){
+             self.location="/refund/addRefund.jsp";
+          });
         });
 	
 	</script>
@@ -110,7 +113,8 @@
 				  <div class="col-md-12 text-left text-primary"><strong>보유 포인트</strong>
 			     <span id="havingPoint" class="help-block">
 		      	 	<strong class="text">${user.havingPoint}P</strong>
-		      	 	<a href="#" class="btn btn-primary pill px-4">계좌인증하기</a>
+		      	 	<a href="#" class="btn btn-primary pill px-4">계좌등록하기</a>
+		      	 	<a href="#" class="btn btn-primary pill px-4">환급하기</a>
 		      	</span>
 		      </div>
 			</div>
@@ -136,41 +140,41 @@
               </div>
              </div>
                      
-              </div>
+             
 
          <form>
             <c:set var="i" value="0"/>
-    	 	<c:forEach var="point" items="${list}">
+    	 	<c:forEach var="refund" items="${list}">
 			<c:set var ="i" value="${i+1}"/>   
       
 			
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center text-center">
               
-              <div class="col-sm-2 col-md-2 col-lg-1 ">${i}</div>
+              <div class="col-sm-1 col-md-1 col-lg-1">${i}</div>
               
-              
-              	<div class="col-sm-2 col-md-2 col-lg-3">${refund.bankName}</div>
-           		<div class="col-sm-2 col-md-2 col-lg-3">${refund.accountNum}</div>
-           		<div class="col-sm-2 col-md-2 col-lg-3">${refund.refundMoney}원</div>
-              	<div class="col-sm-2 col-md-2 col-lg-3" >${refund.refundReqDate}</div>
+              	<div class="col-sm-1 col-md-1 col-lg-1">${refund.bankName}</div>
+           		<div class="col-sm-2 col-md-2 col-lg-2">${refund.accountNum}</div>
+           		<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundMoney}원</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundReqDate}</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2">${refund.refundDate}</div>
               	
               	<c:if test="${refund.refundStatus=='0'}">
-              	<div class="col-sm-2 col-md-2 col-lg-3" >대기</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2">대기</div>
               	</c:if>
               	<c:if test="${refund.refundStatus=='1'}">
-              	<div class="col-sm-2 col-md-2 col-lg-3" >완료</div>
+              	<div class="col-sm-2 col-md-2 col-lg-2">완료</div>
               	</c:if>
                 	
               </div>
             </div>
             
-                     </c:forEach>
+             </c:forEach>
              <!--   <input type="hidden" id="currentPage" name="currentPage" value=""/>  -->
                 
             </form>
             
-
+ </div>
             
           </div>
                <jsp:include page="../common/pageNavigator_new.jsp"/>

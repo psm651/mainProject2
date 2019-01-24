@@ -11,4 +11,6 @@ public interface MainDao {
 
 	public int getTotalCount(Search search) throws Exception;
 	
+	public void updateThumbnail(Post post) throws Exception;
+	
 }

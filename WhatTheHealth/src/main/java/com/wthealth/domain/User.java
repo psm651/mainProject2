@@ -14,9 +14,6 @@ public class User {
 	private String phone;
 	private Date regDate;
 	private Date dltDate;
-	private String holder;
-	private String bankName;
-	private String accountNum;
 	private int claimCount;
 	private String userStatus;
 	private int havingPoint;
@@ -25,6 +22,12 @@ public class User {
 	private String idToken;
 	private String accessToken;
 	private String refreshToken;
+	//Account for Refund//
+	private String holder; //예금주명
+	private String bankName;
+	private String accountNum;
+	private int dateOfBirth; //생년월일+한자리 ex)9404162 (accountHolderInfo)
+	private String bankCode; 
 	
 	///Constructor
 	public User(){
@@ -190,15 +193,32 @@ public class User {
 		this.refreshToken = refreshToken;
 	}
 
+	public int getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(int dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getBankCode() {
+		return bankCode;
+	}
+
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", nickName=" + nickName + ", email=" + email
 				+ ", userImage=" + userImage + ", gender=" + gender + ", phone=" + phone + ", regDate=" + regDate
-				+ ", dltDate=" + dltDate + ", holder=" + holder + ", bankName=" + bankName + ", accountNum="
-				+ accountNum + ", claimCount=" + claimCount + ", userStatus=" + userStatus + ", havingPoint="
-				+ havingPoint + ", role=" + role + ", snsType=" + snsType + ", idToken=" + idToken + ", accessToken="
-				+ accessToken + ", refreshToken=" + refreshToken + "]";
+				+ ", dltDate=" + dltDate + ", claimCount=" + claimCount + ", userStatus=" + userStatus
+				+ ", havingPoint=" + havingPoint + ", role=" + role + ", snsType=" + snsType + ", idToken=" + idToken
+				+ ", accessToken=" + accessToken + ", refreshToken=" + refreshToken + ", holder=" + holder
+				+ ", bankName=" + bankName + ", accountNum=" + accountNum + ", dateOfBirth=" + dateOfBirth
+				+ ", bankCode=" + bankCode + "]";
 	}
-	
+
 
 }

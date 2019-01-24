@@ -213,5 +213,13 @@ public class UserRestController {
 	    }
 		
 	}
-
+	
+	@RequestMapping(value = "json/getAccount/{userId}",  method=RequestMethod.GET) 
+	public User getAccount(@PathVariable String userId, HttpSession session) throws Exception {
+		
+		System.out.println("/getAccount : GET");
+		
+		return userService.getAccount(userId);
+	}
+	
 }

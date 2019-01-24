@@ -45,11 +45,6 @@ public class ExInfoDaoImpl implements ExInfoDao{
 	}
 
 	@Override
-	public void updatePost(Post post) throws Exception {
-		sqlSession.update("ExInfoMapper.updatePost", post);
-	}
-
-	@Override
 	public List<Post> listExInfo(Search search) throws Exception {
 		return sqlSession.selectList("ExInfoMapper.listExInfoPost", search);
 	}
