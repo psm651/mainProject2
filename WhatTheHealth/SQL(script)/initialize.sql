@@ -235,7 +235,7 @@ CREATE TABLE join (
 	join_date	DATE	NOT NULL,
 	join_status	VARCHAR2(3)	NOT NULL,
 	depo_status	VARCHAR2(3),
-	post_no	NUMBER	NOT NULL	REFERENCES post(post_no),
+	meet_no	NUMBER	NOT NULL	REFERENCES meeting(meet_no),
 	party_id	VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
 	delete_status	VARCHAR2(3),
 	PRIMARY KEY(join_no)

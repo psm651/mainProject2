@@ -48,7 +48,7 @@
 		<result property="joinDate" 	column="join_date" 		jdbcType="DATE" />
 		<result property="joinStatus" 				column="join_status" 					jdbcType="VARCHAR" />
 		<result property="depoStatus" 				column="depo_status" 					jdbcType="VARCHAR" />
-		<result property="postNo" 			column="post_no" 		jdbcType="NUMERIC" />
+		<result property="meetNo" 			column="meet_no" 		jdbcType="NUMERIC" />
 		<result property="partyId" 				column="party_id" 					jdbcType="VARCHAR" />
 		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
 		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
@@ -101,7 +101,7 @@
 	 	INSERT
 		INTO post (post_no, post_sub_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
 							category, post_date, locationtag_name, coordinate, address)
-		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, 0, NULL, NULL, '0', '4', SYSDATE,
+		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, 0, NULL, '0', 0, '4', SYSDATE,
 							 #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 	</insert>
 
@@ -126,30 +126,56 @@
 	 </select>
 	 
 	<!-- SQL : UPDATE -->
-	 <!--  <update	id="updateMeeting"		parameterType="meeting" >
+	 <update	id="updateMeeting"		parameterType="com.wthealth.domain.Meeting" >
 	   	UPDATE meeting
 	   	<set>
-	   		delete_status = '1'
+	   		depo_amount = #{depoAmount:NUMERIC} , 
+	   		depo_bank = #{depoBank:VARCHAR} , 
+	   		depo_account = #{depoAccount:VARCHAR}, 
+	   		depo_deadline  = #{depoDeadline:DATE} , 
+	   		depo_acc_holder  = #{depoAccHolder:VARCHAR} , 
+	   		entryfee = #{entryfee:NUMERIC} ,  
+			min_party = #{minParty:NUMERIC}, 
+			max_party = #{maxParty:NUMERIC}, 
+			depo_condition =  #{depoCondition},
+			meet_time =  #{meetTime},
+			deadline_time = #{deadlineTime:DATE}
 	   	</set>
 	   	WHERE meet_no = #{meetNo}
-	 </update> -->
+	 </update>
+	 
+	 <update	id="updateMeetingPost"		parameterType="com.wthealth.domain.Post" >
+	   	UPDATE post
+	   	<set>
+	   		title = #{title},
+			contents = #{contents},
+			photo = #{photo:VARCHAR},
+			video = #{video:VARCHAR},
+			category = #{category:VARCHAR},
+			post_date = #{postDate:DATE},
+			locationtag_name = #{locationTagName:VARCHAR},
+			coordinate = #{coordinate:VARCHAR},
+			address = #{address:VARCHAR}
+	   	</set>
+	   WHERE post_sub_no = #{postSubNo}
+	 </update>
 	 
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="deleteMeeting"	parameterType="int" >
+	 <update	id="deleteMeeting"	parameterType="String" >
 	   	UPDATE post
 	   	<set>
 	   		delete_status = '1'
 	   	</set>
-	   	WHERE post_no = #{value}
+	   	WHERE post_sub_no = #{value}
 	 </update>
 	 
 	 <!-- SQL : INSERT -->
 	<insert 	id="addJoin"		parameterType="com.wthealth.domain.Join"  useGeneratedKeys="true" keyProperty="joinNo">
 	 	INSERT
-		INTO join ( join_no, join_date, join_status, depo_status, post_no, party_id, delete_status)
+		INTO join ( join_no, join_date, join_status, depo_status, meet_no, party_id, delete_status)
 		VALUES	 (	seq_join_join_no.nextval, SYSDATE, #{joinStatus}, #{depoStatus:VARCHAR}, 
-							#{postNo}, #{partyId}, #{deleteStatus:VARCHAR} )
+							#{meetNo}, #{partyId}, #{deleteStatus:VARCHAR} )
 		<selectKey resultType="int" keyProperty = "joinNo" order="AFTER">
 			SELECT seq_join_join_no.currval FROM dual
 		</selectKey>
@@ -190,7 +216,7 @@
 													p.category, p.post_date
 											FROM meeting m, post p
 											<where>
-												 'ME'||m.meet_no = p.post_sub_no
+												 'ME'||m.meet_no = p.post_sub_no AND p.delete_status = '0'
 												 <if test="searchCondition == 0 and searchKeyword !='' ">
 												 and p.title LIKE '%'||#{searchKeyword}||'%'
 												 </if>
@@ -216,9 +242,9 @@
 	<select  id="listJoinedMeeting"  parameterType="map"		resultMap="joinSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time, p.title
+	  					FROM		(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.meet_no, j.party_id, j.delete_status, m.meet_time, p.title
 											FROM join j, meeting m, post p
-											WHERE j.post_no = m.post_no AND j.post_no = p.post_no
+											WHERE j.meet_no = m.meet_no 
 													ORDER BY j.join_no DESC
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
@@ -243,7 +269,7 @@
 													p.category, p.post_date
 											FROM meeting m, post p
 											<where>
-												 'ME'||m.meet_no = p.post_sub_no
+												  'ME'||m.meet_no = p.post_sub_no AND p.delete_status = '0'
 												 <if test="searchCondition == 0 and searchKeyword !='' ">
 												 and p.title LIKE '%'||#{searchKeyword}||'%'
 												 </if>
@@ -267,10 +293,9 @@
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCountJoin"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.post_no, j.party_id, j.delete_status, m.meet_time, p.title
+	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.meet_no, j.party_id, j.delete_status, m.meet_time, p.title
 											FROM join j, meeting m, post p
-											WHERE j.post_no = m.post_no AND j.post_no = p.post_no
-													ORDER BY j.join_no DESC
+											WHERE j.meet_no = m.meet_no 
 					 ) countTable						
 	 </select>
 	 
