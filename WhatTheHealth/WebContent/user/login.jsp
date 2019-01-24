@@ -156,11 +156,16 @@
    	<!-- ToolBar End /////////////////////////////////////-->	
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
 		<!--  row Start /////////////////////////////////////-->
+	 		
+	 		<div class="row">
+	 		
+	 		<div class="col-md-3"></div>
 	 		<div class="col-md-6">
-		 	 		<h1 class="text-center">로 &nbsp;그 &nbsp;인</h1>
+	 		
+	 		
 
 			        <form class="p-5 bg-white">
 		  

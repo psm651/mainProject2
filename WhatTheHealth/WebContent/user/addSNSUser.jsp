@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
@@ -46,7 +45,6 @@
 	  <script src="/resources/js/jquery.stellar.min.js"></script>
 	  <script src="/resources/js/jquery.countdown.min.js"></script>
 	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-	  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
 	  <script src="/resources/js/aos.js"></script>
 	
 	  <script src="/resources/js/main.js"></script>
@@ -188,8 +186,13 @@
     </div>  
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
+	
+	<div class="row">
+	 		
+	 		<div class="col-md-2"></div>
+	 		<div class="col-md-8">
 		<!-- <div class="page-header text-center">
 		<h1 class="text-muted">SNS 회 원 가 입</h1>
 		</div> -->
@@ -257,7 +260,8 @@
 		
  	</div>
 	<!--  화면구성 div end /////////////////////////////////////-->
-	
+	</div>
+	</div>
 </body>
 
 </html>

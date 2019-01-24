@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
@@ -54,17 +53,17 @@
   <script src="/resources/js/jquery.stellar.min.js"></script>
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<!-- <style>
- 		body {
-            padding-top : 50px;
-        }
-     </style> -->
+	<style>
+ 	img{ 
+		max-width:120%;
+    	border-radius: 100px;
+	}
+     </style> 
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -122,41 +121,50 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
+	<div class="row">
+	 		
+	 		<div class="col-md-2"></div>
+	 		<div class="col-md-8">
 	
-		<div class="page-header text-center">
-	       <h3 class=" text-muted">회원정보조회</h3>
-	    </div>
-	    
+	
 	    <form class="p-5 bg-white">
 	    
 	    <c:if test="${sessionScope.user.userId == param.userId}">
 	    
 	    <div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>프로필 사진</strong></div>
+
+	  		<c:if test="${user.userImage != null and user.userImage != '' }">
 			<div class="col-xs-8 col-md-4"><img src = "/resources/images/userImage/${user.userImage}" align="middle" height="200"/></div>
+			</c:if>
+			
+			<c:if test="${user.userImage == null or user.userImage == '' }">
+			<div class="col-xs-8 col-md-4"><img src = "/resources/images/userImage/defaultUser.png" align="middle" height="200"/></div>
+			</c:if>
+			
 		</div>
 		
 		<hr/>
 	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>아 이 디</strong></div>
-			<div class="col-xs-8 col-md-4">${user.userId}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.userId}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>닉 네 임</strong></div>
-			<div class="col-xs-8 col-md-4">${user.nickName}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.nickName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>보유 포인트</strong></div>
-			<div class="col-xs-8 col-md-4">${user.havingPoint}P</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.havingPoint}P</div>
 		</div>
 		
 		<hr/>
@@ -165,49 +173,49 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>성  별</strong></div>
-			<div class="col-xs-8 col-md-4">${user.gender == 0 ? '여자' : '남자'}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.gender == 0 ? '여자' : '남자'}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>휴대전화</strong></div>
-			<div class="col-xs-8 col-md-4">${user.phone}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.phone}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>이 메 일</strong></div>
-			<div class="col-xs-8 col-md-4">${user.email}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.email}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>예 금 주</strong></div>
-			<div class="col-xs-8 col-md-4">${user.holder}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.holder}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>은 행 명</strong></div>
-			<div class="col-xs-8 col-md-4">${user.bankName}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.bankName}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>계좌번호</strong></div>
-			<div class="col-xs-8 col-md-4">${user.accountNum}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.accountNum}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>가입일자</strong></div>
-			<div class="col-xs-8 col-md-4">${user.regDate}</div>
+			<div class="col-xs-8 col-md-4 text-center">${user.regDate}</div>
 		</div>
 		
 		<hr/>
@@ -232,21 +240,29 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>프로필 사진</strong></div>
+	  		
+	  		<c:if test="${user.userImage != null and user.userImage != '' }">
 			<div class="col-xs-8 col-md-4"><img src = "/resources/images/userImage/${user.userImage}" align="middle" height="200"/></div>
+			</c:if>
+			
+			<c:if test="${user.userImage == null or user.userImage ==  ''}">
+			<div class="col-xs-8 col-md-4"><img src = "/resources/images/userImage/defaultUser.png" align="middle" height="200"/></div>
+			</c:if>
+			
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  	<div class="col-xs-4 col-md-2"><strong>아 이 디</strong></div>
-		<div class="col-xs-8 col-md-4">${user.userId}</div>
+		<div class="col-xs-8 col-md-4 text-center">${user.userId}</div>
 		</div>
 		
 		<hr/>
 		
 		<div class="row">
 	  	<div class="col-xs-4 col-md-2 "><strong>닉 네 임</strong></div>
-		<div class="col-xs-8 col-md-4">${user.nickName}</div>
+		<div class="col-xs-8 col-md-4 text-center">${user.nickName}</div>
 		</div>
 		
 		<hr/>
@@ -285,6 +301,8 @@
 		</c:if>
 	
 		</form>
+		</div>
+		</div>
 		</div>
  	</div>
  	<!--  화면구성 div Start /////////////////////////////////////-->
