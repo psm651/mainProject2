@@ -51,7 +51,7 @@ public class SocketController {
 	public String addLiveStream() throws Exception{
 		System.out.println("/addLiveStream : GET");
 		
-		return "redirect:/socket/addLiveStream.jsp" ;
+		return "forward: https://192.168.0.39:6503/webrtc-from-chat/index.html";
 	}
 	
 	@RequestMapping(value="addLiveStream", method=RequestMethod.POST)
