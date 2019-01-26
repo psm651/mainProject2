@@ -13,4 +13,6 @@ public interface MainDao {
 	
 	public void updateThumbnail(Post post) throws Exception;
 	
+	public void updateYoutubeThumbnail(Post post) throws Exception;
+	
 }

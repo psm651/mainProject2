@@ -26,9 +26,9 @@ public class RefundServiceImpl implements RefundService {
 	private final static String CLIENT_SECRET = "c396f9034254409d9da68ab3da3757c8";
 
 	private final static String REDIRECT_URI = "http://127.0.0.1:8080/refund/authorizeAccount";
-	private final static String GET_TOKEN_API_URI = "https://testapi.open-platform.or.kr/oauth/2.0/token"; // AccessTokenÈ¹µæ
-	private final static String REAL_NAME_URI = "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name"; // °èÁÂ½Ç¸íÁ¶È¸
-	private final static String DEPOSIT_URI = "https://testapi.open-platform.or.kr/transfer/deposit2"; // ÀÔ±İÀÌÃ¼2(°èÁÂ¹øÈ£ »ç¿ë)
+	private final static String GET_TOKEN_API_URI = "https://testapi.open-platform.or.kr/oauth/2.0/token"; // AccessTokenÈ¹ï¿½ï¿½
+	private final static String REAL_NAME_URI = "https://testapi.open-platform.or.kr/v1.0/inquiry/real_name"; // ê³„ì¢Œì‹¤ëª…ì¡°íšŒ
+	//private final static String DEPOSIT_URI = "https://testapi.open-platform.or.kr/transfer/deposit2"; // ì…ê¸ˆì´ì²´
 
 	@Autowired
 	@Qualifier("refundDaoImpl")
@@ -67,7 +67,6 @@ public class RefundServiceImpl implements RefundService {
 	@Override
 	public void updateRefund(Refund refund) throws Exception {
 		refundDao.updateRefund(refund);
-
 	}
 
 	@Override
@@ -99,8 +98,8 @@ public class RefundServiceImpl implements RefundService {
 
 		System.out.println("accessToken :: " + access_token);
 
-		// seq_no DB¿¡ ÀúÀå
-		//System.out.println("»ç¿ëÀÚ¹øÈ£ :: " + user_seq_no);
+		// seq_no DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		//System.out.println("ï¿½ï¿½ï¿½ï¿½Ú¹ï¿½È£ :: " + user_seq_no);
 
 		return obj;
 	}
@@ -118,8 +117,7 @@ public class RefundServiceImpl implements RefundService {
 		JSONObject param = new JSONObject();
 		param.put("bank_code_std", bankCode);
 		param.put("account_num", accountNum);
-		//param.put("account_holder_name", "¹ÚÁ¤¿¬"); //ÀÌ°Ç ³»°¡ ºñ±³ÇÒ °Í.
-		param.put("account_holder_info", accountHolderinfo); //dateOfBirth°ª
+		param.put("account_holder_info", accountHolderinfo); //dateOfBirthï¿½ï¿½
 		param.put("tran_dtime", refundReqDate); 
 
 		System.out.println(REAL_NAME_URI + "?" + param);
@@ -130,7 +128,7 @@ public class RefundServiceImpl implements RefundService {
 		if(obj == null) {
 			
 		}
-		Map<String, Object> map = new HashMap<String, Object>(); //ÀÎÁõ¿¡ ¼º°øÇÏ¸é map¿¡ obj.get °ªÀÌ µé¾î°£´Ù.
+		Map<String, Object> map = new HashMap<String, Object>(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ mapï¿½ï¿½ obj.get ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°£ï¿½ï¿½.
 		map.put("holder", obj.get("account_holder_name").toString());
 		map.put("accountNum", obj.get("account_num").toString());
 		map.put("bankName", obj.get("bank_name").toString());
@@ -140,10 +138,29 @@ public class RefundServiceImpl implements RefundService {
 		
 		return map;
 	}
+
+	@Override
+	public String getBankCode(String bankName) throws Exception {
+		System.out.println("listBankCode() ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("êµ­ë¯¼", "004");
+		map.put("ê¸°ì—…", "003");
+		map.put("ìƒˆë§ˆì„", "045");
+		map.put("ë†í˜‘", "011");
+		map.put("ì‹ í•œ", "088");
+		map.put("ìš°ë¦¬", "020");
+		map.put("ì™¸í•œ", "005");
+		map.put("ì¹´ì¹´ì˜¤", "090");
+		map.put("SCì œì¼", "023");
+		map.put("ì”¨í‹°", "027");
+		map.put("ìš°ì²´êµ­", "071");
+		
+		return (String)map.get(bankName);
+	}
 	
 	
 
-	@Override
+	/*@Override
 	public Map<String, Object> deposit(String accessToken, String accountNum, int accountHolderinfo, String bankCode)
 			throws Exception {
 		System.out.println("deposit() Service!!!!!!");
@@ -156,29 +173,29 @@ public class RefundServiceImpl implements RefundService {
 		JSONObject param = new JSONObject();
 		param.put("bank_code_std", bankCode);
 		param.put("account_num", accountNum);
-		//param.put("account_holder_name", "¹ÚÁ¤¿¬"); //ÀÌ°Ç ³»°¡ ºñ±³ÇÒ °Í.
-		param.put("account_holder_info", accountHolderinfo); //dateOfBirth°ª
+		//param.put("account_holder_name", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"); //ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+		param.put("account_holder_info", accountHolderinfo); //dateOfBirthï¿½ï¿½
 		param.put("tran_dtime", refundReqDate); 
 		param.put("wd_pass_phrase", "NONE");	
-		param.put("wd_print_content	", "¿Ó´õÇï½º");	
+		param.put("wd_print_content	", "ï¿½Ó´ï¿½ï¿½ï½º");	
 		param.put("req_cnt", 1);
 		
-		/*List<Object> list = new ArrayList<Object>();
+		List<Object> list = new ArrayList<Object>();
 		list.add(1);
 		list.add(004);
 		list.add("84860204104911");
-		list.add("¿Ó´õÇï½º");
+		list.add("ï¿½Ó´ï¿½ï¿½ï½º");
 		list.add(1000);
 		list.add(refundReqDate);
 		
-		param.put("req_list", list);*/
+		param.put("req_list", list);
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("tran_no", "1");
 		map2.put("bank_code_std", "004");
 		map2.put("account_num", "84860204104911");
-		map2.put("account_holder_name", "¹ÚÁ¤¿¬");
-		map2.put("print_content", "¿Ó´õÇï½º");
+		map2.put("account_holder_name", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		map2.put("print_content", "ï¿½Ó´ï¿½ï¿½ï½º");
 		map2.put("tran_amt", "1000");
 		//map2.put("cms_no", "123456789123");
 		//map2.put("tran_dtime", refundReqDate);
@@ -190,7 +207,7 @@ public class RefundServiceImpl implements RefundService {
 		JSONObject obj = URLConnection.getJSON_PARAM("POST", DEPOSIT_URI, param.toString(),
 				"application/json; charset=UTF-8", "Authorization", "Bearer " + accessToken);
 
-		Map<String, Object> map = new HashMap<String, Object>(); //ÀÎÁõ¿¡ ¼º°øÇÏ¸é map¿¡ obj.get °ªÀÌ µé¾î°£´Ù.
+		Map<String, Object> map = new HashMap<String, Object>(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ mapï¿½ï¿½ obj.get ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°£ï¿½ï¿½.
 		map.put("holder", obj.get("account_holder_name").toString());
 		map.put("accountNum", obj.get("account_num").toString());
 		map.put("bankName", obj.get("bank_name").toString());
@@ -199,37 +216,8 @@ public class RefundServiceImpl implements RefundService {
 		System.out.println("map2 : "+map2);
 		
 		return map;
-	}
+	}*/
 
-	@Override
-	public List<String> listBankCode() throws Exception {
-		List<String> list = new ArrayList<String>();
-		list.add("002=»ê¾÷ÀºÇà");
-		list.add("003=±â¾÷ÀºÇà");
-		list.add("004=±¹¹ÎÀºÇà");
-		list.add("007=¼öÇùÁß¾ÓÈ¸");
-		list.add("011=³óÇùÁß¾ÓÈ¸");
-		list.add("020=¿ì¸®ÀºÇà");
-		list.add("023=SCÁ¦ÀÏÀºÇà");
-		list.add("027=½ÃÆ¼ÀºÇà");
-		list.add("031=´ë±¸ÀºÇà");
-		list.add("032=ºÎ»êÀºÇà");
-		list.add("034=±¤ÁÖÀºÇà");
-		list.add("035=Á¦ÁÖÀºÇà");
-		list.add("037=ÀüºÏÀºÇà");
-		list.add("039=°æ³²ÀºÇà");
-		list.add("081=ÇÏ³ªÀºÇà");
-		list.add("088=½ÅÇÑÀºÇà");
-		list.add("097=¿ÀÇÂÀºÇà");
-		
-		
-		return list;
-	}
 	
-	//@Scheduled(fixedDelay=1000)
-	@Scheduled(cron="0 0 12 * * *")
-	public void doSomething() {
-		System.out.println("È¸ºñ Ãâ±İÇÏ´Â ½Ã°£ ¸ÅÀÏ 12½Ã");
-	}
 
 }

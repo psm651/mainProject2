@@ -17,7 +17,6 @@
   <script src="/resources/js/jquery.stellar.min.js"></script>
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
@@ -34,7 +33,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     
