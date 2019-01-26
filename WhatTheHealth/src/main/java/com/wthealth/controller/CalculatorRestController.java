@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wthealth.common.Page;
+import com.wthealth.common.Search;
 import com.wthealth.domain.BMI;
 import com.wthealth.domain.Food;
 
@@ -42,12 +46,9 @@ public class CalculatorRestController {
 	public List<Food> getSearchFood(@PathVariable String searchFood) throws Exception{
 		
 
-		
 		List<Food> foodInfo = new ArrayList<Food>();
         
 		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
-		
-		
 		
         WebDriver driver = new ChromeDriver();
       
@@ -64,34 +65,39 @@ public class CalculatorRestController {
      
         List<WebElement> getFood = driver.findElements(By.cssSelector(".food_search_results > li"));
 
-        
-        int i=0;
+  
         for(WebElement foods:getFood) {
            Food food = new Food();
+
            String[] tempName = foods.getText().split("\n");
            food.setFoodName(tempName[0].replaceAll(" ", ""));
-
-           System.out.println(i);
+        
            String[] tempAmountfood = tempName[1].substring(6).split(",");
            food.setAmountFood(tempAmountfood[0].replaceAll(" ", ""));
-
            
            String tempCalorie = tempAmountfood[1].substring(7);
-           food.setFoodCalorie(Integer.parseInt(tempCalorie.replaceAll(" ", "")));   
-           System.out.println(food);
+
+           if(tempCalorie.contains(".")) {
+ 
+        	   String[] temp = tempCalorie.split("\\.");;     
+        	   food.setFoodCalorie(Integer.parseInt(temp[0])); 
+           }else {
+        	 
+        	   food.setFoodCalorie(Integer.parseInt(tempCalorie.replaceAll(" ", "")));
            
+           }
+           System.out.println(food);
            foodInfo.add(food);
          
            }
-
-        System.out.println(foodInfo);
-      
+        
+       
         // Should see: "cheese! - Google Search"
         System.out.println("Page title is: " + driver.getTitle());
         
         //Close the browser
         driver.quit();
-	
+       
 		return foodInfo; 
 	}
 

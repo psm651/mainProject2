@@ -9,17 +9,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/animate.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="../resources/css/aos.css">
@@ -47,41 +47,22 @@
    	width : 130px;
    	height: 30px;
 	}
-	</style>
 
-<!-- 	
-	<style>
-	.modal-dialog.modal-80size {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.modal-content.modal-80size {
-  height: auto;
-  min-height: 80%;
-}
-
-.modal.modal-center {
-  text-align: center;
-}
-
-
-
-.modal-dialog.modal-center {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
-}
-
-	</style> -->
+	</style> 
 <script type="text/javascript">
+  
+
+// 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+// 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+// window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+	function relayout() {    
+   		 map.relayout();
+	} 
   
 	function fncAddExInfo(){
 
 	
-	/* 	var title = $("input[name='title']").val();
+	 	var title = $("input[name='title']").val();
 		var contents = $("textarea[name='contents']").val();
      	var exCalorie = $("input[name='exCalorie']").val();
 		var exPart = $("select[name='exPart']").val();
@@ -107,7 +88,7 @@
 		if(exPart == null || exPart.length<1){
 			alert("운동장소 반드시 입력하여야합니다.");
 			return;
-		}  */
+		}  
 		
 		$("form").attr("method","POST").attr("action","/exInfo/addExInfo").submit();	
 	}
@@ -132,14 +113,36 @@
 	$(function(){
 		$("button:contains('지도')").on("click", function(){
 				alert("버튼클릭")
-				$('#mapModal').on('shown.bs.modal', function () {
+			 $('#mapModal').on('shown.bs.modal', function () { 
 					$('#mapModal').modal('show');
-				/*  $('#mapModal').modal('show'); */
-				shown.bs.modal 
-				});
+					$(document).ready(function() {
+						 relayout();
+					}); 
+
+			});
+
 		});
 		
 	});
+	
+	function sendInfo(locationTagName, address, coordinate){
+		console.log(locationTagName)
+		console.log(address)
+		console.log(coordinate)
+ 	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
+ 		$(function(){
+ 		 var location = '<input type="text" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+ 		 
+					 '<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+			 		'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+ 			
+			$("button:contains('확인')").on("click", function(){
+				var locationName = $("#infoMap").text();
+				$(".glyphicon").append(location);
+				$("#mapModal").hide();
+			});
+		});  
+	}
 	
 	
 </script>
@@ -183,6 +186,8 @@
                 	<input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
                 	<input type="hidden" class = "form-control" name="userId" value="${sessionScope.user.userId}"/>
                </div>
+               
+             <div class="form-group"> 
                <div class="col-md-1 mb-5 mb-md-0">
               	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">
          			 <span class="glyphicon glyphicon-map-marker"></span>지도
@@ -248,11 +253,11 @@
 				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>
 		 </div>
-
+<!-- modal-dialog modal-80size modal-center -->
 
 	<!-- Modal -->
   <div class="modal modal-center fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
-  <div class="modal-dialog modal-80size modal-center" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-80size">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -264,7 +269,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-outline-success" data-dismiss="modal">확인</button>
       </div>
     </div>
   </div>
