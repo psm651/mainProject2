@@ -75,13 +75,12 @@
 		///////////////////////////////////////////////////////////////////////
  		function fncAuthorizeAccount() {
 			var bankName = $("input[name='bankName']").val();
-			var bankCode=$("input[name='bankCode']").val();
+			//var bankCode=$("input[name='bankCode']").val();
 			var accountNum=$("input[name='accountNum']").val();
 			var holder=$("input[name='holder']").val(); //예금주명
 			var dateOfBirth=$("input[name='dateOfBirth']").val(); //생년월일+한자리
 			
 			console.log(bankName);
-			console.log(bankCode);
 			console.log(accountNum);
 			console.log(holder);
 			console.log(dateOfBirth);
@@ -91,10 +90,10 @@
 				return;
 			}
 			
-			if(bankCode == null || bankCode.length <1){
+			/* if(bankCode == null || bankCode.length <1){
 				alert("은행코드는  반드시 입력하셔야 합니다.");
 				return;
-			}
+			} */
 			
 			if(accountNum == null || accountNum.length <1){
 				alert("계좌번호는  반드시 입력하셔야 합니다.");
@@ -113,7 +112,6 @@
 				
 			$("form").attr("method", "POST").attr("action", "/refund/authorizeAccount").submit();
 			
-			alert("인증에 성공하셨네요^^~");
 		} 
 		
 		
@@ -156,12 +154,13 @@
 		    </div>
 		  </div>
 		  
-		  <div class="form-group">
+		  <!-- <div class="form-group">
 		    <label for="point" class="col-sm-4 control-label">은행 코드</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="form-control" id="bankCode" name="bankCode">
 		    </div>
-		  </div>
+		  </div> -->
+		   <input type="hidden" class="form-control" id="bankCode" name="bankCode">
 		  
 		 <div class="form-group">
 		    <label for="point" class="col-sm-4 control-label">계좌번호</label>

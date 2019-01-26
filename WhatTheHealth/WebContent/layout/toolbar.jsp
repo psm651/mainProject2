@@ -24,11 +24,11 @@
 	<script type="text/javascript">
 	$(function() {
 		
-		$( "a[href='#' ]:contains('Login')").on("click", function(){
+		$( "#login_toolbar").on("click", function(){
 			self.location = "/user/login"	
 	 	 });
 		
-		$( "a[href='#' ]:contains('Logout')").on("click", function(){
+		$( "#logout_toolbar").on("click", function(){
 			self.location = "/user/logout"	
 	 	 });
 		
@@ -37,9 +37,11 @@
 	 	 });
 		
 		 /////////////////////////////////////// 운동꿀팁 메뉴바 ///////////////////////////////////////
-		 $( "a[href='#' ]:contains('운동꿀팁')").on("click", function(){
+		
+		 $(document).on("click", '#exinfo_toolbar', function() {
 			 $(self.location).attr("href", "/exInfo/listExInfo")
 		 });
+
 		 
 		 $( "a[href='#' ]:contains('상체')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=0"
@@ -60,13 +62,10 @@
 		 $( "a[href='#' ]:contains('전신')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=4"
 			 });
-		 
+
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
-		 $( "a[href='#' ]:contains('스케줄')").on("click", function(){
-				self.location = "/schedule/listSchedule"	//UserId??????????
-		 });
-		 
-		 $( "a[href='#' ]:contains('내 스케줄 관리')").on("click", function(){
+		
+		 $(document).on("click", '#myschedule_toolbar', function() {
 			 if(${sessionScope.user == null}){				 
 				 alert("로그인이 필요한 서비스입니다.");
 				 self.location = "/user/login"
@@ -74,16 +73,8 @@
 				self.location = "/schedule/listSchedule"	//UserId??????????
 			 }
 		 });
-		 
-		 /* $( "a[href='#' ]:contains('식단')").on("click", function(){
-				self.location = "/schedule/getSchedule"	//UserId??????????
-		 }); */
-		 
-		 $( "a[href='#' ]:contains('BMI 계산기')").on("click", function(){
-				self.location = "/calculator/bmiCalculator.jsp"	//URL??????????????
-		 });
-		 
-		 $( "a[href='#' ]:contains('칼로리 계산기')").on("click", function(){
+		
+		 $(document).on("click", '#calculator_toolbar', function() {
 				self.location = "/calculator/calorieCalculator.jsp"	//URL??????????????
 		 });
 		 
@@ -91,47 +82,42 @@
 		 /* $( "a[href='#' ]:contains('커뮤니티')").on("click", function(){
 				self.location = "/product/listProduct?menu=manage"
 		 }); */
-		 
-		 $( "a[href='#' ]:contains('운동 커뮤니티')").on("click", function(){
+		 $(document).on("click", '#excom_toolbar', function() {
 				self.location = "/exCom/listExCom"
 		 });
 		 
-		 $( "a[href='#' ]:contains('식단 커뮤니티')").on("click", function(){
+		 $(document).on("click", '#dietcom_toolbar', function() {
 				self.location = "/dietCom/listDietCom"
 		 });
 		 
 		 /////////////////////////////////////// 소모임 메뉴바 ////////////////////////////////////
-		 $( "a[href='#' ]:contains('소모임')").on("click", function(){
+		 $(document).on("click", '#meeting_toolbar', function() {
 				self.location = "/meeting/listMeeting"
 		 });
 		 
 		/////////////////////////////////////// 라이브방송 메뉴바 ////////////////////////////////////
-		 $( "a[href='#' ]:contains('라이브방송')").on("click", function(){
+		 $(document).on("click", '#live_toolbar', function() {
 				self.location = "/socket/listSocket"
 		 });
 		 
 		/////////////////////////////////////// 마이페이지 메뉴바 ////////////////////////////////////
-		/*  $( "a[href='#' ]:contains('마이페이지')").on("click", function(){
-				self.location = "/activity/listActivity"
-		 }); */
-		 
-		 $( "a[href='#' ]:contains('내정보 보기')").on("click", function(){
+		 $(document).on("click", '#getuser_toolbar', function() {
 				self.location = "/user/getUser?userId=${sessionScope.user.userId}"
 		 });
 		 
-		 $( "a[href='#' ]:contains('활동정보')").on("click", function(){
+		 $(document).on("click", '#activity_toolbar', function() {
 				self.location = "/activity/listMyPost"
 		 });
 		 
-		 $( "a[href='#' ]:contains('포인트')").on("click", function(){
+		 $(document).on("click", '#point_toolbar', function() {
 				self.location = "/point/listPoint"
 		 });
 		 
-		 $( "a[href='#' ]:contains('환급')").on("click", function(){
+		 $(document).on("click", '#refund_toolbar', function() {
 				self.location = "/refund/listRefund"
 		 });
 		 
-		 $( "a[href='#' ]:contains('History Chart')").on("click", function(){
+		 $(document).on("click", '#history_toolbar', function() {
 				self.location = "/schedule/getHistoryChart"
 		 });
 		 
@@ -139,25 +125,23 @@
 		  /*  $( "a[href='#' ]:contains('마이페이지')").on("click", function(){
 					self.location = "/activity/listActivity"
 		  }); */
-			 
-		  $( "a[href='#' ]:contains('회원관리')").on("click", function(){
+		  $(document).on("click", '#useradmin_toolbar', function() { 
 				self.location = "/adminManage/listUserAdminManage"
 		  });
 			 
-		  $( "a[href='#' ]:contains('신고관리')").on("click", function(){
+		  
+		  $(document).on("click", '#claim_toolbar', function() { 
 				self.location = "/claim/listClaim"	//????????
 		  });
 			 
-	 	  $( "a[href='#' ]:contains('포인트관리')").on("click", function(){
+		  
+		  $(document).on("click", '#pointadmin_toolbar', function() { 
 				self.location = "/adminManage/listPointAdminManage"	//??????????
 		  });
 			 
- 		  $( "a[href='#' ]:contains('환급관리')").on("click", function(){
+	 	  $(document).on("click", '#refundadmin_toolbar', function() { 
 				self.location = "/refund/listRefundAdmin"	
 		  }); 
- 		  
- 		 	 
-
 		 
 	});
 	
@@ -196,7 +180,7 @@
   
   <body>
   
-  <div class="site-wrap">
+ <!--  <div class="site-wrap"> -->
 
 <!-- 툴바 인클루드 시작! -->
     <div class="site-mobile-menu">
@@ -212,19 +196,16 @@
       <div class="site-navbar-top">
         <div class="container py-2">
           <div class="row align-items-center">
-            <div class="col-6">
-              <a href="#" class="p-2 pl-0"><span class="icon-twitter"></span></a>
-              <a href="#" class="p-2 pl-0"><span class="icon-facebook"></span></a>
-              <a href="#" class="p-2 pl-0"><span class="icon-linkedin"></span></a>
-              <a href="#" class="p-2 pl-0"><span class="icon-instagram"></span></a>
+            <div class="col-8">
+             
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <div class="d-flex ml-auto">
             
                	
                 <a href="#" class="d-flex align-items-center ml-auto mr-4"> 
                	 <c:if test="${sessionScope.user != null}"> 
-                  <span class="icon-envelope mr-2"></span>
+                  <span class="icon-heart mr-2"></span>
                   <span class="d-none d-md-inline-block">${sessionScope.user.nickName}님 환영합니다!</span>
                    </c:if>
                 </a>
@@ -234,12 +215,12 @@
                   <span class="icon-phone mr-2"></span>
                   <span class="d-none d-md-inline-block">+1 291 2830 302</span>
                 </a> -->
-                <a href="#" class="d-flex align-items-center">
+                <a href="#" class="d-flex align-items-center ml-auto mr-4"> 
                  <c:if test="${sessionScope.user == null}"> 
-                  <span class="d-none d-md-inline-block">Login</span>
+                 <span class="icon-user mr-2" id="login_toolbar">&nbsp; Login</span>
                   </c:if>
-                   <c:if test="${sessionScope.user != null}"> 
-                   <span class="d-none d-md-inline-block">Logout</span>
+                   <c:if test="${sessionScope.user != null}" > 
+                   <span class="icon-user mr-2" id="logout_toolbar">&nbsp; Logout</span>
                    </c:if>
                 </a>
               </div>
@@ -267,51 +248,39 @@
                         <a href="index.jsp">Home</a>
                       </li> -->
                       <li class="has-children">
-                       <a href="#">운동꿀팁</a>
-                        <ul class="dropdown arrow-top">
-                          <li><a href="#">상체</a></li>
-                          <li><a href="#">하체</a></li>
-                          <li><a href="#">복부</a></li>
-                          <li><a href="#">스트레칭</a></li>
-                          <li><a href="#">전신</a></li>
-                        </ul>
+                       <a href="#" id="exinfo_toolbar">운동꿀팁</a>
+                       
                       </li>
                       <li class = "has-children">
                       	<a href="#">스케줄</a>
                       	<ul class="dropdown arrow-top">
-                          <li><a href="#">내 스케줄 관리</a></li>
-                       	  <li class="has-children">
-                            <a href="#">식단</a>
-                            <ul class="dropdown">
-                              <li><a href="#">BMI 계산기</a></li>
-                              <li><a href="#">칼로리 계산기</a></li>
-                            </ul>
-                          </li>
+                          <li><a href="#" id="myschedule_toolbar">내 스케줄 관리</a></li>
+                       	  <li><a href="#" id="calculator_toolbar">칼로리 계산기</a></li>
                         </ul>
                       </li>
                       <li class = "has-children">
                       	<a href="#">커뮤니티</a>
                       	<ul class="dropdown arrow-top">
-                          <li><a href="#">운동 커뮤니티</a></li>
-                          <li><a href="#">식단 커뮤니티</a></li>
+                          <li><a href="#" id="excom_toolbar">운동 커뮤니티</a></li>
+                          <li><a href="#" id="dietcom_toolbar">식단 커뮤니티</a></li>
                         </ul>
                       </li>
                    
                       <li class = "has-children">
-                      	<a href="#">소모임</a>
+                      	<a href="#" id="meeting_toolbar">소모임</a>
                       </li>
                       <li class = "has-children">
-                      	<a href="#">라이브방송</a>
+                      	<a href="#" id="live_toolbar">라이브방송</a>
                       </li>
                       <c:if test="${sessionScope.user.role == 'user'}"> 
                       <li class = "has-children">
                       	<a href="#">마이페이지</a>
                       	<ul class="dropdown arrow-top">
-                          <li><a href="#">내정보 보기</a></li>
-                          <li><a href="#">활동정보</a></li>
-                          <li><a href="#">포인트</a></li>
-                          <li><a href="#">환급</a></li>
-                          <li><a href="#">History Chart</a></li>
+                          <li><a href="#" id="getuser_toolbar">내정보 보기</a></li>
+                          <li><a href="#" id="activity_toolbar">활동정보</a></li>
+                          <li><a href="#" id="point_toolbar">포인트</a></li>
+                          <li><a href="#" id="refund_toolbar">환급</a></li>
+                          <li><a href="#" id="history_toolbar">History Chart</a></li>
                         </ul>
                       </li>
                        </c:if>
@@ -319,10 +288,10 @@
                       <li class = "has-children">
                       	<a href="#">관리페이지</a>
                       	<ul class="dropdown arrow-top">
-                          <li><a href="#">회원관리</a></li>
-                          <li><a href="#">신고관리</a></li>
-                          <li><a href="#">포인트관리</a></li>
-                          <li><a href="#">환급관리</a></li>
+                          <li><a href="#" id="useradmin_toolbar">회원관리</a></li>
+                          <li><a href="#" id="claim_toolbar">신고관리</a></li>
+                          <li><a href="#" id="pointadmin_toolbar">포인트관리</a></li>
+                          <li><a href="#" id="refundadmin_toolbar">환급관리</a></li>
                         </ul>
                       </li>
                      </c:if> 
@@ -341,7 +310,7 @@
       </div>
     </div>
     <!-- 툴바 인클루드 끝 -->
-
+<!-- </div> -->
 
 </body>
 </html>

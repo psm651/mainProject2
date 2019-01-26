@@ -78,7 +78,7 @@
 		///////////////////////////////////////////////////////////////////////
  		function fncAddRefund() {
 			var bankName = $("input[name='bankName']").val();
-			var bankCode=$("input[name='bankCode']").val();
+			//var bankCode=$("input[name='bankCode']").val();
 			var accountNum=$("input[name='accountNum']").val();
 			var holder=$("input[name='holder']").val(); //예금주명
 			var dateOfBirth=$("input[name='dateOfBirth']").val(); //생년월일+한자리
@@ -89,10 +89,10 @@
 				return;
 			}
 			
-			if(bankCode == null || bankCode.length <1){
+			/* if(bankCode == null || bankCode.length <1){
 				alert("은행코드는  반드시 입력하셔야 합니다.");
 				return;
-			}
+			} */
 			
 			if(accountNum == null || accountNum.length <1){
 				alert("계좌번호는  반드시 입력하셔야 합니다.");
@@ -136,13 +136,13 @@
                 success : function(data){
                 	 console.log(data);
                    	 var bankName = data.bankName;
-                   	 var bankCode = data.bankCode;
+                   	// var bankCode = data.bankCode;
                    	 var accountNum = data.accountNum;
                      var holder = data.holder;
                    	 var dateOfBirth = data.dateOfBirth;
                    	 
                    	 $('#bankName').val(bankName);
-                   	$('#bankCode').val(bankCode);
+                   //	$('#bankCode').val(bankCode);
                    	$('#accountNum').val(accountNum);
                    	$('#holder').val(holder);
                    	$('#dateOfBirth').val(dateOfBirth);
@@ -150,7 +150,6 @@
                 });
  		}
 	
-		
 	</script>
 	
 </head>
@@ -192,12 +191,13 @@
 		    </div>
 		  </div>
 		  
-		  <div class="form-group">
+		  <!-- <div class="form-group">
 		    <label for="point" class="col-sm-4 control-label">은행 코드</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="form-control" id="bankCode" name="bankCode" value="">
 		    </div>
-		  </div>
+		  </div> -->
+		  <input type="hidden" class="form-control" id="bankCode" name="bankCode">
 		  
 		 <div class="form-group">
 		    <label for="point" class="col-sm-4 control-label">계좌번호</label>
