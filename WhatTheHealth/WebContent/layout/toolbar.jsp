@@ -41,9 +41,7 @@
 		 $(document).on("click", '#exinfo_toolbar', function() {
 			 $(self.location).attr("href", "/exInfo/listExInfo")
 		 });
-<<<<<<< HEAD
-	
-=======
+
 		 
 		 $( "a[href='#' ]:contains('상체')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=0"
@@ -64,8 +62,7 @@
 		 $( "a[href='#' ]:contains('전신')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=4"
 			 });
->>>>>>> refs/remotes/origin/master
-		 
+
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
 		
 		 $(document).on("click", '#myschedule_toolbar', function() {
