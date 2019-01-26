@@ -60,8 +60,7 @@
    
 
 
-  
-  
+
    var infowindow = null;
    var map = null;
    var ps = null;
@@ -80,12 +79,16 @@
 
       // 지도를 생성합니다    
       map = new daum.maps.Map(mapContainer, mapOption); 
+      
+
+      
+  
       // 장소 검색 객체를 생성합니다
       ps = new daum.maps.services.Places(); 
       
        // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       infowindow = new daum.maps.InfoWindow({zIndex:1});
-
+     
       searchPlaces();
 
    });
@@ -353,16 +356,44 @@
 	 			var li =  $(this).closest("li");
 
 	 			
-	 			var placeName = li.children("div").children("h5").text();
+	 			var locationTagName = li.children("div").children("h5").text();
 	 			var address = li.children("div").children("span:nth-child(2)").text();
 	 			var yCoordinate = li.children("#ycoordinate").text();
 	 			var xCoordinate = li.children("#xcoordinate").text();
 	 			
 	 			var coordinate = yCoordinate+', '+xCoordinate;
-	 			console.log(coordinate)
+	 		
+	 			//주소정보 append 
+	 			var	appendInfo = '<div class="col-12 col-md-8" id="infoMap" name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+	 							 '<div name="address" value="'+address+'" style="display:none;"/>'+
+	 							 '<div name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+	 						
+
+	 			var validation = $("#infoMap").val();
+	 			console.log(validation)
+	 			
+	 			
+	 			if(validation!=null){
+	 				alert("위치는 한 곳만 등록이 가능합니다.")
+	 				return
+	 			}
+	 			validation = null;
+	 			$(".modal-footer").append(appendInfo);
+	 			//add+게시물.jsp로 값전달
+	 			sendInfo(locationTagName, address, coordinate);
 	 		});
-	 	
+
 	 	});
+ 	
+ 	//추가된 장소 삭제 이벤트 
+ 	$(function(){
+ 		
+ 		$(document).on("click", "#infoMap", function(){
+ 			
+ 		});
+ 		
+ 		
+ 	});
 </script>
 
 <body>
