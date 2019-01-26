@@ -13,15 +13,14 @@
    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
    <link rel="stylesheet" href="../resources/css/style.css">
    
-   
    <!-- <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script> -->
    <!-- <script src="https://www.googleapis.com/youtube/v3/search?part=snippet&q=php&key=AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg"></script> -->
 
     
    <style>   
           #video {
-      width: 500px;
-      height: 250px;
+      width: 300px;
+      height: 150px;
       border: 1px solid red;
   }
   </style>
@@ -70,6 +69,11 @@
            console.log("인잇 ㅠㅠ");
        });
    }
+   
+   function youtubeSearch(text){
+		console.log(text);
+		document.getElementById("search").append(text);
+	}
 
 </script>
 </head>
@@ -78,14 +82,14 @@
    <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <form action="#">
-                    <p><input type="text" id="search" placeholder="Type something..." autocomplete="on" class="form-control" /></p>
+                    <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
                     <p><input type="submit" value="Search" class="form-control btn btn-primary w100"></p>
                 </form>
                 <div id="results" draggable="true" ondragstart="handleDragStart(event)"  controls="controls"></div>
             </div>
-            <div id="video"  ondrop="handleDrop(event)"  ondragover="allowDrop(event)"  width= "500px"  height=" 250px" >
-    <p id="p">동영상을 드랙 & 드랍해봅니다</p>
-</div>
+            <!-- <div id="video"  ondrop="handleDrop(event)"  ondragover="allowDrop(event)"  width= "500px"  height=" 250px" >
+		    	<p id="p">동영상을 드랙 & 드랍해봅니다</p>
+			</div> -->
         </div>
    
 

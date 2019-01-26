@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Awesome videos!" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
+        <!-- <link rel="stylesheet" href="css/style.css"> -->
      <style>   
           #video {
       width: 500px;
@@ -14,7 +14,7 @@
       border: 1px solid red;
   }
   </style>
-        
+         
         <script type="text/javascript">
         function allowDrop(e) {
         	e.preventDefault();
@@ -45,7 +45,7 @@
         		videoPlayer.removeAttribute("controls");
             }	 	  
         }
-
+       
         </script>
     </head>
     <body>
@@ -67,10 +67,10 @@
         
         <!-- scripts -->
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="js/app.js"></script>
+       
 
         <script src="https://apis.google.com/js/client.js?onload=init"></script>
-        
+        <script src="/meeting/js/app.js"></script>
         
     </body>
 </html>
