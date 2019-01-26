@@ -105,7 +105,7 @@
 		//============= 회원원가입화면이동 =============
 		$( function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("a[href='#' ]").on("click" , function() {
+			$("#addUser").on("click" , function() {
 				self.location = "/user/addUser"
 			});
 		});
@@ -156,11 +156,16 @@
    	<!-- ToolBar End /////////////////////////////////////-->	
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
 		<!--  row Start /////////////////////////////////////-->
+	 		
+	 		<div class="row">
+	 		
+	 		<div class="col-md-3"></div>
 	 		<div class="col-md-6">
-		 	 		<h1 class="text-center">로 &nbsp;그 &nbsp;인</h1>
+	 		
+	 		
 
 			        <form class="p-5 bg-white">
 		  

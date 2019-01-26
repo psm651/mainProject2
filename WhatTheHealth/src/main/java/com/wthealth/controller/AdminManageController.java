@@ -53,7 +53,7 @@ public class AdminManageController {
 		Map<String, Object> map = adminManageService.listUserAdminManage(search);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
+		System.out.println(search);
 		//MV
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -120,7 +120,7 @@ public class AdminManageController {
 	@RequestMapping(value="updateUserAdminManage", method=RequestMethod.GET)
 	public String updateUserAdminManage(@RequestParam String userId, Model model) throws Exception{
 		
-		System.out.println("updateUserAdminManage의 userId : "+userId);
+		System.out.println("updateUserAdminManage�쓽 userId : "+userId);
 		
 		User user = adminManageService.getAdminManage(userId);
 	

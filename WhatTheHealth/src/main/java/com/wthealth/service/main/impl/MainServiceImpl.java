@@ -59,7 +59,9 @@ public class MainServiceImpl implements MainService {
 		  PrintWriter out = response.getWriter();
 
 	     //String realFolder = request.getSession().getServletContext().getRealPath("images");
-	      String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+
+	      String realFolder = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+
 	      System.out.println(realFolder);
 	      UUID uuid = UUID.randomUUID();
 

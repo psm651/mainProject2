@@ -62,11 +62,12 @@
 	  <script src="/resources/js/main.js"></script>
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<!-- <style>
-		body {
-            padding-top : 50px;
-        }
-    </style> -->
+	<style>
+ 	img{ 
+		max-width:120%;
+    	border-radius: 100px;
+	}
+     </style> 
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -190,13 +191,13 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
-	
-		<div class="page-header text-center">
-	       <h3 class=" text-muted">회원정보수정</h3>
-	    </div>
-	    
+		<div class="row">
+	 		
+	 		<div class="col-md-2"></div>
+	 		<div class="col-md-8">
+
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white" enctype="multipart/form-data">
 		
@@ -304,6 +305,8 @@
 		</form>
 		<!-- form Start /////////////////////////////////////-->
 	    </div>
+ 	</div>
+ 	</div>
  	</div>
 	<!--  화면구성 div Start /////////////////////////////////////-->
  	

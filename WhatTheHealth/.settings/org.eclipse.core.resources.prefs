@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/main.jsp=UTF-8
+encoding//src/main/java/com/wthealth/controller/AdminManageController.java=UTF-8
 encoding//src/main/java/com/wthealth/service/main/impl/MainServiceImpl.java=UTF-8
 encoding//src/test/java/com/wthealth/service/exinfo/test/ExInfoTest.java=UTF-8
-encoding/<project>=UTF-8

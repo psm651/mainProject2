@@ -45,11 +45,11 @@
 	
 	    	INSERT INTO
 	    		post(post_no, post_sub_no, title, contents, user_id, post_date, like_count, category, 
-	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime, delete_status)
+	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime, delete_status, locationtag_name, coordinate, address )
 	   		VALUES
 	    		(seq_post_post_no.nextval, 'EI'||seq_ex_info_ex_info_no.currval, #{title}, #{contents}, #{userId}, sysdate,
 	    		 #{likeCount:NUMERIC}, #{category:VARCHAR}, seq_ex_info_ex_info_no.nextval, #{exCalorie:NUMERIC}, #{exPlace:VARCHAR},
-	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR}, 0)
+	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR}, 0, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR} )
 	    		 
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
         	 SELECT seq_post_post_no.currval FROM dual
@@ -77,7 +77,7 @@
 	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
 	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
 		SELECT 
-  			title, contents, photo, video, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no
+  			title, contents, photo, video, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address
 	    FROM 
   			post
 		WHERE

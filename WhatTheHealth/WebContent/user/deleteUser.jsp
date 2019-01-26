@@ -121,13 +121,13 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
+	<div class="row">
+	 		
+	 	<div class="col-md-3"></div>
 		<div class="col-md-6">
-	
-		<div class="page-header text-center">
-	       <h3 class=" text-muted">회원탈퇴</h3>
-	   	</div>
+
 	    
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
@@ -159,6 +159,7 @@
 	    
  	</div>
 	<!--  화면구성 div Start /////////////////////////////////////-->
+ 	</div>
  	</div>
  	</div>
 </body>

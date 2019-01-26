@@ -87,7 +87,7 @@
                 	}
                 	
                     a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                    a += '<div class="replyInfo'+list.reReplyNo+'">'+'댓글번호 : '+list.replyNo+' / 작성자 : '+list.writerId;
+                    a += '<div class="replyInfo'+list.reReplyNo+'">'+'댓글번호 : '+list.replyNo+' / 작성자 :<b> '+list.writerId+'</b>';
                     //a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
                     a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
                     a += '<a onclick="replyDelete('+list.replyNo+');"> 삭제 </a>';
@@ -106,7 +106,7 @@
             url : '/reply/json/addReply/'+postNo,
             type : 'post',
             data : JSON.stringify({
-            			//writerId : 'user3',														////////하드코딩 수정(-----------);;;;;;;;;;;;;;;;;;
+            			//writerId : 'user3',													      	////////하드코딩 수정(-----------);;;;;;;;;;;;;;;;;;
             			postNo: postNo,
             			text: $('[name=content]').val()
             			}),

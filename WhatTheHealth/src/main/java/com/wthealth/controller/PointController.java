@@ -33,7 +33,7 @@ public class PointController {
 	@Autowired
 	@Qualifier("pointServiceImpl")
 	private PointService pointService;
-	//setter Method ±¸Çö ¾ÊÀ½
+	//setter Method ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 	@Autowired
 	@Qualifier("userServiceImpl")
@@ -65,13 +65,13 @@ public class PointController {
 		
 		String senderId = ((User)session.getAttribute("user")).getUserId();
 		
-		// Business logic ¼öÇà
+		// Business logic ï¿½ï¿½ï¿½ï¿½
 		Map<String , Object> map = pointService.listPoint(search, senderId);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		// Model °ú View ¿¬°á
+		// Model ï¿½ï¿½ View ï¿½ï¿½ï¿½ï¿½
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -106,10 +106,10 @@ public class PointController {
 		
 		if(usingPoint > sendUser.getHavingPoint()) {
 			
-			System.out.println("º¸À¯ Æ÷ÀÎÆ®º¸´Ù ´õ ¸¹ÀÌ º¸³»·Á°íÇÒ¶§");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½");
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('º¸À¯ Æ÷ÀÎÆ®¸¦ ÃÊ°úÇØ¼­ ½ò ¼ö ¾ø½À´Ï´Ù.');</script>");
+			out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
 			out.flush();
 			return "/point/updatePoint.jsp";
 			
@@ -120,21 +120,21 @@ public class PointController {
 			
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('Àü¼ÛµÇ¾ú½À´Ï´Ù.');</script>");
+			out.println("<script>alert('ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
 			out.flush();
 	
 			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
 			sendUser.setHavingPoint(sendPoint);
 			userService.updateHavingPoint(sendUser);
-			System.out.println("Àü¼ÛÇÑ Æ÷ÀÎÆ®: "+sendPoint);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+sendPoint);
 			session.setAttribute("user", sendUser);
-			System.out.println("Æ÷ÀÎÆ® ¹Ù²î¶ó°í "+session.getAttribute("user"));
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ù²ï¿½ï¿½ï¿½ "+session.getAttribute("user"));
 			
 			User receiveUser = userService.getUser(point.getReceiverId());
 			int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
 			receiveUser.setHavingPoint(receivePoint);
 			userService.updateHavingPoint(receiveUser);
-			System.out.println("¹ÞÀº Æ÷ÀÎÆ®: "+receivePoint);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+receivePoint);
 			
 			return "forward:/point/listPoint";
 		}
@@ -146,7 +146,7 @@ public class PointController {
 		System.out.println("/point/updateDeposit : GET");
 		//Business Logic
 		String senderId = ((User)session.getAttribute("user")).getUserId();
-		int meetingPostNo = meetingService.getJoin(joinNo).getPostNo();
+		int meetingPostNo = meetingService.getJoin(joinNo).getMeetNo();
 		String receiveMeeting = meetingService.getMeeting(meetingPostNo).getPost().getTitle();
 		
 		Point point = new Point();
@@ -169,37 +169,37 @@ public class PointController {
 		
 		if(usingPoint > sendUser.getHavingPoint()) {
 			
-			System.out.println("º¸À¯ Æ÷ÀÎÆ®º¸´Ù ´õ ¸¹ÀÌ º¸³»·Á°íÇÒ¶§");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½");
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('º¸À¯ Æ÷ÀÎÆ®¸¦ ÃÊ°úÇØ¼­ Àü¼ÛÇÒ ¼ö ¾ø½À´Ï´Ù.');</script>");
+			out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
 			out.flush();
 			return "/point/updateDeposit.jsp";
 			
 		} else {
-			System.out.println("¼±±ÝÀü¼Û¤·¤·¤·¤·¤·");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			point.setUsingPoint(usingPoint);
 			pointService.updatePoint(point);
 			
-			System.out.println("µÇ¶ó¤¿¤¿¤¿¤¿");
+			System.out.println("ï¿½Ç¶ó¤¿¤ï¿½ï¿½ï¿½ï¿½ï¿½");
 			
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('Àü¼ÛµÇ¾ú½À´Ï´Ù.');</script>");
+			out.println("<script>alert('ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
 			out.flush();
 	
 			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
 			sendUser.setHavingPoint(sendPoint);
 			userService.updateHavingPoint(sendUser);
-			System.out.println("Àü¼ÛÇÑ Æ÷ÀÎÆ®: "+sendPoint);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+sendPoint);
 			session.setAttribute("user", sendUser);
-			System.out.println("Æ÷ÀÎÆ® ¹Ù²î¶ó°í "+session.getAttribute("user"));
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ù²ï¿½ï¿½ï¿½ "+session.getAttribute("user"));
 			
 			meetingService.updateDeposit(joinNo);
-			System.out.println("¼±±ÝÀü¼Û¿Ï·á: "+meetingService.getJoin(joinNo));
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¿Ï·ï¿½: "+meetingService.getJoin(joinNo));
 			
 			/*String receiveMeeting = meetingService.getMeeting(point.getReceiverId()).getPost().getTitle();
-			System.out.println("¼Ò¸ðÀÓ ÀÌ¸§: "+receiveMeeting);
+			System.out.println("ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½: "+receiveMeeting);
 			model.addAttribute("receiveMeeting", receiveMeeting);*/
 			
 			return "forward:/point/listPoint";
@@ -210,7 +210,7 @@ public class PointController {
 	public String kakaoPayReady(@RequestParam("userId") String userId,
 								@RequestParam("point") int point, Model model) throws Exception {
 		
-		System.out.println("Ä«Ä«¿ÀÆäÀÌ ¿äÃ»");
+		System.out.println("Ä«Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»");
 		//Map<String, Object> map = commonService.getAceessToken(code);
 		
 		String url = pointService.getPaymentReady(null, point);
@@ -222,7 +222,7 @@ public class PointController {
 	@RequestMapping(value="kakaoPaySuccess")
 	public String kakaoPayApprove(@RequestParam("pg_token") String pgToken, HttpSession session, Model model) throws Exception {
 		
-		System.out.println("Ä«Ä«¿ÀÆäÀÌ ½ÂÀÎ");
+		System.out.println("Ä«Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
@@ -242,10 +242,10 @@ public class PointController {
 		userService.updateHavingPoint(user);
 		session.setAttribute("user", user);
 		
-		// °¡°Ý amount.total && amout.vat (ºÎ°¡¼¼)
-		// ¼ö·® quantity
-		// ½ÂÀÎÀÏ approved_at
-		// °áÁ¦ ½ÃÀÛÀÏ ? created_at
+		// ï¿½ï¿½ï¿½ï¿½ amount.total && amout.vat (ï¿½Î°ï¿½ï¿½ï¿½)
+		// ï¿½ï¿½ï¿½ï¿½ quantity
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ approved_at
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ? created_at
 		/*
 		 * approvedDate & point
 		 * */
