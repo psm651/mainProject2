@@ -54,8 +54,16 @@ $(function(){
 						"Accept" : "application/json",
 						"Content-Type" : "application/json"
 					},
-					success : function(JSONdata, status) {
-						console.log(JSONdata);
+					success : function(JSONdata, status){
+						
+			 
+						if($("#bmiValue").text()!=""){
+							$("#bmiValue").empty().text();
+							$("#bmiState").empty().text();
+						}
+						
+							$("#bmiValue").text(JSONdata.bmiValue);
+							$("#bmiState").text(" ("+JSONdata.bmiState+")");
 					}
 						
 				}
@@ -81,22 +89,23 @@ $(function(){
 			
 			
 		<div class="container">
-			<!-- <div class="row"> -->
+		
 			
    			<div class="row form-group">
-   			<div class="col-md-6 mb-5 mb-md-0">
+   				<div class="col-md-6 mb-5 mb-md-0">
 		      		신장 <input type="text" class="form-control" id="height" name="height">
-		    		</div>
-	   		
-	  <div class="col-md-6 mb-5 mb-md-0">
+		    	</div>
+	 		 	<div class="col-md-6 mb-5 mb-md-0">
 		      		체중<input type="text" class="form-control" id="weight" name="weight">
-		</div>
+			    </div>
+		   </div>
+		   
+	  	   <br/>
+		   <h7>나의 신체질량 지수 : </h7><span id ="bmiValue" name="bmiValue"></span><span id="bmiState" name="bmiState"></span>
 		
-		 </div>
-	  	 
 	  	 	
 		</div>
-	 <!--  </div> -->
+
 	
 	   <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
