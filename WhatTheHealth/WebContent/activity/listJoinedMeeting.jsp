@@ -137,9 +137,9 @@
 		
 			 $( "#title" ).on("click" , function() {
 				 
-					var postNo = $(this).data("param1");
+					var meetNo = $(this).data("param1");
 					
-					 self.location ="/meeting/getMeeting?postNo="+postNo;
+					 self.location ="/meeting/getMeeting?meetNo="+meetNo;
 
 				});
 			
@@ -211,7 +211,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2" >${i}</div>
-            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" data-param1="${meeting.postNo}" ><strong>${meeting.meetTitle}</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" data-param1="${meeting.meetNo}" ><strong>${meeting.meetTitle}</strong></div>
             
             <c:if test="${meeting.joinStatus =='0'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">대기</div>

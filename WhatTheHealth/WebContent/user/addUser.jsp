@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
@@ -46,7 +45,6 @@
   <script src="/resources/js/jquery.stellar.min.js"></script>
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
@@ -363,6 +361,24 @@
 			
 				});
 		}
+		
+		function CheckPw(){
+			//alert("ddd")
+			var pw=$("input[name='password']").val();
+			var pw_confirm=$("input[name='password2']").val();
+			
+			if( pw != pw_confirm ) {				
+				$("input:text[name='password2']").focus();
+				$("#checkPW").css("color","red")
+				return;
+			}
+			
+			if( pw == pw_confirm ) {				
+				$("#checkPW").css("color","green")
+			
+			}
+			
+		}
 		 
 		 
 		//==>"ID중복확인" Event 처리 및 연결
@@ -399,8 +415,13 @@
     </div>  
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
-	 <div class="site-section bg-light">
+	 <div class="site-section">
 	<div class="container">
+	
+		<div class="row">
+	 		
+	 		<div class="col-md-2"></div>
+	 		<div class="col-md-8">
 		<!-- <div class="page-header text-center">
 		<h1 class="text-muted">회 원 가 입</h1>
 		</div> -->
@@ -430,7 +451,7 @@
 		  <div class="form-group">
 		  	<div class="col-md-12 mb-3 mb-md-0">
 		    <label for="password" class="font-weight-bold">비밀번호</label>
-		      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+		      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" >
 		    </div>
 		  </div>
 		  
@@ -439,7 +460,7 @@
 		    <label for="password2" class="font-weight-bold">비밀번호 확인</label>
 		    <!-- <i class="glyphicon glyphicon-ok" id="checkPW"></i> -->
 		    <span class="icon-check mr-3" id="checkPW"></span>
-		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
+		      <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인" oninput="CheckPw()">
 		    </div>
 		  </div>
 		  
@@ -511,7 +532,8 @@
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
-		
+		</div>
+ 	</div>
  	</div>
 	<!--  화면구성 div end /////////////////////////////////////-->
 	</div>

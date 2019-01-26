@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>식단 커뮤니티 게시물 수정 페이지</title>
+<title>소모임 게시물 수정</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
@@ -37,6 +37,12 @@
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	<script src="../resources/js/app.js"></script>
 	
+	
+	<!-- include datetimepicker css/js-->
+	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
+	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
+	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
+	
 	<style>
 		#video {
       width: 300px;
@@ -45,10 +51,10 @@
   }
 	</style>
 <script type="text/javascript">
-  
-	function fncUpdateDietCom(){
-		var title = $("input[name='title']").val();
-		var contents = $("textarea[name=contents]").val();
+  var meetNo = ${meeting.meetNo};
+	function fncUpdateMeeting(){
+		var title = $("input[name='post.title']").val();
+		var contents = $("textarea[name='post.contents']").val();
 		
 		console.log(contents.length);
 
@@ -61,14 +67,14 @@
 			return;
 		}
 
-		$("form").attr("method","POST").attr("action","/dietCom/updateDietCom?postNo="+"${post.postNo}").submit();	
+		$("form").attr("method","POST").attr("action","/meeting/updateMeeting?meetNo="+meetNo).submit();	
 	}
 	
 		
 	//============= "등록"  Event 연결 =============
 	 $(function() {
 		$( "button.btn.btn-primary" ).on("click" , function() {
-			fncUpdateDietCom();
+			fncUpdateMeeting();
 		});
 	});	
 	
@@ -79,11 +85,76 @@
 			history.go(-1);
 		});
 	});	
-	
+
+	//============= SummerNote 처리 =============
 	 $(document).ready(function(){
-		 var text = '${post.contents}';
+		 var text = '${meeting.post.contents}';
 		summerNoteUpdate(text); 
 	    });
+   //============= DatePicker  =============
+		function datetime(){
+			//$(".datepicker datepicker-inline").remove();
+			$('div').remove('.datepicker datepicker-inline');
+		};
+		
+		$(document).ready(function(){
+			datetime(); 
+		       });
+		//////////////////////////////////////달력////////////////////////////////
+		 // Initialization
+	$('#timepicker-actions-exmpl').datepicker({inline : false})
+	// Access instance of plugin
+	$('#timepicker-actions-exmpl').data('datepicker') 
+
+		////////////////////////////////////달력달력///////////////////////////////////
+		 // Create start date
+	     var start = new Date(),
+	        prevDay,
+	        startHours = 9;
+
+	    // 09:00 AM
+	    start.setHours(9);
+	    start.setMinutes(0);
+
+	    // If today is Saturday or Sunday set 10:00 AM
+	    if ([6, 0].indexOf(start.getDay()) != -1) {
+	        start.setHours(10);
+	        startHours = 10
+	    }
+
+	    $('#timepicker-actions-exmpl').datepicker({
+	        timepicker: true,
+	        language: 'en',
+	        startDate: start,
+	        minHours: startHours,
+	        maxHours: 18,
+	        
+	        onSelect: function (fd, d, picker) {
+	            // Do nothing if selection was cleared
+	            if (!d) return;
+
+	            var day = d.getDay();
+
+	            // Trigger only if date is changed
+	            if (prevDay != undefined && prevDay == day) return;
+	            prevDay = day;
+
+	            // If chosen day is Saturday or Sunday when set
+	            // hour value for weekends, else restore defaults
+	            if (day == 6 || day == 0) {
+	                picker.update({
+	                    minHours: 10,
+	                    maxHours: 16
+	                })
+	            } else {
+	                picker.update({
+	                    minHours: 9,
+	                    maxHours: 18
+	                })
+	            }
+	        }
+	    }) 
+	////////////////////////////////////달력달력///////////////////////////////////
 </script>
 </head>
 <body>
@@ -109,24 +180,137 @@
                   <label class="font-weight-bold" for="fullname">Title</label>
                 </div>
                 <div class="col-md-11 mb-5 mb-md-0">
-                	<input type="text" class="form-control" id="title" name="title"  value="${post.title}">
+                	<input type="text" class="form-control" id="post.title" name="post.title"  value="${meeting.post.title}">
                 </div>
-                <div class="col-md-1 mb-5 mb-md-0">
+                <!-- <div class="col-md-1 mb-5 mb-md-0">
               	    <button type="button" class="btn btn-default btn-sm">
          			 <span class="glyphicon glyphicon-map-marker"></span> 지도
      			   </button>
-     			 </div>
+     			 </div> -->
               </div>
 
+
+			<div class="row form-group">
+			 	<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname" >선금</label>
+                </div>
+                 <div class="col-md-5 mb-5 mb-md-0">
+                <input type="radio"   name="depoCondition"  value="1" >선금있음 
+                  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+				<input type="radio"   name="depoCondition"  value="0" >선금없음
+				 </div> 
+			</div>
+			
+			<div class="row form-group">
+				<div class="col-md-2 mb-5 mb-md-0">
+					&nbsp;
+				</div>
+				<div class="col-md-5 mb-5 mb-md-0">
+                	선금금액 <input type="text" class="form-control" id="depoAmount" name="depoAmount" value="${meeting.depoAmount}">
+                </div>
+                <!-- <div class="col-md-5 mb-5 mb-md-0">
+                	입금마감기한 <input type="text" class="form-control" id="depoDeadline" name="depoDeadline"  placeholder="">
+                </div> -->
+			</div>
+			
+			<div class="row form-group">
+				<div class="col-md-2 mb-5 mb-md-0">
+					&nbsp;
+				</div>
+				<div class="col-md-2 mb-5 mb-md-0">
+                	은행명 <input type="text" class="form-control" id="depoBank" name="depoBank"  value="${meeting.depoBank}">
+                </div>
+               <!--  <div class="col-md-0.5 mb-5 mb-md-0">
+					&nbsp;
+				</div> -->
+                <div class="col-md-2 mb-5 mb-md-0">
+                	예금주 <input type="text" class="form-control" id="depoAccHolder" name="depoAccHolder"  value="${meeting.depoAccHolder}">
+                </div>
+                <div class="col-md-1 mb-5 mb-md-0">
+					&nbsp;
+				</div>
+                <div class="col-md-5 mb-5 mb-md-0">
+                	계좌번호 <input type="text" class="form-control" id="depoAccount" name="depoAccount"  value="${meeting.depoAccount}">
+                </div>
+			</div>
+			
+			<div class="row form-group">
+			 	<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">참가비</label>
+                </div>
+                <div class="col-md-5 mb-5 mb-md-0">
+                <input type="radio" >참가비있음 
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+				<input type="radio" >참가비없음
+			</div>
+				
+			</div>
+			
+			<div class="row form-group">
+				<div class="col-md-2 mb-5 mb-md-0">
+					&nbsp;
+				</div>
+				<div class="col-md-5 mb-5 mb-md-0">
+                	참가비금액 <input type="text" class="form-control" id="entryfee" name="entryfee"  value="${meeting.entryfee}">
+                </div>
+             </div>
+             
+             <div class="row form-group">
+			 	<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">인원정원</label>
+                </div>
+                <div class="col-md-5 mb-5 mb-md-0">
+                <input type="radio" >제한있음 
+                  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
+				<input type="radio" >제한없음
+				 </div> 
+			</div>
+			
+			<div class="row form-group">
+				<div class="col-md-2 mb-5 mb-md-0">
+					&nbsp;
+				</div>
+				<div class="col-md-5 mb-5 mb-md-0">
+                	최소인원 <input type="text" class="form-control" id="minParty" name="minParty"  value="${meeting.minParty}">
+                </div>
+                <div class="col-md-5 mb-5 mb-md-0">
+                	최대인원 <input type="text" class="form-control" id="maxParty" name="maxParty"  value="${meeting.maxParty}">
+                </div>
+			</div>
+			
+			<div class="row form-group">
+			 	<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname">시간/ 장소</label>
+                </div>
+				<div class="col-md-5 mb-5 mb-md-0">
+                	모임시간<!--  <input type="text" class="form-control" id="meetTime" name="meetTime"  placeholder="소모임 시간을 입력해주세요."> -->
+                	<!-- ////////////////// 달려어어어억 ///////////////// -->
+               <!--  <input type='text' class='datepicker-here' data-language='en' >  -->
+               <input type='text'   class='datepicker-here' data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'  name='meetTime'  placeholder='${meeting.meetTime}'/> 
+               <!--<div class="datepicker-here" data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'></div>  -->
+    			<!-- ////////////////// 달려어어어억 ///////////////// -->
+                </div> 
+                <div class="col-md-5 mb-5 mb-md-0">
+                	모임장소 <!--  <input type="text" class="form-control" id="title" name="title"  placeholder="최대인원 수를 입력해주세요."> -->
+                <!-- 	<div class="col-md-1 mb-5 mb-md-0"> -->
+              	    &nbsp; &nbsp;
+              	    
+              	    <button type="button" class="btn btn-default btn-sm">
+         			 <span class="glyphicon glyphicon-map-marker"></span> 지도
+     			   </button>
+     			<!--  </div> -->
+                </div>
+			</div>
+			
               <div class="row form-group">
                 <div class="col-md-12">
                   <input type = "hidden" id="contents" name="contents" >
-		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
+		  			<jsp:include page="/common/postBySummerNoteForMeeting.jsp"></jsp:include> 
                 </div>
               </div>
               
           </div>
-          </form>
+       
           
           <div class="col-lg-4">
             <div class="p-4 mb-3 bg-white">
@@ -147,10 +331,10 @@
               
 		<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">등록</button>
+		      <button type="button" class="btn btn-primary">수정</button>
 				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>
 		  </div>
-
+   </form>
 </body>
 </html>

@@ -17,7 +17,10 @@
 
 <style>
 .container{max-width:1170px; margin:auto;}
-img{ max-width:100%;}
+img{ 
+	max-width:120%;
+    border-radius: 50px;
+}
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
@@ -87,6 +90,27 @@ img{ max-width:100%;}
   vertical-align: top;
   width: 92%;
  }
+ 
+ .received_id {
+   background: none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+  text-align: center;
+ }
+ 
+  .incoming_id {
+  color: #646464;
+  font-size: 8px;
+  width: 10%;
+  margin: 8px 0 0;
+  padding: 0 0 0 0;
+  text-align: left;
+ }
+ 
  .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
   border-radius: 3px;
@@ -151,6 +175,7 @@ img{ max-width:100%;}
   overflow-y: auto;
 }
 
+
 </style>
 
 </head>
@@ -188,61 +213,45 @@ img{ max-width:100%;}
  
             //소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
             socket.on('send_msg', function(msg) {
+            	
+
+            	console.log("세션에서 받은 이미지: "+"${sessionScope.user.userImage}");
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
-                $('<div class="incoming_msg"><div class="incoming_msg_img"> <img src=/resources/images/userImage/'+msg.img+' alt="sunil"> </div><div class="received_msg" ><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
                 
+                if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
+                	console.log("111111")
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="/resources/images/userImage/'+msg.img+'"> </div><div class="received_msg" ><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                } 
+                
+                else if(msg.name != "${sessionScope.user.nickName}" && msg.img == "" || msg.img == null ){
+                	console.log("3333")
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"> <img src="/resources/images/userImage/defaultUser.png"> </div><div class="received_msg" ><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                }  
+                else if(msg.name == "${sessionScope.user.nickName}") {
+                	console.log("55555")
+                	$('<div class="outgoing_msg"><div class="sent_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div>').appendTo(".msg_history");
+            	}
             })
             
             socket.on('in_msg', function(msg) {
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                $('<div></div>').text(msg).appendTo(".msg_history");
+                $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
             })
             
             socket.on('out_msg', function(msg) {
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                $('<div></div>').text(msg).appendTo(".msg_history");
+                $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
             })
         });
     </script>
- 
   
 <div class="container">
 <div class="messaging">
       <div class="inbox_msg">
-        
+     
         <div class="mesgs">
           <div class="msg_history">
-            
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test, which is a new approach to have</p>
-                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Apollo University, Delhi, India Test</p>
-                <span class="time_date"> 11:01 AM    |    Today</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-                    products, at a price anyone can afford.</p>
-                  <span class="time_date"> 11:01 AM    |    Today</span></div>
-              </div>
-            </div>
           </div>
           <div class="type_msg">
             <div class="input_msg_write">
