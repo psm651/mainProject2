@@ -4,7 +4,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="DietComMapper">
+<mapper namespace="CommunityMapper">
 
 	<resultMap id="postSelectMap" type="com.wthealth.domain.Post">
 		<result property="postNo" column="post_no" jdbcType="NUMERIC" />
@@ -30,6 +30,20 @@
 		<result property="pressedStatus" column="pressed_status" jdbcType="VARCHAR" />
 	</resultMap>
 
+	<insert id="addExCom" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="postNo">
+		INSERT
+		INTO post(post_no,  post_sub_no, user_id, title, contents, photo, 
+		click_count, blind_status, delete_status, like_count,
+		category, post_date, diet_sc_no, locationtag_name, coordinate, address)
+		VALUES
+		(seq_post_post_no.nextval, 'DC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
+		#{photo:VARCHAR}, 0, '0', '0', 0, '2', SYSDATE,
+		#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
+		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
+         SELECT seq_post_post_no.currval FROM dual
+     	</selectKey>
+	</insert>
+	
 	<insert id="addDietCom" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="postNo">
 		INSERT
 		INTO post(post_no,  post_sub_no, user_id, title, contents, photo, 
@@ -44,13 +58,13 @@
      	</selectKey>
 	</insert>
 
-	<select id="getDietCom" resultMap="postSelectMap" parameterType="int">
+	<select id="getCommunity" resultMap="postSelectMap" parameterType="int">
 		SELECT *
 		FROM post
 		WHERE post_no = #{value}
 	</select>
 
-	<update id="updateDietCom" parameterType="com.wthealth.domain.Post">
+	<update id="updateCommunity" parameterType="com.wthealth.domain.Post">
 		UPDATE post
 		<set>
 			title = #{title},
@@ -98,7 +112,7 @@
 		) countTable
 	</select>
 	
-	<update id="deleteDietCom" parameterType="int">
+	<update id="deleteCommunity" parameterType="int">
 		UPDATE post
 		<set>
 			delete_status = '1'
@@ -133,7 +147,28 @@
 		같이 사용 할 수 있다. CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리 WHERE ROWNUM 
 		<![CDATA[ <=]]> #{endRowNum} ) -->
 
-	
+	<select id="listExCom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
+		SELECT *
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+				FROM ( SELECT *
+						FROM post
+						WHERE post_sub_no LIKE 'EC%'
+						AND delete_status = '0'
+		<if test="searchCondition != null">
+				<if test="searchCondition == 0 and searchKeyword !='' ">
+					AND title LIKE '%'||#{searchKeyword}||'%'
+				</if>
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+					AND user_id LIKE '%'||#{searchKeyword}||'%'
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+					AND contents LIKE '%'||#{searchKeyword}||'%'
+				</if>
+		</if>
+		ORDER BY post_no) inner_table
+		WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
 	
 	<!-- SQL : SELECT LIST -->
 	<select id="listDietComRecom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
@@ -149,10 +184,22 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
-	
+	<!-- SQL : SELECT LIST -->
+	<select id="listExComRecom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
+		SELECT *
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+		FROM ( SELECT *
+		FROM	post
+		WHERE	post_sub_no LIKE 'EC%'
+		AND delete_status = '0'
+		AND	ROWNUM &lt;= 3
+		ORDER BY like_count) inner_table
+		WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
 	
 	<!-- SQL : SELECT ROW Count -->
-	<select id="getTotalCount" parameterType="com.wthealth.common.Search" resultType="int">
+	<select id="getTotalCountForDC" parameterType="com.wthealth.common.Search" resultType="int">
 		SELECT COUNT(*)
 		FROM( SELECT *
 		FROM post
@@ -172,5 +219,25 @@
 		) countTable
 	</select>
 	
+	<!-- SQL : SELECT ROW Count -->
+	<select id="getTotalCountForEC" parameterType="com.wthealth.common.Search" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT *
+		FROM post
+		WHERE post_sub_no LIKE 'EC%'
+			AND delete_status = '0'
+		<if test="searchCondition != null">
+				<if test="searchCondition == 0 and searchKeyword !='' ">
+					AND title LIKE '%'||#{searchKeyword}||'%'
+				</if>
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+					AND user_id LIKE '%'||#{searchKeyword}||'%'
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+					AND contents LIKE '%'||#{searchKeyword}||'%'
+				</if>
+			</if>
+		) countTable
+	</select>
 
 </mapper>

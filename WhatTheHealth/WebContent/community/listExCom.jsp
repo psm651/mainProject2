@@ -6,7 +6,7 @@
 
 <html lang="ko">
   <head>
-    <title>식단 커뮤니티 목록 페이지</title>
+    <title>커뮤니티 목록 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
@@ -49,20 +49,18 @@
    $(function(){
   	$(".post-entry").on("click", function(){
   		var postNo = $(this).data("param");
-  		self.location = "/dietCom/getDietCom?postNo="+postNo;
+  		self.location = "/community/getCommunity?postNo="+postNo;
   	});
   });
   
    $(function() {
 		$("a[href='#' ]").on("click" , function() {
-			self.location = "/dietCom/addDietCom";
+			self.location = "/community/addExCom";
 		});
 	});	
   </script>
   
-  
-  
-  <body>
+<body>
 
    <div class="site-wrap">
      <jsp:include page="/layout/toolbar.jsp" /> 

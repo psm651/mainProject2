@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>식단 커뮤니티 게시물 수정 페이지</title>
+<title>커뮤니티 게시물 수정 페이지</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
@@ -70,7 +70,11 @@
 	    });
 	 
 	 function resetData(){
-			self.location="/community/listCommunity";
+		 if(${post.category == '2'}){
+			self.location="/community/listExCom";
+		 }else if(${post.category == '3'}){
+			 self.location="/community/listDietCom";
+		 }
 		}
 		
 			

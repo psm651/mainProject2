@@ -63,11 +63,11 @@
 			return;
 		}
 
-		$("form[name=communityPost]").attr("method","POST").attr("action","/dietCom/addDietCom").submit();	
+		$("form[name=communityPost]").attr("method","POST").attr("action","/community/addExCom").submit();	
 	}
 	
 	function resetData(){
-		self.location="/community/listCommunity";
+		self.location="/community/listExCom";
 	}
 	
 		

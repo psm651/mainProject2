@@ -63,11 +63,11 @@
 			return;
 		}
 
-		$("form[name=communityPost]").attr("method","POST").attr("action","/dietCom/addDietCom").submit();	
+		$("form[name=communityPost]").attr("method","POST").attr("action","/community/addDietCom").submit();	
 	}
 	
 	function resetData(){
-		self.location="/community/listCommunity";
+		self.location="/community/listDietCom";
 	}
 	
 		
@@ -132,16 +132,7 @@
 		}
 	   
 	   ///////////////////////////Drag and Drop////////////////////////////////////////
-	
-      /*    function allowDrop(e) {
-		   console.log('allowDrop 들어옴');
-		   
-        	e.preventDefault();
-        	e.dataTransfer.setData("text/plain", e.target.id);
-        	e.dropEffect = "move";
-        }  */
         
-        //var videoPlayer;
         function handleDragStart(e) {
         	console.log(' handleDragStart 들어옴');
         	
