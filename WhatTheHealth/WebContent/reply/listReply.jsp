@@ -106,7 +106,7 @@
             url : '/reply/json/addReply/'+postNo,
             type : 'post',
             data : JSON.stringify({
-            			//writerId : 'user3',														////////하드코딩 수정(-----------);;;;;;;;;;;;;;;;;;
+            			//writerId : 'user3',													      	////////하드코딩 수정(-----------);;;;;;;;;;;;;;;;;;
             			postNo: postNo,
             			text: $('[name=content]').val()
             			}),
