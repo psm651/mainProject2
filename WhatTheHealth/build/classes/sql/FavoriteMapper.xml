@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FavoriteMapper">
+
+	<resultMap id="favoriteSelectMap" type="com.wthealth.domain.Favorite">
+		<result property="postNo" column="post_no" jdbcType="VARCHAR" />
+		<result property="favoriteNo" column="favorite_no" jdbcType="NUMERIC" />
+		<result property="userId" column="user_id" jdbcType="VARCHAR" />
+		<result property="favoriteType" column="favorite_type" jdbcType="VARCHAR" />
+		<result property="category" column="category" jdbcType="VARCHAR" />
+		<result property="contents" column="contents" jdbcType="VARCHAR" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="postDate" column="post_date" jdbcType="DATE" />
+		<result property="nickName" column="nickname" jdbcType="VARCHAR" />
+		<result property="userImage" column="user_image" jdbcType="VARCHAR" />
+		<result property="likeCount" column="like_count" jdbcType="NUMERIC" />
+		<result property="pressedStatus" column="pressed_status" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="addLike" parameterType="com.wthealth.domain.Favorite">
+		INSERT
+		INTO favorite(favorite_no, post_no, user_id, favorite_type, pressed_status)
+		VALUES
+		(seq_favorite_favorite_no.nextval, #{postNo}, #{userId}, '0', '1')
+	</insert>
+	
+	<delete	id="deleteLike"	parameterType="int" >
+	  	DELETE
+	  	FROM favorite
+	  	WHERE favorite_no = #{favoriteNo}
+	  </delete>
+	  
+	  <insert id="addInterest" parameterType="com.wthealth.domain.Favorite">
+		INSERT
+		INTO favorite(favorite_no, post_no, user_id, favorite_type, pressed_status)
+		VALUES
+		(seq_favorite_favorite_no.nextval, #{postNo}, #{userId}, '1', '1')
+	 </insert>
+	
+	<delete	id="deleteInterest"	parameterType="int" >
+	  	DELETE
+	  	FROM favorite
+	  	WHERE favorite_no = #{favoriteNo}
+	  </delete>
+	 
+	<select id="listFavorite" resultMap="favoriteSelectMap" parameterType="com.wthealth.domain.Favorite">
+		SELECT
+		f.favorite_no, f.post_no, f.user_id, f.favorite_type, f.pressed_status
+		FROM  post p, favorite f
+		WHERE f.post_no(+) = p.post_no AND p.post_no = #{postNo} AND f.user_id = #{userId}
+	</select>
+	
+	<select id="getFavorite" resultMap="favoriteSelectMap" parameterType="com.wthealth.domain.Favorite">
+		SELECT
+		f.favorite_no, f.post_no, f.user_id, f.favorite_type, f.pressed_status
+		FROM  post p, favorite f
+		WHERE f.post_no(+) = p.post_no AND p.post_no = #{postNo} AND f.user_id = #{userId}
+			AND f.favorite_type = #{favoriteType}
+	</select>
+	
+ 	<select id="listMyInterest" resultMap="favoriteSelectMap" parameterType="com.wthealth.common.Search">
+		SELECT *
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+			FROM ( SELECT p.post_no, p.category, p.title, p.post_date
+				FROM favorite f, post p
+				WHERE f.post_no = p.post_no
+				AND f.favorite_type= '1'
+				AND f.user_id = #{userId}) inner_table
+		WHERE ROWNUM &lt;= #{search.endRowNum} )
+	</select> 
+	
+	 <select id="listLikePeople" resultMap="favoriteSelectMap" parameterType="com.wthealth.common.Search">
+	  	SELECT *
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+			FROM (SELECT u.nickname, u.user_image
+		FROM users u, favorite f
+		WHERE f.user_id = u.user_id
+		AND f.post_no = #{postNo}
+		AND f.favorite_type='0') inner_table
+		WHERE ROWNUM &lt;= #{search.endRowNum} ) 
+	  </select>
+	
+	<select id="getTotalCountByUserId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT p.post_no, p.category, p.title, p.post_date
+				FROM favorite f, post p
+				WHERE f.post_no = p.post_no
+				AND f.favorite_type= '1'
+				AND f.user_id = #{userId}
+		) countTable
+	</select>
+	
+	<select id="getTotalCountByPostNo" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT u.nickname, u.user_image
+		FROM users u, favorite f
+		WHERE f.user_id = u.user_id
+		AND f.post_no = #{postNo}
+		AND f.favorite_type='0'
+		) countTable
+	</select>
+	
+	<select id="getTotalCountByFavorite" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM( SELECT
+		favorite_no, post_no, user_id, favorite_type 
+		FROM post p, favorite f(+)
+		WHERE p.user_id = f.user_id 
+		AND p.user_id = {map.userId}
+		AND p.post_no = {map.postNo}
+		AND f.favorite_type = {map.favoriteType}
+		) countTable
+	</select>
+	
+	<select id="getTotalLikeCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM(
+		 SELECT f.favorite_no
+			FROM post p, favorite f
+			WHERE p.post_no = f.post_no(+)
+			AND f.favorite_type = '0'
+			AND p.post_no = #{postNo}
+		)
+	</select>
+	
+</mapper>
