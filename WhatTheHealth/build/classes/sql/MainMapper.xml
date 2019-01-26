@@ -11,7 +11,7 @@
      	 <result property="userId" 		column="user_id"			 jdbcType="VARCHAR" />
      	 <result property="nickName" 		column="nickname"		 	 jdbcType="VARCHAR" />	 
      	 <!-- 게시물  -->
-     	 <result property="postNo" 			column="post_no"			 jdbcType="VARCHAR" />
+     	 <result property="postNo" 			column="post_no"			 jdbcType="NUMERIC" />
      	 <result property="title" 			column="title"				 jdbcType="VARCHAR" />
      	 <result property="photo"			column="photo" 				 jdbcType="VARCHAR" />
      	 <result property="video"			column="video" 				 jdbcType="VARCHAR" />
@@ -163,5 +163,12 @@
 				) countTable									
 	 </select>
 	  
+	  <update id="updateThumbnail" parameterType="com.wthealth.domain.Post">
+		UPDATE post
+		<set>
+			photo = #{photo:VARCHAR}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
 	  
 </mapper>

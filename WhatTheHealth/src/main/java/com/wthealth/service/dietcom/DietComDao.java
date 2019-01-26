@@ -19,8 +19,6 @@ public interface DietComDao {
 	
 	public void updateLikeCount(Post post) throws Exception;
 	
-	public void updateThumbnail(Post post) throws Exception;
-
 	public void deleteDietCom(int postNo) throws Exception;
 	
 	public List<Post> listDietComRecom(Search search) throws Exception;

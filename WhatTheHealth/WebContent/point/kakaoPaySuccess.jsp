@@ -94,8 +94,11 @@
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
 	
-	<div class="site-section bg-light">
+	<div class="site-section">
 	<div class="container">
+	<div class="row">
+	<div class="col-md-3"></div>
+		<div class="col-md-8">
 	
 	<div class="page-header text-center">
 	       <h3 class=" text-muted">충전이 완료되었습니다!</h3>
@@ -139,6 +142,7 @@
 		 
 		 </form>
 		</div>
+	</div>
 	</div>
  
 </body>

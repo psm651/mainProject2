@@ -44,14 +44,14 @@ public class MeetingServiceImpl implements MeetingService {
 		meetingDao.addMeetingPost(post);	
 	}*/
 
-	/*@Override
+	@Override
 	public void updateMeeting(Meeting meeting) throws Exception {
-		// TODO Auto-generated method stub
-	}*/
+		meetingDao.updateMeeting(meeting);
+	}
 
 	@Override
-	public void deleteMeeting(int postNo) throws Exception {
-		meetingDao.deleteMeeting(postNo);
+	public void deleteMeeting(String postSubNo) throws Exception {
+		meetingDao.deleteMeeting(postSubNo);
 	}
 
 	
