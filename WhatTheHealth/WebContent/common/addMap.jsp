@@ -364,10 +364,14 @@
 	 			var coordinate = yCoordinate+', '+xCoordinate;
 	 		
 	 			//주소정보 append 
-	 			var	appendInfo = '<div class="col-12 col-md-8" id="infoMap" name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+	 			
+	 			var	appendInfo =
+	 							'<div class="col-md-4">'+
+	 							'<div class="col-12 col-md-8" id="infoMap" name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
 	 							 '<div name="address" value="'+address+'" style="display:none;"/>'+
-	 							 '<div name="coordinate" value="'+coordinate+'" style="display:none;"/>'
-	 						
+	 							 '<div name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
+	 							 '</div>'
+	 							
 
 	 			var validation = $("#infoMap").val();
 	 			console.log(validation)
@@ -378,7 +382,7 @@
 	 				return
 	 			}
 	 			validation = null;
-	 			$(".modal-footer").append(appendInfo);
+	 			$(".modal-footer").before(appendInfo);
 	 			//add+게시물.jsp로 값전달
 	 			sendInfo(locationTagName, address, coordinate);
 	 		});
@@ -389,7 +393,7 @@
  	$(function(){
  		
  		$(document).on("click", "#infoMap", function(){
- 			
+ 				$("#infoMap").remove()
  		});
  		
  		
