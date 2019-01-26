@@ -23,7 +23,7 @@
         		placeholder : '내용을 입력해주세요.',
         		lang : 'ko-KR',
         		height: 500,
-        		width : 750,
+        		width : 720,
         		callbacks: {
                    onImageUpload: function(files) {
                 	   console.log(files)

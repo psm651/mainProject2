@@ -3,5 +3,9 @@
 =======
 /config/
 /log4j.properties
+<<<<<<< HEAD
 >>>>>>> refs/heads/new/jjbly
+=======
+>>>>>>> refs/heads/master
+>>>>>>> refs/remotes/origin/master
 /sql/

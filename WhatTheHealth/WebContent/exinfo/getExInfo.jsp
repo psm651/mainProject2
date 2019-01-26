@@ -216,13 +216,13 @@
               </div>  
               
               <!-- 다음맵지도 -->
-              <c:if test="${post.coordinate!=null}"></c:if>
+              <c:if test="${post.coordinate!=null}">
               <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">  
                         	
             	  <jsp:include page="/common/getMap.jsp" /> 
             	            
               </div>
-              
+              </c:if>
             <p class="mb-4">${post.contents}</p>
              
              <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
