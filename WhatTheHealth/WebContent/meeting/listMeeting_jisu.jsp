@@ -53,7 +53,7 @@
   });
   
    $(function() {
-		$("a[href='#' ]").on("click" , function() {
+		$("#addMeeting").on("click" , function() {
 			self.location = "/meeting/addMeeting";
 		});
 	});	
@@ -108,7 +108,7 @@
   </ul>
 </div>
      
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4" id="addMeeting">글쓰기</a></p>
    
         <br/>
         <div class="row mb-5">
