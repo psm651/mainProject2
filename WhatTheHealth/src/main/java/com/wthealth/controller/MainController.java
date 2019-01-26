@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.service.dietcom.DietComService;
-import com.wthealth.service.excom.ExComService;
 import com.wthealth.service.exinfo.ExInfoService;
 import com.wthealth.service.main.MainService;
 import com.wthealth.service.meeting.MeetingService;
@@ -38,9 +37,6 @@ public class MainController {
    @Autowired
    @Qualifier("exInfoServiceImpl")
    private ExInfoService exInfoService;
-   @Autowired
-   @Qualifier("exComServiceImpl")
-   private ExComService exComService;
    @Autowired
    @Qualifier("dietComServiceImpl")
    private DietComService dietComService;

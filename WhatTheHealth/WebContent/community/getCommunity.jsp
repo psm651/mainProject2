@@ -4,7 +4,7 @@
 <html>
 <head>
    
-   <title>식단 커뮤니티 게시물 조회페이지</title>
+   <title>커뮤니티 게시물 조회페이지</title>
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
@@ -139,9 +139,16 @@
           $( "a[href='#' ]:contains('수정')").on("click", function(){
                self.location="/community/updateCommunity?postNo=${post.postNo}"
             });
+          
+          if("${post.category == '2'}"){
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/community/deleteCommunity?postNo=${post.postNo}"
+               self.location="/community/deleteExCom?postNo=${post.postNo}"
             });
+	       }else if("${post.category == '3'}"){
+	    	   $( "a[href='#' ]:contains('삭제')").on("click", function(){
+	               self.location="/community/deleteExCom?postNo=${post.postNo}"
+	            });
+	       }
          });
        
    </script>
@@ -155,11 +162,11 @@
    <!-- 툴바 인클루드 시작! -->
    
    </div>
-   <div class="site-section">
+   <div class="site-section" >
       <div class="container">
       
-        <div class="row align-items-center">
-          <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
+        <div class="row align-items-center" style="height: auto; width: 100%; border:1px solid black;">
+          <div class="col-md-12 col-lg-8 mb-5 mb-lg-0">
             <h4 class="mb-3">${post.title}</h4>
              <small>좋아요 수  : ${post.likeCount}</small> 
              <small>조회 수 : ${post.clickCount}</small>
@@ -188,8 +195,8 @@
                 </div>
             
             <c:if test = "${user.userId == post.userId}">
-            <p><a href="#" class="btn btn-primary pill px-4">수정</a>
-            <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+	            <p><a href="#" class="btn btn-primary pill px-4">수정</a>
+	            <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
             </c:if>
           </div>
         </div>
