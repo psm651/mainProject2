@@ -95,4 +95,22 @@ public class MainServiceImpl implements MainService {
 			
 	}
 
+	@Override
+	public void updateYoutubeThumbnail(Post post) throws Exception {
+		String contents = post.getContents();
+		String photoName = contents.split("embed/")[1];
+		
+		photoName = photoName.split("\"")[0];
+		System.out.println("photoName"+photoName);
+		
+		String front = "https://i.ytimg.com/vi/";
+		String back = "/mqdefault.jpg";
+		
+		post.setPhoto(front +photoName+ back);
+		
+		mainDao.updateThumbnail(post);
+		
+	}
+	
+
 }

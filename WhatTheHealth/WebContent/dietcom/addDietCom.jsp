@@ -39,11 +39,12 @@
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	
 	<style>
-		#video {
-      width: 200px;
-      height: 100px;
-      border: 1px solid red;
+
+ 	 .giyong{
+ 	 	height : 720px;
+ 	 	overflow : hidden;
  	 }
+ 	 
 	</style>
 	
 <script type="text/javascript">
@@ -51,10 +52,6 @@
 	function fncAddDietCom(){
 
 		var title = $("input[name='title']").val();
-		
-		//var contents = $("input[name='contents']").val();
-		//var contents = $('#summernote').summernote('code');
-		//var contents = document.getElementById("contents").value; //글 내용 인식 못함.
 		var contents = $("textarea[name=contents]").val();
 		
 		if(title == null || title.length<1){
@@ -87,35 +84,45 @@
 		            part: "snippet",
 		            type: "video",
 		            q: $("#search").val().replace(/%20/g, "+"),
-		            maxResults: 3,
+		            maxResults: 10,
 		            order: "viewCount",
 		            publishedAfter: "2018-11-01T00:00:00Z"
 		       }); 
+		       
 		       // execute the request
 		       request.execute(function(response) {
-		          var results = response.result;
-		          console.log(results);
-		          $("#results").html("");
-		          $.each(results.items, function(index, item) {
+		    	  //var page = 1;
+		          var aa = response.result;
+		          console.log(aa);
+		          $("#aa").html("");
+		          
+		          $.each(aa.items, function(index, item) {
+		        	  /* $(window).scroll(function() {
+		                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		                    console.log(++page);
+		                     */
 		            $.get("../resources/tpl/item.html", function(data) {
-		                $("#results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+		                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 		            });
+		            
+		            /*  }
+		                     
+		              });  */
 		          });
-		          resetVideoHeight();
+		         resetVideoHeight();
 		       });
 		    });
 	       
-	       $(window).on("resize", resetVideoHeight);
+	      $(window).on("resize", resetVideoHeight);
 	   });
 	   
 	   function resetVideoHeight() {
-	       $(".video").css("height", $("#results").width() * 9/16);
+	      $(".video").css("height", $("#aa").width() * 9/16);
 	   }
 	   
 	   function init() {
 	       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
 	       gapi.client.load("youtube", "v3", function() {
-	           console.log("인잇 ㅠㅠ");
 	       });
 	   }
 	   
@@ -125,19 +132,30 @@
 		}
 	   
 	   ///////////////////////////Drag and Drop////////////////////////////////////////
-	   function dragover_handler(ev) {
-		 ev.preventDefault();
-		 // dropEffect를 move로 설정.
-		 ev.dataTransfer.dropEffect = "move"
-		}
-		function drop_handler(ev) {
-		 ev.preventDefault();
-		 // 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
-		 var data = ev.dataTransfer.getData("text");
-		 ev.target.appendChild(document.getElementById(data));
-		}
+	
+         function allowDrop(e) {
+		   console.log('allowDrop 들어옴');
+		   
+        	e.preventDefault();
+        	e.dataTransfer.setData("text/plain", e.target.id);
+        	e.dropEffect = "move";
+        } 
         
-
+        //var videoPlayer;
+        function handleDragStart(e) {
+        	console.log(' handleDragStart 들어옴');
+        	
+        	e.dataTransfer.effectAllowed = 'move';
+        	
+        	var zzz = e.target.id;
+        	
+        	var front = '<p><iframe frameborder="0" src="//www.youtube.com/embed/';
+        	
+        	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
+        	 e.dataTransfer.setData("text", front+ zzz +back);  
+            //videoPlayer = document.getElementById(event.target.id);
+        }
+       
 </script>
 
 </head>
@@ -173,7 +191,9 @@
               </div>
 
               <div class="row form-group">
-                <div class="col-md-12">
+                <!-- <div class="col-md-12" ondrop="handleDrop(event)" ondragover="allowDrop(event)"> -->
+                <div class="col-md-12" ondragover="allowDrop(event)">
+                <!-- <div class="col-md-12"> -->
                   <input type = "hidden" id="contents" name="contents">
 		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
                 </div>
@@ -184,39 +204,26 @@
           </div>
           </form>
           
-          <div class="col-lg-4">
-            <div class="p-4 mb-1 bg-white">
-            <div id="results" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">
+          <div class="col-lg-4 giyong">
+            <div class="p-4 mb-1 bg-white giyong" style="overflow:auto;">
+            
               <h3 class="h5 text-black mb-3 ">YouTube 검색창</h3>
-		<form name = "youtubeForm">
+				<form name = "youtubeForm">
                     <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
                     <p><input type="submit" value="search" class="form-control btn btn-success w100"></p>
-                   <!--  <p><button type="button" name="youtubeSearch" class="btn btn-success youtubeSearch">검색</button></p> -->
                 </form>
-                <!-- <div id="results" draggable="true" ondragstart="handleDragStart(event)"  controls="controls"></div> -->
+                <div id="aa" draggable="true" ondragstart="handleDragStart(event)" >
                 </div>
-              <!-- <form name="youtubeForm">
-              <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
-              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p> -->
-            <%--  <jsp:include page="/common/youtube.jsp"></jsp:include> --%>
-			  </form>
 			  </div>
             </div>
 
             </div>
            
-            
           </div>
         </div>
       </div>
     </div>
-              
-		<div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <!-- <button type="button" name="addContents" class="btn btn-danger">등록</button> -->
-				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
-		    </div>
-		  </div>
+
 	<script src="https://apis.google.com/js/client.js?onload=init" ></script>
 </body>
 </html>

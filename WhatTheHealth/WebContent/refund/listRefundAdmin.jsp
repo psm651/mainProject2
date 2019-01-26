@@ -144,16 +144,6 @@
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>환급 여부</strong></div>
                 <div class="col-sm-1 col-md-1 col-lg-1"><strong>관리</strong></div>
                 
-                <!-- <tr>
-                	<td align="center">No</td>
-                	<td align="center">은행명</td>
-                	<td align="center">계좌번호</td>
-                	<td align="center">금액</td>
-                	<td align="center">환급 신청한 날짜</td>
-                	<td align="center">환급 여부</td>
-                	<td align="center">관리</td>
-                </tr> -->
-                
               </div>
              </div>
                      
@@ -188,18 +178,6 @@
                 </div>	
               </div>
               
-             <%--  <tr>
-                	<td align="center">${i}</td>
-                	<td align="center">${refund.bankName}</td>
-                	<td align="center">${refund.accountNum}</td>
-                	<td align="center">${refund.refundMoney}원</td>
-                	<td align="center">${refund.refundReqDate}</td>
-                	<td align="center">${refund.refundDate}</td>
-                	<td align="center">
-                	<c:if test="${refund.refundStatus=='0'}">
-              	<button type="button" class="btn btn-primary pill text-white px-4" id="refundButton" onclick="fncUpdateRefundStatus(${refund.refundNo})">돈 주자</button>
-              	</c:if></td>
-                </tr> --%>
             </div>
             
              </c:forEach>

@@ -77,7 +77,10 @@ public class DietComController {
 			dietComService.addDietCom(post);
 			if(post.getContents().indexOf("upload/") != -1) {
 				mainService.updateThumbnail(post);
+			}else if(post.getContents().indexOf("embed/") != -1){
+				mainService.updateYoutubeThumbnail(post);
 			}
+			
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		
@@ -121,8 +124,9 @@ public class DietComController {
 			dietComService.addDietCom(post);
 			if(post.getContents().indexOf("upload/") != -1) {
 				mainService.updateThumbnail(post);
+			}else if(post.getContents().indexOf("embed/") != -1){
+				mainService.updateYoutubeThumbnail(post);
 			}
-			
 			return "redirect:/dietCom/getDietCom?postNo="+post.getPostNo();
 		}
 		

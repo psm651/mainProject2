@@ -99,7 +99,6 @@ CREATE TABLE post (
 	user_id	VARCHAR2(20)	NOT NULL	REFERENCES USERS(user_id),
 	post_date	DATE,
 	photo	VARCHAR2(100),
-	video	VARCHAR2(100),
 	click_count	NUMBER(10),
 	like_count	NUMBER(10),
 	blind_status	VARCHAR2(3),
