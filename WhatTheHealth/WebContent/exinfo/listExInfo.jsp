@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -136,11 +136,24 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white" data-param="${post.postNo}">
               <div class="image">
-                <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid">
+              	<c:if test="${empty post.photo}">
+                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
+                </c:if>
+                <c:set var="youtubeThumbnail" value="${post.photo}"/>
+                 
+                <c:if test="${!empty post.photo}">
+               		<c:choose>
+               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
+               				<img src="${post.photo}" class="img-fluid" width= "400;" height= "200;">
+               			</c:when>   
+               			<c:otherwise>
+               				<img src="/resources/images/upload/${post.photo}" class="img-fluid">
+               			</c:otherwise>            			
+               		</c:choose>
+                </c:if>
               </div>
-              <div class="text p-4">
-              	
-                <h2 class="h5 text-black"><a href="#">${post.title}</a></h2>
+              <div class="text p-6">
+                <h2 class="h3 text-black"><a href="#">${post.title}</a></h2>
                 <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
  				<p class="mb-0">${post.likeCount}</p>
                 <span class="text-uppercase date d-block mb-3">
@@ -148,7 +161,7 @@
                 </span>                
               </div>
             </div>
-          </div>    
+          </div>      
           
           
    </c:forEach> 

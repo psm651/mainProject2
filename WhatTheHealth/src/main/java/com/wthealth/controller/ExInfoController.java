@@ -18,6 +18,7 @@ import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
 import com.wthealth.service.exinfo.ExInfoService;
+import com.wthealth.service.main.MainService;
 
 @Controller
 @RequestMapping("/exInfo/*")
@@ -27,6 +28,10 @@ public class ExInfoController {
 	@Autowired
 	@Qualifier("exInfoServiceImpl")
 	private ExInfoService exInfoService;
+	
+	@Autowired
+	@Qualifier("mainServiceImpl")
+	private MainService mainService;
 	
 	public ExInfoController() {
 		System.out.println(this.getClass());
@@ -41,11 +46,14 @@ public class ExInfoController {
 	@RequestMapping(value="addExInfo", method=RequestMethod.POST)
 	public String addExInfo(@ModelAttribute("post") Post post) throws Exception{
 		
-			
 			//Business Logic
 			exInfoService.addExInfo(post);
-			System.out.println(post.getPostNo());
 			
+			if(post.getContents().indexOf("upload/") != -1) {
+				mainService.updateThumbnail(post);
+			}else if(post.getContents().indexOf("embed/") != -1){
+				mainService.updateYoutubeThumbnail(post);
+			}
 		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}
 	
@@ -75,6 +83,12 @@ public class ExInfoController {
 
 		exInfoService.updateExInfo(post);
 			
+		if(post.getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(post);
+		}else if(post.getContents().indexOf("embed/") != -1){
+			mainService.updateYoutubeThumbnail(post);
+		}
+		
 		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}	
 	@RequestMapping(value="listExInfo")
@@ -100,7 +114,7 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
-	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
+	/*@RequestMapping(value="listExInfo", method=RequestMethod.GET)
 	public String listExInfo(@RequestParam("exPart") String exPart, Model model) throws Exception{
 	
 		Search search = new Search();
@@ -122,7 +136,7 @@ public class ExInfoController {
 		model.addAttribute("search", search);
 				
 		return "forward:/exinfo/listExInfo.jsp";
-	}	
+	}	*/
 	
 
 }
