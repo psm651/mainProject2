@@ -38,16 +38,34 @@
 	<script src="../resources/js/app.js"></script>
 	
 	<style>
-
+	.glyphicon{
+	 width:20px;
+	 height: 20px;
+	}
    .img-fluid{
    	 width : 30px;
    	 height: 30px;
  	 }
+ 	#exPlace{
+ 	 width : 150px;
+ 	 margin-left : 17px;
+ 	}
     #exPart{
-   	width : 130px;
+   	width : 110px;
    	height: 30px;
 	}
-
+	#exCalorie{
+	width : 110px;
+   	height: 30px;
+	}
+	#exVideoTime{
+	width : 110px;
+   	height: 30px;
+	}
+	.giyong{
+ 	 	height : 720px;
+ 	 	overflow : hidden;
+ 	 }
 	</style> 
 <script type="text/javascript">
   
@@ -55,9 +73,7 @@
 // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
 // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
 // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-	function relayout() {    
-   		 map.relayout();
-	} 
+
   
 	function fncAddExInfo(){
 
@@ -90,29 +106,20 @@
 			return;
 		}  
 		
-		$("form").attr("method","POST").attr("action","/exInfo/addExInfo").submit();	
+		$("form[name=communityPost]").attr("method","POST").attr("action","/exInfo/addExInfo").submit();	
 	}
-	
-		
-	//============= "등록"  Event 연결 =============
-	 $(function() {
-		$( "button.btn.btn-primary" ).on("click" , function() {
-			fncAddExInfo();
-		});
-	});	
-	
-	
-	//============= "취소"  Event 처리 및  연결 =============
-	$(function() {
-		$("a[href='#' ]").on("click" , function() {
-			resetData();
-		});
-	});	
 
+	//============= "취소"  Event 처리 및  연결 =============
+	function resetData(){
+		self.location="/exInfo/listExInfo";
+	}
+	//============= 지도 =============
+	function relayout() {    
+   		 map.relayout();
+	} 	
 	//지도 Event 발생
 	$(function(){
 		$("button:contains('지도')").on("click", function(){
-				alert("버튼클릭")
 			 $('#mapModal').on('shown.bs.modal', function () { 
 					$('#mapModal').modal('show');
 					$(document).ready(function() {
@@ -126,24 +133,97 @@
 	});
 	
 	function sendInfo(locationTagName, address, coordinate){
-		console.log(locationTagName)
-		console.log(address)
-		console.log(coordinate)
  	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
  		$(function(){
- 		 var location = '<input type="text" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
- 		 
-					 '<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-			 		'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+ 		 var location = '<input type="hidden" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
  			
 			$("button:contains('확인')").on("click", function(){
-				var locationName = $("#infoMap").text();
-				$(".glyphicon").append(location);
+		//		$('.locationInfo').text(locationTagName);
+				$(".locationInfo").append(location);
+				
 				$("#mapModal").hide();
+				opener.document.getElementById("infoMap").empty()
 			});
 		});  
 	}
 	
+////////////////Youtube/////////////////////////////////////////////
+	function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+	   
+	   $(function() {
+		    $('form[name=youtubeForm]').on("submit", function(e) {
+		       e.preventDefault(); //추가적인 이벤트 (터치 이벤트나 포인터 이벤트) 가 일어나지 않도록 함.
+		       console.log(encodeURIComponent($("#search").val()));
+		       console.log($("#search").val());
+		       // prepare the request
+		       var request = gapi.client.youtube.search.list({
+		            part: "snippet",
+		            type: "video",
+		            q: $("#search").val().replace(/%20/g, "+"),
+		            maxResults: 10,
+		            order: "viewCount",
+		            publishedAfter: "2018-11-01T00:00:00Z"
+		       }); 
+		       
+		       // execute the request
+		       request.execute(function(response) {
+		    	  //var page = 1;
+		          var aa = response.result;
+		          console.log(aa);
+		          $("#aa").html("");
+		          
+		          $.each(aa.items, function(index, item) {
+		        	  /* $(window).scroll(function() {
+		                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		                    console.log(++page);
+		                     */
+		            $.get("../resources/tpl/item.html", function(data) {
+		                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+		            });
+		            
+		            /*  }
+		                     
+		              });  */
+		          });
+		         resetVideoHeight();
+		       });
+		    });
+	       
+	      $(window).on("resize", resetVideoHeight);
+	   });
+	   
+	   function resetVideoHeight() {
+	      $(".video").css("height", $("#aa").width() * 9/16);
+	   }
+	   
+	   function init() {
+	       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
+	       gapi.client.load("youtube", "v3", function() {
+	       });
+	   }
+	   
+	   function youtubeSearch(text){
+			console.log(text);
+			document.getElementById("search").append(text);
+		}
+	   
+	   ///////////////////////////Drag and Drop////////////////////////////////////////
+	
+        function handleDragStart(e) {
+        	console.log(' handleDragStart 들어옴');
+        	
+        	e.dataTransfer.effectAllowed = 'move';
+        	
+        	var zzz = e.target.id;
+        	
+        	var front = '<p><iframe frameborder="0" src="//www.youtube.com/embed/';
+        	
+        	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
+        	 e.dataTransfer.setData("text", front+ zzz +back);  
+            //videoPlayer = document.getElementById(event.target.id);
+        }
 	
 </script>
 
@@ -162,13 +242,13 @@
 
 	<div class="site-section bg-light">
       <div class="container">
-   <form>   
+   <form name="communityPost">  
 
       	<h4 class="info-title margin-five no-margin-top">운동꿀팁 게시글 등록하기</h4>
       	<br/>
         <div class="row">
        
-          <div class="col-md-12 col-lg-8 mb-5">
+          <div class="col-md-8 col-lg-8 mb-5">
  
           	  <div class="form-group">  
 				<select class="form-control" name="exPlace" id="exPlace" >
@@ -182,6 +262,8 @@
                 <div class="col-md-11 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
                </div>
+               
+               
                <div class="col-md-11 mb-5 mb-md-0">
                 	<input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
                 	<input type="hidden" class = "form-control" name="userId" value="${sessionScope.user.userId}"/>
@@ -189,11 +271,14 @@
                
              <div class="form-group"> 
                <div class="col-md-1 mb-5 mb-md-0">
+               		<span class="locationInfo"></span>
               	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">
          			 <span class="glyphicon glyphicon-map-marker"></span>지도
      			   </button>
      		   </div>
              </div>
+
+			<br/><br/><br/><br/>
 
               <div class="form-group">
                 <div class="col-md-12">
@@ -203,20 +288,24 @@
               </div>
               
            <div class="form-group">
+           	  <div>
                 <img src="/resources/images/upload/icons8-time-104.png" alt="Image" class="img-fluid">
-                <input type="text" class="form-control" name="exVideoTime" placeholder="재생시간">
+              </div>
+              <div>  
+                <input type="text" id="exVideoTime" class="form-control" name="exVideoTime" placeholder="재생시간">
+              </div>
             </div>  
              
           	<div class="form-group">
                 <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
-                <input type="text" class="form-control" name="exCalorie" placeholder="소모칼로리">
+                <input type="text" id="exCalorie" class="form-control" name="exCalorie" placeholder="소모칼로리">
             </div>  
              
              
             
               <div class="form-group">
                 <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">
-                <select class="form-control" name="exPart" >
+                <select class="form-control" id="exPart" name="exPart" >
 					<option value=null>운동부위</option>
 					<option value="0" >전신</option>
 					<option value="1" >복부</option>
@@ -227,32 +316,31 @@
             </div>  
              
               </div>
-              </div>
-</form>
+             <input type="submit" value="등록" onclick = "fncAddExInfo()" class="form-control btn btn-danger">
+			 <input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
+          <!-- </div> -->
+          </form>
           
-           <div class="col-lg-4">
-            <div class="p-4 mb-3 bg-white">
+          </div>
+          
+          <!-- <div class="container"> -->
+          
+           <div class="col-md-4 giyong">
+            <div class="p-4 mb-1 bg-white giyong" style="overflow:auto;">
+            
               <h3 class="h5 text-black mb-3 ">YouTube 검색창</h3>
-               <form name="youtubeForm">
-              <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
-              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p>
-			  </form>
-            </div> 
-
+				<form name = "youtubeForm">
+                    <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
+                    <p><input type="submit" value="search" class="form-control btn btn-success w100"></p>
+                </form>
+                <div id="aa" draggable="true" ondragstart="handleDragStart(event)" >
+                </div>
+			  </div>
             </div>
-           
+           <script src="https://apis.google.com/js/client.js?onload=init" ></script>
+         <!-- </div> -->
          </div>
           
-           
-         
-  
-              
-		<div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">등록</button>
-				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
-		    </div>
-		 </div>
 <!-- modal-dialog modal-80size modal-center -->
 
 	<!-- Modal -->
@@ -269,7 +357,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-outline-success" data-dismiss="modal" style="text-aling:left;">확인</button>
       </div>
     </div>
   </div>

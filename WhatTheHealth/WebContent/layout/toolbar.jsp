@@ -19,13 +19,33 @@
   <script src="/resources/js/aos.js"></script>
   <script src="/resources/js/main.js"></script>
   
+  <!-- ---------- 모달 -------- -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+ <!-- ---------- 모달 -------- -->
+  
   <!-- CDN(Content Delivery Network) 호스트 사용 -->
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		
 		$( "#login_toolbar").on("click", function(){
-			self.location = "/user/login"	
+			/* self.location = "/user/login"	 */
+			$('#loginModal').modal('show')
+			/*  $('#loginModal').on('shown.bs.modal', function () { 
+               $('#loginModal').modal('show');
+			 }); */
+			 
+/* 			$("#loginModal").modal('show').css({
+			    'margin-top': function () { //vertical centering
+			        return -($(this).height() / 2);
+			    },
+			    'margin-left': function () { //Horizontal centering
+			        return -($(this).width() / 2);
+			    }
+			}); */
 	 	 });
 		
 		$( "#logout_toolbar").on("click", function(){
@@ -68,7 +88,7 @@
 		 $(document).on("click", '#myschedule_toolbar', function() {
 			 if(${sessionScope.user == null}){				 
 				 alert("로그인이 필요한 서비스입니다.");
-				 self.location = "/user/login"
+				 //self.location = "/"
 			 } else if(${sessionScope.user != null}){
 				self.location = "/schedule/listSchedule"	//UserId??????????
 			 }
@@ -176,6 +196,17 @@
   #main {
   		color: white;
 		}
+		
+#loginModal{
+	height: 700px;
+	margin: 0 auto;
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+}	
+
   </style>
   
   <body>
@@ -217,7 +248,7 @@
                 </a> -->
                 <a href="#" class="d-flex align-items-center ml-auto mr-4"> 
                  <c:if test="${sessionScope.user == null}"> 
-                 <span class="icon-user mr-2" id="login_toolbar">&nbsp; Login</span>
+                 <span class="icon-user mr-2" id="login_toolbar" data-toggle="modal" data-target="#loginModal">&nbsp; Login</span>
                   </c:if>
                    <c:if test="${sessionScope.user != null}" > 
                    <span class="icon-user mr-2" id="logout_toolbar">&nbsp; Logout</span>
@@ -311,6 +342,24 @@
     </div>
     <!-- 툴바 인클루드 끝 -->
 <!-- </div> -->
+
+
+
+   <!-- Modal -->
+  <div class="modal modal-center fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size">
+      <div class="modal-header">Login
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+      
+     <jsp:include page="/user/login.jsp" />  
+        
+      </div>
+    </div>
+  </div>
+</div>  
 
 </body>
 </html>
