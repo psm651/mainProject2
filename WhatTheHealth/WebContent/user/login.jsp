@@ -23,7 +23,7 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
 	
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
@@ -54,7 +54,7 @@
 	<script src="/resources/js/bootstrap-datepicker.min.js"></script>
 	<script src="/resources/js/aos.js"></script>
 	
-	<script src="/resources/js/main.js"></script>
+	<script src="/resources/js/main.js"></script> -->
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<!-- <style>
@@ -152,39 +152,45 @@
 
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" />
+<%-- 	<jsp:include page="/layout/toolbar.jsp" /> --%>
    	<!-- ToolBar End /////////////////////////////////////-->	
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	 <div class="site-section">
 	<div class="container">
 		<!--  row Start /////////////////////////////////////-->
-	 		
-	 		<div class="row">
-	 		
-	 		<div class="col-md-3"></div>
-	 		<div class="col-md-6">
-	 		
-	 		
+	
 
-			        <form class="p-5 bg-white">
+			        <form class="form-horizontal">
 		  
 					  <div class="form-group">
+					    <div class ="row">
+					  <div class="col-sm-1"></div>
 					    <label for="userId" class="col-sm-4 control-label">아 이 디</label>
-					    <div class="col-sm-10">
+					    </div>
+					    <div class ="row">
+					    <div class="col-sm-1"></div>
+					    <div class="col-sm-10"">
 					      <input type="text" class="form-control" name="userId" id="userId"  placeholder="아이디" onkeypress="if(event.keyCode=='13'){fncLogin()}" >
 					    </div>
 					  </div>
+					  </div>
 					  
 					  <div class="form-group">
+					    <div class ="row">
+					  <div class="col-sm-1"></div>
 					    <label for="password" class="col-sm-4 control-label">패 스 워 드</label>
+					    </div>
+					    <div class ="row">
+					    <div class="col-sm-1"></div>
 					    <div class="col-sm-10">
 					      <input type="password" class="form-control" name="password" id="password" placeholder="패스워드" onkeypress="if(event.keyCode=='13'){fncLogin()}" >
 					    </div>
 					  </div>
+					    </div>
 					  
 					  <div class="form-group">
-					    <div class="col-md-10 mb-3 mb-md-2 text-center">
+					    <div class="col-md-12 mb-3 mb-md-2 text-center">
 					      <button type="button" class="btn btn-primary" id="login" >로 &nbsp;그 &nbsp;인</button>
 					      
 					      <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code';" 
@@ -199,7 +205,7 @@
 					  </div>
 					  
 					  <div class="form-group">
-					  	<div class="col-md-10 mb-3 mb-md-2 text-center">
+					  	<div class="col-md-12 mb-3 mb-md-2 text-center">
 					  	<a href="/user/addUser" class="col-sm-3">회원가입</a>|
 					    <a href="/user/findId" class="col-sm-3">아이디찾기</a>|
 					    <a href="/user/findPassword" class="col-sm-3">비밀번호찾기</a> 
