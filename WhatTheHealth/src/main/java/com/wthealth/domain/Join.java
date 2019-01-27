@@ -11,9 +11,11 @@ public class Join {
 	private String depoStatus;
 	private int meetNo;
 	private String partyId;
+	private String partyImage;
 	private String deleteStatus;
 	private String meetTime;
 	private String meetTitle;
+	
 	
 	///Constructor
 	public Join() {
@@ -93,11 +95,19 @@ public class Join {
 		this.meetTitle = meetTitle;
 	}
 
+	public String getPartyImage() {
+		return partyImage;
+	}
+
+	public void setPartyImage(String partyImage) {
+		this.partyImage = partyImage;
+	}
+
 	@Override
 	public String toString() {
 		return "Join [joinNo=" + joinNo + ", joinDate=" + joinDate + ", joinStatus=" + joinStatus + ", depoStatus="
-				+ depoStatus + ", meetNo=" + meetNo + ", partyId=" + partyId + ", deleteStatus=" + deleteStatus
-				+ ", meetTime=" + meetTime + ", meetTitle=" + meetTitle + "]";
+				+ depoStatus + ", meetNo=" + meetNo + ", partyId=" + partyId + ", partyImage=" + partyImage
+				+ ", deleteStatus=" + deleteStatus + ", meetTime=" + meetTime + ", meetTitle=" + meetTitle + "]";
 	}
 
 

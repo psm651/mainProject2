@@ -139,10 +139,7 @@
 				 self.location ="/exCom/getExCom?postNo="+postNo;
 				} else if(category == '3'){
 				 self.location ="/dietCom/getDietCom?postNo="+postNo;
-				} else if(category == '4'){
-				 self.location ="/meeting/getMeeting?postNo="+postNo;
 				}
-				
 			});
 						
 			

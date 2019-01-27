@@ -48,7 +48,7 @@
    $(function(){
   	$(".post-entry").on("click", function(){
   		var meetNo = $(this).data("param");
-  		self.location = "/meeting/getMeeting?meetNo="+meetNo;
+  		self.location = "/meeting/getMeetingMap?meetNo="+meetNo;
   	});
   });
   
@@ -64,7 +64,6 @@
 		});
 	}); */
   </script>
-  
   
   
   <body>

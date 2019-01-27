@@ -69,7 +69,7 @@
 				FROM favorite f, post p
 				WHERE f.post_no = p.post_no
 				AND f.favorite_type= '1'
-				AND f.user_id = #{userId}) inner_table
+				AND f.user_id = #{userId} AND p.category != '4') inner_table 
 		WHERE ROWNUM &lt;= #{search.endRowNum} )
 	</select> 
 	
@@ -90,7 +90,7 @@
 				FROM favorite f, post p
 				WHERE f.post_no = p.post_no
 				AND f.favorite_type= '1'
-				AND f.user_id = #{userId}
+				AND f.user_id = #{userId} AND p.category != '4'
 		) countTable
 	</select>
 	

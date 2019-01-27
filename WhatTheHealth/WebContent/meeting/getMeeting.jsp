@@ -4,7 +4,7 @@
 <html>
 <head>
    
-   <title>식단 커뮤니티 게시물 조회페이지</title>
+   <title>소모임 게시물 조회페이지</title>
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
