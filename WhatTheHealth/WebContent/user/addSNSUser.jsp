@@ -64,6 +64,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#join" ).on("click" , function() {
 				fncAddUser();
+				
 			});
 		});	
 		
@@ -95,6 +96,9 @@
 
 			alert("가입이 완료되었습니다.");
 			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			
+			opner.location.replce("/main.jsp");
+			self.close();
 		}
 		
 

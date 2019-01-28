@@ -101,7 +101,7 @@
   
   <div class="site-wrap">
 <!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" /> 
+	<jsp:include page="/layout/toolbar_jisu.jsp" /> 
    	<!-- ToolBar End /////////////////////////////////////-->
 <!-- 툴바 인클루드 시작! -->
   
