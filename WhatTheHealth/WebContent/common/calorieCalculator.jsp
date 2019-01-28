@@ -126,13 +126,13 @@
         	var num = tr.children("th").text();
 
         	var foodName = tr.children("td").eq(0).text();
- 			var amountFood = tr.children("td").eq(1).text();
+ 			var servingSize = tr.children("td").eq(1).text();
         	var foodCalorie = tr.children("td").eq(2).text();
 
 			var display =  "<tr><th scope='row'>"+index+"</th>"+
-	  							 "<td name='foodName' value='"+foodName+"'>"+foodName+"</td>"+
-		 						 "<td name='amountFood' value='"+amountFood+"'>"+amountFood+"</td>"+
-		 	 					 "<td name='foodCalorie' value='"+foodCalorie+"'>"+foodCalorie+"</td>"+
+	  							 "<td>"+foodName+"</td>"+
+		 						 "<td>"+servingSize+"</td>"+
+		 	 					 "<td>"+foodCalorie+"</td>"+
 					   			 "<td align='left'><button type='button' class='btn btn-default btn-sm'>삭제</a></td>"+
 					   	   "</tr>";
 			 $("#calculate").children("tbody").append(display);
@@ -162,57 +162,38 @@
 		
         });
      });   	
-	
-	$(function(){
-		$("btn:contains('저장')").on("click", function(){
-			$("form").attr("method","POST").attr("action", "/schedule/addDietSchedule").submit();
-		})
-	});
  			
-/*  	$(function(){
+	$(function(){
 
 		$("#bmiIcon").draggable();
 		$("#bmiIcon").droppable();
-	}) ;
- 	
- 	$(function(){
- 	
- 		$('#bmiIcon').on("click", function(){
- 			
- 		});
- 	}) */
- 	
+	});
 
 </script>
 
 </head>
 
 <body>
-	
-	<jsp:include page="/calculator/test.jsp" />
-	
-	
-	
+			
    	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/calorie.jpg');">
  		<div class="page-header">
 	       <h3 class=" text-info" align="center"><span>#WhatTheHealth 와 함께하는 칼로리계산</span></h3>
 	    </div>
  	</div>
  
-<!--  	 <img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon"> --> 
+ 	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon">
 
    	<div class="container">
 	
 		<br/><br/><br/>
 		
-	<form name="appendFood">	
-   		
+   		 <div class="form-group">
 		    <div class="row" id="keyword">
 		    	<div>
 		    		<span><h4><strong>KEYWORD</strong></h4></span>
 		    	</div>
 		    </div>
-		    <div class="row" id="input" style="margin-top:5px;">
+		    <div class="row" id="input">
 		    	<div>
 		    		<input type="text" class="form-control" id="searchFood" name="searchFood">
 		    	</div>
@@ -220,21 +201,17 @@
 		    		<button type="button" class="btn pull-right" >검색</button>
 				</div>
 			</div>
-			<div class="row">			
-			 	 <input type='text' class='datepicker-here' data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:800px;"/> 			
-		    	<span>추가된 총 칼로리 :</span><span id="amount" style="margin-right:800px;"></span>
-		    			 
-				<select class="form-control" name="mealTime">
-					<option value="0" >아침</option>
-					<option value="1" >점심</option>
-					<option value="2" >저녁</option>		
-				</select>   			
-		 	     <button type="button" id="schedule" class="btn pull-right" >저장</button> 
+			<div class="row">				
+			 	내스케줄 담기
+			 	 <input type='text' class='datepicker-here' data-language='en' name='dietScDate' value="${dietScDate}"/> 					
+		    </div>
+		    <div class="row">
+		    	<span>추가된 총 칼로리 :</span><span id="amount"></span>
 		    </div>
 		    
 		   </div>
 		    
-	   
+	    </div>
 
 <div class="container">
 
@@ -254,16 +231,15 @@
 </table>
 </div>
 
+<table class="table" id="calculate">
+  	<thead>
+    	<tr> 
+    	</tr>
+    </thead>
+    	<tbody>
+    	</tbody>
+</table>
 
-	<table class="table" id="calculate">
-  		<thead>
-    		<tr> 
-    		</tr>
-    		</thead>
-    		<tbody>
-    		</tbody>
-	</table>
-</form>
 </div>
 
 

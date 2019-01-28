@@ -110,4 +110,15 @@ public class MeetingServiceImpl implements MeetingService {
 		meetingDao.updateDeposit(joinNo);
 	}
 
+	@Override
+	public Map<String, Object> getMeetingMap(int meetNo) throws Exception {
+		Map<String, Object>	map = new HashMap<String, Object>();
+		map.put("meeting", meetingDao.getMeeting(meetNo));
+		map.put("joinlist", meetingDao.listJoin(meetNo));
+		
+		return map;
+	}
+	
+	
+
 }

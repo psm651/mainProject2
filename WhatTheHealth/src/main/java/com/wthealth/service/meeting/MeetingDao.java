@@ -49,6 +49,9 @@ public interface MeetingDao {
 	//SELECT ONE �Ҹ�������(�Ҹ��� �˸�)
 	public Join getJoin(int joinNo) throws Exception;
 	
+	//SELECT LIST
+	public List<Join> listJoin(int meetNo) throws Exception;
+	
 	//���� ���� ����
 	public void updateDeposit(int joinNo) throws Exception;
 }

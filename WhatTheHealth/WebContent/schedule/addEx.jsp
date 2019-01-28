@@ -9,12 +9,11 @@
 <script>
 $( function() {
 	$( ".btn-primary" ).on("click" , function() {
-		alert("123");
 		var exScName = $("#exScName").val();
 		var exScContents = $("#exScContents").val();
 		var exScCalorie = $("#exScCalorie").val();
-		alert(exScName);
-		alert(exScCalorie);
+		//alert(exScName);
+		//alert(exScCalorie);
 	        $.ajax( {
 	          url: "/schedule/json/addExSchedule",
 	          dataType: "json",
@@ -29,8 +28,36 @@ $( function() {
 	  			"Accept" : "application/json",
 	  			"Content-Type" : "application/json"},
 	  	   success: function( data ) {
-	  			alert("등록 완료");
-				self.close(); 
+	  		/*  var i = opener.$('#a').text('3241234');
+	  		alert(i);
+	  		$(opener.document).find("#a").val("value"); //방식 3
+
+ */
+
+	  		//alert(i);
+	  		/*  var today = new Date( data.exScDate).getDay();
+	  	    
+	  	    
+	  	    alert(today);
+	  	  $('#g').text('konnichiha'); */
+	  	  //document.getElementById(today).innerHTML ='<th id="0">칼로리2</th>';
+	  		/*  if(opener) {
+					opener.events({
+						title : $("#exScName").val(),
+						start : $("#exScDate").val()
+					})
+				
+				} */
+				//alert("이거오프너"+opener.$('#a').text().substring(opener.$('#a').text().indexOf('+')+1,opener.$('#a').text().lastIndexOf("kCal")));
+				//var exScDate=$("#exScDate").val()
+				//alert("add화면날짜"+exScDate);
+				//alert("add칼로리"+exScCalorie);
+				
+//자동으로바꾸는거 실패67		//var a=Number(opener.$("'#'+exScDate").text().substring(opener.$("'#'+exScDate").text().indexOf('+')+1,opener.$("'#'+exScDate").text().lastIndexOf("kCal")))+Number(exScCalorie);
+				alert("등록 완료!");
+				opener.location.reload();
+				// opener.$("'#'+exScDate").text('+'+a+' kCal');
+				 self.close();  
       		  } 
 	        } );
 	     

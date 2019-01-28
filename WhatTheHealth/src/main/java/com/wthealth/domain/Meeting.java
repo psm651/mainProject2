@@ -19,6 +19,7 @@ public class Meeting {
 	private String depoCondition;
 	private String meetTime;
 	private Date deadlineTime;
+	private Join join;
 	
 	///Constructor
 	public Meeting() {
@@ -137,12 +138,22 @@ public class Meeting {
 		this.deadlineTime = deadlineTime;
 	}
 
+	public Join getJoin() {
+		return join;
+	}
+
+	public void setJoin(Join join) {
+		this.join = join;
+	}
+
 	@Override
 	public String toString() {
 		return "Meeting [meetNo=" + meetNo + ", post=" + post + ", depoAmount=" + depoAmount + ", depoBank=" + depoBank
 				+ ", depoAccount=" + depoAccount + ", depoDeadline=" + depoDeadline + ", depoAccHolder=" + depoAccHolder
 				+ ", entryfee=" + entryfee + ", minParty=" + minParty + ", maxParty=" + maxParty + ", cheifId="
 				+ cheifId + ", depoCondition=" + depoCondition + ", meetTime=" + meetTime + ", deadlineTime="
-				+ deadlineTime + "]";
+				+ deadlineTime + ", join=" + join + "]";
 	}
+
+
 }

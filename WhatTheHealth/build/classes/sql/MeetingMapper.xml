@@ -29,7 +29,7 @@
 		<result property="post.title" 	column="title" 	jdbcType="VARCHAR" />
 		<result property="post.contents" 	column="contents" 	jdbcType="VARCHAR" />
 		<result property="post.photo"	column="photo" 	jdbcType="VARCHAR" />
-		<result property="post.video"	column="video" 	jdbcType="VARCHAR" />
+<!-- 		<result property="post.video"	column="video" 	jdbcType="VARCHAR" /> -->
 		<result property="post.clickCount" 	column="click_count" 	jdbcType="NUMERIC" />
 		<result property="post.blindStatus" 	column="blind_status" 	jdbcType="VARCHAR" />
 		<result property="post.deleteStatus"	column="delete_status"		jdbcType="VARCHAR" />
@@ -53,6 +53,7 @@
 		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
 		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
 		<result property="meetTitle" 		column="title" 			jdbcType="VARCHAR" />
+		<result property="partyImage" 		column="user_image" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="postSelectMap" 	type="com.wthealth.domain.Post">
@@ -62,7 +63,7 @@
 		<result property="title" 	column="title" 	jdbcType="VARCHAR" />
 		<result property="contents" 	column="contents" 	jdbcType="VARCHAR" />
 		<result property="photo"	column="photo" 	jdbcType="VARCHAR" />
-		<result property="video"	column="video" 	jdbcType="VARCHAR" />
+<!-- 		<result property="video"	column="video" 	jdbcType="VARCHAR" /> -->
 		<result property="clickCount" 	column="click_count" 	jdbcType="NUMERIC" />
 		<result property="blindStatus" 	column="blind_status" 	jdbcType="VARCHAR" />
 		<result property="deleteStatus"	column="delete_status"		jdbcType="VARCHAR" />
@@ -99,9 +100,9 @@
 	</insert>   -->
 	<insert 	id="addMeetingPost"		parameterType="com.wthealth.domain.Post" >
 	 	INSERT
-		INTO post (post_no, post_sub_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
+		INTO post (post_no, post_sub_no, user_id, title, contents, photo, click_count, blind_status, delete_status, like_count, 
 							category, post_date, locationtag_name, coordinate, address)
-		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, #{video:VARCHAR}, 0, NULL, '0', 0, '4', SYSDATE,
+		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, 0, NULL, '0', 0, '4', SYSDATE,
 							 #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 	</insert>
 
@@ -110,7 +111,7 @@
 		SELECT
 		m.meet_no , m.depo_amount , m.depo_bank , m.depo_account, m.depo_deadline, m.depo_acc_holder, m.entryfee, 
 									m.min_party, m.max_party, m.chief_id, m.depo_condition, m.meet_time, m.deadline_time, p.post_no,
-									p.user_id, p.title, p.contents, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
+									p.user_id, p.title, p.contents, p.photo, p.click_count, p.blind_status, p.delete_status, p.like_count, 
 									p.category, p.post_date, p.locationtag_name, p.coordinate, p.address
 		FROM meeting m, post p
 		WHERE  'ME'||m.meet_no = p.post_sub_no  and m.meet_no = #{value}
@@ -119,7 +120,7 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getMeetingPost"	parameterType="int"	resultMap="postSelectMap">
 		SELECT
-		post_no, user_id, title, contents, photo, video, click_count, blind_status, delete_status, like_count, 
+		post_no, user_id, title, contents, photo, click_count, blind_status, delete_status, like_count, 
 							category, post_date, locationtag_name, coordinate, address
 		FROM post
 		WHERE post_no = #{value}
@@ -150,7 +151,6 @@
 	   		title = #{title},
 			contents = #{contents},
 			photo = #{photo:VARCHAR},
-			video = #{video:VARCHAR},
 			category = #{category:VARCHAR},
 			post_date = #{postDate:DATE},
 			locationtag_name = #{locationTagName:VARCHAR},
@@ -184,9 +184,17 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getJoin"	parameterType="int"	resultMap="joinSelectMap">
 		SELECT
-		join_no , join_date , join_status , depo_status, post_no, party_id, delete_status 
+		join_no , join_date , join_status , depo_status, meet_no, party_id, delete_status 
 		FROM join
-		WHERE join_no = #{value}
+		WHERE join_no = #{value} 
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="listJoin"	parameterType="int"	resultMap="joinSelectMap">
+		SELECT
+		j.join_no , j.join_date , j.join_status , j.depo_status, j.meet_no, j.party_id, j.delete_status, u.user_image
+		FROM join j, users u
+		WHERE j.meet_no = #{value} AND j.party_id = u.user_id
 	 </select>
 	 
 	<!-- SQL : UPDATE -->
@@ -212,7 +220,7 @@
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT m.meet_no, p.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
-	  												p.user_id, p.title, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
+	  												p.user_id, p.title, p.photo, p.click_count, p.blind_status, p.delete_status, p.like_count, 
 													p.category, p.post_date
 											FROM meeting m, post p
 											<where>
@@ -265,7 +273,7 @@
 	 <select  id="getTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT m.meet_no, p.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
-	  												p.user_id, p.title, p.photo, p.video, p.click_count, p.blind_status, p.delete_status, p.like_count, 
+	  												p.user_id, p.title, p.photo, p.click_count, p.blind_status, p.delete_status, p.like_count, 
 													p.category, p.post_date
 											FROM meeting m, post p
 											<where>

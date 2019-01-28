@@ -83,6 +83,17 @@ public class MeetingController {
 		return "forward:/meeting/getMeeting.jsp"; 
 	}
 	
+	@RequestMapping(value="getMeetingMap", method=RequestMethod.GET)
+	public String getMeetingMap(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
+		System.out.println("/getMeetingMap: GET");
+		Map<String, Object>	map = meetingService.getMeetingMap(meetNo);
+		
+		model.addAttribute("meeting", map.get("meeting"));
+		model.addAttribute("joinlist", map.get("joinlist"));
+		
+		return "forward:/meeting/getMeetingMap.jsp"; 
+	}
+	
 	@RequestMapping(value = "updateMeeting", method= RequestMethod.GET)
 	public String updateMeeting(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
 		System.out.println("/updateMeeting : GET");
@@ -132,18 +143,18 @@ public class MeetingController {
 		
 		Meeting meeting = meetingService.getMeeting(meetNo);
 		if(meeting.getDepoCondition() == "1") {
-			join.setDepoStatus("0");	//선금 미입금
-			join.setJoinStatus("0");  //참여 대기상태
+			join.setDepoStatus("0");	//�꽑湲� 誘몄엯湲�
+			join.setJoinStatus("0");  //李몄뿬 ��湲곗긽�깭
 		}else {
-			join.setDepoStatus("9");  //선금없음
-			join.setJoinStatus("0"); //참여확정상태
+			join.setDepoStatus("9");  //�꽑湲덉뾾�쓬
+			join.setJoinStatus("0"); //李몄뿬�솗�젙�긽�깭
 		};
 		
 		join.setMeetTime(meeting.getMeetTime());
 		
 		
 		meetingService.addJoin(join);
-		return "redirect:/meeting/getMeeting?meetNo="+meetNo;
+		return "redirect:/meeting/getMeetingMap?meetNo="+meetNo;
 	}
 	
 	/*@RequestMapping(value="getJoin", method=RequestMethod.GET)
@@ -152,7 +163,7 @@ public class MeetingController {
 		Join join = meetingService.getJoin(joinNo);
 		model.addAttribute("join", join);
 		
-		return "forward" �̰� �� �ʿ�����..?
+		return "forward" 占싱곤옙 占쏙옙 占십울옙占쏙옙占쏙옙..?
 	}*/
 	
 	@RequestMapping(value="deleteJoin", method=RequestMethod.GET)

@@ -36,8 +36,45 @@
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	<script src="../resources/js/app.js"></script>
-	
+	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<style>
+ 
+
+	#sub {width:200px; height:30px; background:pink;
+
+     border-radius:10px;
+		
+	 padding-top:5px;
+		
+     opacity:.8;
+     
+     position:absolute;
+     
+     top:30px; left:550px;
+     }
+
+#sub:before {
+
+     border-top: 10px solid pink;
+
+     border-left: 10px solid transparent; 
+
+     border-right: 10px solid transparent; 
+
+     border-bottom:0 solid transparent; 
+
+     content: ""; 
+
+    position:absolute;
+
+    top:30px; left:160px;
+
+}
+
+	.btn-outline-success{
+		border:1px solid #bfff00;
+	}	
 	.glyphicon{
 	 width:20px;
 	 height: 20px;
@@ -47,19 +84,19 @@
    	 height: 30px;
  	 }
  	#exPlace{
- 	 width : 150px;
+ 	 width:130px;
  	 margin-left : 17px;
  	}
     #exPart{
-   	width : 110px;
+ 
    	height: 30px;
 	}
 	#exCalorie{
-	width : 110px;
+
    	height: 30px;
 	}
 	#exVideoTime{
-	width : 110px;
+
    	height: 30px;
 	}
 	.giyong{
@@ -125,31 +162,36 @@
 					$(document).ready(function() {
 						 relayout();
 					}); 
+						
 
 			});
 
 		});
 		
 	});
-	
+	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
 	function sendInfo(locationTagName, address, coordinate){
- 	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
+ 	
  		$(function(){
- 		 var location = '<input type="hidden" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+ 		 var location = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
 						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
 			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
- 			
+			 			
 			$("button:contains('확인')").on("click", function(){
-		//		$('.locationInfo').text(locationTagName);
-				$(".locationInfo").append(location);
-				
+	     		
+			    var locationInfo = $("#sub").text();
+			    if(locationInfo != null || locationInfo!=''){
+			    	$(".locationInfo").remove();
+				}
+			    $('#sub').text(locationTagName);
+				$('#sub').append(location);
 				$("#mapModal").hide();
-				opener.document.getElementById("infoMap").empty()
+				
 			});
 		});  
 	}
 	
-////////////////Youtube/////////////////////////////////////////////
+	////////////////Youtube/////////////////////////////////////////////
 	function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
 	   
 	   $(function() {
@@ -258,20 +300,25 @@
 				</select>   			
 		 	  </div>		        
          
-             <div class="form-group">
-                <div class="col-md-11 mb-5 mb-md-0">
+             	<div class="form-group">
+                  <div class="col-md-11 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
                </div>
                
-               
+               <div class="form-group">
                <div class="col-md-11 mb-5 mb-md-0">
                 	<input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
                 	<input type="hidden" class = "form-control" name="userId" value="${sessionScope.user.userId}"/>
                </div>
+               </div>
+               
+           	<div class="form-group">
+              <div id="sub" style="text-align:center;"></div> 
+               </div>
+               
                
              <div class="form-group"> 
                <div class="col-md-1 mb-5 mb-md-0">
-               		<span class="locationInfo"></span>
               	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">
          			 <span class="glyphicon glyphicon-map-marker"></span>지도
      			   </button>
@@ -286,25 +333,33 @@
 		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
                 </div>
               </div>
+       
               
+       <div class="col-md-1" >       
+     		<img src="/resources/images/upload/icons8-time-104.png" alt="Image" class="img-fluid">
+       </div>
+       <div class="col-md-3">
            <div class="form-group">
-           	  <div>
-                <img src="/resources/images/upload/icons8-time-104.png" alt="Image" class="img-fluid">
-              </div>
-              <div>  
-                <input type="text" id="exVideoTime" class="form-control" name="exVideoTime" placeholder="재생시간">
-              </div>
+             <input type="text" id="exVideoTime" class="form-control" name="exVideoTime" placeholder="재생시간">
             </div>  
-             
-          	<div class="form-group">
-                <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
-                <input type="text" id="exCalorie" class="form-control" name="exCalorie" placeholder="소모칼로리">
-            </div>  
-             
-             
-            
+       </div>   
+     
+      <div class="col-md-1">
+     	 <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
+      </div>
+      <div class="col-md-3">
+         <div class="form-group">
+             <input type="text" id="exCalorie" class="form-control" name="exCalorie" placeholder="소모칼로리">
+          </div>  
+      </div>         
+     
+      <div class="col-md-1">
+     	 <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">   
+     </div>   
+ 
+          <div class="col-md-3">  
               <div class="form-group">
-                <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">
+               
                 <select class="form-control" id="exPart" name="exPart" >
 					<option value=null>운동부위</option>
 					<option value="0" >전신</option>
@@ -313,7 +368,10 @@
 					<option value="3" >하체</option>	
 					<option value="4" >스트레칭</option>		
 				</select>                 
-            </div>  
+            </div> 
+            </div> 
+        
+            
              
               </div>
              <input type="submit" value="등록" onclick = "fncAddExInfo()" class="form-control btn btn-danger">
@@ -349,21 +407,25 @@
     <div class="modal-content modal-80size">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">위치태그 등록</h4>
+        <h4 class="modal-title" id="myModalLabel" style="text-align:left">위치태그 등록</h4>
       </div>
       <div class="modal-body">
       
-    <jsp:include page="/common/addMap.jsp" /> 
+    	<jsp:include page="/common/addMap.jsp" /> 
         
       </div>
+      
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success" data-dismiss="modal" style="text-aling:left;">확인</button>
+    		
+       		 <button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+       		
       </div>
+      
     </div>
   </div>
 </div>   
                
-     <!--  ///////////// -->   
+
            
   
 	

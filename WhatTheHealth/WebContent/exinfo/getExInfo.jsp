@@ -238,8 +238,11 @@
                    </div>
                 </div>
             
-            <p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo }">수정</a>
-            <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+            <c:if test="${sessionScope.user.role == 'admin'}">
+            	<p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo }">수정</a>
+        	    <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+            </c:if>
+            
           </div>
         </div>
       </div>

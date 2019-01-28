@@ -31,9 +31,9 @@ public class ExScheduleServiceImpl implements ExScheduleService {
 	///Method
 	@Override
 	public void addExSchedule(ExSchedule exSchedule) throws Exception {
-		System.out.println("¿©±â¿Ô´ç!!!");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Ô´ï¿½!!!");
 		 exScheduleDao.addExSchedule(exSchedule);
-		 System.out.println("¿©±âµµ¿Í¾Ò´Ù!!!!");
+		 System.out.println("ï¿½ï¿½ï¿½âµµï¿½Í¾Ò´ï¿½!!!!");
 	}
 
 	@Override
@@ -54,14 +54,14 @@ public class ExScheduleServiceImpl implements ExScheduleService {
 	}
 
 	@Override
-	public void getExHistoryChart(String userId) throws Exception {
-		// TODO Auto-generated method stub
+	public List<ExSchedule> getExHistoryChart(String userId) throws Exception {
+		return exScheduleDao.listExSchedule(userId);
 		
 	}
 
 	@Override
-	public void deleteExSchedule(int exScNo) throws Exception {
-		exScheduleDao.deleteExSchedule(exScNo);
+	public int deleteExSchedule(int exScNo) throws Exception {
+		return exScheduleDao.deleteExSchedule(exScNo);
 		
 	}
 

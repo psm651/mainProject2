@@ -77,8 +77,9 @@ public class DietSchedule {
 	public String toString() {
 		return "DietSchedule [dietScNo=" + dietScNo + ", userId=" + userId + ", food=" + food + ", dietScDate="
 				+ dietScDate + ", bmi=" + bmi + ", dietScCalorie=" + dietScCalorie + ", mealTime=" + mealTime
-				+ ", weight=" + weight + "]";
+				+ ", weight=" + weight + ", deleteStatus=" + deleteStatus + "]";
 	}
+	
 	
 	
 }

@@ -64,6 +64,99 @@
 			self.location = "/exinfo/addExInfo.jsp" 
 		});
 	});	
+   
+   $(function(){
+	  $(document).on("click", ".post-entry", function(){
+		var postNo=$(this).data("param");
+		self.location = "/exInfo/getExInfo?postNo="+posetNo;
+	  });
+   });
+   
+   
+   
+   
+var currentPage=1;
+   
+   
+   $(window).scroll(function(){
+      
+      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+      alert("")
+    	  currentPage++;
+
+      $.ajax({
+         
+         url: "/exinfo/json/listExInfo",
+         method: "POST",
+         data: JSON.stringify({
+            currentPage: currentPage+1 ,            
+            searchCondition: $("#searchCondition").val(),
+            searchKeyword: $("#searchKeyword").val(),
+        	exPart : $("#exPart").val()
+            
+         }),
+         dataType: "json",
+         headers : {
+            "Accept" : "application/json",
+            "Content-Type" : "application/json"
+         },
+         success : function(JSONData , status){
+  					console.log(JSONdata)
+                  var list = JSONData["list"];
+                  currentPage++;
+         }        
+         /*    list.forEach(function(item, index, array){
+                     
+                  
+                 	 var appen = ""; 
+                	  
+                    '<div class="col-md-6 col-lg-4 mb-4">'+
+                     '<div class="post-entry bg-white" data-param="${post.postNo}">'+
+                       '<div class="image">'+
+                       		if(item)
+                       	<c:if test="${empty post.photo}">
+                             <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
+                         </c:if>
+                         <c:set var="youtubeThumbnail" value="${post.photo}"/>
+                          
+                         <c:if test="${!empty post.photo}">
+                        		<c:choose>
+                        			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
+                        				<img src="${post.photo}" class="img-fluid" width= "400;" height= "200;">
+                        			</c:when>   
+                        			<c:otherwise>
+                        				<img src="/resources/images/upload/${post.photo}" class="img-fluid">
+                        			</c:otherwise>            			
+                        		</c:choose>
+                         </c:if>
+                       </div>
+                       <div class="text p-6">
+                         <h2 class="h3 text-black"><a href="#">${post.title}</a></h2>
+                         <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
+          				<p class="mb-0">${post.likeCount}</p>
+                         <span class="text-uppercase date d-block mb-3">
+                         <small>${post.nickName}</small>
+                         </span>                
+                       </div>
+                     </div>
+                   </div>                      	 
+                	 
+                	 
+                	 
+                     $("#enters").append(" <div class='col-sm-6 col-md-3'> <br/> <div class='thumbnail' style='height:400px;'>  <br/> <img src='/images/uploadFiles/"+item['fileName']+"' style='height:200px;'>"+
+                           "<div class='caption'> <h3>"+item['prodName']+"</h3> <p>"+item['prodDetail']+"</p> <br/> <p><button type='button' class='btn btn-primary'  data-param4 ="+item['prodNo']+" data-param5 = "+item['proTranCode']+">상세정보</button>"+
+                           " </p> </div>   </div>  </div>");
+                  });     */
+                      
+           
+         })         
+      }
+      
+      
+      
+   });
+ 
+   
   </script>
   
   
@@ -89,9 +182,10 @@
       <h3><strong>운동부위</strong></h3>
       </c:if>
 
-      <form class="form-inline" name="detailForm">        	
+      <form class="form-inline" name="detailForm">       
+       	
 		<div class="form-group">  
-			<select class="form-control" name="exPart" onchange="javascript:fncGetExPart('1');" >
+			<select class="form-control" id="exPart" name="exPart" onchange="javascript:fncGetExPart('1');" >
 				<option value=null>카테고리</option>
 				<option value="0" ${!empty post.exPart && post.exPart =='0' ? "selected" : "" }>전신</option>
 				<option value="1" ${!empty post.exPart && post.exPart =='1' ? "selected" : "" }>복부</option>
@@ -99,13 +193,30 @@
 				<option value="3" ${!empty post.exPart && post.exPart =='3' ? "selected" : "" }>하체</option>	
 				<option value="4" ${!empty post.exPart && post.exPart =='4' ? "selected" : "" }>스트레칭</option>		
 			</select>   			
-		 </div>       
+		 </div> 
+		 
+		<div class="form-group">
+			<select class="form-control" id="searchCondition"name="searchCondition" >		
+				<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
+				<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
+			</select>
+       </div>
+					  
+	   <div class="form-group" style="align:right">
+	     	<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
+					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+	   </div>
+        
+           <button type="button" class="btn btn-info">검색</button>
+        		
+           <input type="hidden" id="currentPage" name="currentPage" value=""/>		 
+		       
 	  </form> 	      
       <hr/>
       <br/>
       
 <!-- Split button -->
-<div class="btn-group">
+<!-- <div class="btn-group">
   <button type="button" class="btn btn-danger">Action</button>
   <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     <span class="caret"></span>
@@ -118,7 +229,7 @@
     <li class="divider"></li>
     <li><a href="#">Separated link</a></li>
   </ul>
-</div>
+</div> -->
      
      
      <c:if test="${sessionScope.user.role == 'admin'}">

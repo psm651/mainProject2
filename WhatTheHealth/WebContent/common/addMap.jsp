@@ -8,7 +8,7 @@
 
 </head>
 
-   
+ 
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services,clusterer,drawing"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493"></script>
@@ -51,7 +51,7 @@
 	#pagination a {display:inline-block;margin-right:10px;}
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
 	.item:hover{background-color : 	#F0E68C;}
-	
+
 </style>
    
    
@@ -68,15 +68,16 @@
    var markers = [];
    var mapContainer = null;
    var placePosition =null;
-   
+    
    $(function(){
-	   
+	  
       mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-       mapOption = {
+     
+      mapOption = {
            center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
            level: 3 // 지도의 확대 레벨
-       };  
-
+      };  
+    
       // 지도를 생성합니다    
       map = new daum.maps.Map(mapContainer, mapOption); 
       
@@ -366,23 +367,21 @@
 	 			//주소정보 append 
 	 			
 	 			var	appendInfo =
-	 							'<div class="col-md-4">'+
-	 							'<div class="col-12 col-md-8" id="infoMap" name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+	 				'<button type="button" class="btn btn-light btn-sm" id="infoMap" name="locationTagName" value="'+locationTagName+'" >'+
+	 						'<h6>'+locationTagName+'</h6>'+
 	 							 '<div name="address" value="'+address+'" style="display:none;"/>'+
 	 							 '<div name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
-	 							 '</div>'
+	 							 '</button>'
 	 							
 
-	 			var validation = $("#infoMap").val();
-	 			console.log(validation)
-	 			
-	 			
+	 		 	var validation = $("#infoMap").val();
+
 	 			if(validation!=null){
-	 				alert("위치는 한 곳만 등록이 가능합니다.")
+	 				swal("위치는 한 곳만 등록이 가능합니다.");
 	 				return
 	 			}
 	 			validation = null;
-	 			$(".modal-footer").before(appendInfo);
+	 			$(".modal-footer button").before(appendInfo);
 	 			//add+게시물.jsp로 값전달
 	 			sendInfo(locationTagName, address, coordinate);
 	 		});
@@ -393,7 +392,7 @@
  	$(function(){
  		
  		$(document).on("click", "#infoMap", function(){
- 				$("#infoMap").remove()
+ 			$("#infoMap").remove();
  		});
  		
  		

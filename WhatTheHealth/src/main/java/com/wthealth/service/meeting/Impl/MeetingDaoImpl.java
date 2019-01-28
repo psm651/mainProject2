@@ -117,4 +117,11 @@ public class MeetingDaoImpl implements MeetingDao {
 
 	}
 
+	@Override
+	public List<Join> listJoin(int meetNo) throws Exception {
+		return sqlSession.selectList("MeetingMapper.listJoin", meetNo);
+	}
+	
+	
+
 }

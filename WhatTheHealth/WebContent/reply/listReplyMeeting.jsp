@@ -9,7 +9,7 @@
 <!-- <title>Insert title here</title> -->
 
 <!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
 	
 <!--  -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<!--  <script src="/resources/js/jquery-3.3.1.min.js"></script>
   <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/js/jquery-ui.js"></script>
   <script src="/resources/js/popper.min.js"></script>
@@ -27,24 +27,21 @@
   <script src="/resources/js/jquery.stellar.min.js"></script>
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
   <script src="/resources/js/aos.js"></script>
-
-  <script src="/resources/js/main.js"></script>
+  <script src="/resources/js/main.js"></script> -->
 	
     <title>IronMuscle &mdash; Colorlib Website Template</title>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     
@@ -222,7 +219,7 @@
 </head>
 <body>
 <!-- ///////////////////////////////////////////////// AJAX ///////////////////////////////////////////////// -->
-<div class="container">
+<!-- <div class="container"> -->
        <!--  <label for="content">reply</label> -->
         <form name="replyInsertForm">
             <div class="input-group">
@@ -233,11 +230,11 @@
                </span>
               </div>
         </form>
-    </div>
+   <!--  </div> -->
     
-    <div class="container">
+   <!--  <div class="container"> -->
         <div class="replyList"></div>
-    </div>
+   <!--  </div> -->
 </div>
 
 <!-- ////////////////////////////////////////////// 그냥 컨트롤러 //////////////////////////////////////////// -->
