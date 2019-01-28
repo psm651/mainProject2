@@ -40,7 +40,12 @@ public interface MeetingService {
 	public Map<String , Object> listJoinedMeeting(Search search, String partyId) throws Exception;
 		
 	//SELECT ONE �Ҹ������� (�Ҹ��� �˸�)
-	public Join getJoin(int joinNo) throws Exception;
+	public Join getJoin(int meetNo) throws Exception;
+	
+	//SELECT LIST
+	//public List<Join> listJoin(int meetNo) throws Exception;
+	
+	public Map<String , Object> getMeetingMap(int meetNo) throws Exception;
 	
 	//���� ���� ����
 	public void updateDeposit(int joinNo) throws Exception;

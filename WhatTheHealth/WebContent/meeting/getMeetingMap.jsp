@@ -18,11 +18,10 @@
     <link rel="stylesheet" href="../resources/css/jquery-ui.css">
     <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="../resources/css/animate.css">
     
     <link rel="stylesheet"  href="../resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css">
+    <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
    
@@ -157,6 +156,15 @@
          });
        
    </script>
+   
+   <!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+ 	#user_image{ 
+		max-width:120%;
+    	border-radius: 100px;
+	}
+     </style> 
+  
 </head>
 <body>
    
@@ -169,7 +177,7 @@
    </div>
    <div class="site-section bg-light">
        <div class="container"> 
-      
+     <div class="row"> 
         <!-- <div class="row align-items-center"> -->
         <div class="col-md-12 col-lg-8 mb-5">
           <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->
@@ -274,8 +282,6 @@
                 
                  <p class="col-md-12 mb-4">${meeting.post.contents}</p>
          
-           
-           
             
              <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
                 <div class="favoriteListHere">
@@ -296,16 +302,67 @@
               </c:if >
               </div>
               
-               
+              
+           
+            
             </div>
-            
-            
+            <!-- 참여 리스트 추가추가  -->
+             <div class=" col-md-12 col-lg-4 mb-5" >
+             <div class="row">
+             <div class="col-md-12 mb-5" align="center"><h4>참여자 목록</h4></div>
+             </div>
+             <div class="joinlist_container">
+             <c:set var="i" value="0"/>
+          <c:set var="i" value="${i+1}"/>
+          <c:forEach var="join" items="${joinlist}"> 
+            <div class="row">
+	  		
+		
+	  		<c:if test="${join.partyImage != null and join.partyImage != '' }">
+			<div class="col-md-3"><img src = "/resources/images/userImage/${join.partyImage}" align="middle" height="60" id="user_image"/></div>
+			</c:if>
+			
+			<c:if test="${join.partyImage == null or join.partyImage == '' }">
+			<div class="col-md-3"><img src = "/resources/images/userImage/defaultUser.png" align="middle" height="60" id="user_image"/></div>
+			</c:if>
+			
+			<div class="col-md-4 mb-5"><h4>${join.partyId}</h4></div>
+			
+			</div>
+			</c:forEach>
+			</div>
+			 
+			<!-- 채팅방 인클루드 -->
+			 <div class="row">
+			<div class="col-md-12 mb-5"  >
+			<%@ include file="/socket/groupChatting.jsp" %>
+			</div> 
+			</div> 
+			</div>
+            </div> 
+            <!-- 참여 리스트 추가추가  -->
+     
+          <div class="row">
+        <!-- <div class="row align-items-center"> -->
+        	<div class="col-md-12 col-lg-8 mb-5">
+         		 <jsp:include page="/reply/listReplyMeeting.jsp" />  
+           </div>
+           
+           <!-- <div class="col-lg-4"> -->
+             
+             <!-- <div class="row"> -->
+             <%-- <div class="col-lg-4">
+             <%@ include file="/socket/groupChatting.jsp" %>
+			</div>  --%>
+		<!-- 	</div> -->
+            <!-- </div> -->
           </div>
+         
          </div> 
-      </div>
+    
 
 
-   <jsp:include page="/reply/listReplyMeeting.jsp" /> 
+    
 
 </body>
 </html>
