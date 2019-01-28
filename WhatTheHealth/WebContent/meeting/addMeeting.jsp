@@ -338,7 +338,7 @@ $('#timepicker-actions-exmpl').data('datepicker')
           </div>
         </div>
       </div>
-    </div>
+    
               
 		<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">

@@ -9,11 +9,13 @@ public class Join {
 	private Date joinDate;
 	private String joinStatus;
 	private String depoStatus;
-	private int postNo;
+	private int meetNo;
 	private String partyId;
+	private String partyImage;
 	private String deleteStatus;
-	private Date meetTime;
+	private String meetTime;
 	private String meetTitle;
+	
 	
 	///Constructor
 	public Join() {
@@ -52,12 +54,12 @@ public class Join {
 		this.depoStatus = depoStatus;
 	}
 
-	public int getPostNo() {
-		return postNo;
+	public int getMeetNo() {
+		return meetNo;
 	}
 
-	public void setPostNo(int postNo) {
-		this.postNo = postNo;
+	public void setMeetNo(int meetNo) {
+		this.meetNo = meetNo;
 	}
 
 	public String getPartyId() {
@@ -77,11 +79,11 @@ public class Join {
 	}
 
 	
-	public Date getMeetTime() {
+	public String getMeetTime() {
 		return meetTime;
 	}
 
-	public void setMeetTime(Date meetTime) {
+	public void setMeetTime(String meetTime) {
 		this.meetTime = meetTime;
 	}
 
@@ -93,10 +95,20 @@ public class Join {
 		this.meetTitle = meetTitle;
 	}
 
+	public String getPartyImage() {
+		return partyImage;
+	}
+
+	public void setPartyImage(String partyImage) {
+		this.partyImage = partyImage;
+	}
+
 	@Override
 	public String toString() {
 		return "Join [joinNo=" + joinNo + ", joinDate=" + joinDate + ", joinStatus=" + joinStatus + ", depoStatus="
-				+ depoStatus + ", postNo=" + postNo + ", partyId=" + partyId + ", deleteStatus=" + deleteStatus
-				+ ", meetTime=" + meetTime + ", meetTitle=" + meetTitle + "]";
+				+ depoStatus + ", meetNo=" + meetNo + ", partyId=" + partyId + ", partyImage=" + partyImage
+				+ ", deleteStatus=" + deleteStatus + ", meetTime=" + meetTime + ", meetTitle=" + meetTitle + "]";
 	}
+
+
 }

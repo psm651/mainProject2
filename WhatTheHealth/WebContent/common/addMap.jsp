@@ -8,7 +8,7 @@
 
 </head>
 
-   
+ 
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services,clusterer,drawing"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493"></script>
@@ -51,7 +51,7 @@
 	#pagination a {display:inline-block;margin-right:10px;}
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
 	.item:hover{background-color : 	#F0E68C;}
-	
+
 </style>
    
    
@@ -60,8 +60,7 @@
    
 
 
-  
-  
+
    var infowindow = null;
    var map = null;
    var ps = null;
@@ -69,23 +68,28 @@
    var markers = [];
    var mapContainer = null;
    var placePosition =null;
-   
+    
    $(function(){
-	   
+	  
       mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-       mapOption = {
+     
+      mapOption = {
            center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
            level: 3 // 지도의 확대 레벨
-       };  
-
+      };  
+    
       // 지도를 생성합니다    
       map = new daum.maps.Map(mapContainer, mapOption); 
+      
+
+      
+  
       // 장소 검색 객체를 생성합니다
       ps = new daum.maps.services.Places(); 
       
        // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       infowindow = new daum.maps.InfoWindow({zIndex:1});
-
+     
       searchPlaces();
 
    });
@@ -353,16 +357,46 @@
 	 			var li =  $(this).closest("li");
 
 	 			
-	 			var placeName = li.children("div").children("h5").text();
+	 			var locationTagName = li.children("div").children("h5").text();
 	 			var address = li.children("div").children("span:nth-child(2)").text();
 	 			var yCoordinate = li.children("#ycoordinate").text();
 	 			var xCoordinate = li.children("#xcoordinate").text();
 	 			
 	 			var coordinate = yCoordinate+', '+xCoordinate;
-	 			console.log(coordinate)
+	 		
+	 			//주소정보 append 
+	 			
+	 			var	appendInfo =
+	 				'<button type="button" class="btn btn-light btn-sm" id="infoMap" name="locationTagName" value="'+locationTagName+'" >'+
+	 						'<h6>'+locationTagName+'</h6>'+
+	 							 '<div name="address" value="'+address+'" style="display:none;"/>'+
+	 							 '<div name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
+	 							 '</button>'
+	 							
+
+	 		 	var validation = $("#infoMap").val();
+
+	 			if(validation!=null){
+	 				swal("위치는 한 곳만 등록이 가능합니다.");
+	 				return
+	 			}
+	 			validation = null;
+	 			$(".modal-footer button").before(appendInfo);
+	 			//add+게시물.jsp로 값전달
+	 			sendInfo(locationTagName, address, coordinate);
 	 		});
-	 	
+
 	 	});
+ 	
+ 	//추가된 장소 삭제 이벤트 
+ 	$(function(){
+ 		
+ 		$(document).on("click", "#infoMap", function(){
+ 			$("#infoMap").remove();
+ 		});
+ 		
+ 		
+ 	});
 </script>
 
 <body>

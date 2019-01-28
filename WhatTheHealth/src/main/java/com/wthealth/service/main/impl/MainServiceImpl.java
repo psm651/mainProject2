@@ -59,7 +59,9 @@ public class MainServiceImpl implements MainService {
 		  PrintWriter out = response.getWriter();
 
 	     //String realFolder = request.getSession().getServletContext().getRealPath("images");
-	      String realFolder = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+
+	      String realFolder = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload";
+
 	      System.out.println(realFolder);
 	      UUID uuid = UUID.randomUUID();
 
@@ -94,5 +96,23 @@ public class MainServiceImpl implements MainService {
 		mainDao.updateThumbnail(post);
 			
 	}
+
+	@Override
+	public void updateYoutubeThumbnail(Post post) throws Exception {
+		String contents = post.getContents();
+		String photoName = contents.split("embed/")[1];
+		
+		photoName = photoName.split("\"")[0];
+		System.out.println("photoName"+photoName);
+		
+		String front = "https://i.ytimg.com/vi/";
+		String back = "/mqdefault.jpg";
+		
+		post.setPhoto(front +photoName+ back);
+		
+		mainDao.updateThumbnail(post);
+		
+	}
+	
 
 }

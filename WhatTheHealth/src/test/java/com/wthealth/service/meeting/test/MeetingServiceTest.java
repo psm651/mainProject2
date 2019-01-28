@@ -22,11 +22,11 @@ import com.wthealth.service.meeting.MeetingService;
 
 /*
  *	FileName :  UserServiceTest.java
- * ¤· JUnit4 (Test Framework) °ú Spring Framework ÅëÇÕ Test( Unit Test)
- * ¤· Spring Àº JUnit 4¸¦ À§ÇÑ Áö¿ø Å¬·¡½º¸¦ ÅëÇØ ½ºÇÁ¸µ ±â¹Ý ÅëÇÕ Å×½ºÆ® ÄÚµå¸¦ ÀÛ¼º ÇÒ ¼ö ÀÖ´Ù.
- * ¤· @RunWith : Meta-data ¸¦ ÅëÇÑ wiring(»ý¼º,DI) ÇÒ °´Ã¼ ±¸ÇöÃ¼ ÁöÁ¤
- * ¤· @ContextConfiguration : Meta-data location ÁöÁ¤
- * ¤· @Test : Å×½ºÆ® ½ÇÇà ¼Ò½º ÁöÁ¤
+ * ï¿½ï¿½ JUnit4 (Test Framework) ï¿½ï¿½ Spring Framework ï¿½ï¿½ï¿½ï¿½ Test( Unit Test)
+ * ï¿½ï¿½ Spring ï¿½ï¿½ JUnit 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½Úµå¸¦ ï¿½Û¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+ * ï¿½ï¿½ @RunWith : Meta-data ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ wiring(ï¿½ï¿½ï¿½ï¿½,DI) ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ @ContextConfiguration : Meta-data location ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ @Test : ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration	(locations = {	"classpath:config/context-common.xml",
@@ -35,7 +35,7 @@ import com.wthealth.service.meeting.MeetingService;
 		"classpath:config/context-transaction.xml" })
 public class MeetingServiceTest {
 
-	//==>@RunWith,@ContextConfiguration ÀÌ¿ë Wiring, Test ÇÒ instance DI
+	//==>@RunWith,@ContextConfiguration ï¿½Ì¿ï¿½ Wiring, Test ï¿½ï¿½ instance DI
 	@Autowired
 	@Qualifier("meetingServiceImpl")
 	private MeetingService meetingService;
@@ -50,15 +50,15 @@ public class MeetingServiceTest {
 		meeting.setDepoCondition("0");
 	//meeting.setMeetTime(date);
 
-		System.out.println("½ÇÇàÀüÀÌ ±Ã±ÝÇÔ :: "+meeting.getMeetNo());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±ï¿½ï¿½ï¿½ :: "+meeting.getMeetNo());
 		meetingService.addMeeting(meeting);
-		System.out.println("°á°ú°¡ ±Ã±ÝÇÔ :: "+meeting.getMeetNo());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±ï¿½ï¿½ï¿½ :: "+meeting.getMeetNo());
 		meeting = meetingService.getMeeting(10026);
 		
-		//==> console È®ÀÎ
+		//==> console È®ï¿½ï¿½
 		System.out.println(meeting);
 		
-		//==> API È®ÀÎ
+		//==> API È®ï¿½ï¿½
 		Assert.assertEquals("user3", meeting.getCheifId());
 		Assert.assertEquals("0", meeting.getDepoCondition());
 		Assert.assertEquals("1970-01-01", meeting.getMeetTime().toString());
@@ -76,15 +76,15 @@ public class MeetingServiceTest {
 		
 		Post post = new Post();
 		post.setUserId("horannabi");
-		post.setTitle("daoimpl¿¡¼­ µÑ´Ù ³Ö±â~");
-		post.setContents("µÉ°Å¾ß!");
+		post.setTitle("daoimplï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½ ï¿½Ö±ï¿½~");
+		post.setContents("ï¿½É°Å¾ï¿½!");
 		
 		meeting.setPost(post);
 		System.out.println(meeting);
 		
 		meetingService.addMeeting(meeting);
 		/*post.setPostNo("ME"+meeting.getMeetNo());
-		System.out.println(" postNoÀÌ µé¾î°¬³ª¿ä?:"+post);
+		System.out.println(" postNoï¿½ï¿½ ï¿½ï¿½î°¬ï¿½ï¿½ï¿½ï¿½?:"+post);
 		meetingService.addMeetingPost(post);*/
 		Assert.assertEquals("horannabi", meeting.getPost().getUserId());
 		Assert.assertEquals("0", meeting.getDepoCondition());
@@ -98,25 +98,25 @@ public class MeetingServiceTest {
 		Meeting meeting = new Meeting();
 		Post post = new Post();
 		post.setUserId("user3");
-		post.setTitle("¶ó´Ï¶û ¼Ò¸ðÀÓ °¡¿©~~~");
-		post.setContents("ÁøÂ¥ Àç¹Õ¾î¿ä~~~~~~");
+		post.setTitle("ï¿½ï¿½Ï¶ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½~~~");
+		post.setContents("ï¿½ï¿½Â¥ ï¿½ï¿½Õ¾ï¿½ï¿½~~~~~~");
 		
 		meeting.setPost(post);
 		meeting.setCheifId("user3");
 		meeting.setDepoCondition("0");
 		meeting.setMeetTime(date);
 
-		System.out.println("½ÇÇàÀüÀÌ ±Ã±ÝÇÔ :: "+meeting.getMeetNo());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±ï¿½ï¿½ï¿½ :: "+meeting.getMeetNo());
 		meetingService.addMeeting(meeting);
 		post.setPostNo("ME"+meeting.getMeetNo());
-		System.out.println("°á°ú°¡ ±Ã±ÝÇÔ :: "+meeting.getMeetNo());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±ï¿½ï¿½ï¿½ :: "+meeting.getMeetNo());
 		meetingService.addMeetingPost(post);
 		meeting = meetingService.getMeeting("ME10034");
 		
-		//==> console È®ÀÎ
+		//==> console È®ï¿½ï¿½
 		System.out.println(meeting);
 		
-		//==> API È®ÀÎ
+		//==> API È®ï¿½ï¿½
 		Assert.assertEquals("user3", meeting.getCheifId());
 		Assert.assertEquals("0", meeting.getDepoCondition());
 		Assert.assertEquals("1970-01-01", meeting.getMeetTime().toString());
@@ -136,7 +136,7 @@ public class MeetingServiceTest {
 		Post post = meetingService.getMeetingPost(10034);
 		Assert.assertNotNull(post);
 		
-		meetingService.deleteMeeting(10034);
+		//meetingService.deleteMeeting(10034);
 		post = meetingService.getMeetingPost(10034);
 
 		Assert.assertEquals("1", post.getDeleteStatus());
@@ -148,17 +148,17 @@ public class MeetingServiceTest {
 		
 		join.setJoinStatus("0");
 		join.setDepoStatus("0");
-		join.setPostNo(10041);
+		//join.setPostNo(10041);
 		join.setPartyId("user1");
 		
 	
 		meetingService.addJoin(join);
 		join = meetingService.getJoin(join.getJoinNo());
 		
-		//==> console È®ÀÎ
+		//==> console È®ï¿½ï¿½
 		System.out.println(join);
 		
-		//==> API È®ÀÎ
+		//==> API È®ï¿½ï¿½
 		Assert.assertEquals("user1", join.getPartyId());
 		Assert.assertEquals("0", join.getDepoStatus());
 	}
@@ -193,11 +193,11 @@ public class MeetingServiceTest {
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
 	 	
-	 	//==> console È®ÀÎ
+	 	//==> console È®ï¿½ï¿½
 	 	System.out.println(list);
 	 	
 	 	Integer totalCount = (Integer)map.get("totalCount");
-	 	System.out.println("product list all ÅäÅ»Ä«¿îµå : "+totalCount);
+	 	System.out.println("product list all ï¿½ï¿½Å»Ä«ï¿½ï¿½ï¿½ : "+totalCount);
 	 	
 	 	System.out.println("=======================================");
 	 	
@@ -211,11 +211,11 @@ public class MeetingServiceTest {
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
 	 	
-	 	//==> console È®ÀÎ
-	 	System.out.println("product list all ¸®½ºÆ® : "+list);
+	 	//==> console È®ï¿½ï¿½
+	 	System.out.println("product list all ï¿½ï¿½ï¿½ï¿½Æ® : "+list);
 	 	
 	 	totalCount = (Integer)map.get("totalCount");
-	 	System.out.println("product list all 3°³ ´ç ¸®½ºÆ® °¹¼ö : "+totalCount);
+	 	System.out.println("product list all 3ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ : "+totalCount);
 	}
 	
 	//@Test
@@ -228,11 +228,11 @@ public class MeetingServiceTest {
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
 	 	
-	 	//==> console È®ÀÎ
+	 	//==> console È®ï¿½ï¿½
 	 	System.out.println(list);
 	 	
 	 	Integer totalCount = (Integer)map.get("totalCount");
-	 	System.out.println("product list all ÅäÅ»Ä«¿îµå : "+totalCount);
+	 	System.out.println("product list all ï¿½ï¿½Å»Ä«ï¿½ï¿½ï¿½ : "+totalCount);
 	 	
 	 	System.out.println("=======================================");
 	 	
@@ -244,11 +244,11 @@ public class MeetingServiceTest {
 	 	list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
 	 	
-	 	//==> console È®ÀÎ
-	 	System.out.println("product list all ¸®½ºÆ® : "+list);
+	 	//==> console È®ï¿½ï¿½
+	 	System.out.println("product list all ï¿½ï¿½ï¿½ï¿½Æ® : "+list);
 	 	
 	 	totalCount = (Integer)map.get("totalCount");
-	 	System.out.println("product list all 3°³ ´ç ¸®½ºÆ® °¹¼ö : "+totalCount);
+	 	System.out.println("product list all 3ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ : "+totalCount);
 	}
 	 
 }

@@ -15,9 +15,31 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 
+
+
+<!-- --------------------------------메뉴바--------------- -->
+<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<script type="text/javascript">
+
+$('img').dropdown();	
+/* $(document).ready(function() {
+
+}); */
+</script>	
+  
+<!-- --------------------------------메뉴바--------------- -->
+
 <style>
 .container{max-width:1170px; margin:auto;}
-img{ max-width:100%;}
+img{ 
+	max-width:120%;
+    border-radius: 50px;
+}
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
@@ -87,11 +109,37 @@ img{ max-width:100%;}
   vertical-align: top;
   width: 92%;
  }
+ 
+ .received_id {
+   background: none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 16px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+  text-align: center;
+ }
+ 
+  .incoming_id {
+  color: #646464;
+  font-size: 14px;
+  width: 10%;
+  text-align: left;
+ }
+ 
+   .outgoing_id {
+  color: #646464;
+  font-size: 14px;
+  width: 10%;
+  
+ }
+ 
  .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
   border-radius: 3px;
   color: #646464;
-  font-size: 14px;
+  font-size: 16px;
   margin: 0;
   padding: 5px 10px 5px 12px;
   width: 100%;
@@ -112,7 +160,7 @@ img{ max-width:100%;}
  .sent_msg p {
   background: #05728f none repeat scroll 0 0;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: 16px;
   margin: 0; color:#fff;
   padding: 5px 10px 5px 12px;
   width:100%;
@@ -151,23 +199,59 @@ img{ max-width:100%;}
   overflow-y: auto;
 }
 
+
 </style>
 
 </head>
 <body>
 
+<!-- -----------------메뉴바----------------- -->
+
+  <!-- <div class="dropdown">
+ 
+  <img src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#">강퇴하기</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>  -->
+  
+
+<!-- -----------------메뉴바----------------- -->
+
+  
   <script src="http://192.168.0.10:3000/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-  
+
   <script>
+
+  		var targetName = '';
+  		
+  		/* $(function() {
+	        $('.incoming_id').on("click" , function(){
+	        	console.log('클릭됨'+$('.incoming_id').val());
+	         //   socket.emit('kickout',{targetName:$('.incoming_id').val()});
+	
+	        });
+  		}); */
+  		
+  		
         $(document).ready(function() {
-            var socket = io("http://192.168.0.10:3000");
+            
+        	var socket = io("http://192.168.0.10:3000");
+           
             
             socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}"});
           	
             socket.emit("in_msg", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}"});
             
             socket.emit("out_msg", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}"});
+            
+           	//socket.emit("kickout", {targetName :targetName, roomId : "${roomId}"});
+            socket.emit("user_list",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}"});
  
             //msg에서 키를 누를떄
             $(".write_msg").keydown(function(key) {
@@ -177,7 +261,6 @@ img{ max-width:100%;}
                    send.click();
                 }
             });
- 
             //msg_process를 클릭할 때
             $(".msg_send_btn").click(function() {
                 //소켓에 send_msg라는 이벤트로 input에 #msg의 벨류를 담고 보내준다.
@@ -186,63 +269,74 @@ img{ max-width:100%;}
                 $(".write_msg").val("");
             });
  
+            socket.on('kickout', function(msg){
+            	var outcomingid = $(".outgoing_id").data("param1");
+            	//var outcomingid = $(".incoming_id").data("param");
+            	if(outcomingid == msg.name){
+            		alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
+                 	self.location = "http://127.0.0.1:8080";
+            	};
+            	 console.log(msg.name+' 강퇴');
+       	       $('<div class="incoming_msg"><div class="received_id"><p>'+msg.name+'님이 강제퇴장되었습니다.</p></div></div>').appendTo(".msg_history");
+            })
+            
+            
             //소켓 서버로 부터 send_msg를 통해 이벤트를 받을 경우 
             socket.on('send_msg', function(msg) {
+            	
+            	$("#outt").click(function(){
+          		   
+          		   var incomingid = $(this).data("param");
+     	        	console.log("클릭됨 "+incomingid);
+     	           socket.emit("kickout",{targetName:incomingid});
+     	         	alert(incomingid);
+     	         	//self.location = "http://127.0.0.1:8080";
+     	
+     	        });
+            	
+			
+            	console.log("세션에서 받은 이미지: "+"${sessionScope.user.userImage}");
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
-                $('<div class="incoming_msg"><div class="incoming_msg_img"> <img src=/resources/images/userImage/'+msg.img+' alt="sunil"> </div><div class="received_msg" ><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
                 
+                if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
+                	console.log("111111")
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                } 
+                
+                else if(msg.name != "${sessionScope.user.nickName}" && msg.img == "" || msg.img == null ){
+                	console.log("3333")
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                }  
+                else if(msg.name == "${sessionScope.user.nickName}") {
+                	console.log("55555")
+                	$('<div class="outgoing_msg"><div class="sent_msg"><div class="outgoing_id" data-param1="'+msg.name+'">'+msg.name+'</div><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div>').appendTo(".msg_history");
+            	}
+                
+                $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
             })
             
             socket.on('in_msg', function(msg) {
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                $('<div></div>').text(msg).appendTo(".msg_history");
+                $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
             })
             
             socket.on('out_msg', function(msg) {
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                $('<div></div>').text(msg).appendTo(".msg_history");
+                $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
             })
+            
+
+           
         });
     </script>
- 
   
 <div class="container">
 <div class="messaging">
       <div class="inbox_msg">
-        
+
         <div class="mesgs">
           <div class="msg_history">
-            
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test, which is a new approach to have</p>
-                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Apollo University, Delhi, India Test</p>
-                <span class="time_date"> 11:01 AM    |    Today</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-                    products, at a price anyone can afford.</p>
-                  <span class="time_date"> 11:01 AM    |    Today</span></div>
-              </div>
-            </div>
           </div>
           <div class="type_msg">
             <div class="input_msg_write">

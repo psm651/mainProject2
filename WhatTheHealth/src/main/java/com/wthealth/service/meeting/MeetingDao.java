@@ -9,46 +9,49 @@ import com.wthealth.domain.Meeting;
 import com.wthealth.domain.Post;
 
 public interface MeetingDao {
-	//INSERT ¼Ò¸ðÀÓ
+	//INSERT ï¿½Ò¸ï¿½ï¿½ï¿½
 	public void addMeeting(Meeting meeting) throws Exception;
 	
-	//INSERT ¼Ò¸ðÀÓ to °Ô½Ã¹° table
+	//INSERT ï¿½Ò¸ï¿½ï¿½ï¿½ to ï¿½Ô½Ã¹ï¿½ table
 	//public void addMeeingPost(Post post) throws Exception;
 	public void addMeetingPost(Post post) throws Exception;
 	
-	//UPDATE ¼Ò¸ðÀÓ
-	//public void updateMeeting(Meeting meeting) throws Exception;
+	//UPDATE ï¿½Ò¸ï¿½ï¿½ï¿½
+	public void updateMeeting(Meeting meeting) throws Exception;
 	
-	//DELETE ¼Ò¸ðÀÓ -> (ÁÖÀÇ) Update ÇØ¾ß ÇÔ
-	public void deleteMeeting(int postNo) throws Exception;
+	//DELETE ï¿½Ò¸ï¿½ï¿½ï¿½ -> (ï¿½ï¿½ï¿½ï¿½) Update ï¿½Ø¾ï¿½ ï¿½ï¿½
+	public void deleteMeeting(String postSubNo) throws Exception;
 	
-	//SELECT ONE ¼Ò¸ðÀÓ
+	//SELECT ONE ï¿½Ò¸ï¿½ï¿½ï¿½
 	public Meeting getMeeting(int meetNo) throws Exception;
 	
-	//SELECT ONE ¼Ò¸ðÀÓ from °Ô½Ã¹° table
+	//SELECT ONE ï¿½Ò¸ï¿½ï¿½ï¿½ from ï¿½Ô½Ã¹ï¿½ table
 	public Post getMeetingPost(int postNo) throws Exception;
 	
-	//SELECT LIST ¼Ò¸ðÀÓ
+	//SELECT LIST ï¿½Ò¸ï¿½ï¿½ï¿½
 	public List<Meeting> listMeeting(Search search) throws Exception;
 	
-	//INSERT ¼Ò¸ðÀÓÂü¿©
+	//INSERT ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void addJoin(Join join) throws Exception;
 	
-	//DELETE ¼Ò¸ðÀÓÂü¿©
+	//DELETE ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void deleteJoin(int joinNo) throws Exception;
 	
 	//SELECT LIST
 	public List<Join> listJoinedMeeting(Search search, String partyId) throws Exception;
 	
-	//°Ô½ÃÆÇ Page Ã³¸®¸¦ À§ÇÑ ÀüÃ¼Row(totalCount)  return --> Meeting ¿ë
+	//ï¿½Ô½ï¿½ï¿½ï¿½ Page Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼Row(totalCount)  return --> Meeting ï¿½ï¿½
 	public int getTotalCount(Search search) throws Exception ;
 	
-	//°Ô½ÃÆÇ Page Ã³¸®¸¦ À§ÇÑ ÀüÃ¼Row(totalCount)  return --> JOIN ¿ë
+	//ï¿½Ô½ï¿½ï¿½ï¿½ Page Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼Row(totalCount)  return --> JOIN ï¿½ï¿½
 	public int getTotalCountJoin(String partyId) throws Exception;
 	
-	//SELECT ONE ¼Ò¸ðÀÓÂü¿©(¼Ò¸ðÀÓ ¾Ë¸²)
+	//SELECT ONE ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½)
 	public Join getJoin(int joinNo) throws Exception;
 	
-	//¼±±Ý »óÅÂ º¯°æ
+	//SELECT LIST
+	public List<Join> listJoin(int meetNo) throws Exception;
+	
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void updateDeposit(int joinNo) throws Exception;
 }

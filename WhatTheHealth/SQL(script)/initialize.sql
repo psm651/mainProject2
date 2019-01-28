@@ -99,7 +99,6 @@ CREATE TABLE post (
 	user_id	VARCHAR2(20)	NOT NULL	REFERENCES USERS(user_id),
 	post_date	DATE,
 	photo	VARCHAR2(100),
-	video	VARCHAR2(100),
 	click_count	NUMBER(10),
 	like_count	NUMBER(10),
 	blind_status	VARCHAR2(3),
@@ -235,7 +234,7 @@ CREATE TABLE join (
 	join_date	DATE	NOT NULL,
 	join_status	VARCHAR2(3)	NOT NULL,
 	depo_status	VARCHAR2(3),
-	post_no	NUMBER	NOT NULL	REFERENCES post(post_no),
+	meet_no	NUMBER	NOT NULL	REFERENCES meeting(meet_no),
 	party_id	VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
 	delete_status	VARCHAR2(3),
 	PRIMARY KEY(join_no)

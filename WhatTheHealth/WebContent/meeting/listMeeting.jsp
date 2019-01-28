@@ -48,17 +48,22 @@
    $(function(){
   	$(".post-entry").on("click", function(){
   		var meetNo = $(this).data("param");
-  		self.location = "/meeting/getMeeting?meetNo="+meetNo;
+  		self.location = "/meeting/getMeetingMap?meetNo="+meetNo;
   	});
   });
   
    $(function() {
-		$("a[href='#' ]").on("click" , function() {
+		$("#addMeeting").on("click" , function() {
 			self.location = "/meeting/addMeeting";
 		});
 	});	
+   
+   /* $(function() {
+		$("#addSocket").on("click" , function() {
+			self.location = "/socket/addLiveStream";
+		});
+	}); */
   </script>
-  
   
   
   <body>
@@ -107,9 +112,12 @@
     <li><a href="#">Separated link</a></li>
   </ul>
 </div>
-     
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
+  
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addMeeting">글쓰기</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.39:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   align="right" class="btn btn-primary pill text-white px-4"   id="addSocket">화상채팅</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.39:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
    
+       
         <br/>
         <div class="row mb-5">
         

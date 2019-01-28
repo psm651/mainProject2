@@ -24,13 +24,13 @@ public class BMI {
 		
 		
 		if(bmiValue<18.5){
-			this.bmiState = "ï¿½ï¿½Ã¼ï¿½ï¿½"; 
+			this.bmiState = "ÀúÃ¼Áß"; 
 		}else if(18.5<bmiValue && bmiValue<25) {
-			this.bmiState = "ï¿½ï¿½ï¿½ï¿½";
+			this.bmiState = "Á¤»ó";
 		}else if(25<bmiValue && bmiValue<30) {
-			this.bmiState = "ï¿½ï¿½Ã¼ï¿½ï¿½";
+			this.bmiState = "ºñ¸¸";
 		}else if(30<bmiValue) {
-			this.bmiState = "ï¿½ï¿½";
+			this.bmiState = "°íµµºñ¸¸";
 		}
 		
 	}

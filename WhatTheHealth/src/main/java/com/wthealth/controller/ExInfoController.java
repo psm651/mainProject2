@@ -18,6 +18,7 @@ import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
 import com.wthealth.service.exinfo.ExInfoService;
+import com.wthealth.service.main.MainService;
 
 @Controller
 @RequestMapping("/exInfo/*")
@@ -27,6 +28,10 @@ public class ExInfoController {
 	@Autowired
 	@Qualifier("exInfoServiceImpl")
 	private ExInfoService exInfoService;
+	
+	@Autowired
+	@Qualifier("mainServiceImpl")
+	private MainService mainService;
 	
 	public ExInfoController() {
 		System.out.println(this.getClass());
@@ -41,11 +46,14 @@ public class ExInfoController {
 	@RequestMapping(value="addExInfo", method=RequestMethod.POST)
 	public String addExInfo(@ModelAttribute("post") Post post) throws Exception{
 		
-			
 			//Business Logic
 			exInfoService.addExInfo(post);
-			System.out.println(post.getPostNo());
 			
+			if(post.getContents().indexOf("upload/") != -1) {
+				mainService.updateThumbnail(post);
+			}else if(post.getContents().indexOf("embed/") != -1){
+				mainService.updateYoutubeThumbnail(post);
+			}
 		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}
 	
@@ -75,9 +83,15 @@ public class ExInfoController {
 
 		exInfoService.updateExInfo(post);
 			
+		if(post.getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(post);
+		}else if(post.getContents().indexOf("embed/") != -1){
+			mainService.updateYoutubeThumbnail(post);
+		}
+		
 		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}	
-	@RequestMapping(value="listExInfo")
+	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
 	public String listExInfo(@ModelAttribute("search") Search search, Model model) throws Exception{
 	
 		if(search.getCurrentPage()==0) {
@@ -100,15 +114,15 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
-	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
-	public String listExInfo(@RequestParam("exPart") int exPart, Model model) throws Exception{
+	@RequestMapping(value="listExInfo")
+	public String listExInfo(@RequestParam("exPart") String exPart, Model model) throws Exception{
 	
 		Search search = new Search();
 
 	
 		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
-		search.setSearchFilter(String.valueOf(exPart));
+		search.setSearchFilter(exPart);
 		
 		//Business Logic
 		Map<String, Object> map = exInfoService.listExInfo(search);

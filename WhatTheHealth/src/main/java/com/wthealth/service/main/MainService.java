@@ -18,4 +18,6 @@ public interface MainService {
 	public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public void updateThumbnail(Post post) throws Exception;
+	
+	public void updateYoutubeThumbnail(Post post) throws Exception;
 }

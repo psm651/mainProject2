@@ -43,11 +43,15 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 	
 	
-	/*@Override
+	@Override
 	public void updateMeeting(Meeting meeting) throws Exception {
-		// TODO Auto-generated method stub
+		Post post = meeting.getPost();
+		sqlSession.update("MeetingMapper.updateMeeting", meeting);
+		post.setPostSubNo("ME"+meeting.getMeetNo());
+		
+		sqlSession.update("MeetingMapper.updateMeetingPost", post);
 
-	}*/
+	}
 
 	@Override
 	public void addMeetingPost(Post post) throws Exception {
@@ -55,8 +59,8 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 
 	@Override
-	public void deleteMeeting(int postNo) throws Exception {
-		sqlSession.update("MeetingMapper.deleteMeeting", postNo);
+	public void deleteMeeting(String postSubNo) throws Exception{
+		sqlSession.update("MeetingMapper.deleteMeeting", postSubNo);
 	}
 
 	@Override
@@ -112,5 +116,12 @@ public class MeetingDaoImpl implements MeetingDao {
 		sqlSession.update("MeetingMapper.updateDeposit", joinNo);
 
 	}
+
+	@Override
+	public List<Join> listJoin(int meetNo) throws Exception {
+		return sqlSession.selectList("MeetingMapper.listJoin", meetNo);
+	}
+	
+	
 
 }

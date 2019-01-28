@@ -19,8 +19,8 @@ import com.wthealth.common.Search;
 import com.wthealth.domain.Join;
 import com.wthealth.domain.Meeting;
 import com.wthealth.domain.Post;
-import com.wthealth.domain.Socket;
 import com.wthealth.domain.User;
+import com.wthealth.service.main.MainService;
 import com.wthealth.service.meeting.MeetingService;
 
 @Controller
@@ -30,6 +30,10 @@ public class MeetingController {
 	@Autowired
 	@Qualifier("meetingServiceImpl")
 	private MeetingService meetingService;
+	
+	@Autowired
+	@Qualifier("mainServiceImpl")
+	private MainService mainService;
 	
 	public MeetingController() {
 		System.out.println(this.getClass());
@@ -59,13 +63,15 @@ public class MeetingController {
 		
 		Post post = meeting.getPost();
 		post.setUserId(user.getUserId());
-
+		if(post.getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(post);
+		}
 		meeting.setPost(post);
 		
 		meetingService.addMeeting(meeting);
 		/*post.setPostNo("ME"+meeting.getMeetNo());
 		meetingService.addMeetingPost(post);*/
-		return "forward:/meeting/getMeeting?postNo="+meeting.getPost().getPostNo();
+		return "redirect:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
 	}
 	
 	@RequestMapping(value="getMeeting", method=RequestMethod.GET)
@@ -74,22 +80,81 @@ public class MeetingController {
 		Meeting meeting = meetingService.getMeeting(meetNo);
 		model.addAttribute("meeting", meeting);
 		
-		return "forward:/meeting/getMeeting.jsp"; ///////////////////�ٽú���(-)
+		return "forward:/meeting/getMeeting.jsp"; 
 	}
 	
+	@RequestMapping(value="getMeetingMap", method=RequestMethod.GET)
+	public String getMeetingMap(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
+		System.out.println("/getMeetingMap: GET");
+		Map<String, Object>	map = meetingService.getMeetingMap(meetNo);
+		
+		model.addAttribute("meeting", map.get("meeting"));
+		model.addAttribute("joinlist", map.get("joinlist"));
+		
+		return "forward:/meeting/getMeetingMap.jsp"; 
+	}
+	
+	@RequestMapping(value = "updateMeeting", method= RequestMethod.GET)
+	public String updateMeeting(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
+		System.out.println("/updateMeeting : GET");
+		
+		Meeting meeting = meetingService.getMeeting(meetNo);
+		
+		model.addAttribute("meeting", meeting);
+		
+		return "forward:/meeting/updateMeeting.jsp";
+	}
+	
+	@RequestMapping(value = "updateMeeting", method= RequestMethod.POST)
+	public String updateMeeting(@ModelAttribute("meeting") Meeting meeting, @RequestParam("meetNo") int meetNo) throws Exception{
+		System.out.println("/updateMeeting : POST");
+		
+		/*dietComService.updateDietCom(post);
+		dietComService.addDietCom(post);*/
+		meeting.setMeetNo(meetNo);
+		Post post = meeting.getPost();
+		post.setPostSubNo("ME"+meetNo);
+		meeting.setPost(post);
+		meetingService.updateMeeting(meeting);
+		
+
+		if(meeting.getPost().getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(meeting.getPost());
+		};
+		
+		return "redirect:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
+	}
+	
+	
 	@RequestMapping(value="deleteMeeting", method=RequestMethod.GET)
-	public String deleteMeeting(@RequestParam("postNo") int postNo) throws Exception{
+	public String deleteMeeting(@RequestParam("meetNo") int meetNo) throws Exception{
 		System.out.println("/deleteMeeting: GET");
-		meetingService.deleteMeeting(postNo);
+		meetingService.deleteMeeting("ME"+meetNo);
 		
 		return "forward:/meeting/listMeeting"; //forward..?
 	}
 	
-	@RequestMapping(value="addJoin", method=RequestMethod.POST)
-	public String addJoin(@ModelAttribute("join") Join join) throws Exception{
+	@RequestMapping(value="addJoin", method=RequestMethod.GET)
+	public String addJoin(@RequestParam("meetNo") int meetNo, HttpSession session) throws Exception{
 		System.out.println("/addJoin: POST");
+		Join join = new Join();
+		join.setMeetNo(meetNo);
+		join.setPartyId(((User)(session.getAttribute("user"))).getUserId());
+		
+		Meeting meeting = meetingService.getMeeting(meetNo);
+		if(meeting.getDepoCondition() == "1") {
+			join.setDepoStatus("0");	//�꽑湲� 誘몄엯湲�
+			join.setJoinStatus("0");  //李몄뿬 ��湲곗긽�깭
+		}else {
+			join.setDepoStatus("9");  //�꽑湲덉뾾�쓬
+			join.setJoinStatus("0"); //李몄뿬�솗�젙�긽�깭
+		};
+		
+		join.setMeetTime(meeting.getMeetTime());
+		
+		
 		meetingService.addJoin(join);
-		return "forward:/meeting/getMeeting?postNo="+join.getPostNo();
+		return "redirect:/meeting/getMeetingMap?meetNo="+meetNo;
 	}
 	
 	/*@RequestMapping(value="getJoin", method=RequestMethod.GET)
@@ -98,7 +163,7 @@ public class MeetingController {
 		Join join = meetingService.getJoin(joinNo);
 		model.addAttribute("join", join);
 		
-		return "forward" �̰� �� �ʿ�����..?
+		return "forward" 占싱곤옙 占쏙옙 占십울옙占쏙옙占쏙옙..?
 	}*/
 	
 	@RequestMapping(value="deleteJoin", method=RequestMethod.GET)

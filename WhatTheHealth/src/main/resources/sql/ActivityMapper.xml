@@ -33,7 +33,7 @@
       SELECT *
       FROM ( SELECT inner_table.* , ROWNUM AS row_seq
          FROM ( SELECT p.post_no, p.category, p.title, p.post_date, p.user_id
-            FROM post p, users u WHERE p.user_id = u.user_id AND p.user_id = #{postId}
+            FROM post p, users u WHERE p.user_id = u.user_id AND p.user_id = #{postId} AND p.category != '4'
                ORDER BY p.post_date DESC ) inner_table
       	WHERE ROWNUM &lt;= #{search.endRowNum} )
       WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
@@ -43,7 +43,7 @@
 	 <select  id="getTotalCount"  parameterType="string"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT p.post_no, p.category, p.title, p.post_date, p.user_id
-            FROM post p, users u WHERE p.user_id = u.user_id AND p.user_id = #{value} ) countTable						
+            FROM post p, users u WHERE p.user_id = u.user_id AND p.user_id = #{value} AND p.category != '4') countTable						
 	 </select>
 	 
 </mapper>

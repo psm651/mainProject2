@@ -49,7 +49,7 @@
 	          console.log(results);
 	          $("#results").html("");
 	          $.each(results.items, function(index, item) {
-	            $.get("tpl/item.html", function(data) {
+	            $.get("../resources/tpl/item.html", function(data) {
 	                $("#results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 	            });
 	          });
@@ -65,7 +65,7 @@
    }
    
    function init() {
-       gapi.client.setApiKey("AIzaSyCeFr-BXi5R05tpiP30jMeNFM7zTRXXMIU");
+       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
        gapi.client.load("youtube", "v3", function() {
            console.log("인잇 ㅠㅠ");
        });

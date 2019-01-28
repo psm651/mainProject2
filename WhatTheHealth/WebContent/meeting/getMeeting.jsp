@@ -4,7 +4,7 @@
 <html>
 <head>
    
-   <title>식단 커뮤니티 게시물 조회페이지</title>
+   <title>소모임 게시물 조회페이지</title>
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
@@ -146,11 +146,14 @@
        
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
-               self.location="/dietCom/updateDietCom?postNo=${post.postNo}"
+               self.location="/meeting/updateMeeting?meetNo=${meeting.meetNo}"
             });
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/dietCom/deleteDietCom?postNo=${post.postNo}"
+               self.location="/meeting/deleteMeeting?meetNo=${meeting.meetNo}"
             });
+          $( "a[href='#' ]:contains('참여하기')").on("click", function(){
+              self.location="/meeting/addJoin?meetNo=${meeting.meetNo}"
+           });
          });
        
    </script>
@@ -170,7 +173,18 @@
         <!-- <div class="row align-items-center"> -->
         <div class="col-md-12 col-lg-8 mb-5">
           <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->
-            <h4 class="mb-3">  ${meeting.post.title} </h4>
+          
+            <h4 class="mb-3"> 
+            <div class="row form-group">
+			 	<div class="col-md-10 mb-5 mb-md-0">
+             ${meeting.post.title}
+             </div>
+             <div class="col-md-2 mb-5 mb-md-0">
+            <a href="#" class="btn btn-primary pill px-4">참여하기</a>
+              </div>
+              </div>
+               </h4>
+            
              <small>좋아요 수  : ${meeting.post.likeCount}</small> 
              <small>조회 수 : ${meeting.post.clickCount}</small>       
              <div class="row form-group">
@@ -196,13 +210,13 @@
                   <label class="font-weight-bold" for="fullname">선금계좌</label>
                 </div>   
                 <div class="col-md-2 mb-5 mb-md-0">
-                	[은행명]
+                	<b>[은행명]</b>
                 </div>    
                 <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.depoBank}
                 </div> 
                 <div class="col-md-2 mb-5 mb-md-0">
-                	[예금주]
+                	<b>[예금주]</b>
                 </div>    
                 <div class="col-md-3 mb-5 mb-md-0">
                 	${meeting.depoAccHolder}
@@ -214,7 +228,7 @@
                 
                 </div>   
                    <div class="col-md-2 mb-5 mb-md-0">
-                	[계좌번호]
+                	<b>[계좌번호]</b>
                 </div> 
                 <div class="col-md-3 mb-5 mb-md-0">
                 	${meeting.depoAccount} 
@@ -226,13 +240,13 @@
                   <label class="font-weight-bold" for="fullname">인원정원</label>
                 </div>   
                 <div class="col-md-2 mb-5 mb-md-0">
-                	[최소인원]
+                	<b>[최소인원]</b>
                 </div>    
                 <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.minParty} 명
                 </div> 
                 <div class="col-md-2 mb-5 mb-md-0">
-                	[최대인원]
+                	<b>[최대인원]</b>
                 </div>    
                 <div class="col-md-3 mb-5 mb-md-0">
                 	${meeting.maxParty} 명
@@ -244,13 +258,13 @@
                   <label class="font-weight-bold" for="fullname">시간/장소</label>
                 </div>   
                 <div class="col-md-2 mb-5 mb-md-0">
-                	[모임시간]
+                	<b>[모임시간]</b>
                 </div>    
                 <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.meetTime}
                 </div> 
                 <div class="col-md-2 mb-5 mb-md-0">
-                	[모임장소]
+                	<b>[모임장소]</b>
                 </div>    
                 <div class="col-md-3 mb-5 mb-md-0">
                 	${meeting.post.locationTagName}

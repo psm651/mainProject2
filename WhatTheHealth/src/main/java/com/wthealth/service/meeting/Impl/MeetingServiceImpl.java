@@ -44,14 +44,14 @@ public class MeetingServiceImpl implements MeetingService {
 		meetingDao.addMeetingPost(post);	
 	}*/
 
-	/*@Override
+	@Override
 	public void updateMeeting(Meeting meeting) throws Exception {
-		// TODO Auto-generated method stub
-	}*/
+		meetingDao.updateMeeting(meeting);
+	}
 
 	@Override
-	public void deleteMeeting(int postNo) throws Exception {
-		meetingDao.deleteMeeting(postNo);
+	public void deleteMeeting(String postSubNo) throws Exception {
+		meetingDao.deleteMeeting(postSubNo);
 	}
 
 	
@@ -109,5 +109,16 @@ public class MeetingServiceImpl implements MeetingService {
 	public void updateDeposit(int joinNo) throws Exception {
 		meetingDao.updateDeposit(joinNo);
 	}
+
+	@Override
+	public Map<String, Object> getMeetingMap(int meetNo) throws Exception {
+		Map<String, Object>	map = new HashMap<String, Object>();
+		map.put("meeting", meetingDao.getMeeting(meetNo));
+		map.put("joinlist", meetingDao.listJoin(meetNo));
+		
+		return map;
+	}
+	
+	
 
 }

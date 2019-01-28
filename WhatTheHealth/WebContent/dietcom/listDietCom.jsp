@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -124,8 +125,17 @@
               	<c:if test="${empty post.photo}">
                     <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
                 </c:if>
+                <c:set var="youtubeThumbnail" value="${post.photo}"/>
+                 
                 <c:if test="${!empty post.photo}">
-                	<img src="/resources/images/upload/${post.photo}" class="img-fluid" alt="">
+               		<c:choose>
+               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
+               				<img src="${post.photo}" class="img-fluid" width= "400;" height= "200;">
+               			</c:when>   
+               			<c:otherwise>
+               				<img src="/resources/images/upload/${post.photo}" class="img-fluid">
+               			</c:otherwise>            			
+               		</c:choose>
                 </c:if>
               </div>
               <div class="text p-6">

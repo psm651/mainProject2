@@ -135,16 +135,16 @@
  
 <!-- <script src='/resources/javascript/fullcalendar1.js'></script> -->
 <script>
-$(document).ready(ready(function(){
+/* $(document).ready(ready(function(){
 	var date = new Date();
 	var d = date.getData();
 
 	alert(d)
 	getEvent();	
 });
-
+ */
 //사용자 DB일정 가져오기 
-function getEvent(){
+/* function getEvent(){
 	var userId = ${sessionScope.user.userId};
 	$.ajax({
 		url : "/schedule/json/listSchedule/"+userId ,
@@ -155,9 +155,9 @@ function getEvent(){
 		}, createCalendarDateResult(result);
 	})
 	
-}
+} */
 
-
+ 
 $(function() {
 
      $('#calendar').fullCalendar({
@@ -175,14 +175,14 @@ $(function() {
                 $('#ex').modal('show');
 
             },
-            eventClick: function(event, element) {
+      /*       eventClick: function(event, element) {
                 // Display the modal and set the values to the event values.
                 $('#ex').modal('show');
-                $('.modal').find('#title').val(event.title);
+              /*   $('.modal').find('#title').val(event.title);
                 $('.modal').find('#starts-at').val(event.start);
-                $('.modal').find('#ends-at').val(event.end);
+                $('.modal').find('#ends-at').val(event.end); 
 
-            },        
+            },  */       
             views: {
                     week: { // name of view
                     titleFormat: 'YYYY / MM / DD'
@@ -193,9 +193,9 @@ $(function() {
 
    });
    
-
+/* 
 $(function() {
-x
+
 
      // page is now ready, initialize the calendar...
 
@@ -233,7 +233,7 @@ x
 $(function(){
 /* $(document).ready(function(){ */
 
- $("button:contains('등록')").on("click", function(){
+/*  $("button:contains('등록')").on("click", function(){
 		
 		var	foodName = $("#foodName").val();
 		var foodAmount = $("#foodAmount").val();
@@ -264,7 +264,7 @@ $(function(){
  	 
 	 });
  });
-});
+});  */
 
 </script>
 </html>
