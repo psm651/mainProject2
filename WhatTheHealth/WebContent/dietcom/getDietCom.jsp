@@ -127,18 +127,6 @@
        
        function fullSiren(){
           
-            /* $.ajax({
-                  url : '/claim/json/addClaim/'+'${post.postNo}',
-                  type : "GET",
-                  success : function(data){
-                	  popWin 
-                      = window.open("../schedule/addExSchedule?date="+date.format(),
-                                           "popWin", 
-                                           "left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
-                                           "scrollbars=no,scrolling=no,menubar=no,resizable=no");
-                  	}
-                  }); */
-                  
     	   popWin 
            = window.open("/claim/addClaim?targetNo="+${post.postNo}+"&menu=post",
                                 "popWin", 
@@ -149,10 +137,10 @@
        
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
-               self.location="/dietCom/updateDietCom?postNo=${post.postNo}"
+               self.location="/community/updateCommunity?postNo=${post.postNo}"
             });
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/dietCom/deleteDietCom?postNo=${post.postNo}"
+               self.location="/community/deleteCommunity?postNo=${post.postNo}"
             });
          });
        
@@ -174,7 +162,15 @@
           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
             <h4 class="mb-3">${post.title}</h4>
              <small>좋아요 수  : ${post.likeCount}</small> 
-             <small>조회 수 : ${post.clickCount}</small>            
+             <small>조회 수 : ${post.clickCount}</small>
+             
+              <!-- 다음맵지도 -->
+              <c:if test="${post.coordinate!=null}">
+	              <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">  
+	            	  <jsp:include page="/common/getMap.jsp" /> 
+	              </div>  
+                </c:if>
+                         
             <p class="mb-4">${post.contents}</p>
            
             
@@ -191,8 +187,10 @@
                    </div>
                 </div>
             
+            <c:if test = "${user.userId == post.userId}">
             <p><a href="#" class="btn btn-primary pill px-4">수정</a>
             <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+            </c:if>
           </div>
         </div>
       </div>

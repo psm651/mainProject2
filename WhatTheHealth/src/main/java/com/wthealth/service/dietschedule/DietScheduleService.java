@@ -1,7 +1,6 @@
 package com.wthealth.service.dietschedule;
 
 import java.util.List;
-import java.util.Map;
 
 import com.wthealth.domain.BMI;
 import com.wthealth.domain.DietSchedule;
@@ -13,7 +12,9 @@ public interface DietScheduleService {
 	
 	public DietSchedule getDietSchedule(int dietScNo) throws Exception;
 	
-	public Map<String, Object> listDietSchedule(String userId) throws Exception;
+	public List<Food> listFood(int dietScNo) throws Exception;
+	
+	public List<DietSchedule> listDietSchedule(String userId) throws Exception;
 	
 	public void updateDietSchedule(DietSchedule dietSchedule) throws Exception;
 	

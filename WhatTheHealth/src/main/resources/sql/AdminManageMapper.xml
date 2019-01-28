@@ -76,7 +76,7 @@
 	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM (	SELECT user_id , nickname, reg_date, user_status_code
 						FROM users
-						<if test="searchCondition != null">
+						<if test="searchCondition != null and searchFilter == null">
 							<where>
 								<if test="searchCondition == 0 and searchKeyword !='' ">
 						 			user_id LIKE '%'||#{searchKeyword}||'%'
@@ -84,20 +84,24 @@
 								<if test="searchCondition == 1 and searchKeyword !='' ">
 						 			nickname LIKE '%'||#{searchKeyword}||'%'
 								</if>
-							<if test="searchFilter != null">
+							</where>
+						</if>
+							<if test="searchFilter != null and searchCondition == null">
+								<where>
 									<if test="searchFilter == 0 and searchFilter !='' ">
-										AND	user_status_code = '0'
+										user_status_code = '0'
 									</if>
 									<if test="searchFilter == 1 and searchFilter !='' ">
-										AND user_status_code = '1'
+										 user_status_code = '1'
 									</if>		
 									<if test="searchFilter == 2 and searchFilter !='' ">
-										AND user_status_code = '2'
-									</if>														
+										 user_status_code = '2'
+									</if>			
+								</where>												
 							</if>  							
-							</where>
+			
 							
-						</if>
+					
 						   
 						     ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )

@@ -8,13 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.common.Page;
@@ -22,6 +19,7 @@ import com.wthealth.common.Search;
 import com.wthealth.domain.Favorite;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
+import com.wthealth.service.community.CommunityService;
 import com.wthealth.service.favorite.FavoriteService;
 
 @RestController
@@ -31,6 +29,10 @@ public class FavoriteRestController {
 	@Autowired
 	@Qualifier("favoriteServiceImpl")
 	private FavoriteService favoriteService;
+	
+	@Autowired
+	@Qualifier("communityServiceImpl")
+	private CommunityService communityService;
 	
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
@@ -52,7 +54,11 @@ public class FavoriteRestController {
 		favorite.setUserId(userId);
 		favorite.setPostNo(postNo);
 		
-		//favoriteService.updateLikeCount(postNo);
+		int totalLikeCount = favoriteService.getTotalLikeCount(postNo) +1;
+		Post post = communityService.getCommunity(postNo);
+		post.setLikeCount(totalLikeCount);
+		
+		communityService.updateLikeCount(communityService.getCommunity(postNo));
 		favoriteService.addLike(favorite);
 
 		return 1;
@@ -87,7 +93,7 @@ public class FavoriteRestController {
 		
 		Favorite deleteTarget = favoriteService.getFavorite(favorite);
 		favoriteService.deleteLike(deleteTarget.getFavoriteNo());
-		//dietComService.updateLikeCount(favorite.getPostNo());
+		communityService.updateLikeCount(communityService.getCommunity(postNo));
 		
 		return 1;
 	}
@@ -138,5 +144,14 @@ public class FavoriteRestController {
 		favorite.setPostNo(postNo);
 		
 		return favoriteService.listFavorite(favorite);
+	}
+	
+	@RequestMapping(value = "json/updateLikeCountScreen/{postNo}", method = RequestMethod.GET)
+	public int updateLikeCountScreen(@ModelAttribute Favorite favorite, @PathVariable int postNo) throws Exception{
+		System.out.println("/favorite/json/updateLikeCountScreen : GET");
+		System.out.println(favorite);
+		
+		
+		return 1;
 	}
 }

@@ -219,7 +219,7 @@
 </head>
 <body>
 <!-- ///////////////////////////////////////////////// AJAX ///////////////////////////////////////////////// -->
-<div class="container">
+<!-- <div class="container"> -->
        <!--  <label for="content">reply</label> -->
         <form name="replyInsertForm">
             <div class="input-group">
@@ -230,11 +230,11 @@
                </span>
               </div>
         </form>
-    </div>
+   <!--  </div> -->
     
-    <div class="container">
+   <!--  <div class="container"> -->
         <div class="replyList"></div>
-    </div>
+   <!--  </div> -->
 </div>
 
 <!-- ////////////////////////////////////////////// 그냥 컨트롤러 //////////////////////////////////////////// -->

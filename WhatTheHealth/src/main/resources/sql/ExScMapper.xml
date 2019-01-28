@@ -32,7 +32,7 @@
 	 <!-- SQL : SELECT  -->
 	 <select 	id="getExSchedule"	 parameterType="int"	 resultMap="exScSelectMap">
 		SELECT
-		ex_sc_title, user_id, ex_sc_contents, ex_sc_calorie, ex_sc_time, post_no, ex_sc_date, delete_status
+		ex_sc_no,ex_sc_title, user_id, ex_sc_contents, ex_sc_calorie, ex_sc_time, post_no, ex_sc_date, delete_status
 		FROM ex_sc
 		WHERE ex_Sc_no= #{exScNo}
 	 </select>
@@ -64,9 +64,17 @@
 	   WHERE user_id = #{userId}
 	 </select>
 	 
+	 <select  id="getHistoryChart"  parameterType="java.lang.String" resultMap="exScSelectMap">
+	   SELECT *
+	   FROM ex_sc
+	   WHERE user_id = #{userId}
+	 </select>
+	 
 	 <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT * FROM ex_sc ) countTable			
 	 </select>
-	 	
+
+
+		 	
 </mapper>

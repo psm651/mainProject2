@@ -88,4 +88,5 @@ public class FavoriteServiceImpl implements FavoriteService {
 		return favoriteDao.getTotalLikeCount(postNo);
 	}
 
+
 }

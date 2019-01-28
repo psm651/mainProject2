@@ -25,6 +25,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
+<!--  메인 스타일 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <script src="../resources/js/jquery-3.3.1.min.js"></script>
+   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../resources/css/animate.css">
+    
+    <link rel="stylesheet"  href="../resources/fonts/flaticon/font/flaticon.css">
+    <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
+    <link rel="stylesheet" href="../resources/css/aos.css">
+    <link rel="stylesheet" href="../resources/css/style.css">
+
+
+<!-- 메인 스타일 -->
 <script type="text/javascript"> 
 
  $('#chattingimage').dropdown();

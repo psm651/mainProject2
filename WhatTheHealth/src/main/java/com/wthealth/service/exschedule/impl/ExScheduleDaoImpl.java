@@ -49,14 +49,14 @@ public class ExScheduleDaoImpl implements ExScheduleDao {
 	}
 
 	@Override
-	public void getExHistoryChart(String userId) throws Exception {
-		// TODO Auto-generated method stub
+	public List<ExSchedule> getExHistoryChart(String userId) throws Exception {
+		return sqlSession.selectList("ExScMapper.listExSchedule", userId);
 		
 	}
 
 	@Override
-	public void deleteExSchedule(int exScNo) throws Exception {
-		sqlSession.update("ExScMapper.deleteExSchedule", exScNo);		
+	public int deleteExSchedule(int exScNo) throws Exception {
+		return sqlSession.update("ExScMapper.deleteExSchedule", exScNo);		
 	}
 
 }

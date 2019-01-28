@@ -103,11 +103,11 @@
 				self.location = "/product/listProduct?menu=manage"
 		 }); */
 		 $(document).on("click", '#excom_toolbar', function() {
-				self.location = "/exCom/listExCom"
+				self.location = "/community/listExCom"
 		 });
 		 
 		 $(document).on("click", '#dietcom_toolbar', function() {
-				self.location = "/dietCom/listDietCom"
+				self.location = "/community/listDietCom"
 		 });
 		 
 		 /////////////////////////////////////// 소모임 메뉴바 ////////////////////////////////////
@@ -197,6 +197,11 @@
   		color: white;
 		}
 		
+<<<<<<< HEAD
+	h2{
+		cursor:pointer;
+	}
+=======
 #loginModal{
 	height: 700px;
 	margin: 0 auto;
@@ -207,6 +212,7 @@
     margin-top: -250px;
 }	
 
+>>>>>>> refs/remotes/origin/master
   </style>
   
   <body>

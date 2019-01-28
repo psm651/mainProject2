@@ -91,7 +91,7 @@ public class ExInfoController {
 		
 		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}	
-	@RequestMapping(value="listExInfo")
+	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
 	public String listExInfo(@ModelAttribute("search") Search search, Model model) throws Exception{
 	
 		if(search.getCurrentPage()==0) {
@@ -114,7 +114,7 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
-	/*@RequestMapping(value="listExInfo", method=RequestMethod.GET)
+	@RequestMapping(value="listExInfo")
 	public String listExInfo(@RequestParam("exPart") String exPart, Model model) throws Exception{
 	
 		Search search = new Search();
@@ -136,7 +136,7 @@ public class ExInfoController {
 		model.addAttribute("search", search);
 				
 		return "forward:/exinfo/listExInfo.jsp";
-	}	*/
+	}	
 	
 
 }

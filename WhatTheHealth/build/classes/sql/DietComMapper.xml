@@ -13,7 +13,6 @@
 		<result property="title" column="title" jdbcType="VARCHAR" />
 		<result property="contents" column="contents" jdbcType="VARCHAR" />
 		<result property="photo" column="photo" jdbcType="VARCHAR" />
-		<result property="video" column="video" jdbcType="VARCHAR" />
 		<result property="clickCount" column="click_count" jdbcType="NUMERIC" />
 		<result property="blindStatus" column="blind_status" jdbcType="VARCHAR" />
 		<result property="deleteStatus" column="delete_status"	jdbcType="VARCHAR" />
@@ -33,12 +32,12 @@
 
 	<insert id="addDietCom" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="postNo">
 		INSERT
-		INTO post(post_no,  post_sub_no, user_id, title, contents, photo, video,
+		INTO post(post_no,  post_sub_no, user_id, title, contents, photo, 
 		click_count, blind_status, delete_status, like_count,
 		category, post_date, diet_sc_no, locationtag_name, coordinate, address)
 		VALUES
 		(seq_post_post_no.nextval, 'DC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
-		#{photo:VARCHAR}, #{video:VARCHAR}, 0, '0', '0', 0, '3', SYSDATE,
+		#{photo:VARCHAR}, 0, '0', '0', 0, '3', SYSDATE,
 		#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
          SELECT seq_post_post_no.currval FROM dual
@@ -57,7 +56,6 @@
 			title = #{title},
 			contents = #{contents},
 			photo = #{photo:VARCHAR},
-			video = #{video:VARCHAR},
 			click_count = #{clickCount:NUMERIC},
 			blind_status =
 			#{blindStatus:VARCHAR},
@@ -66,6 +64,7 @@
 			category = #{category:VARCHAR},
 			post_date = #{postDate:DATE},
 			diet_sc_no = #{dietScNo:NUMERIC},
+			ex_sc_no = #{exScNo:NUMERIC},
 			locationtag_name = #{locationTagName:VARCHAR},
 			coordinate = #{coordinate:VARCHAR},
 			address = #{address:VARCHAR}
@@ -134,6 +133,8 @@
 		같이 사용 할 수 있다. CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리 WHERE ROWNUM 
 		<![CDATA[ <=]]> #{endRowNum} ) -->
 
+	
+	
 	<!-- SQL : SELECT LIST -->
 	<select id="listDietComRecom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
 		SELECT *
@@ -147,6 +148,8 @@
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
+	
+	
 	
 	<!-- SQL : SELECT ROW Count -->
 	<select id="getTotalCount" parameterType="com.wthealth.common.Search" resultType="int">
@@ -168,5 +171,6 @@
 			</if>
 		) countTable
 	</select>
+	
 
 </mapper>

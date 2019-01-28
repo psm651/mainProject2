@@ -16,6 +16,7 @@ public interface DietScheduleDao {
 	
 	public int addDietSchedule(DietSchedule dietSchedule) throws Exception;
 	
+	public List<Food> listFood(int dietScNo) throws Exception;
 	
 	public void deleteDietSchedule(int dietScNo) throws Exception;
 	

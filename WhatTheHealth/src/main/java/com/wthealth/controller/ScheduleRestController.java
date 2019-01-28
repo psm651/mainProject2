@@ -22,7 +22,7 @@ import com.wthealth.service.exschedule.ExScheduleService;
 
 
 
-//==> È¸¿ø°ü¸® Controller
+//==> È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Controller
 @RestController
 @RequestMapping("/schedule/*")
 public class ScheduleRestController {
@@ -36,14 +36,14 @@ public class ScheduleRestController {
 		@Autowired
 		@Qualifier("exScheduleServiceImpl")	
 		private ExScheduleService exScheduleService;
-	//setter Method ±¸Çö ¾ÊÀ½
+	//setter Method ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 	public ScheduleRestController(){
 		System.out.println(this.getClass());
 	}
 	
-	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml ÂüÁ¶ ÇÒ°Í
-	//==> ¾Æ·¡ÀÇ µÎ°³¸¦ ÁÖ¼®À» Ç®¾î ÀÇ¹Ì¸¦ È®ÀÎ ÇÒ°Í
+	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½
+	//==> ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½ ï¿½Ç¹Ì¸ï¿½ È®ï¿½ï¿½ ï¿½Ò°ï¿½
 	@Value("#{commonProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
@@ -77,14 +77,18 @@ public class ScheduleRestController {
 		
 	}
 	
+	
 	@RequestMapping(value="json/addExSchedule/{exScDate}", method = RequestMethod.GET)
 	public String addExSchedule(@PathVariable String exScDate) throws Exception {
 
 		System.out.println("/schedule/json/addExSchedule : GET");
 	
-		
-		return "redirect:/schedule/addEx?exScDate="+exScDate;
+		System.out.println("123123dddd"+exScDate);
+		return exScDate;
 	}
+	
+	
+	
 	@RequestMapping(value="json/addExSchedule", method = RequestMethod.POST)
 	public ExSchedule addExSchedule( @RequestBody ExSchedule exSchedule, HttpSession session ) throws Exception {
 
@@ -93,7 +97,7 @@ public class ScheduleRestController {
 		exSchedule.setUserId(((User)session.getAttribute("user")).getUserId());
 		ExSchedule exSchedule1=exSchedule;
 		
-		System.out.println("¿©±âº¸¼¼¿ä ¿©±â¿©±â¿©±â¿©±â¿©±â¿©±â¿©±â"+exSchedule);
+		System.out.println("ï¿½ï¿½ï¿½âº¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿©ï¿½â¿©ï¿½â¿©ï¿½â¿©ï¿½â¿©ï¿½â¿©ï¿½ï¿½"+exSchedule);
 		exScheduleService.addExSchedule(exSchedule);
 			exSchedule1=exSchedule;
 		
@@ -107,14 +111,16 @@ public class ScheduleRestController {
 	public ExSchedule getExSchedule( @PathVariable("exScNo") int exScNo,  HttpServletResponse response, Model model ) throws Exception {
 		
 		System.out.println("json/getExSchedule/{exScNo} : GET");
+		System.out.println("ìš´ë™ë„˜ë²„"+exScNo);
 		//Business Logic
 		ExSchedule exSchedule= exScheduleService.getExSchedule(exScNo);
+		System.out.println("ìš´ë™ìŠ¤ì¼€ì¤„ë²ˆí˜¸ì—"+exSchedule.getExScNo());
 		
 		
 		return exSchedule;
 	}
 	
-//ÀÏ´Üº¸·ù
+//ï¿½Ï´Üºï¿½ï¿½ï¿½
 	@RequestMapping(value="json/getDietSchedule/{dietScNo}", method = RequestMethod.GET)
 	public DietSchedule getDietSchedule( @PathVariable("dietScNo") int dietScNo,  HttpServletResponse response, Model model ) throws Exception {
 		
@@ -132,7 +138,7 @@ public class ScheduleRestController {
 		System.out.println("/json/updateExSchedule/{exScNo} : GET");
 		//Business Logic
 		ExSchedule exSchedule = exScheduleService.getExSchedule(exScNo);
-		// Model °ú View ¿¬°á
+		// Model ï¿½ï¿½ View ï¿½ï¿½ï¿½ï¿½
 		
 		
 		return exSchedule;
@@ -159,7 +165,7 @@ public class ScheduleRestController {
 		System.out.println("/json/updateDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		DietSchedule dietSchedule = dietScheduleService.getDietSchedule(dietScNo);
-		// Model °ú View ¿¬°á
+		// Model ï¿½ï¿½ View ï¿½ï¿½ï¿½ï¿½
 		
 		
 		return dietSchedule;
@@ -184,19 +190,21 @@ public class ScheduleRestController {
 		System.out.println("/json/deleteDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		dietScheduleService.deleteDietSchedule(dietScNo);
-		// Model °ú View ¿¬°á
+		// Model ï¿½ï¿½ View ï¿½ï¿½ï¿½ï¿½
 		
 		
 	}
 	
 	@RequestMapping(value="json/deleteExSchedule/{exScNo}", method=RequestMethod.GET)
-	public void deleteExSchedule( @PathVariable("exScNo") int exScNo ) throws Exception{
+	public int deleteExSchedule( @PathVariable("exScNo") int exScNo ) throws Exception{
 
 		System.out.println("/json/deleteExSchedule/{exScNo} : GET");
+		System.out.println(exScNo);
 		//Business Logic
-		exScheduleService.deleteExSchedule(exScNo);
-		// Model °ú View ¿¬°á
+		int i= exScheduleService.deleteExSchedule(exScNo);
+		// Model ï¿½ï¿½ View ï¿½ï¿½ï¿½ï¿½
 		
+		return i;
 		
 	}
 	

@@ -67,7 +67,7 @@
 	}
 	
 	function resetData(){
-		self.location="/dietCom/listDietCom";
+		self.location="/community/listCommunity";
 	}
 	
 		
@@ -133,13 +133,13 @@
 	   
 	   ///////////////////////////Drag and Drop////////////////////////////////////////
 	
-         function allowDrop(e) {
+      /*    function allowDrop(e) {
 		   console.log('allowDrop 들어옴');
 		   
         	e.preventDefault();
         	e.dataTransfer.setData("text/plain", e.target.id);
         	e.dropEffect = "move";
-        } 
+        }  */
         
         //var videoPlayer;
         function handleDragStart(e) {
@@ -155,6 +155,44 @@
         	 e.dataTransfer.setData("text", front+ zzz +back);  
             //videoPlayer = document.getElementById(event.target.id);
         }
+
+        function relayout() {    
+      		 map.relayout();
+   		}         
+    	//지도 Event 발생
+    	$(function(){
+    		$("button:contains('지도')").on("click", function(){
+    				alert("버튼클릭")
+    			 $('#mapModal').on('shown.bs.modal', function () { 
+    					$('#mapModal').modal('show');
+    					$(document).ready(function() {
+    						 relayout();
+    					}); 
+
+    			});
+
+    		});
+    		
+    	});        
+
+    	function sendInfo(locationTagName, address, coordinate){
+    		console.log(locationTagName)
+    		console.log(address)
+    		console.log(coordinate)
+     	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
+     		$(function(){
+     		 var location = '<input type="text" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
+     		 
+    					 '<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+    			 		'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+     			
+    			$("button:contains('확인')").on("click", function(){
+    				var locationName = $("#infoMap").text();
+    				$(".glyphicon").append(location);
+    				$("#mapModal").hide();
+    			});
+    		});  
+    	}        
        
 </script>
 
@@ -184,16 +222,14 @@
                 	<input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
                 </div>
                 <div class="col-md-1 mb-5 mb-md-0">
-              	    <button type="button" class="btn btn-default btn-sm">
+              	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">
          			 <span class="glyphicon glyphicon-map-marker"></span> 지도
      			   </button>
      			 </div>
               </div>
 
               <div class="row form-group">
-                <!-- <div class="col-md-12" ondrop="handleDrop(event)" ondragover="allowDrop(event)"> -->
-                <div class="col-md-12" ondragover="allowDrop(event)">
-                <!-- <div class="col-md-12"> -->
+                <div class="col-md-12" >
                   <input type = "hidden" id="contents" name="contents">
 		  			<jsp:include page="/common/postBySummerNote.jsp"></jsp:include> 
                 </div>
@@ -223,6 +259,29 @@
         </div>
       </div>
     </div>
+    
+<!-- modal-dialog modal-80size modal-center -->
+
+	<!-- Modal -->
+  <div class="modal modal-center fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">위치태그 등록</h4>
+      </div>
+      <div class="modal-body">
+      
+    <jsp:include page="/common/addMap.jsp" /> 
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>       
+    
 
 	<script src="https://apis.google.com/js/client.js?onload=init" ></script>
 </body>
