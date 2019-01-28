@@ -25,6 +25,48 @@
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
    
+   <style>
+   
+   	.giyong{
+   		margin-top : 5em;
+   		padding : 2em;
+   		border : 1px solid gray;
+   		border-radius : 15px;
+   		text-align : center;
+   	}
+   	
+   	.contents{
+   		display : block;
+   		text-align : center;
+   	}
+   	
+   	.giyong ul{
+   		display : block;
+   		height : 60px;
+   		overflow : hidden;
+   		padding-inline-start : 0;
+   		margin : 0 auto;
+   		text-align : center;
+   		padding-left : 30em;
+   	}
+   	
+   	.giyong li{
+   		display : block;
+   		list-style-type : none;
+   		float : left;
+   	}
+   	
+   	.Kimgiyong{
+   		display : block;
+   		height : 60px;
+   	}
+   	
+   	.giyongInput{
+   		margin-top : 50px;
+   		text-align : left;
+   	}
+   	
+   </style>
    <script type="text/javascript">
   
     function favoriteList(){
@@ -65,7 +107,9 @@
     $(document).ready(function(){
        favoriteList(); 
        });
-   
+
+    //var likeCount = $(this).data("param");
+    var likeCount = '${post.likeCount}';
     
     function emptyHeart(){
       $.ajax({
@@ -74,6 +118,9 @@
             success : function(data){
                 if(data == 1) {
                   favoriteList(); 
+                  likeCount++;
+                  //likeCount.attr('likeCount'); 
+                  $(".likeCount").replaceWith("좋아요 수  : "+ likeCount);
                   }
                }            
             });
@@ -90,6 +137,9 @@
                    if(data == 1) {
                       a += '<img src="../resources/images/emptyHeart.png"  width="60px" class="likeImage" onclick="emptyHeart()">';
                              $(".likeImage").remove();
+                      likeCount--;
+                      //likeCount.attr('likeCount');
+                      $(".likeCount").replaceWith("좋아요 수  : "+ likeCount);        
                      }
                    $(".like").append(a); 
                   }
@@ -146,7 +196,7 @@
             });
 	       }else if("${post.category == '3'}"){
 	    	   $( "a[href='#' ]:contains('삭제')").on("click", function(){
-	               self.location="/community/deleteExCom?postNo=${post.postNo}"
+	               self.location="/community/deleteDietCom?postNo=${post.postNo}"
 	            });
 	       }
          });
@@ -156,54 +206,77 @@
 <body>
    
    <div class="site-wrap">
-       <!-- ToolBar Start /////////////////////////////////////-->
+   <!-- ToolBar Start /////////////////////////////////////-->
    <jsp:include page="/layout/toolbar.jsp" /> 
-      <!-- ToolBar End /////////////////////////////////////-->
+   <!-- ToolBar End /////////////////////////////////////-->
    <!-- 툴바 인클루드 시작! -->
    
    </div>
-   <div class="site-section" >
+   <!-- <div class="site-section" align="center"> -->
       <div class="container">
       
-        <div class="row align-items-center" style="height: auto; width: 100%; border:1px solid black;">
-          <div class="col-md-12 col-lg-8 mb-5 mb-lg-0">
-            <h4 class="mb-3">${post.title}</h4>
-             <small>좋아요 수  : ${post.likeCount}</small> 
-             <small>조회 수 : ${post.clickCount}</small>
+        <div class="giyong">
+          	<h4>${post.title}</h4>
+          	<ul>
+          		<%-- <li><span class="likeCount" data-param="${post.likeCount}">좋아요 수  : ${post.likeCount}</span></li> --%>
+          		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
+          		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
+          	</ul>
+          	
+          	<!-- <span class="title" > -->
+            	<%-- <h4 class="mb-3">${post.title}</h4> --%>
+            <!-- </span> -->
+            <!-- <span class="etc" > -->
+	             <%-- <small>좋아요 수  : ${post.likeCount}</small> --%> 
+	             <%-- <small>조회 수 : ${post.clickCount}</small> --%>
+	        <!-- </span> -->
              
-              <!-- 다음맵지도 -->
+            <div class="contents" >
+				<p>${post.contents}</p>
+           		 <%-- <p class="mb-4">${post.contents}</p> --%>
+           	</div>
+                     <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
-	              <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">  
+			  	  
+	              <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->  
 	            	  <jsp:include page="/common/getMap.jsp" /> 
-	              </div>  
+	              
                 </c:if>
-                         
-            <p class="mb-4">${post.contents}</p>
-           
-            
-             <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
-                <div class="favoriteListHere">
-                   <div style="float: left; width: 33%;" class="like">
+
+		<div class="Kimgiyong">                        
+             <!-- <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite"> -->
+                
+                <div class="favoriteListHere" >
+                   <div style="float: left; width: 47%;" class="like">
                    <img src="../resources/images/emptyHeart.png" width="60px" class="likeImage" onclick="emptyHeart()">
                    </div>
-                   <div style="float: left; width: 33%;" class="interest">
+                   <div style="float: left; width: -2%;" class="interest">
                    <img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">
                    </div>
-                   <div style="float: left; width: 33%;" class="claim">
+                   <div style="float: left; width: 45%;" class="claim">
                    <img src="../resources/images/fullSiren.png"  width="60px" class="claimImage" onclick="fullSiren()">
                    </div>
                 </div>
             
             <c:if test = "${user.userId == post.userId}">
-	            <p><a href="#" class="btn btn-primary pill px-4">수정</a>
-	            <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+            	<div style="margin-top : 5em;">
+	            	<p>
+	            		<a href="#" class="btn btn-primary pill px-4">수정</a>
+	            		<a href="#" class="btn btn-primary pill px-4">삭제</a>
+	            	</p>
+	            </div>
             </c:if>
           </div>
-        </div>
+          
+          <div class="giyongInput">
+           <jsp:include page="/reply/listReply.jsp" />
+          </div>
+           
+        
       </div>
-    </div>
+    <!-- </div> -->
 
-   <jsp:include page="/reply/listReply.jsp" /> 
+  
 
 </body>
 </html>

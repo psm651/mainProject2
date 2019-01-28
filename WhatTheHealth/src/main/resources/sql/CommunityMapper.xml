@@ -36,7 +36,7 @@
 		click_count, blind_status, delete_status, like_count,
 		category, post_date, diet_sc_no, locationtag_name, coordinate, address)
 		VALUES
-		(seq_post_post_no.nextval, 'DC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
+		(seq_post_post_no.nextval, 'EC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
 		#{photo:VARCHAR}, 0, '0', '0', 0, '2', SYSDATE,
 		#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
@@ -86,7 +86,7 @@
 		WHERE post_no = #{postNo}
 	</update>
 	
-	<update id="updateClickCount" parameterType="com.wthealth.domain.Post">
+	<update id="updateClickCount" parameterType="int">
 		UPDATE post
 		<set>
 			click_count = #{clickCount:NUMERIC}
@@ -94,7 +94,7 @@
 		WHERE post_no = #{postNo}
 	</update>
 	
-	<update id="updateLikeCount" parameterType="com.wthealth.domain.Post">
+	<update id="updateLikeCount" parameterType="int">
 		UPDATE post
 		<set>
 			like_count = #{likeCount:NUMERIC}

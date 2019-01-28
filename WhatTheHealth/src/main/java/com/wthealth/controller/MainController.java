@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
-import com.wthealth.service.dietcom.DietComService;
+import com.wthealth.service.community.CommunityService;
 import com.wthealth.service.exinfo.ExInfoService;
 import com.wthealth.service.main.MainService;
 import com.wthealth.service.meeting.MeetingService;
@@ -38,8 +38,8 @@ public class MainController {
    @Qualifier("exInfoServiceImpl")
    private ExInfoService exInfoService;
    @Autowired
-   @Qualifier("dietComServiceImpl")
-   private DietComService dietComService;
+   @Qualifier("communityServiceImpl")
+   private CommunityService communityService;
    @Autowired
    @Qualifier("meetingServiceImpl")
    private MeetingService meetingService;
@@ -60,8 +60,8 @@ public class MainController {
       
       System.out.println("MainController Come in");
     
-/*      Map<String, Object> ex= exComService.listExComRecom(search);   
-      Map<String, Object> diet = dietComService.listDietComRecom(search);
+/*      Map<String, Object> ex= communityService.listExComRecom(search);   
+      Map<String, Object> diet = communityService.listDietComRecom(search);
       Map<String, Object> meeting = meetingService.listMeeting(search);
       List<Post> exInfo = exInfoService.listExInfo(Weather);*/
       

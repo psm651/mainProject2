@@ -121,7 +121,6 @@ public class CommunityController {
 			communityService.updateClickCount(post);
 
 			int totalLikeCount = favoriteService.getTotalLikeCount(postNo);
-			int likeCount = post.getLikeCount();
 			post.setLikeCount(totalLikeCount);
 			communityService.updateLikeCount(post);
 			

@@ -31,5 +31,5 @@ public interface FavoriteDao {
 	public int getTotalCountByFavorite(String userId, int postNo, String favoriteType) throws Exception;
 	
 	public int getTotalLikeCount(int postNo) throws Exception;
-
+	
 }

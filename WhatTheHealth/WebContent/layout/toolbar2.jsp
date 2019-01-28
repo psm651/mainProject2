@@ -176,10 +176,6 @@
   #main {
   		color: white;
 		}
-		
-	h2{
-		cursor:pointer;
-	}
   </style>
   
   <body>
