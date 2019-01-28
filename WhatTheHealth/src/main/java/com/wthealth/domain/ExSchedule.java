@@ -66,11 +66,11 @@ public class ExSchedule {
 	}
 
 	public String getExScDate() {
-		return exScDate;
+		return exScDate.substring(0, 10);
 	}
 
 	public void setExScDate(String exScDate) {
-		this.exScDate = exScDate;
+		this.exScDate = exScDate.substring(0, 10);
 	}
 
 	public int getPostNo() {
@@ -96,6 +96,4 @@ public class ExSchedule {
 				+ exScCalorie + ", exScTime=" + exScTime + ", exScContents=" + exScContents + ", exScDate=" + exScDate
 				+ ", postNo=" + postNo + ", deleteStatus=" + deleteStatus + "]";
 	}
-
-	
 }

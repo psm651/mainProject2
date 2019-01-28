@@ -9,12 +9,9 @@
 <script>
 $( function() {
 	$( ".btn-primary" ).on("click" , function() {
-		alert("123");
 		var exScName = $("#exScName").val();
 		var exScContents = $("#exScContents").val();
 		var exScCalorie = $("#exScCalorie").val();
-		alert(exScName);
-		alert(exScCalorie);
 	        $.ajax( {
 	          url: "/schedule/json/addExSchedule",
 	          dataType: "json",
@@ -29,7 +26,31 @@ $( function() {
 	  			"Accept" : "application/json",
 	  			"Content-Type" : "application/json"},
 	  	   success: function( data ) {
-	  			alert("등록 완료");
+	  			alert("수정 완료");
+				self.close(); 
+      		  } 
+	        } );
+	     
+	    } );
+});
+
+$( function() {
+	$( ".btn-default" ).on("click" , function() {
+		var exScName = $("#exScName").val();
+		var exScContents = $("#exScContents").val();
+		var exScCalorie = $("#exScCalorie").val();
+		var exScNo = ${exSchedule.exScNo};
+		
+	        $.ajax( {
+	          url: "/schedule/json/deleteExSchedule/"+exScNo,
+	          dataType: "json",
+	          method : "GET",
+	          headers : {
+	  			"Accept" : "application/json",
+	  			"Content-Type" : "application/json"},
+	  	   success: function( data ) {
+	  			alert("삭제 완료");
+				opener.location.reload();
 				self.close(); 
       		  } 
 	        } );
@@ -43,7 +64,7 @@ $( function() {
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">            
-                <h4 class="modal-title">운동스케줄 등록</h4>
+                <h4 class="modal-title">운동스케줄 상세조회</h4>
             </div>
             <div class="modal-body">
             
@@ -72,7 +93,7 @@ $( function() {
                     </div>
                 </div>                
                 
-                <button type="button" class="btn btn-primary">등록</button>
+                <button type="button" class="btn btn-primary">등록</button>                <button type="button" class="btn btn-default">삭제</button>
            </div>
          </div>
        </div>

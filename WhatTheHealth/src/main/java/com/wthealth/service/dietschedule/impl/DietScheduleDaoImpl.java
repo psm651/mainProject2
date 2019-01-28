@@ -92,4 +92,10 @@ public class DietScheduleDaoImpl implements DietScheduleDao {
 		return sqlSession.selectOne("DietScMapper.getDietScNo", dietSchedule);
 	}
 
+	@Override
+	public List<Food> listFood(int dietScNo) throws Exception {
+		
+		return sqlSession.selectList("DietScMapper.listFood", dietScNo);
+	}
+
 }

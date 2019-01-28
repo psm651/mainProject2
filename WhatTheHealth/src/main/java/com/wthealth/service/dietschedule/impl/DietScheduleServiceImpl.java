@@ -1,8 +1,6 @@
 package com.wthealth.service.dietschedule.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,11 +45,9 @@ public class DietScheduleServiceImpl implements DietScheduleService {
 	}
 
 	@Override
-	public Map<String, Object> listDietSchedule(String userId) throws Exception {
-		List<DietSchedule> list =dietScheduleDao.listDietSchedule(userId);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("dietSchedule", list);
-		return map;
+	public List<DietSchedule> listDietSchedule(String userId) throws Exception {
+		
+		return dietScheduleDao.listDietSchedule(userId);
 		
 	}
 
@@ -88,6 +84,12 @@ public class DietScheduleServiceImpl implements DietScheduleService {
 	public int addMeal(Food food) throws Exception {
 		return dietScheduleDao.addMeal(food);
 		
+	}
+
+	@Override
+	public List<Food> listFood(int dietScNo) throws Exception {
+		
+		return dietScheduleDao.listFood(dietScNo);
 	}
 
 }
