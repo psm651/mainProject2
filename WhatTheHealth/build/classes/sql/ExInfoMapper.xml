@@ -14,7 +14,6 @@
 		<result property="title" 			column="title" 				jdbcType="VARCHAR" />
 		<result property="contents" 		column="contents" 			jdbcType="VARCHAR" />
 		<result property="photo" 			column="photo" 				jdbcType="VARCHAR" />
-		<result property="video" 			column="video" 				jdbcType="VARCHAR" />
 		<result property="clickCount" 		column="click_count" 		jdbcType="NUMERIC" />
 		<result property="blindStatus" 		column="blind_status" 		jdbcType="VARCHAR" />
 		<result property="deleteStatus" 	column="delete_status"		jdbcType="VARCHAR" />
@@ -77,7 +76,7 @@
 	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
 	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
 		SELECT 
-  			title, contents, photo, video, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address
+  			title, contents, photo, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address
 	    FROM 
   			post
 		WHERE

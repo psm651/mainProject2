@@ -267,7 +267,7 @@
       </div>
       <div class="modal-body">
       
-    <jsp:include page="/common/addMap.jsp" /> 
+
         
       </div>
       <div class="modal-footer">
