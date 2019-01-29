@@ -116,7 +116,7 @@
                 				<img src="/resources/images/${post.userImage}" style="border-radius:100px; width:50px; height: 25px;">
                 			</c:if>
                 			<c:if test="${post.userImage == null or post.userImage ==  ''}">
-								<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="200"/></div>
+								<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 25px;"/>
 						    </c:if>
                 			${post.nickName}
                 		</div>
