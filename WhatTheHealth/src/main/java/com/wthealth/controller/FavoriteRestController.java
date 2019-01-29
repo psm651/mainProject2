@@ -47,18 +47,23 @@ public class FavoriteRestController {
 	@RequestMapping(value = "json/addLike/{postNo}", method = RequestMethod.GET)
 	public int addLike(@ModelAttribute Favorite favorite, @PathVariable int postNo,HttpSession session) throws Exception{
 		System.out.println("/favorite/json/addLike : GET");
-		System.out.println(favorite);
+		System.out.println("그러게?"+favorite);
 		
 		User user = (User)session.getAttribute("user");
 		String userId = user.getUserId();
 		favorite.setUserId(userId);
 		favorite.setPostNo(postNo);
 		
-		int totalLikeCount = favoriteService.getTotalLikeCount(postNo) +1;
+		System.out.println("2번째 페보리"+ favorite);
+		
+		/*int totalLikeCount = favoriteService.getTotalLikeCount(postNo) +1;*/
 		Post post = communityService.getCommunity(postNo);
+		System.out.println("커뮤니티 받아옴"+post);
+		
+		int totalLikeCount = post.getLikeCount()+1;
 		post.setLikeCount(totalLikeCount);
 		
-		communityService.updateLikeCount(communityService.getCommunity(postNo));
+		communityService.updateLikeCount(post);
 		favoriteService.addLike(favorite);
 
 		return 1;
@@ -91,9 +96,12 @@ public class FavoriteRestController {
 		favorite.setPostNo(postNo);
 		favorite.setFavoriteType("0");
 		
+		Post post = communityService.getCommunity(postNo);
+		post.setLikeCount(post.getLikeCount()-1);
 		Favorite deleteTarget = favoriteService.getFavorite(favorite);
+		
 		favoriteService.deleteLike(deleteTarget.getFavoriteNo());
-		communityService.updateLikeCount(communityService.getCommunity(postNo));
+		communityService.updateLikeCount(post);
 		
 		return 1;
 	}

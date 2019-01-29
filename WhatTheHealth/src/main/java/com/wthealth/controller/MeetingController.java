@@ -71,7 +71,8 @@ public class MeetingController {
 		meetingService.addMeeting(meeting);
 		/*post.setPostNo("ME"+meeting.getMeetNo());
 		meetingService.addMeetingPost(post);*/
-		return "redirect:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
+		//return "redirect:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
+		return "redirect:/meeting/addJoin?meetNo="+meeting.getMeetNo();
 	}
 	
 	@RequestMapping(value="getMeeting", method=RequestMethod.GET)
@@ -80,7 +81,7 @@ public class MeetingController {
 		Meeting meeting = meetingService.getMeeting(meetNo);
 		model.addAttribute("meeting", meeting);
 		
-		return "forward:/meeting/getMeeting.jsp"; 
+		return "forward:/meeting/getMeetingMap.jsp"; 
 	}
 	
 	@RequestMapping(value="getMeetingMap", method=RequestMethod.GET)

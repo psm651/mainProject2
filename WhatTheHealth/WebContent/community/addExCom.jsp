@@ -38,6 +38,12 @@
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	
+	<!-- include datetimepicker css/js-->
+	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
+	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
+ 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
+	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
+	
 	<style>
 
  	 .giyong{
@@ -49,7 +55,7 @@
 	
 <script type="text/javascript">
   
-	function fncAddDietCom(){
+	function fncAddExCom(){
 
 		var title = $("input[name='title']").val();
 		var contents = $("textarea[name=contents]").val();
@@ -192,7 +198,71 @@
     				$("#mapModal").hide();
     			});
     		});  
-    	}        
+    	}   
+    	
+////////////////////////////////////달력달력///////////////////////////////////	
+    	function datetime(){
+    		//$(".datepicker datepicker-inline").remove();
+    		$('div').remove('.datepicker datepicker-inline');
+    	};
+    	
+    	$(document).ready(function(){
+    		datetime(); 
+    	       });
+    	//////////////////////////////////////달력////////////////////////////////
+    	 // Initialization
+    $('#timepicker-actions-exmpl').datepicker({inline : false})
+    // Access instance of plugin
+    $('#timepicker-actions-exmpl').data('datepicker') 
+
+    	////////////////////////////////////달력달력///////////////////////////////////
+    	 // Create start date
+         var start = new Date(),
+            prevDay,
+            startHours = 9;
+
+        // 09:00 AM
+        start.setHours(9);
+        start.setMinutes(0);
+
+        // If today is Saturday or Sunday set 10:00 AM
+        if ([6, 0].indexOf(start.getDay()) != -1) {
+            start.setHours(10);
+            startHours = 10
+        }
+
+        $('#timepicker-actions-exmpl').datepicker({
+            timepicker: true,
+            language: 'en',
+            startDate: start,
+            minHours: startHours,
+            maxHours: 18,
+            
+            onSelect: function (fd, d, picker) {
+                // Do nothing if selection was cleared
+                if (!d) return;
+
+                var day = d.getDay();
+
+                // Trigger only if date is changed
+                if (prevDay != undefined && prevDay == day) return;
+                prevDay = day;
+
+                // If chosen day is Saturday or Sunday when set
+                // hour value for weekends, else restore defaults
+                if (day == 6 || day == 0) {
+                    picker.update({
+                        minHours: 10,
+                        maxHours: 16
+                    })
+                } else {
+                    picker.update({
+                        minHours: 9,
+                        maxHours: 18
+                    })
+                }
+            }
+        }) 
        
 </script>
 
@@ -209,11 +279,10 @@
 	
 	<div class="site-section bg-light">
       <div class="container">
-       <h4 class="info-title margin-five no-margin-top">식단 커뮤니티 게시글 등록하기</h4>
+       <h4 class="info-title margin-five no-margin-top">운동 커뮤니티 게시글 등록하기</h4>
         <div class="row">
        
           <div class="col-md-12 col-lg-8 mb-5">
-          
               <div class="row form-group">
                 <div class="col-md-11 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
@@ -228,6 +297,9 @@
      			 </div>
               </div>
 
+				<input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
+              	data-language="en" id="timepicker-actions-exmpl"  name="meetTime"/> 
+              	
               <div class="row form-group">
                 <div class="col-md-12" >
                   <input type = "hidden" id="contents" name="contents">
@@ -235,7 +307,7 @@
                 </div>
               </div>
 
-		<input type="submit" value="등록" onclick = "fncAddDietCom()" class="form-control btn btn-danger">
+		<input type="submit" value="등록" onclick = "fncAddExCom()" class="form-control btn btn-danger">
 		<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           </div>
           </form>

@@ -94,10 +94,10 @@
 	 
 	 <!-- SQL : SELECT LIST -->
 	<select  id="listReply"  parameterType="int"	resultMap="replySelectMap">
-	  	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
-											FROM reply
-											WHERE post_No = #{postNo} <!-- AND delete_status IS NULL OR delete_status='0'    -->
-											ORDER BY parent_reply_no, reply_no
+	  	SELECT r.reply_no , r.parent_reply_no , r.rereply_no , r.reply_date , r.post_no, text, r.writer_id, r.blind_status , r.delete_status, u.user_image
+											FROM reply r, users u
+											WHERE r.post_No = #{postNo} AND r.writer_id = u.user_id<!-- AND delete_status IS NULL OR delete_status='0'    -->
+											ORDER BY r.parent_reply_no, r.reply_no
 	 </select>
 	 
 	 <!-- SQL : SELECT LIST -->
@@ -126,9 +126,9 @@
 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT reply_no , parent_reply_no , rereply_no , reply_date , post_no, text, writer_id, blind_status , delete_status
-											FROM reply
-											WHERE post_No = #{postNo} <!-- AND delete_status IS NULL OR delete_status= '0' -->
+	  	FROM(	SELECT r.reply_no , r.parent_reply_no , r.rereply_no , r.reply_date , r.post_no, text, r.writer_id, r.blind_status , r.delete_status, u.user_image
+											FROM reply r, users u
+											WHERE r.post_No = #{postNo} AND r.writer_id = u.user_id <!-- AND delete_status IS NULL OR delete_status= '0' -->
 					 ) countTable						
 	 </select>
 	 

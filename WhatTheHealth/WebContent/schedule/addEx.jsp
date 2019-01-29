@@ -4,11 +4,86 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<title>Insert title here</title>
+<script src="https://fonts.googleapis.com/css?family=Montserrat"></script>
+<title>운동스케줄을 등록해보자</title>
+<style>
+	* {margin: 0; padding: 0;}
+
+html {
+	height: 100%;
+	/*Image only BG fallback*/
+	
+	/*background = gradient + image pattern combo*/
+	background: 
+		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+}
+
+body {
+	font-family: montserrat, arial, verdana;
+}
+/*form styles*/
+#exSchedule {
+	width: 450px;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+}
+#exSchedule fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+	
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+/*Hide all except first fieldset*/
+#exSchedule fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+#exSchedule input, #exSchedule textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+/*buttons*/
+#exSchedule .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#exSchedule .action-button:hover, #exSchedule .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+/*headings*/
+.fmodal-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+	
+</style>
 <script>
 $( function() {
-	$( ".btn-primary" ).on("click" , function() {
+	$( ".button" ).on("click" , function() {
 		var exScName = $("#exScName").val();
 		var exScContents = $("#exScContents").val();
 		var exScCalorie = $("#exScCalorie").val();
@@ -65,13 +140,19 @@ $( function() {
 });
 </script>
 </head>
+
 <body>
+<form id="exSchedule">
+
+<fieldset>
+
   <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">            
-                <h4 class="modal-title">운동스케줄 등록</h4>
+                <h4 class="modal-title">silikelkndk alsknaer lknlSEARAN l록</h4>
             </div>
+            
             <div class="modal-body">
             
                 <div class="row">
@@ -99,7 +180,10 @@ $( function() {
                     </div>
                 </div>                
                 
-                <button type="button" class="btn btn-primary">등록</button>
+               <!--  <button type="button" class="btn btn-danger pill">등록</button> -->
+               <input type="button" name="button" class="next action-button" value="등록" />
+                </fieldset>
+                </form>
            </div>
          </div>
        </div>

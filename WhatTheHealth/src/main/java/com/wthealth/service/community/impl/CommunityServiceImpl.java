@@ -94,11 +94,11 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public Map<String, Object> listExComRecom(Search search) throws Exception {
-		List<Post> list = communityDao.listExComRecom(search);
+		List<Post> exComList = communityDao.listExComRecom(search);
 		int totalCount = communityDao.getTotalCountForEC(search);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("list", list);
+		map.put("exComList", exComList);
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 		
@@ -106,11 +106,11 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public Map<String, Object> listDietComRecom(Search search) throws Exception {
-		List<Post> list = communityDao.listDietComRecom(search);
+		List<Post> dietComList = communityDao.listDietComRecom(search);
 		int totalCount = communityDao.getTotalCountForDC(search);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("list", list);
+		map.put("dietComList", dietComList);
 		map.put("totalCount", new Integer(totalCount));
 		return map;
 		

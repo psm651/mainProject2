@@ -20,11 +20,14 @@
 	</resultMap>
 	
 	<!-- SQL : INSERT DIET_SC -->
-	<insert 	id="addExSchedule"		parameterType="com.wthealth.domain.ExSchedule" >
+	<insert 	id="addExSchedule"		parameterType="com.wthealth.domain.ExSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
 	 	INSERT
 		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, delete_status) 
 		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId:VARCHAR} , #{exScName:VARCHAR}, #{exScContents:VARCHAR}, #{exScCalorie:NUMERIC} , #{exScDate}, TO_CHAR(#{exScTime:VARCHAR},'hh:mi:ss'),
 		<if test="postNo==0">null</if><if test="postNo!=0">#{postNo}</if>,'0' )
+		<selectKey resultType="int" keyProperty ="exScNo" order="AFTER">
+         		SELECT seq_ex_sc_ex_sc_no.currval FROM dual
+      		</selectKey>
 	 </insert>
 	 <!-- SQL : INSERT MEAL-->
 	

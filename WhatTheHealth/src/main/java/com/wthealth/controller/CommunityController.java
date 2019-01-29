@@ -74,7 +74,7 @@ public class CommunityController {
 			User user = (User)session.getAttribute("user");
 			post.setUserId(user.getUserId());
 			
-			communityService.addDietCom(post);
+			communityService.addExCom(post);
 			if(post.getContents().indexOf("upload/") != -1) {
 				mainService.updateThumbnail(post);
 			}else if(post.getContents().indexOf("embed/") != -1){
@@ -212,7 +212,7 @@ public class CommunityController {
 			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
 			
-			return "forward:/community/listExComRecom.jsp";
+			return "forward:/main.jsp";
 		}
 		
 //////////DietCom///////////////
@@ -256,7 +256,7 @@ public class CommunityController {
 			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
 			
-			return "forward:/community/listDietComRecom.jsp";
+			return "forward:/main.jsp";
 		}
 		
 }

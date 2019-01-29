@@ -59,19 +59,21 @@
 </div>
 <div style="height: 450px;" id='calendarr'></div>
 <div style="height: 50px;" ></div>
-<div class="modal fade" id="exSchedule" role="dialog">
+
+<!-- modal -->
+<div class="modal-fade" id="exSchedule" role="dialog" style="z-index:1060;">
     <div class="modal-dialog">
-    
+   
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
           <h4 class="modal-title">나만의 운동 Schedule</h4>
         </div>
 
-        <div class="modal-body">
-          <form id="createAppointmentForm" class="form-horizontal">
+        <div class="modal-body" >
+          <form id="exScheduleForm" class="form-horizontal">
     	
 		       		 <div class="control-group">
 		            	<label class="control-label" for="inputPatient"  text-align:"left";>운동명</label>
@@ -105,23 +107,29 @@
       </div>
       
     </div>
-  </div>
-  
-  
+  </div>  
 
+  
+  
 </body>
 <link rel='stylesheet' href='/resources/css/fullcalendar.css' />
 <script src='/resources/javascript/jquery.min.js'></script>
 <script src='/resources/javascript/moment.min.js'></script>
- <script src='/resources/javascript/fullcalendar.js'></script>  
+ <script src='/resources/javascript/fullcalendar.js'></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <!-- <script src='/resources/javascript/fullcalendar1.js'></script> -->
 
-<!-- modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+ 
+
 
 <script>
-
+	$('.btn:contains("Save")').on('click', function(){
+  		alert("")
+  				  $(".jquery-modal").hide();
+  		  		$('#exSchedule').hide();
+  		})
 
 $(function() {
 
@@ -177,6 +185,12 @@ var result = new Array();
 		      
 		      dayClick: function(date) {//날짜 빈칸 클릭시
 		    	  var clickDate = date.format();
+		      	  $('#exScDate').val(clickDate);
+		    	  $('#exSchedule').modal('show');
+		      
+
+		      		
+	/* 	    	  var clickDate = date.format();
 		    	  var j = $("#exSchedule #exScDate") .val(clickDate);
 
 		    	  $("#exSchedule").modal({show: true});
@@ -210,7 +224,7 @@ var result = new Array();
 		    		  },eventRender:function(event, eventElement) {
 		                  if(event.imageurl) {
 		                      eventElement.find("span.fc-title").before("<img src='" + event.imageurl + "'>");
-		                  }
+		                  } */
 		              },
 		    		 /*   select: function(startDate, endDate) {
 		    		      alert('selected ' + startDate.format() + ' to ' + endDate.format());
@@ -224,7 +238,7 @@ var result = new Array();
 	  });
 	   //모달버튼
 	  $('#submitButton').on('click', function(e){
-			alert("dsfd")
+	/* 		alert("dsfd")
 		    // We don't want this to act as a link so cancel the link action
 		    e.preventDefault();
 			$('#exSchedule').modal('hide')
@@ -235,7 +249,7 @@ var result = new Array();
 		    console.log($('#exScContents').val());
 		    console.log($('#exScCalorie').val());
 		    console.log($('#exScDate').val());
-		        
+		         */
 		    $("#calendar").fullCalendar('renderEvent',
 		        {
 		            title: $('#exScName').val()  
@@ -319,5 +333,6 @@ $(function(){
 })
 
 </script>
-	
+<body>
+</body>	
 </html>
