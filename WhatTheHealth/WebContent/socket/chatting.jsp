@@ -223,7 +223,7 @@ img{
 <!-- -----------------메뉴바----------------- -->
 
   
-  <script src="http://192.168.0.10:3000/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.43:3000/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   <script>
@@ -241,7 +241,7 @@ img{
   		
         $(document).ready(function() {
             
-        	var socket = io("http://192.168.0.10:3000");
+        	var socket = io("http://192.168.0.43:3000");
            
             
             socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}"});

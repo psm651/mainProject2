@@ -35,7 +35,6 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="../resources/js/app.js"></script>
 	
 	<style>
 		.giyong{

@@ -57,6 +57,12 @@ public class ExInfoDaoImpl implements ExInfoDao{
 	public int getTotalCount(Search search) throws Exception{
 		return sqlSession.selectOne("ExInfoMapper.getTotalCount", search);
 	}
+
+	@Override
+	public void deleteStatus(String postNo) throws Exception {
+		sqlSession.update("ExInfoMapper.updateDeleteStatus", postNo);
+		
+	}
 	
 
 

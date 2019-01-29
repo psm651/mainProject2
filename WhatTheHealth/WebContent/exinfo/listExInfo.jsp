@@ -9,7 +9,7 @@
     <title>IronMuscle &mdash; Colorlib Website Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+ 	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
@@ -23,10 +23,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/style.css">-->
     
     <script src="/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+   <!--  <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="/resources/js/jquery-ui.js"></script>
     <script src="/resources/js/popper.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
@@ -36,12 +36,12 @@
     <script src="/resources/js/jquery.magnific-popup.min.js"></script>
     <script src="/resources/js/bootstrap-datepicker.min.js"></script>
     <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>
+    <script src="/resources/js/main.js"></script>  -->
     
     
-       <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!--   <link href="/css/animate.min.css" rel="stylesheet"> -->
+   <!-- <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
   </head>
   
   <script type="text/javascript">
@@ -73,17 +73,14 @@
    });
    
    
-   
-   
 var currentPage=1;
-   
-   
+
    $(window).scroll(function(){
       
       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-      alert("")
+      
     	  currentPage++;
-
+    	  alert("")
       $.ajax({
          
          url: "/exinfo/json/listExInfo",
@@ -92,7 +89,7 @@ var currentPage=1;
             currentPage: currentPage+1 ,            
             searchCondition: $("#searchCondition").val(),
             searchKeyword: $("#searchKeyword").val(),
-        	exPart : $("#exPart").val()
+        	searchFilter : $("#exPart").val()
             
          }),
          dataType: "json",
@@ -100,9 +97,9 @@ var currentPage=1;
             "Accept" : "application/json",
             "Content-Type" : "application/json"
          },
-         success : function(JSONData , status){
-  					console.log(JSONdata)
-                  var list = JSONData["list"];
+         success : function(data , status){
+  					console.log(data)
+                  var list = data["list"];
                   currentPage++;
          }        
          /*    list.forEach(function(item, index, array){
@@ -185,7 +182,7 @@ var currentPage=1;
       <form class="form-inline" name="detailForm">       
        	
 		<div class="form-group">  
-			<select class="form-control" id="exPart" name="exPart" onchange="javascript:fncGetExPart('1');" >
+			<select class="form-control" id="searchFilter" name="exPart" onchange="javascript:fncGetExPart('1');" >
 				<option value=null>카테고리</option>
 				<option value="0" ${!empty post.exPart && post.exPart =='0' ? "selected" : "" }>전신</option>
 				<option value="1" ${!empty post.exPart && post.exPart =='1' ? "selected" : "" }>복부</option>

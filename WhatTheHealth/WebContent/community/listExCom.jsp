@@ -115,7 +115,12 @@
                 		<h2 class="h3"><a href="#">${post.title}</a></h2>
                 		<span class="text-uppercase date d-block mb-3">${post.postDate}</span>
                 		<div class="userInfo">
-                			<img src="/resources/images/${post.userImage}" width= "50;" height= "25;">
+                			<c:if test="${post.userImage != null and post.userImage != '' }">
+                				<img src="/resources/images/${post.userImage}" style="border-radius:100px; width:50px; height: 25px;">
+                			</c:if>
+                			<c:if test="${post.userImage == null or post.userImage ==  ''}">
+								<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="200"/></div>
+						    </c:if>
                 			${post.nickName}
                 		</div>
               		</div>
