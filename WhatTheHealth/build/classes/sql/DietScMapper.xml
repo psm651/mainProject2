@@ -70,8 +70,7 @@
 	   	UPDATE diet_sc
 	   	<set>
 			bmi_value 	= 	#{bmi:NUMERIC} ,
-			weight	=	#{weight:NUMERIC},
-			delete_status	=	#{deleteStatus:VARCHAR},
+			weight	=	#{weight:NUMERIC}
 	   	</set>
 	   	WHERE diet_sc_no = #{dietScNo}
 	 </update>
@@ -79,7 +78,7 @@
 	 <update	id="deleteDietSchedule"	parameterType="int"  >
 	   	UPDATE diet_sc
 	   	<set>
-			delete_status	=	#{deleteStatus:VARCHAR},
+			delete_status	=	#{deleteStatus:VARCHAR}
 	   	</set>
 	   	WHERE diet_sc_no = #{dietScNo}
 	 </update>
@@ -99,6 +98,15 @@
                        WHERE user_id = #{userId} )
       
 	 </select>
+	 
+	 <select  id="listFood"  parameterType="String" resultMap="foodSelectMap">
+	  SELECT *
+        FROM (    SELECT *
+                       FROM meal
+                       WHERE diet_sc_no = #{dietScNo} )
+      
+	 </select>
+	 
 	 
 	 <select  id="getTotalCount"  parameterType="java.lang.String"	 resultType="int">
 	  	SELECT COUNT(*)

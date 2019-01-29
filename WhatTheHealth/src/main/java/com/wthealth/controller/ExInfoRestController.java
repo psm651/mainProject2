@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.common.Page;
@@ -32,7 +33,7 @@ public class ExInfoRestController {
 		System.out.println(this.getClass());
 	}
 	
-	@RequestMapping(value="json/listExInfo")
+	@RequestMapping(value="json/listExInfo", method=RequestMethod.POST)
 	public Map<String, Object> listExInfo(@RequestBody Search search) throws Exception{
 		
 		if(search.getCurrentPage()==0) {

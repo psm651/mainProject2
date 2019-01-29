@@ -1,6 +1,7 @@
 package com.wthealth.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -9,6 +10,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpHost;
@@ -24,19 +26,24 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wthealth.controller.Config;
@@ -221,5 +228,35 @@ public class UserRestController {
 		
 		return userService.getAccount(userId);
 	}
+	
+	@RequestMapping(value = "json/addSNSUser",  method=RequestMethod.POST) 
+	public int addSNSUser(@RequestBody User user) throws Exception {
+	
+		System.out.println("/user/json/addUser : POST");
+		//String root = multi.getSession().getServletContext().getRealPath("/");
+
+		//System.out.println("들어옴들어옴:: "+root);		
+			//Business Logic
+			/*if(! uploadFile.getOriginalFilename().equals("")) {
+				String filePath = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
+				File file = new File(filePath , uploadFile.getOriginalFilename());
+				uploadFile.transferTo(file); 
+				user.setUserImage(uploadFile.getOriginalFilename());
+				userService.addUser(user);
+				System.out.println("사진 있을 때: "+user.getUserImage());
+			
+			} else if(uploadFile.getOriginalFilename().equals("")) {
+			
+				user.setUserImage("");
+				userService.addUser(user);
+				System.out.println("없을때: "+user.getUserImage());
+			}
+			*/
+		userService.addUser(user);
+			return 1;
+		}
+	
+	
+	
 	
 }
