@@ -260,7 +260,7 @@ $('#dietScDate').datepicker({
 			 	 <input type='text' class='datepicker-here' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:800px;"/> 			
 		       </div>
 		       <div class="col-md-3">
-		    	 <strong>추가된 총 칼로리:</strong><span id="amount"></span>
+		    	 <strong style="margin-left:">추가된 총 칼로리:</strong><span id="amount"></span>
 			   </div>
 	 		   <div class="col-md-3">
 				<select class="form-control" name="mealTime" id="mealTime" >
