@@ -88,6 +88,15 @@
 		 $(".img-fluid").css("cursor","pointer")
 	  });
 	  
+	  /*  if(${sessionScope.user} != null){
+		  
+			opener.location.replace("/main.jsp");
+		
+			
+		} ;
+		
+		window.close(); */
+	  
   });
   
   

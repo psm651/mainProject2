@@ -66,6 +66,16 @@
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
+	
+	 $(document).ready(function() {
+		 if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
+				
+				//alert("${sessionScope.user}");
+				self.close();
+				//self.location("/main.jsp");
+				opener.location.replace("/main.jsp");
+			}  
+	 });
 
 		//============= "로그인"  Event 연결 =============
 		function fncLogin() {
@@ -113,9 +123,51 @@
 		 $( function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#naver_id_login").on("click" , function() {
-				self.location = '/user/naverLogin';
+				//self.location = '/user/naverLogin';
+				popWin 
+				= window.open("/user/naverLogin",
+											"popWin", 
+											"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
+											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 			});
 		});
+		 
+		
+		 $( function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$("#kakao_login").on("click" , function() {
+					
+					$('#loginModal').hide();
+					//opner.close();
+					//self.location = '/user/kakaoLogin';
+					popWin 
+					= window.open("https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code",
+												"popWin", 
+												"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
+												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); 
+					
+					//location.reload();
+					//location.replace("/");
+					//popWin.close();
+					/* window.location.reload(); */
+					
+					
+					
+					
+					//window.document.getElementById("submit").value = document.getElementById("pInput").value;
+
+					//popWin.get
+					
+					//opener.location.replace("/user/kakaoLogin?code="+popWin.location.href.split("=")[1]);
+					//alert("${sessionScope.user}");
+					 /*  if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
+						//opener.location.replace("/main.jsp");
+						alert("${sessionScope.user}");
+						popWin.close();
+					}   */ 
+				});
+			});
+		 
 		 
 		 $( function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -193,8 +245,10 @@
 					    <div class="col-md-12 mb-3 mb-md-2 text-center">
 					      <button type="button" class="btn btn-primary" id="login" >로 &nbsp;그 &nbsp;인</button>
 					      
-					      <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code';" 
-					      src="/resources/images/kakao_login_btn_medium.png"  height="40">
+					      <!-- <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code';" 
+					      src="/resources/images/kakao_login_btn_medium.png"  height="40"> -->
+					      
+					      <img src="/resources/images/kakao_login_btn_medium.png" id="kakao_login" height="40">
 					      
 					      <img id="naver_id_login" src="/resources/images/naver_login_small.png" height="40">
 					    
@@ -206,8 +260,8 @@
 					  
 					  <div class="form-group">
 					  	<div class="col-md-12 mb-3 mb-md-2 text-center">
-					  	<a href="/user/addUser" class="col-sm-3">회원가입</a>|
-					    <a href="/user/findId" class="col-sm-3">아이디찾기</a>|
+					  	<a href="/user/addUser" class="col-sm-3">회원가입</a>
+					    <a href="/user/findId" class="col-sm-3">아이디찾기</a>
 					    <a href="/user/findPassword" class="col-sm-3">비밀번호찾기</a> 
 					   </div>
 					   </div>
