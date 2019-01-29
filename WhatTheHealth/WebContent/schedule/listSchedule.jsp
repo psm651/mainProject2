@@ -748,15 +748,16 @@ $(function(){
 		<c:if test="${dietcal.deleteStatus!='1'}">
 		
 <c:forEach var="c"  begin="1" end="7" >
-		if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${c-1}).attr("data-date")) {
+		if ('${dietcal.dietScDate}'.substring(1,10)== $('.fc-day-header.fc-widget-header').eq(${c-1}).attr("data-date")) {
   				dietCal${c}=dietCal${c} + ${dietcal.dietScCalorie};
 		} 
 		</c:forEach>
 		</c:if>
 		</c:forEach>
 		
-		<c:forEach var="d"  begin="1" end="7" >
-		$("#d${d}").text('+'+dietCal${d}+' kCal');
+		<c:forEach var="e"  begin="1" end="7" >
+		console.log(dietCal${e});
+		$("#"+d+"${e}").text('+'+dietCal${e}+' kCal');
 		</c:forEach>
 		
 		
