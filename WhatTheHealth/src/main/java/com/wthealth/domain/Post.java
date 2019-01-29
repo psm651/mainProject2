@@ -9,6 +9,7 @@ public class Post {
 	private String title;
 	private String contents;
 	private String nickName;
+	private String userImage;
 	private String photo;
 	private String video;
 	private int clickCount;
@@ -35,6 +36,7 @@ public class Post {
 	private int favoriteNo;
 	private String pressedStatus;
 	private String favoriteType;
+	
 	
 	public Post() {
 	}
@@ -255,15 +257,26 @@ public class Post {
 		this.postSubNo = postSubNo;
 	}
 
+	public String getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [postNo=" + postNo + ", userId=" + userId + ", title=" + title + ", contents=" + contents
-				+ ", nickName=" + nickName + ", photo=" + photo + ", video=" + video + ", clickCount=" + clickCount
-				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + ", likeCount=" + likeCount
-				+ ", category=" + category + ", postDate=" + postDate + ", postSubNo=" + postSubNo + ", exScNo="
-				+ exScNo + ", dietScNo=" + dietScNo + ", exInfoNo=" + exInfoNo + ", exCalorie=" + exCalorie
-				+ ", exPlace=" + exPlace + ", exPart=" + exPart + ", exVideoTime=" + exVideoTime + ", locationTagName="
-				+ locationTagName + ", coordinate=" + coordinate + ", address=" + address + ", favoriteNo=" + favoriteNo
-				+ ", pressedStatus=" + pressedStatus + ", favoriteType=" + favoriteType + "]";
+				+ ", nickName=" + nickName + ", userImage=" + userImage + ", photo=" + photo + ", video=" + video
+				+ ", clickCount=" + clickCount + ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus
+				+ ", likeCount=" + likeCount + ", category=" + category + ", postDate=" + postDate + ", postSubNo="
+				+ postSubNo + ", exScNo=" + exScNo + ", dietScNo=" + dietScNo + ", exInfoNo=" + exInfoNo
+				+ ", exCalorie=" + exCalorie + ", exPlace=" + exPlace + ", exPart=" + exPart + ", exVideoTime="
+				+ exVideoTime + ", locationTagName=" + locationTagName + ", coordinate=" + coordinate + ", address="
+				+ address + ", favoriteNo=" + favoriteNo + ", pressedStatus=" + pressedStatus + ", favoriteType="
+				+ favoriteType + "]";
 	}
+
+	
 }

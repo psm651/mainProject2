@@ -49,7 +49,7 @@
 	
 <script type="text/javascript">
   
-	function fncAddDietCom(){
+	function fncAddExCom(){
 
 		var title = $("input[name='title']").val();
 		var contents = $("textarea[name=contents]").val();
@@ -209,11 +209,10 @@
 	
 	<div class="site-section bg-light">
       <div class="container">
-       <h4 class="info-title margin-five no-margin-top">식단 커뮤니티 게시글 등록하기</h4>
+       <h4 class="info-title margin-five no-margin-top">운동 커뮤니티 게시글 등록하기</h4>
         <div class="row">
        
           <div class="col-md-12 col-lg-8 mb-5">
-          
               <div class="row form-group">
                 <div class="col-md-11 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">Title</label>
@@ -235,7 +234,7 @@
                 </div>
               </div>
 
-		<input type="submit" value="등록" onclick = "fncAddDietCom()" class="form-control btn btn-danger">
+		<input type="submit" value="등록" onclick = "fncAddExCom()" class="form-control btn btn-danger">
 		<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           </div>
           </form>
