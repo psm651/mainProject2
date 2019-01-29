@@ -57,8 +57,10 @@ public class Food {
 	@Override
 	public String toString() {
 		return "Food [foodName=" + foodName + ", foodCalorie=" + foodCalorie + ", amountFood=" + amountFood
-				+ ", foodInfos=" + foodInfos + "]";
+				+ ", dietScNo=" + dietScNo + ", foodInfos=" + foodInfos + "]";
 	}
+
+
 
 
 
