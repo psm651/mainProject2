@@ -244,7 +244,7 @@ $('#dietScDate').datepicker({
 		    		<span><h4><strong>KEYWORD</strong></h4></span>
 		    	</div>
 		    </div>
-		    <div class="row" id="input" style="margin-top:5px;">
+		    <div class="row" id="input" style="margin-top:30px;">
 		    	<div>
 		    		<input type="text" id="searchFood" name="searchFood">
 		    	</div>
@@ -260,13 +260,13 @@ $('#dietScDate').datepicker({
 		    	<strong style="margin-right:800px;">추가된 총 칼로리 :</strong><span id="amount"></span>
 		
 	 		
-			 
 				<select class="form-control" name="mealTime" id="mealTime" style="width:160px; heiht:10px;">
 					<option value="0" >아침</option>
 					<option value="1" >점심</option>
 					<option value="2" >저녁</option>		
 				</select>   			
-		 	     <button type="button" id="schedule" class="btn pull-right" >저장</button> 
+				 <a href="#" class="btn btn-primary pill px-4" id="button" style="margin-right:300px;" >저장</a>
+		 	
 		    </div>
 		    
 
@@ -289,7 +289,7 @@ $('#dietScDate').datepicker({
 	</table>
 	
 	</div>
-x
+
 	<div class="row form-group">	
 		<table class="table" id="calculate">
   			<thead>
