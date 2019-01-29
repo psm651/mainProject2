@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="../resources/css/jquery-ui.css">
     <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="../resources/css/animate.css">
     
     <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
@@ -59,6 +58,9 @@
 
 		var title = $("input[name='title']").val();
 		var contents = $("textarea[name=contents]").val();
+		var exSchedule = $("input[name='exSchedule']").val();
+		
+		console.log(exSchedule);
 		
 		if(title == null || title.length<1){
 			alert("제목은 반드시 입력하여야 합니다.");
@@ -264,6 +266,21 @@
             }
         }) 
        
+       /*  function forSchedule(){
+        	var exSchedule = $("#exSchedule").val();
+        	
+        	$.ajax({
+        		url : 'schedule/json/',
+        		type : '',
+        		success: function(JSONData){
+        			
+        			
+        		}
+        		
+        	})
+        	
+        } */
+        
 </script>
 
 </head>
@@ -296,10 +313,14 @@
      			   </button>
      			 </div>
               </div>
-
+				
+			<span class="forSchedule">
+				<img src="../resources/images/calendar.png"  style="width:30px;">
 				<input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
-              	data-language="en" id="timepicker-actions-exmpl"  name="meetTime"/> 
-              	
+              	data-language="en" id="timepicker-actions-exmpl" name="exSchedule"/> 
+            </span>  	
+            
+           
               <div class="row form-group">
                 <div class="col-md-12" >
                   <input type = "hidden" id="contents" name="contents">

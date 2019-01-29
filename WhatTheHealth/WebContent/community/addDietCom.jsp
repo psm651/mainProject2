@@ -289,8 +289,11 @@
      			 </div>
               </div>
               
-              <input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
-              	data-language="en" id="timepicker-actions-exmpl"  name="meetTime"/> 
+             <span class="forSchedule">
+				<img src="../resources/images/calendar.png"  style="width:30px; float:left;">
+				<input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
+              	data-language="en" id="timepicker-actions-exmpl" name="dietSchedule"/> 
+            </span>  	
 
               <div class="row form-group">
                 <div class="col-md-12" >
