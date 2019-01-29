@@ -65,35 +65,6 @@
   
   
   $(function(){
-    
-     //임박한 소모임 getMeeting
-     $("#meeting").on("click", function(){
-        alert("미팅");
-       self.locaiton = "/meeting/listMeeting?postNo"+postNo 
-     });
-     
-     //날씨별 운동추천 getWeather
-     $("#exInfo").on("click", function(){
-        alert("운동정보");
-       self.locaiton = "/exinfo/listExinfoWeather?postNo"+postNo 
-     });
-     
-     //추천 식단 커뮤니티
-     $(".dietcom").on("click", function(){
-        var postNo = $(this).data("dietcom");
-        self.location = "/community/getCommunity?postNo="+postNo;
-     });
-     
-     //추천 운동 커뮤니티
-     $(".excom").on("click", function(){
-        var postNo = $(this).data("excom");
-        self.location = "/community/getCommunity?postNo="+postNo;
-     });
-     
-     //썸네일로 이동시 마우스커서로 변경
-     $(".img-fluid").on("mouseover", function(){
-       $(".img-fluid").css("cursor","pointer")
-     });
 	 
 	  //임박한 소모임 getMeeting
 	  $("#meeting").on("click", function(){
