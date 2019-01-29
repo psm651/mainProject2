@@ -140,19 +140,15 @@ $( function() {
 });
 </script>
 </head>
-
 <body>
 <form id="exSchedule">
-
 <fieldset>
-
   <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">            
-                <h4 class="modal-title">silikelkndk alsknaer lknlSEARAN l록</h4>
+                <h4 class="modal-title">운동스케줄 등록</h4>
             </div>
-            
             <div class="modal-body">
             
                 <div class="row">
