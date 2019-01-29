@@ -67,4 +67,10 @@ public class ExInfoServiceImpl implements ExInfoService {
 		return null;
 	}
 
+	@Override
+	public void deleteStatus(String postNo) throws Exception {
+		exInfoDao.deleteStatus(postNo);
+		
+	}
+
 }

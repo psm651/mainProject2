@@ -8,38 +8,44 @@
 	<title>운동꿀팁 글쓰기 페이지</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
+ <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> -->
+     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css"> 
 
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> 
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css"> 
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css">
+    <link rel="stylesheet" href="../resources/css/style.css"> 
+    
+ 
+    
     
 	<!-- include libraries(jQuery, bootstrap) -->
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<!-- 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 	
-	<!-- include summernote css/js-->
+	include summernote css/js
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	
+	 -->
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="../resources/js/app.js"></script>
-	<!-- sweetalert -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"> -->
+
+
 	<style>
- 
+	
+
 
 	#sub {width:200px; height:30px; background:pink;
 
@@ -54,7 +60,7 @@
      top:30px; left:550px;
      }
 
-#sub:before {
+	#sub:before {
 
      border-top: 10px solid pink;
 
@@ -110,7 +116,7 @@
 // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
 // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
 // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-
+	
   
 	function fncAddExInfo(){
 
@@ -158,6 +164,7 @@
 	$(function(){
 		$("button:contains('지도')").on("click", function(){
 			 $('#mapModal').on('shown.bs.modal', function () { 
+				 
 					$('#mapModal').modal('show');
 					$(document).ready(function() {
 						 relayout();
@@ -273,7 +280,8 @@
 <body>
 	<div class="site-wrap">
 		 <!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" /> 
+  	 <jsp:include page="/layout/toolbar.jsp" />  
+
    	<!-- ToolBar End /////////////////////////////////////-->
 	<!-- 툴바 인클루드 시작! -->
 	

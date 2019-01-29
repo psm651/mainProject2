@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 
 <style>
-
+@import url(https://fonts.googleapis.com/css?family=Montserrat);	
   body {
     margin: 40px 10px;
     padding: 0;
@@ -16,10 +16,77 @@
     font-size: 14px;
   }
   
-/*   #calendar {
-    max-width: 900px;
-    margin: 0 auto;
-  } */
+	* {margin: 0; padding: 0;}
+
+html {
+	
+}
+
+/*form styles*/
+#exScheduleForm , #exEventScheduleForm {
+	width: 450px;
+	/* margin: 50px auto; */
+	text-align: center;
+	position: relative;
+	height: 100%;
+	/*Image only BG fallback*/
+	
+	/*background = gradient + image pattern combo*/
+	/* background: 
+		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6)); */
+}
+#exScheduleForm fieldset , #exEventScheduleForm fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+	
+	/*stacking fieldsets above each other*/
+	position: relative;
+}
+/*Hide all except first fieldset*/
+#exScheduleForm fieldset:not(:first-of-type), #exEventScheduleForm fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+#exScheduleForm input,   #exScheduleForm textarea,  #exEventScheduleForm input,   #exEventScheduleForm textarea{
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+/*buttons*/
+#exScheduleForm .action-button, #exEventScheduleForm .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#exScheduleForm .action-button:hover, #exScheduleForm .action-button:focus, #exEventScheduleForm .action-button:hover, #exScheduleForm .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+/*headings*/
+.fmodal-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+	
     #calendar {
     max-width: 1200px;
 
@@ -35,8 +102,7 @@
 	height : 50px;
 	margin : 0 auto;
 }
-table{
-}
+
 .table th{
 	width : 100px;
 }
@@ -47,6 +113,11 @@ table{
 	.table th{
 		width : 10px;
 	}
+}
+.modal a.close-modal{
+	background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+	top : 10px;
+	right : 10px;
 }
 </style>
 </head>
@@ -73,19 +144,263 @@ table{
 		</table>
 	</div>
 </div>
-<div style="height: 450px;" id='calendarr'></div>
-<div style="height: 50px;" ></div>
+<div style="height: 400px;" id='calendarr'></div>
+<div class="giyong">
+	<div class="row" >
+		<table class="table table-striped table-bordered table-hover">
+			        <thead>
+				                  <tr align="right">  
+					<c:forEach var="i"  begin="1" end="7" >
+					                     <th id="d${i}" class="giyong"></th>
+					</c:forEach>
+				                        </tr>  
+			        </thead>
+		</table>
+	</div>
+</div>
 
   
-  
+<!-- modal -->
 
+          
+
+<div class="modal hide" id="exSchedule"  tabindex="-1" role="dialog" >
+          <form id="exScheduleForm" class="form-horizontal">
+          	<fieldset>
+    	<div class="modal-dialog">
+   
+      <!-- Modal content-->
+      		<div class="modal-content">
+	        	<div class="modal-header">
+	
+	<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+	          		<h4 class="modal-title">나만의 운동 Schedule</h4>
+	        	</div>
+	          
+	       		 <div class="modal-body" >
+		       		 <div class="control-group">
+		            	<label class="control-label" for="inputPatient"  text-align="left";>운동명</label>
+		                	<input type="text" name="exScName" id="exScName" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
+		            		<div class="controls controls-row" id="when" style="margin-top:5px;">
+		       			</div>
+		        	</div>
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScContents"> 운동내용</label>
+		            		<input type="text" name="exScContents" id="exScContents"/>
+		            	<div class="controls controls-row" id="when" style="margin-top:5px;">
+		              	</div>
+		        	</div>
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScCalorie">소모칼로리</label>
+		            		<input type="text" name="exScCalorie" id="exScCalorie"/>
+		        	</div>        	
+		        	
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScDate">날짜</label>
+		            		<input type="text" name="exScDate" id="exScDate"/>
+		            		<input type="hidden" id="exScDate1" />
+		        	</div>        	        	
+			   	</div>
+					    
+				        <div class="modal-footer">
+					          <button type="button" class="next action-button" data-dismiss="modal">Close</button>
+					<button type="button" class="next action-button" >Save</button> 
+					<!--                <input type="button" name="button" class="next action-button" value="등록" />-->
+				        </div>
+	  		</div>
+		</div>
+	
+  </fieldset>
+  </form>
+</div>
+  
+  
+  <!-- 운동 event modal -->
+
+          
+
+<div class="modal hide" id="exEventSchedule"  tabindex="-1" role="dialog" >
+          <form id="exEventScheduleForm" class="form-horizontal">
+          	<fieldset>
+    	<div class="modal-dialog">
+   
+      <!-- Modal content-->
+      		<div class="modal-content">
+	        	<div class="modal-header">
+	
+	<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+	          		<h4 class="modal-title">운동 Schedule</h4>
+	        	</div>
+	          
+	       		 <div class="modal-body" >
+		       		 <div class="control-group">
+		            	<label class="control-label" for="inputPatient"  >운동명</label>
+		                	<input type="text" name="exScName" id="exScEventName"  value=""  style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
+		       			</div>
+
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScContents"> 운동내용</label>
+		            		<input type="text" name="exScContents" id="exScEventContents" value=""/>
+		              	</div>
+
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScCalorie">소모칼로리</label>
+		            		<input type="text" name="exScCalorie" id="exScEventCalorie" value=""/>
+		              	</div>
+
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScDate">날짜</label>
+		            		<input type="text" name="exScDate" id="exScEventDate"value=""/>
+		            		
+		        	</div>        	        	
+					    <input type="hidden" id="exScEventNo"  name=exScNo value="" />
+				        <div class="modal-footer">
+					          <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
+					<button type="button" class="next action-button" >Update</button> 
+
+				        </div>
+	  		</div>
+		</div>
+  </fieldset>
+  </form>
+</div>
+
+
+<!-- //diet -->
+<div class="modal hide" id="dietEventSchedule"  tabindex="-1" role="dialog" >
+          <form id="dietEventScheduleForm" class="form-horizontal">
+          	<fieldset>
+    	<div class="modal-dialog">
+   
+      <!-- Modal content-->
+      		<div class="modal-content">
+	        	<div class="modal-header">
+	
+	<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+	          		<h4 class="modal-title">맛있게 먹으면 0칼로리</h4>
+	        	</div>
+	          
+	       		 <div class="modal-body row"  id ="dietScModal">
+		       		
+				
+                	</div>
+					    <input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
+				        <div class="modal-footer">
+					          <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
+					<button type="button" class="next action-button" >Update</button> 
+
+				        </div>
+	  		</div>
+		</div>
+  </fieldset>
+  </form>
+</div>
 </body>
+
+
 <link rel='stylesheet' href='/resources/css/fullcalendar.css' />
 <script src='/resources/javascript/jquery.min.js'></script>
 <script src='/resources/javascript/moment.min.js'></script>
- <script src='/resources/javascript/fullcalendar.js'></script>  
+ <script src='/resources/javascript/fullcalendar.js'></script>
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />  
 <!-- <script src='/resources/javascript/fullcalendar1.js'></script> -->
 <script>
+
+$('.action-button:contains("Save")').on('click', function(e){
+	  		$(".jquery-modal").hide();
+		  	$('#exSchedule').hide();
+		  	$.ajax(
+	    			{	url : '../schedule/json/addExSchedule',
+	    				method : "POST",
+	    				dataType : "json",
+	    				headers : {
+	    					"Accept" : "application/json",
+	    					"Content-Type" : "application/json"
+	    				},
+	    				data: JSON.stringify({
+	    		       		exScName:$('#exScName').val(),
+    		       			exScContents:$('#exScContents').val(),
+   		       				exScDate:$('#exScDate').val(),
+   		       				exScCalorie:$('#exScCalorie').val()
+   		       				
+	    		          }),
+	    				success : function(JSONData ) {
+	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'#ffb1c1', imageurl : "../resources/images/pic.jpg"};
+	        	    $('#calendar').fullCalendar( 'renderEvent', event, true); 
+	        	    var s=new Date(JSONData.exScDate);
+	        var d = s.getDay()+1;
+	          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONData.exScCalorie);
+	          				//console.log('addC',addC);
+	          				//console.log('인덱스1번',$("#"+d).text().substring($("#"+d).text().indexOf('+')+1));
+	          				//console.log('섭스트링',Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal"))))
+	          				$("#"+d).text('+'+addC+' kCal');
+	    				}
+	    			});
+			$('#exScName').val('');
+		  	$('#exScContents').val('');
+		  	$('#exScCalorie').val('');
+		  	alert("등록완료")
+		});
+		
+/////////exEventSc 버튼
+
+	$('.action-button:contains("Update")').on("click" , function() {
+		$(".jquery-modal").hide();
+	  	$('#exEventSchedule').hide();
+		var exScName = $("#exScName").val();
+		var exScContents = $("#exScContents").val();
+		var exScCalorie = $("#exScCalorie").val();
+	        $.ajax( {
+	          url: "/schedule/json/updateExSchedule",
+	          dataType: "json",
+	          method : "POST",
+	          data: JSON.stringify({
+	        	  exScDate:$("#exScDate").val(),
+	        	  exScName:$("#exScName").val(),
+	        	  exScContents:$("#exScContents").val(),
+	        	  exScCalorie:$("#exScCalorie").val()
+	          }),
+	          headers : {
+	  			"Accept" : "application/json",
+	  			"Content-Type" : "application/json"},
+	  	   success: function( data ) {
+	  			alert("수정 완료");
+      		  } 
+	        } );
+	     
+	    } );
+
+
+	$( '.action-button:contains("Delete")' ).on("click" , function(data) {
+		$(".jquery-modal").hide();
+	  	$('#exEventSchedule').hide();
+		var exScName = $("#exScEventName").val();
+		var exScContents = $("#exScEventContents").val();
+		var exScCalorie = $("#exScEventCalorie").val();
+		var exScNo =$("#exScEventNo").val();
+		console.log(exScNo);
+		console.log(exScCalorie);
+		
+	        $.ajax( {
+	          url: "/schedule/json/deleteExSchedule/"+exScNo,
+	          dataType: "json",
+	          method : "GET",
+	          headers : {
+	  			"Accept" : "application/json",
+	  			"Content-Type" : "application/json"},
+	  	   success: function( data ) {
+	  		 $('#calendar').fullCalendar(
+	  		        'removeEvents', exScNo //or something like that
+	  		    );
+     		alert("삭제 완료");
+	  	 }
+	  	} );
+	   } );
+
+/////////
+		
 $(function() {
 
 var result = new Array();
@@ -95,54 +410,39 @@ var result = new Array();
 	json.title="${info.exScName}";
 	json.start="${info.exScDate}";
 	json.id="${info.exScNo}";
-	//json.calorie+="${info.exScCalorie}";
+
 	result.push(json);
 
 	</c:forEach>
 
-/* 	var random = Math.floor(Math.random() * 10) + 1;
-	console.log("test",random);
-	
-	var a;
-	
-	if (random<=2) {
-		a='#9ad0f5'
-	}else if(random<=4){
-		a='#ccb2ff'
-	}else if(random<=6){
-		a='#a5dfdf'
-	}else if(random<=8){
-		a='#ffe6aa'
-	}else if(random<=10){
-		a='#ffb1c1'
-	} */
-
-	  $('#calendar').fullCalendar({
-		
-		  selectable: true,  //사용자가 클릭 및 드래그하여 선택을 할 수 있도록
-		   selectHelper: true,//사용자가 드래그되는 동안 "자리"이벤트를 그릴 것인지 여부를 지정할 수 있습니다.
-		
-			  eventClick: function(event) {
-			    	$.ajax(
-			    			{	url : '../schedule/json/getExSchedule/'+event.id,
-			    				method : "GET",
-			    				dataType : "json",
-			    				headers : {
-			    					"Accept" : "application/json",
-  			    					"Content-Type" : "application/json"
-  			    				},
-  			    				success : function(JSONData ) {
-  			    			popWin 
-  							= window.open("../schedule/getExSchedule?exScNo="+JSONData.exScNo,
-  														"popWin", 
-  														"left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
-  														"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-  			    				}
-  			    			});
-  			    	
-  			      return false;
-  			    
-  			  },
+		   $('#calendar').fullCalendar({
+				
+				  selectable: true,  //사용자가 클릭 및 드래그하여 선택을 할 수 있도록
+				   selectHelper: true,//사용자가 드래그되는 동안 "자리"이벤트를 그릴 것인지 여부를 지정할 수 있습니다.
+				
+					  eventClick: function(event) {
+					    	$.ajax(
+					    			{	url : '../schedule/json/getExSchedule/'+event.id,
+					    				method : "GET",
+					    				dataType : "json",
+					    				headers : {
+					    					"Accept" : "application/json",
+		  			    					"Content-Type" : "application/json"
+		  			    				},
+		  			    				success : function(JSONData ) {
+		  			    					
+		  			    					$('#exScEventName').val(JSONData.exScName);
+		  			    					$('#exScEventContents').val(JSONData.exScContents);
+		  			    					$('#exScEventCalorie').val(JSONData.exScCalorie);
+		  			    					$('#exScEventDate').val(JSONData.exScDate);
+		  			    					$('#exScEventNo').val(JSONData.exScNo);
+		  			    					$('#exEventSchedule').modal('show');
+		  			    					 
+		  			    			
+		  			    				}
+		  			    			});
+		  			    	
+		  			  },
 		  header: {
 		        left: 'prev,next today,myCustomButton',//왼쪽상단버튼
 		        center: 'title',//가운데
@@ -166,52 +466,18 @@ var result = new Array();
 		      displayEventTime: false, //시간안보이게
 		      
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
-
-		    	   	popWin 
-					= window.open("../schedule/addExSchedule?date="+date.format(),
-												"popWin", 
-												"left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
-												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-			 
-		    	   	var event={id:1 , title: 'New event', start:  '2019-01-20'};
-
-		    	    $('#calendar').fullCalendar( 'renderEvent', event, true);
-		    	    $(this).css('background-color', 'red');
-		    	 
-		    	  }, /* 
-		    	  $.ajax(
-			    			{	url : '../schedule/json/addExSchedule/'+date.format(),
-			    				method : "GET",
-			    				dataType : "json",
-			    				headers : {
-			    					"Accept" : "application/json",
-			    					"Content-Type" : "application/json"
-			    				},
-			    				success : function(JSONData ) {
-			    			alert(JSONData.exScNo);
-			    			alert(JSONData.exScName);
-			    			popWin 
-							= window.open("../schedule/addExSchedule?exScNo="+JSONData.exScNo,
-														"popWin", 
-														"left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
-														"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-			    				}
-			    			});
-			    	
-			      return false;
-			    
-			  }, */
+		    	  var clickDate = date.format();
+		      	  $('#exScDate').val(clickDate);
+		    	  $('#exSchedule').modal('show');
+		    	   
+		    	  }, 
+		    	
 		    	  resources: {// 이거뭔지모름/////////////////////////////////////////////
 		    		    url: '/schedule/listSchedule',
 		    		    type: 'POST'
 		    		  },
 		    	  events: [//이벤트 db연동해서가져오기
-		    	
-
 		    		  <c:forEach items = "${exList}" var = "info">
-		    		  
-		
-		    	
 		    		  <c:if test="${info.deleteStatus!='1'}">
 		    		  {
 		    		  title:'${info.exScName}',
@@ -224,31 +490,7 @@ var result = new Array();
 		    		  </c:forEach>
 		   
 		    		  ],
-		    		 /* 나중에 업데이트 연결해야함  
-		    		 eventClick: function(event) {
-		    			    if (event.url) {
-		    			    	$.ajax(
-		    			    			{
-		    			    				url : event.url,
-		    			    				method : "GET",
-		    			    				dataType : "json",
-		    			    				headers : {
-		    			    					"Accept" : "application/json",
-		    			    					"Content-Type" : "application/json"
-		    			    				},
-		    			    				success : function(JSONData , status) {
-		    			    			alert("성공!");
-		    			    					
-		    			    				}
-		    			    			});
-		    			    	popWin 
-		    					= window.open("../schedule/addEx.jsp",
-		    												"popWin", 
-		    												"left=100,top=200,width=580,height=530,marginwidth=0,marginheight=0,"+
-		    												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-		    			      return false;
-		    			    }
-		    			  }, */
+		    		
 		    	  customButtons: {
 		    		    myCustomButton: {
 		    		      text: 'custom!',
@@ -266,10 +508,7 @@ var result = new Array();
 		                  if(event.imageurl) {
 		                      eventElement.find("span.fc-title").before("<img src='" + event.imageurl + "'>");
 		                  }
-		              },
-		    		 /*  select: function(startDate, endDate) {
-		    		      alert('selected ' + startDate.format() + ' to ' + endDate.format());
-		    		    }, */
+		              },    		
 		    	  views: {
 		    		    week: { // name of view
 		    		      titleFormat: 'YYYY / MM / DD'
@@ -279,34 +518,53 @@ var result = new Array();
 	  })
 
 	});
-	
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(function() {
 
-	  // page is now ready, initialize the calendar...
-
 	  $('#calendarr').fullCalendar({
 		  selectable: true,  //사용자가 클릭 및 드래그하여 선택을 할 수 있도록
 		   selectHelper: true,//사용자가 드래그되는 동안 "자리"이벤트를 그릴 것인지 여부를 지정할 수 있습니다.
-		
-		/*    eventClick: function(event, element) {//이벤트 클릭시 기능 */
-			/*   alert('event on: ' +event.id);
-			  alert('element on: ' +element);
-				popWin 
-				= window.open("../schedule/json/getExSchedule?exScNo="+event.id,
-											"popWin", 
-											"left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
-											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-		 
-
-			    $('#calendar').fullCalendar('updateEvent', event);
-
-			  }, */
+	
 			  eventClick: function(event) {
+			    	$.ajax(
+			    			{	url : '../schedule/json/getDietSchedule/'+event.id,
+			    				method : "GET",
+			    				dataType : "json",
+			    				headers : {
+			    					"Accept" : "application/json",
+			    					"Content-Type" : "application/json"
+			    				},
+			    				success : function(JSONData) {	
+			    					var total="";
+			    				    for(var i=0; i<JSONData.food.length ; i++){
+			    						
+			    						var a='<div class="col-xs-4 col-sm-4" style="max-width:150px; height:150px; margin-bottom : 2.5em;">'+
+	    								 '<div class="card" >'+
+		    								'<div class="card-header" align="center" >'+JSONData.food[i].foodName+'</div>'+
+		    								 '<div class="card-body" style="padding-bottom:-110px;padding-bottom: 8px;padding-top: 8px;" align="center">'+
+		    									'<p >'+JSONData.food[i].amountFood+'</p>'+
+		    									'<p >'+JSONData.food[i].foodCalorie+' </p>'+                               
+		    								'</div>'+                                      
+		    							   '</div>'+
+		    							   '</div>'+
+		    							'</div>';
+			    			total+=a;
+			    			
+			    					}
+			    				    console.log(total);
+			    				    $(".modal-body.row").html(total);
+			    				
+			    					//수정중
+			    					
+			    					/* $('#dietScEventAmountFood').val(JSONData.amountFood);
+			    					$('#dietScEventFoodCalorie').val(JSONData.foodCalorie); */
+			    					$('#dietEventSchedule').modal('show');
+			    				}
+			    			});
+			  },
+			  
+			/*   eventClick: function(event) {
  			    	$.ajax(
  			    			{	url : '../schedule/json/getDietSchedule/'+event.id,
  			    				method : "GET",
@@ -326,7 +584,8 @@ $(function() {
  			    	
  			      return false;
  			    
- 			  },
+ 			  }, */
+ 			  
 		  header: {
 		        left: 'prev,next today,myCustomButton',//왼쪽상단버튼
 		        center: 'title',//가운데
@@ -462,25 +721,68 @@ $(function(){
 		   
 		   })
 		});
-	<c:forEach var="c"  begin="1" end="7" >
-	var cal${c} = 0;
-	</c:forEach>
 	
+	<c:forEach var="c"  begin="1" end="7" >
+	var exCal${c} = 0;
+	var dietCal${c} = 0;
+	
+	</c:forEach>
+	///<운동리스트 칼로리계산>///
 		<c:forEach items = "${exList}" var = "info">
 		<c:if test="${info.deleteStatus!='1'}">
 		
 <c:forEach var="b"  begin="1" end="7" >
 		if ('${info.exScDate}'== $('.fc-day-header.fc-widget-header').eq(${b-1}).attr("data-date")) {
-  				cal${b}=cal${b} + ${info.exScCalorie};
+			exCal${b}=exCal${b} + ${info.exScCalorie};
 		} 
 		</c:forEach>
 		</c:if>
 		</c:forEach>
+		
 		<c:forEach var="a"  begin="1" end="7" >
-		$("#${a}").text('+'+cal${a}+' kCal');
+		$("#${a}").text('+'+exCal${a}+' kCal');
 		</c:forEach>
+		
+		///-----<식단리스트 칼로리계산>------///
+		<c:forEach items = "${dietList}" var = "dietcal">
+		<c:if test="${dietcal.deleteStatus!='1'}">
+		
+<c:forEach var="c"  begin="1" end="7" >
+		if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${c-1}).attr("data-date")) {
+  				dietCal${c}=dietCal${c} + ${dietcal.dietScCalorie};
+		} 
+		</c:forEach>
+		</c:if>
+		</c:forEach>
+		
+		<c:forEach var="d"  begin="1" end="7" >
+		$("#d${d}").text('+'+dietCal${d}+' kCal');
+		</c:forEach>
+		
+		
 	
-})
-
+});
+/* function doSubmit(){
+   alert()
+        
+    $("#calendar").fullCalendar('renderEvent',
+        {
+            title: $('#patientName').val(),
+            start: new Date($('#apptStartTime').val()),
+            end: new Date($('#apptEndTime').val()),
+            allDay: ($('#apptAllDay').val() == "true"),
+        },
+        true);
+   }
+ */
 </script>
+<style>
+.modal a.close-modal{
+	top:10px;
+	right:10px;
+}
+.modal{
+	background: linear-gradient(rgba(196, 102, 0, 1), rgba(155, 89, 182, 0.6));
+}
+</style>
 </html>

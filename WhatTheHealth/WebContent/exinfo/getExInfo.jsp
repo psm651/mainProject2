@@ -11,12 +11,12 @@
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
-    <script src="../resources/js/jquery-3.3.1.min.js"></script>
+    
    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+<!--     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
 
-   <!--  <link rel="stylesheet" href="/resources/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
@@ -24,8 +24,21 @@
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="/resources/css/aos.css">
-<!--     <link rel="stylesheet" href="/resources/css/style.css"> -->
+    <link rel="stylesheet" href="/resources/css/aos.css"> -->
+
+
+	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+
+	<!-- include datetimepicker css/js-->
+ 	<script type="text/javascript" src="/resources/js/datepicker.js"></script> 
+	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
+	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
+	
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	
+   	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    
    <style>
    
@@ -41,7 +54,29 @@
 
 
    <script type="text/javascript">
-  
+//////////////////////////////////////달력////////////////////////////////
+// Initialization
+
+
+$(function(){
+$('#exInfoSc').datepicker({
+	autoClose: false,
+	position:  "right top",
+	 autoClose: true,
+	todayButton : true
+/* 	onSelect: function onSelect(fd){			
+	} */
+})
+// Select initial date from `eventDates`
+
+$('#exInfoSc').data('datepicker');
+//Access instance of plugin
+/* $('#exInfoSc').data('datepicker')    
+
+}); */
+   
+});
+   
     function favoriteList(){
            $.ajax({
                url : '/favorite/json/listFavorite/'+'${post.postNo}',
@@ -87,7 +122,7 @@
             url : '/favorite/json/addLike/'+'${post.postNo}',
             type : "GET",
             success : function(data){
-            	alert(data)
+            	
                 if(data == 1) {
                   favoriteList(); 
                   }
@@ -155,20 +190,31 @@
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
         		var postNo = $(this).data("param");
-        	  self.location="/exInfo/updateExInfo?postNo="+postNo
+        	   self.location="/exInfo/updateExInfo?postNo="+postNo
             });
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/exInfo/deleteExInfo?postNo=${post.postNo}"
+        	  var postNo = $(this).data("param1");
+        	  alert(postNo)
+               self.location="/exInfo/updateDeleteStatus?postNo="+postNo
             });
          });
+       
+      
+     $(function(){
+    	 $("#button").on("click", function(){
+    		 alert("")
+    		 $("form[name='exSchedule']").attr("method","POST").attr("action","/schedule/addExSchedule").submit();	
+    	 }) ;
+     });
        
    </script>
 </head>
 <body>
    
    <div class="site-wrap">
-       <!-- ToolBar Start /////////////////////////////////////-->
-   <jsp:include page="/layout/toolbar.jsp" /> 
+   <!-- ToolBar Start /////////////////////////////////////-->
+   <%-- <jsp:include page="/layout/toolbar.jsp" />  --%>
+    <jsp:include page="/calculator/test.jsp" />
       <!-- ToolBar End /////////////////////////////////////-->
    <!-- 툴바 인클루드 시작! -->
    
@@ -178,11 +224,29 @@
       
     	<input type="hidden" name="postNo" value="${post.postNo }"/>
         <div class="row align-items-center">
+        
           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
+          
+          	
+         	
             <h4 class="mb-3">${post.title}</h4>
+    
+         
              <small>좋아요 수  : ${post.likeCount}</small> 
-             <small>조회 수 : ${post.clickCount}</small> 
-             <hr/>
+             
+             <div class="row">
+            	 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
+             		 <small>조회 수 : ${post.clickCount}</small> 
+             	 </div>
+             	 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">	
+              	 	<input type='text' id="exInfoSc"  data-language='en' name='exScDate' placeholder="내스케줄담기" style="alignt:right;"/>
+           		 </div>
+             	 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">	 
+             	 	<a href="#" class="btn btn-primary pill px-4" id="button" style="margin-right:300px;" >담기</a>
+             	 </div>
+            </div>
+
+			<hr/>
             <span><h6>프로그램 간략정보</h6></span>   
             
            <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
@@ -239,17 +303,25 @@
                 </div>
             
             <c:if test="${sessionScope.user.role == 'admin'}">
-            	<p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo }">수정</a>
-        	    <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+            	<p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo}">수정</a>
+        	    <a href="#" class="btn btn-primary pill px-4" data-param1="${post.postNo}">삭제</a></p>
             </c:if>
             
           </div>
         </div>
       </div>
     
+         <form name="exSchedule">
+             <input type="hidden" name="exScName" value="${post.title}" style="display:nont;"/>
+             <input type="hidden" name="exScContents" value="${post.contents}"/>
+             <input type="hidden" name="exScCalorie" value="${post.exCalorie}"/>
+         </form>
 
-   <jsp:include page="/reply/listReply.jsp" /> 
+  <%--  <jsp:include page="/reply/listReply.jsp" />  --%>
    </div>
 </div>
+
+
+
 </body>
 </html>

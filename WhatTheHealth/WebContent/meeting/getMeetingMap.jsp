@@ -301,16 +301,17 @@
             <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
               </c:if >
               </div>
-              
+        
+         
               
            
             
             </div>
             <!-- 참여 리스트 추가추가  -->
              <div class=" col-md-12 col-lg-4 mb-5" >
-             <div class="row">
+             <!-- <div class="row"> -->
              <div class="col-md-12 mb-5" align="center"><h4>참여자 목록</h4></div>
-             </div>
+            <!--  </div> -->
              <div class="joinlist_container">
              <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
@@ -335,28 +336,19 @@
 			<!-- 채팅방 인클루드 -->
 			 <div class="row">
 			<div class="col-md-12 mb-5"  >
-			<%@ include file="/socket/groupChatting.jsp" %>
+		   <%@ include file="/socket/groupChatting.jsp" %>  <!--  여기 댓글 수정하느라 주석-->
 			</div> 
 			</div> 
 			</div>
             </div> 
-            <!-- 참여 리스트 추가추가  -->
+            <!-- 댓글 추가추가  -->
      
-          <div class="row">
-        <!-- <div class="row align-items-center"> -->
+           <div class="row">
         	<div class="col-md-12 col-lg-8 mb-5">
          		 <jsp:include page="/reply/listReplyMeeting.jsp" />  
            </div>
-           
-           <!-- <div class="col-lg-4"> -->
-             
-             <!-- <div class="row"> -->
-             <%-- <div class="col-lg-4">
-             <%@ include file="/socket/groupChatting.jsp" %>
-			</div>  --%>
-		<!-- 	</div> -->
-            <!-- </div> -->
-          </div>
+          </div> 
+          <!-- 댓글 추가추가  끝 -->
          
          </div> 
     

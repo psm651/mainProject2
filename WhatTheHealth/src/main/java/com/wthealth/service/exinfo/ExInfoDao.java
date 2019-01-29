@@ -23,5 +23,7 @@ public interface ExInfoDao {
 	public List<Post> listExInfo(String Weather) throws Exception;
 
 	public int getTotalCount(Search search) throws Exception;
+	
+	public void deleteStatus(String postNo) throws Exception;
 
 }

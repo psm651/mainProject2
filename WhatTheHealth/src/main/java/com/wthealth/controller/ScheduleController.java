@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +28,7 @@ import com.wthealth.service.dietschedule.DietScheduleService;
 import com.wthealth.service.exschedule.ExScheduleService;
 
 
-//==> ȸ������ Controller
+//==> 회占쏙옙占쏙옙占쏙옙 Controller
 @Controller
 @RequestMapping("/schedule/*")
 public class ScheduleController {
@@ -40,14 +41,14 @@ public class ScheduleController {
 	@Autowired
 	@Qualifier("exScheduleServiceImpl")	
 	private ExScheduleService exScheduleService;
-	//setter Method ���� ����
+	//setter Method 占쏙옙占쏙옙 占쏙옙占쏙옙
 		
 	public ScheduleController(){
 		System.out.println(this.getClass());
 	}
 	
-	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml ���� �Ұ�
-	//==> �Ʒ��� �ΰ��� �ּ��� Ǯ�� �ǹ̸� Ȯ�� �Ұ�
+	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml 占쏙옙占쏙옙 占쌀곤옙
+	//==> 占싣뤄옙占쏙옙 占싸곤옙占쏙옙 占쌍쇽옙占쏙옙 풀占쏙옙 占실미몌옙 확占쏙옙 占쌀곤옙
 	@Value("#{commonProperties['pageUnit']}")
 	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
@@ -58,7 +59,7 @@ public class ScheduleController {
 	
 
 	@RequestMapping(value="addExSchedule", method = RequestMethod.GET)
-	public String addProduct(Model model, @RequestParam("date") String date) throws Exception {
+	public String addExSchedule(Model model, @RequestParam("date") String date) throws Exception {
 
 		System.out.println("/schedule/addExSchedule : GET");
 		model.addAttribute("ExScDate", date);
@@ -66,10 +67,20 @@ public class ScheduleController {
 		return "forward:/schedule/addEx.jsp";
 	}
 	
+	@RequestMapping(value="addExSchedule", method = RequestMethod.POST)
+	public void addExSchedule(@ModelAttribute ExSchedule exSchedule, Model model) throws Exception {
+
+		System.out.println("/schedule/addExSchedule : GET");
+		
+		//return "forward:/schedule/addEx.jsp";
+	}
+	
+	
+	
 	
 	@RequestMapping(value="getExSchedule", method = RequestMethod.GET)
 	public String getExSchedule(Model model, @RequestParam("exScNo") int exScNo) throws Exception {
-		System.out.println("운동넘버123123"+exScNo);
+		System.out.println("�슫�룞�꽆踰�123123"+exScNo);
 		System.out.println("/schedule/getExSchedule : GET");
 		
 		model.addAttribute("exSchedule", exScheduleService.getExSchedule(exScNo));
@@ -79,7 +90,7 @@ public class ScheduleController {
 	
 	@RequestMapping(value="getDietSchedule", method = RequestMethod.GET)
 	public String getDietSchedule(Model model, @RequestParam("dietScNo") int dietScNo) throws Exception {
-		System.out.println("식단넘버다"+dietScNo);
+		System.out.println("�떇�떒�꽆踰꾨떎"+dietScNo);
 		System.out.println("/schedule/getDietSchedule : GET");
 		//dietScheduleService.list
 		model.addAttribute("food", dietScheduleService.listFood(dietScNo));
@@ -89,87 +100,7 @@ public class ScheduleController {
 		
 		return "forward:/schedule/getDiet.jsp";
 	}
-	/*		
-	@RequestMapping(value="addProduct", method = RequestMethod.POST)
-	public String addProduct( @ModelAttribute("product") Product product, @RequestParam("fileNa") MultipartFile file ) throws Exception {
 
-		
-		System.out.println("/product/addProduct : POST");
-		//Business Logic
-		File file1=new File("C:\\Users\\Bit\\git\\11PJT\\11.Model2MVCShop\\WebContent\\images\\uploadFiles\\",file.getOriginalFilename());
-		
-		file.transferTo(file1);
-		product.setFileName(file.getOriginalFilename());
-		productService.addProduct(product);
-		
-		return "forward:/product/addProductConform.jsp";
-	}
-	
-	@RequestMapping(value="getProduct", method = RequestMethod.GET)
-	public String getProduct( @RequestParam("prodNo") int prodNo ,@CookieValue(value="history", required=false) String history, HttpServletResponse response, Model model ) throws Exception {
-		
-		System.out.println("/product/getProduct : GET");
-		//Business Logic
-		Product product = productService.getProduct(prodNo);
-		List<Product> map=new ArrayList<Product>();
-		if (history==null || history.length()==0) {
-			history = prodNo+"";
-		}else {
-			if (history.indexOf(prodNo+"")==-1) {
-				history = prodNo+","+history;
-			}			
-			
-		}
-		
-		Cookie cookie= new Cookie("history", history);
-		cookie.setPath("/");
-		response.addCookie(cookie);
-		
-		
-		String[] h =history.split(",");
-		
-		for (int i = 0; i < h.length; i++) {
-			
-				
-				Product cookieProduct=productService.getProduct(Integer.parseInt(h[i]));
-			
-				map.add(productService.getProduct(Integer.parseInt(h[i])));
-			
-		}
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@�̰Ը��̴�"+map);
-		
-		
-		// Model �� View ����
-		model.addAttribute("product", product);
-		model.addAttribute("map", map);
-		
-		return "forward:/product/getProduct.jsp";
-	}
-	
-	@RequestMapping(value="updateProduct", method=RequestMethod.GET)
-	public String updateProduct( @RequestParam("prodNo") int prodNo , Model model ) throws Exception{
-
-		System.out.println("/product/updateProduct : GET");
-		//Business Logic
-		Product product = productService.getProduct(prodNo);
-		// Model �� View ����
-		model.addAttribute("product", product);
-		
-		return "forward:/product/updateProductView.jsp";
-	}
-	
-	@RequestMapping(value="updateProduct", method=RequestMethod.POST)
-	public String updateProduct( @ModelAttribute("product") Product product , Model model) throws Exception{
-
-		System.out.println("/product/updateProduct : GET");
-		//Business Logic
-		
-		productService.updateProduct(product);
-		
-	
-		return "redirect:/product/getProduct?prodNo="+product.getProdNo()+"&menu=manage";
-	}
-	*/
 	@RequestMapping(value="getHistoryChart")
 	public String getHistoryChart(/*@RequestParam("userId") String userId,*/ Model model, HttpSession session) throws Exception{
 		System.out.println("/getHistoryChart : GET / POST");
@@ -183,13 +114,13 @@ public class ScheduleController {
 		Calendar now = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		now.setTime(sdf.parse("2019-01-29"));
-		/*System.out.println("년"+now.get(1));
-		System.out.println("월"+now.get(2));
-		System.out.println("일"+now.get(5));
+		/*System.out.println("�뀈"+now.get(1));
+		System.out.println("�썡"+now.get(2));
+		System.out.println("�씪"+now.get(5));
 		*/
 		
-		System.out.println("현재몇주차인지 데이터타입"+(now.get(now.WEEK_OF_YEAR )+"").getClass());
-		System.out.println("db에서 받아온 날짜 데이터타입"+(exList.get(2).getExScDate()).getClass());
+		System.out.println("�쁽�옱紐뉗＜李⑥씤吏� �뜲�씠�꽣���엯"+(now.get(now.WEEK_OF_YEAR )+"").getClass());
+		System.out.println("db�뿉�꽌 諛쏆븘�삩 �궇吏� �뜲�씠�꽣���엯"+(exList.get(2).getExScDate()).getClass());
 		System.out.println((now.get(now.WEEK_OF_YEAR ))+"");
 		
 	
@@ -204,7 +135,7 @@ public class ScheduleController {
 				}
 			}
 			calList.add(j, cal);
-			System.out.println(j+"주차"+calList.get(j));
+			System.out.println(j+"二쇱감"+calList.get(j));
 		}
 		
 		
@@ -220,11 +151,11 @@ public class ScheduleController {
 		
 		System.out.println("123123123123"+map.get("exList"));
 
-		// Model �� View ����
+		// Model 占쏙옙 View 占쏙옙占쏙옙
 		model.addAttribute("dietList", map.get("dietList"));
 		model.addAttribute("exList", map.get("exList"));
 		model.addAttribute("exCalorie", calList);
-		System.out.println("맵이다"+calList);
+		System.out.println("留듭씠�떎"+calList);
 
 		
 	
@@ -243,12 +174,12 @@ public class ScheduleController {
 		
 		
 
-		// Model �� View ����
+		// Model 占쏙옙 View 占쏙옙占쏙옙
 		model.addAttribute("dietList", map.get("dietList"));
 		model.addAttribute("exList", map.get("exList"));
 		
-		System.out.println("맵이다"+map.get("exList"));
-		System.out.println("다이어트리스ㅡㅌ"+map.get("dietList"));
+		System.out.println("留듭씠�떎"+map.get("exList"));
+		System.out.println("�떎�씠�뼱�듃由ъ뒪�뀫�뀒"+map.get("dietList"));
 		
 	
 		

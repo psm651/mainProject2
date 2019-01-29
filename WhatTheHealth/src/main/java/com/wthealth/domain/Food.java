@@ -1,11 +1,15 @@
 package com.wthealth.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Food {
 
 	private String foodName;
-	private int foodCalorie;
+	private String foodCalorie;
 	private String amountFood;
-	private int dietScNo;
+	//private int dietScNo;
+	private List<Food> foodInfos;
 
 	public Food() {
 	}
@@ -18,11 +22,11 @@ public class Food {
 		this.foodName = foodName;
 	}
 
-	public int getFoodCalorie() {
+	public String getFoodCalorie() {
 		return foodCalorie;
 	}
 
-	public void setFoodCalorie(int foodCalorie) {
+	public void setFoodCalorie(String foodCalorie) {
 		this.foodCalorie = foodCalorie;
 	}
 
@@ -34,19 +38,33 @@ public class Food {
 		this.amountFood = amountFood;
 	}
 
-	public int getDietScNo() {
+/*	public int getDietScNo() {
 		return dietScNo;
 	}
 
 	public void setDietScNo(int dietScNo) {
 		this.dietScNo = dietScNo;
+	}*/
+
+	public List<Food> getFoodInfos() {
+		return foodInfos;
+	}
+
+	public void setFoodInfos(List<Food> foodInfos) {
+		this.foodInfos = foodInfos;
 	}
 
 	@Override
 	public String toString() {
 		return "Food [foodName=" + foodName + ", foodCalorie=" + foodCalorie + ", amountFood=" + amountFood
-				+ ", dietScNo=" + dietScNo + "]";
+				+ ", foodInfos=" + foodInfos + "]";
 	}
+
+
+
+
+
+
 	
 	
 	

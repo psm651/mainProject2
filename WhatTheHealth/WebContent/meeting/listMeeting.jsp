@@ -114,8 +114,8 @@
 </div>
   
         <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addMeeting">글쓰기</a></p>
-   <p align="right"><a onclick="javascript:location.href='https://192.168.0.39:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   align="right" class="btn btn-primary pill text-white px-4"   id="addSocket">화상채팅</a></p>
-   <p align="right"><a onclick="javascript:location.href='https://192.168.0.39:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   align="right" class="btn btn-primary pill text-white px-4"   id="addSocket">화상채팅</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
    
        
         <br/>

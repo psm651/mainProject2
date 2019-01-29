@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page pageEncoding="UTF-8"%>
-
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
+
 
 <html lang="ko">
 	
@@ -26,7 +26,8 @@
 	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
  	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
 	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
-	
+   	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
 	
 	<style>
@@ -69,7 +70,10 @@
   
 <script type="text/javascript">
  
-	
+$('#dietScDate').datepicker({
+	dateFormat : "yyyy-mm-dd"
+});
+
 	$(function(){
 		$(".btn:contains('검색')").on("click", function(){
 			
@@ -130,11 +134,22 @@
         	var foodCalorie = tr.children("td").eq(2).text();
 
 			var display =  "<tr><th scope='row'>"+index+"</th>"+
-	  							 "<td name='foodName' value='"+foodName+"'>"+foodName+"</td>"+
-		 						 "<td name='amountFood' value='"+amountFood+"'>"+amountFood+"</td>"+
-		 	 					 "<td name='foodCalorie' value='"+foodCalorie+"'>"+foodCalorie+"</td>"+
+	  							 "<td>"+foodName+"</td>"+
+	  							
+		 						 "<td>"+amountFood+"</td>"+
+		 						
+		 	 					 "<td>"+foodCalorie+"</td>"+
+		 	 					
 					   			 "<td align='left'><button type='button' class='btn btn-default btn-sm'>삭제</a></td>"+
-					   	   "</tr>";
+					   	  	"</tr>"+
+				 	   	 /* 	"<input type='hidden' id='foodName' name='foodName' value='"+ foodName+"'/>"+
+				   			"<input type='hidden' id='amountFood' name='amountFood' value='"+ amountFood+"'/>"+
+				   			"<input type='hidden' id='foodCalorie' name='foodCalorie' value='"+ foodCalorie+"'/>" */
+ 					   	    	"<input type='hidden' name='foodInfos["+(index-1)+"].foodName' value='"+ foodName+"'/>"+
+					   			"<input type='hidden' name='foodInfos["+(index-1)+"].amountFood' value='"+ amountFood+"'/>"+
+					   			"<input type='hidden' name='foodInfos["+(index-1)+"].foodCalorie' value='"+ foodCalorie+"'/>"  
+					   	    ;
+					   	   console.log(display);
 			 $("#calculate").children("tbody").append(display);
 		     index++;
 		     foodAmountCalorie += parseInt(foodCalorie)
@@ -154,7 +169,7 @@
         	var calorie = tr.children("td").eq(2).text();
         	tr.remove();
 
-		
+    		
 		    var amount = parseInt($("#amount").text());
 		     	amount = parseInt(amount) - parseInt(calorie) 
 		     	console.log(amount)
@@ -162,12 +177,24 @@
 		
         });
      });   	
-	
+
 	$(function(){
-		$("btn:contains('저장')").on("click", function(){
-			$("form").attr("method","POST").attr("action", "/schedule/addDietSchedule").submit();
-		})
+		$(".btn:contains('저장')").on("click", function(){
+			var dietScDate =$("input[name='dietScDate']").val();
+	
+			var mealTime = $("#mealTime").val();
+			
+			if(${sessionScope.user.userId != null}){
+				
+				
+				 $("#test").attr("method","POST").attr("action", "/calculator/addDietSchedule?dietScDate="+dietScDate+"&mealTime="+mealTime).submit()
+			 	/* $("form").attr("method","POST").attr("action", "/exInfo/addDietSchedule?dietScDate='"+dietScDate+"'").submit(); */
+			}else{ 
+			    swal("회원만 이용 가능합니다.")
+			}
+		});
 	});
+
  			
 /*  	$(function(){
 
@@ -204,9 +231,11 @@
    	<div class="container">
 	
 		<br/><br/><br/>
-		
-	<form name="appendFood">	
-   		
+
+
+
+	
+ 
 		    <div class="row" id="keyword">
 		    	<div>
 		    		<span><h4><strong>KEYWORD</strong></h4></span>
@@ -214,17 +243,22 @@
 		    </div>
 		    <div class="row" id="input" style="margin-top:5px;">
 		    	<div>
-		    		<input type="text" class="form-control" id="searchFood" name="searchFood">
+		    		<input type="text" id="searchFood" name="searchFood">
 		    	</div>
 		    	<div>
 		    		<button type="button" class="btn pull-right" >검색</button>
 				</div>
 			</div>
-			<div class="row">			
-			 	 <input type='text' class='datepicker-here' data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:800px;"/> 			
+
+	
+		
+			<div class="row form-group">			
+			 	 <input type='text' class='datepicker-here' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:800px;"/> 			
 		    	<span>추가된 총 칼로리 :</span><span id="amount" style="margin-right:800px;"></span>
-		    			 
-				<select class="form-control" name="mealTime">
+		
+	 		
+			 
+				<select class="form-control" name="mealTime" id="mealTime">
 					<option value="0" >아침</option>
 					<option value="1" >점심</option>
 					<option value="2" >저녁</option>		
@@ -232,44 +266,45 @@
 		 	     <button type="button" id="schedule" class="btn pull-right" >저장</button> 
 		    </div>
 		    
-		   </div>
-		    
+
 	   
 
-<div class="container">
-
-<!-- 크롤링 append -->
-<div class="row">
-<table class="table" id="appendFood">
-  	<thead>
-    	<tr> 
-    		<th scope="col">번호</th>
-      		<th scope="col">음식</th>
-      		<th scope="col">1인분</th>
-      		<th scope="col">칼로리</th>
-    	</tr>
-   </thead>
-   		<tbody>
-   	    </tbody>
-</table>
-</div>
 
 
-	<table class="table" id="calculate">
+
+ <form:form commandName="foodInfos" id="test">
+
+	<!-- 크롤링 append -->
+	<div class="row form-group">
+	<table class="table" id="appendFood">
   		<thead>
     		<tr> 
+    			<th scope="col">번호</th>
+      			<th scope="col">음식</th>
+      			<th scope="col">1인분</th>
+      			<th scope="col">칼로리</th>
     		</tr>
-    		</thead>
-    		<tbody>
-    		</tbody>
+   		</thead>
+   			<tbody>
+   	    	</tbody>
 	</table>
-</form>
-</div>
+	
+	</div>
+x
+	<div class="row form-group">	
+		<table class="table" id="calculate">
+  			<thead>
+    			<tr> 
+    			</tr>
+    			</thead>
+    			<tbody>
+    			</tbody>
+		</table>
+	</div>
+		
+</form:form>
 
-
-
-
-
+</div>	
 		
 </body>
 
