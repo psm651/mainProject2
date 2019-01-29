@@ -58,14 +58,25 @@
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
+/* 	
+	function closePopup() {
+		  if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){ 
+				
+				//alert("${sessionScope.user}");
+				self.close();
+				//self.location("/main.jsp");
+				opener.location.replace("/main.jsp");
+			}  
+	  });  */
 	
 		//============= "가입"  Event 연결 =============
-		 $(function() {
+		/*  $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#join" ).on("click" , function() {
-				fncAddUser();
+				//fncAddUser();
+				addSNSUser();
 			});
-		});	
+		});	 */
 		
 		
 		//============= "취소"  Event 처리 및  연결 =============
@@ -77,7 +88,7 @@
 		});	
 		
 
-		
+		/* 
 		function fncAddUser() {
 			
 			var nickName=$("input[name='nickName']").val();
@@ -94,8 +105,15 @@
 			}
 
 			alert("가입이 완료되었습니다.");
-			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
-		}
+			$("form").attr("method" , "POST").attr("action" , "/user/addUser");
+										 */
+			
+			//opner.location.replce("/main.jsp");
+			//self.close();
+			//self.close();
+			//self.location("/main.jsp");
+			//opener.location.replace("/main.jsp");
+		/* } */
 		
 
 		//==>"이메일" 유효성Check  Event 처리 및 연결
@@ -148,6 +166,54 @@
 			
 				});
 		}
+		 
+		 
+		 
+		 function jQFormSerializeArrToJson(formSerializeArr){
+			 var jsonObj = {};
+			 jQuery.map( formSerializeArr, function( n, i ) {
+			     jsonObj[n.name] = n.value;
+			 });
+
+			 return jsonObj;
+			}
+		 
+		 
+		 
+		 
+		 var uploadFile = '';
+		 var params = ''
+			 $(document).ready(function(){
+		// $(function() {
+				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$("#join").on("click" , function() {
+			    uploadFile = $("#uploadFile").val();
+			    params = $("#snsForm").serializeArray();
+			    var properJsonObj = jQFormSerializeArrToJson(params);
+
+			
+			    
+			    alert(JSON.stringify(properJsonObj));
+		        $.ajax({
+		            url : "/user/json/addSNSUser",
+		            method : "POST" ,
+		            data : JSON.stringify(properJsonObj),
+		            dataType:"json",
+		        	headers:{
+		        					"Accept":"application/json",
+		        					"Content-Type": "application/json"
+		        				}, 
+		            success : function(data){
+		                if(data == 1) {
+		                    self.close(); //댓글 작성 후 댓글 목록 reload
+		                    opener.location.replace("/main.jsp");
+		                }
+		            }
+		        }); 
+		        
+		    });
+				
+		 });
 		
 
 		 
@@ -171,10 +237,10 @@
 <body>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" />
+	<%-- <jsp:include page="/layout/toolbar.jsp" /> --%>
 
    	<!-- ToolBar End /////////////////////////////////////-->
-   	
+<!--    	
    	<div class="site-blocks-cover inner-page overlay" style="background-image: url(/resources/images/1111.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center">
@@ -183,7 +249,7 @@
           </div>
         </div>
       </div>
-    </div>  
+    </div>   -->
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	 <div class="site-section">
@@ -197,11 +263,11 @@
 		<h1 class="text-muted">SNS 회 원 가 입</h1>
 		</div> -->
 		<!-- form Start /////////////////////////////////////-->
-		<form class="p-5 bg-white" enctype="multipart/form-data">
+		<form class="p-5 bg-white" enctype="multipart/form-data" id="snsForm">
 			
 		   <input type="hidden" name="userId" value = "${user.userId }"  />
 		   <input type="hidden" name="password" value="${user.password }"  />
-		   <input type="hidden" name="userImage" value="${user.userImage }"  />
+<%-- 		   <input type="hidden" name="userImage" value="${user.userImage }"  />  --%>
 		   <input type="hidden" name="snsType" value="${user.snsType}"  />
 		   <input type="hidden" name="idToken" value="${user.idToken}"  />
 		   <input type="hidden" name="accessToken" value="${user.accessToken}"  />
@@ -219,18 +285,18 @@
 		  <div class="col-md-12 mb-3 mb-md-0">
 		  	<label for="gender" class="font-weight-bold">성별</label><br/>
 		  			<input type='radio' name='gender' value='0' checked />여
-		  			<input type='radio' name='gender' value='1'  />남
+		  			<input type='radio' name='gender'  value='1'  />남
 		  		</div>
 		  </div>
 		  
-		  <div class="form-group">
+<%-- 		  <div class="form-group">
 		  <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="uploadFile" class="font-weight-bold">프로필 사진</label>
 		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="${user.userImage }">
 		    </div>
 		  </div>
 
-		  
+		   --%>
 		  <div class="form-group">
 		  <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="phone" class="font-weight-bold">휴대전화</label>

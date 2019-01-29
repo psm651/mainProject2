@@ -107,7 +107,7 @@ public class UserController {
 			out.println("<script>alert('존재하지 않는 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/user/login.jsp";
+			return "/main.jsp";
 			
 		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
 			System.out.println("일치하지않을때");
@@ -116,7 +116,7 @@ public class UserController {
 			out.println("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/user/login.jsp";
+			return "/main.jsp";
 			
 		}else if(dbUser.getUserStatus().equals("1")){
 			System.out.println("탈퇴회원");
@@ -125,7 +125,7 @@ public class UserController {
 			out.println("<script>alert('탈퇴한 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/user/login.jsp";
+			return "/main.jsp";
 			
 		}else if(dbUser.getUserStatus().equals("2")){
 			System.out.println("블랙리스트");
@@ -134,7 +134,7 @@ public class UserController {
 			out.println("<script>alert('블랙리스트 처리된 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/user/login.jsp";
+			return "/main.jsp";
 			
 		}else if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
 			session.setAttribute("user", dbUser);
@@ -197,7 +197,7 @@ public class UserController {
 			System.out.println("없을때: "+user.getUserImage());
 		}
 		
-		return "redirect:/user/login.jsp";
+		return "redirect:/main.jsp";
 	}
 	
 	@RequestMapping( value="kakaoLogin", produces ="applcation/json", method= {RequestMethod.GET, RequestMethod.POST} )
@@ -214,6 +214,7 @@ public class UserController {
 		User user = KakaoLogin.changeData(profile);
 		System.out.println("카카오유저1111: "+user);
 		user.setUserId("k"+user.getUserId());
+		//user.setUserId(user.getEmail());
 		user.setAccessToken(token.path("access_token").toString());
 		user.setSnsType("1");
 		System.out.println("카카오유저2222: "+user);
@@ -274,7 +275,15 @@ public class UserController {
 		user.setUserId("n"+snsId);
 		user.setIdToken(snsId);
 		user.setNickName(name);
-		user.setGender(gender);
+		//user.setGender(gender);
+		
+		if(gender.equals("F")) {
+			user.setGender("0");
+		} else {
+			user.setGender("1");
+		}
+		
+		
 		user.setSnsType("2");
 		user.setPassword(snsId);
 		System.out.println(name);

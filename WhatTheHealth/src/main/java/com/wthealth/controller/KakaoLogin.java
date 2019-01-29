@@ -112,7 +112,7 @@ public class KakaoLogin {
 
 		} 
 		if (userInfo.path("kaccount_gender_verified").asText().equals("true")) { // 이메일 받기 허용 한 경우
-			user.setEmail(userInfo.path("kaccount_gender").asText()); // email -> vo 넣기
+			user.setGender(userInfo.path("kaccount_gender").asText()); // email -> vo 넣기
 
 		} 
 
