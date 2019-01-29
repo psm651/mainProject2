@@ -18,16 +18,16 @@
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/aos.js"></script>
   <script src="/resources/js/main.js"></script>
-  
+
   <!-- ---------- 모달 -------- -->
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+ -->
  <!-- ---------- 모달 -------- -->
   
   <!-- CDN(Content Delivery Network) 호스트 사용 -->
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		
@@ -216,14 +216,14 @@
 		cursor:pointer;
 	}
 
-#loginModal{
-	height: 700px;
+ #loginModal{
+/* 	height: 700px;
 	margin: 0 auto;
 	position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -250px;
-    margin-top: -250px;
+    margin-left: -250px; */
+    margin-top: 273px;
 }	
 
   </style>

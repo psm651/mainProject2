@@ -97,7 +97,7 @@ public class ExInfoController {
 		
 		return "redirect:/exInfo/getExInfo?postNo="+post.getPostNo();
 	}	
-	@RequestMapping(value="listExInfo", method=RequestMethod.GET)
+	@RequestMapping(value="listExInfo")
 	public String listExInfo(@ModelAttribute("search") Search search, Model model) throws Exception{
 	
 		if(search.getCurrentPage()==0) {
@@ -149,7 +149,7 @@ public class ExInfoController {
 		
 		exInfoService.deleteStatus(postNo);
 		
-		return "redirect:/exinfo/listExInfo";
+		return "redirect:/exInfo/listExInfo";
 	}
 	
 
