@@ -88,12 +88,12 @@
                 	}
                 	a += '<div class="row" id="replyArea'+list.reReplyNo+'">';
                 	a += '<div  style="padding-left:0px; padding-right:0px; margin-left : 15px">';
-                	a += '<c:if test="${list.userImage != null and list.userImage != '' }">';
-                	a += '<img src = "/resources/images/userImage/${list.userImage}" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;" />';
-                	a += '</c:if>';
-                	a += '<c:if test="${list.userImage == null or list.userImage == '' }">';
+                	if(list.userImage != null && list.userImage != '' ){
+                	a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;" />';
+                	}
+                	if(list.userImage == null ||list.userImage == '' ){
                 	a += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;"/>';
-                	a += '</c:if>';
+                	}
                 	a += '</div>';
                 	a += '<div class="col-md-11" style="padding-right:0px">';
                     a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
