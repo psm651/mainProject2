@@ -228,7 +228,7 @@ $('#exInfoSc').data('datepicker');
           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
           
           	
-         	
+<form name="exSchedule">
             <h4 class="mb-3">${post.title}</h4>
     
          
@@ -311,10 +311,11 @@ $('#exInfoSc').data('datepicker');
         </div>
       </div>
     
-         <form name="exSchedule">
+         
              <input type="hidden" name="exScName" value="${post.title}" style="display:nont;"/>
              <input type="hidden" name="exScContents" value="${post.contents}"/>
              <input type="hidden" name="exScCalorie" value="${post.exCalorie}"/>
+                          <input type="hidden" name="postNo" value="${post.postNo}"/>
          </form>
 
   <%--  <jsp:include page="/reply/listReply.jsp" />  --%>

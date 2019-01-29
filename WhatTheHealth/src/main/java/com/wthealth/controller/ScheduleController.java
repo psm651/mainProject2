@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Food;
 import com.wthealth.domain.User;
 import com.wthealth.service.dietschedule.DietScheduleService;
 import com.wthealth.service.exschedule.ExScheduleService;
@@ -68,14 +67,45 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value="addExSchedule", method = RequestMethod.POST)
-	public void addExSchedule(@ModelAttribute ExSchedule exSchedule, Model model) throws Exception {
-
-		System.out.println("/schedule/addExSchedule : GET");
+	public void addExSchedule(@ModelAttribute ExSchedule exSchedule, Model model,HttpSession session) throws Exception {
+		System.out.println(exSchedule);
+		
+		System.out.println("/schedule/addExSchedule : POST");
+	      String userId = ((User)session.getAttribute("user")).getUserId();
+	      exSchedule.setUserId(userId);
+		exScheduleService.addExSchedule(exSchedule);
 		
 		//return "forward:/schedule/addEx.jsp";
 	}
 	
-	
+	   //칼로리계산기 스케줄 저장
+	   @RequestMapping(value="addDietSchedule", method=RequestMethod.POST)
+	   public void addDietSchedule( @ModelAttribute("food") Food food, @RequestParam String dietScDate, String mealTime, HttpSession session)throws Exception{
+	   
+	      User user = new User();
+	      DietSchedule dietSchedule = new DietSchedule();
+	      
+	      String userId = ((User)session.getAttribute("user")).getUserId();
+	      System.out.println("foodInfos"+food.getFoodInfos());
+	      
+	      dietSchedule.setUserId(userId);
+	      dietSchedule.setDietScDate(dietScDate);
+	      dietSchedule.setFood(food.getFoodInfos());
+	      dietSchedule.setMealTime(mealTime);
+	      
+	    
+	      
+	      System.out.println("dietSchedule!#!@#"+dietSchedule);
+	      
+	      dietScheduleService.addDietSchedule(dietSchedule);
+	      System.out.println("dietScNo받아오나"+dietSchedule.getDietScNo());
+	      //다이어트 scno넣어야함
+	      for (int i = 0; i < food.getFoodInfos().size(); i++) {
+	    	  System.out.println(food.getFoodInfos().get(i));
+	    	  food.getFoodInfos().get(i).setDietScNo(dietSchedule.getDietScNo());
+	    	  dietScheduleService.addMeal(food.getFoodInfos().get(i));
+		}
+	   }
 	
 	
 	@RequestMapping(value="getExSchedule", method = RequestMethod.GET)
