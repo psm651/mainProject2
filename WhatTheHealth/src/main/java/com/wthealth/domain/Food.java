@@ -8,7 +8,7 @@ public class Food {
 	private String foodName;
 	private String foodCalorie;
 	private String amountFood;
-	//private int dietScNo;
+	private int dietScNo;
 	private List<Food> foodInfos;
 
 	public Food() {
@@ -38,13 +38,13 @@ public class Food {
 		this.amountFood = amountFood;
 	}
 
-/*	public int getDietScNo() {
+	public int getDietScNo() {
 		return dietScNo;
 	}
 
 	public void setDietScNo(int dietScNo) {
 		this.dietScNo = dietScNo;
-	}*/
+	}
 
 	public List<Food> getFoodInfos() {
 		return foodInfos;
@@ -57,8 +57,10 @@ public class Food {
 	@Override
 	public String toString() {
 		return "Food [foodName=" + foodName + ", foodCalorie=" + foodCalorie + ", amountFood=" + amountFood
-				+ ", foodInfos=" + foodInfos + "]";
+				+ ", dietScNo=" + dietScNo + ", foodInfos=" + foodInfos + "]";
 	}
+
+
 
 
 
