@@ -141,19 +141,20 @@ $('#dietScDate').datepicker({
 		 	 					 "<td>"+foodCalorie+"</td>"+
 		 	 					
 					   			 "<td align='left'><button type='button' class='btn btn-default btn-sm'>삭제</a></td>"+
-					   	  	"</tr>"+
+					   	  
 				 	   	 /* 	"<input type='hidden' id='foodName' name='foodName' value='"+ foodName+"'/>"+
 				   			"<input type='hidden' id='amountFood' name='amountFood' value='"+ amountFood+"'/>"+
 				   			"<input type='hidden' id='foodCalorie' name='foodCalorie' value='"+ foodCalorie+"'/>" */
  					   	    	"<input type='hidden' name='foodInfos["+(index-1)+"].foodName' value='"+ foodName+"'/>"+
 					   			"<input type='hidden' name='foodInfos["+(index-1)+"].amountFood' value='"+ amountFood+"'/>"+
-					   			"<input type='hidden' name='foodInfos["+(index-1)+"].foodCalorie' value='"+ foodCalorie+"'/>"  
+					   			"<input type='hidden' name='foodInfos["+(index-1)+"].foodCalorie' value='"+ foodCalorie+"'/>"  +
+					   			"</tr>"
 					   	    ;
 					   	   console.log(display);
 			 $("#calculate").children("tbody").append(display);
 		     index++;
 		     foodAmountCalorie += parseInt(foodCalorie)
-
+			 alert(foodAmountCalorie)
 		     $("#amount").text(foodAmountCalorie);
         });
      });   
@@ -168,6 +169,7 @@ $('#dietScDate').datepicker({
         	var tr = $(this).closest("td").closest("tr"); 
         	var calorie = tr.children("td").eq(2).text();
         	tr.remove();
+        	tr
 
     		
 		    var amount = parseInt($("#amount").text());
@@ -180,14 +182,15 @@ $('#dietScDate').datepicker({
 
 	$(function(){
 		$(".btn:contains('저장')").on("click", function(){
+			
 			var dietScDate =$("input[name='dietScDate']").val();
-	
 			var mealTime = $("#mealTime").val();
+			var amount = $("#amount").text();
+			
 			
 			if(${sessionScope.user.userId != null}){
-				
-				
-				 $("#test").attr("method","POST").attr("action", "/calculator/addDietSchedule?dietScDate="+dietScDate+"&mealTime="+mealTime).submit()
+			
+				 $("#test").attr("method","POST").attr("action", "/calculator/addDietSchedule?dietScDate="+dietScDate+"&mealTime="+mealTime+"&amount="+amount).submit()
 			 	/* $("form").attr("method","POST").attr("action", "/exInfo/addDietSchedule?dietScDate='"+dietScDate+"'").submit(); */
 			}else{ 
 			    swal("회원만 이용 가능합니다.")
@@ -254,11 +257,11 @@ $('#dietScDate').datepicker({
 		
 			<div class="row form-group">			
 			 	 <input type='text' class='datepicker-here' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:800px;"/> 			
-		    	<span>추가된 총 칼로리 :</span><span id="amount" style="margin-right:800px;"></span>
+		    	<strong style="margin-right:800px;">추가된 총 칼로리 :</strong><span id="amount"></span>
 		
 	 		
 			 
-				<select class="form-control" name="mealTime" id="mealTime">
+				<select class="form-control" name="mealTime" id="mealTime" style="width:160px; heiht:10px;">
 					<option value="0" >아침</option>
 					<option value="1" >점심</option>
 					<option value="2" >저녁</option>		
@@ -268,10 +271,6 @@ $('#dietScDate').datepicker({
 		    
 
 	   
-
-
-
-
  <form:form commandName="foodInfos" id="test">
 
 	<!-- 크롤링 append -->
