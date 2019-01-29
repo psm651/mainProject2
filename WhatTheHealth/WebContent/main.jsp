@@ -51,13 +51,13 @@
         height: 20px;
       }
       
-  #javaKing{
-  	width : 50px;
-  	height : 50px;
-  	background-image : url("/resources/images/${post.userImage}");
-  	background-size : cover;
-  	border-radius : 100%;
-  }
+ /*  #javaKing{
+     width : 50px;
+     height : 50px;
+     background-image : url("/resources/images/${post.userImage}");
+     background-size : cover;
+     border-radius: 100px;
+  } */
   
   </style>
   
@@ -65,45 +65,36 @@
   
   
   $(function(){
-	 
-	  //임박한 소모임 getMeeting
-	  $("#meeting").on("click", function(){
-		  alert("미팅");
-		 self.locaiton = "/meeting/listMeeting?postNo"+postNo 
-	  });
-	  
-	  //날씨별 운동추천 getWeather
-	  $("#exInfo").on("click", function(){
-		  alert("운동정보");
-		 self.locaiton = "/exinfo/listExinfoWeather?postNo"+postNo 
-	  });
-	  
-	  //추천 식단 커뮤니티
-	  $(".dietcom").on("click", function(){
-		 var postNo = $(this).data("dietcom");
-		 self.locaiton = "/community/getCommunity?postNo="+postNo;
-	  });
-	  
-	  //추천 운동 커뮤니티
-	  $(".excom").on("click", function(){
-		var postNo = $(this).data("excom");
-		self.locaiton = "/community/getCommunity?postNo="+postNo;
-	  });
-	  
-	  //썸네일로 이동시 마우스커서로 변경
-	  $(".img-fluid").on("mouseover", function(){
-		 $(".img-fluid").css("cursor","pointer")
-	  });
+    
+     //임박한 소모임 getMeeting
+     $("#meeting").on("click", function(){
+        alert("미팅");
+       self.location = "/meeting/listMeeting?postNo"+postNo 
+     });
+     
+     //날씨별 운동추천 getWeather
+     $("#exInfo").on("click", function(){
+        alert("운동정보");
+       self.location = "/exinfo/listExinfoWeather?postNo"+postNo 
+     });
+     
+     //추천 식단 커뮤니티
+     $(".dietcom").on("click", function(){
+       var postNo = $(this).data("dietcom");
+       self.location = "/community/getCommunity?postNo="+postNo;
+     });
+     
+     //추천 운동 커뮤니티
+     $(".excom").on("click", function(){
+      var postNo = $(this).data("excom");
+      self.location = "/community/getCommunity?postNo="+postNo;
+     });
+     
+     //썸네일로 이동시 마우스커서로 변경
+     $(".img-fluid").on("mouseover", function(){
+       $(".img-fluid").css("cursor","pointer")
+     });
   });
-	  
-	  /*  if(${sessionScope.user} != null){
-		  
-			opener.location.replace("/main.jsp");
-		
-			
-		} ;
-		
-		window.close(); */
   
   </script>
   
@@ -122,24 +113,24 @@
      
       <div class="site-blocks-cover" style="background-image: url(/resources/video/original.gif); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
       <!-- <div class="site-blocks-cover" data-aos="fade" data-stellar-background-ratio="0.5">
-      	<video autoplay muted loop>
-      		 <source src="/resources/video/run.mp4" type="video/mp4">
-      	</video> -->
+         <video autoplay muted loop>
+             <source src="/resources/video/run.mp4" type="video/mp4">
+         </video> -->
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
             
                <!-- <div class="form-group">             
-	             <div class="col-sm-4">
-	                  <input type="text" class="form-control" id="searchKeyword" name="searchKeyword">
-	             </div>
-	             
-	             <div class="form-group">
-	                <div class="col-sm-offset-4  col-sm-8 text-right">
-	                  <button type="button" class="btn btn-primary">검색</button>
-	                </div>
-		        </div>
-	        </div> -->
+                <div class="col-sm-4">
+                     <input type="text" class="form-control" id="searchKeyword" name="searchKeyword">
+                </div>
+                
+                <div class="form-group">
+                   <div class="col-sm-offset-4  col-sm-8 text-right">
+                     <button type="button" class="btn btn-primary">검색</button>
+                   </div>
+              </div>
+           </div> -->
             </div>
           </div>
         </div>
@@ -298,7 +289,7 @@
 
 <!-- 식단 커뮤니티 추천 -->
      <div class="featured-classes bg-light py-3 block-13">
-     	<div class="container">
+        <div class="container">
         
         <div class="heading-with-border">
           <h2 class="heading text-uppercase">식단 커뮤니티 추천</h2>
@@ -306,54 +297,59 @@
 
         <div class="nonloop-block-13 owl-carousel">
           
-          	<c:set var="i" value="0"/>
-          	<c:set var="i" value="${i+1}"/>
-          	<c:forEach var="post" items="${dietComList}">
-          	
-        		<div class="block-media-1 heading-with-border bg-white dietcom"  data-dietcom ="${post.postNo}" style="width:350px; height:350px;">
+             <c:set var="i" value="0"/>
+             <c:set var="i" value="${i+1}"/>
+             <c:forEach var="post" items="${dietComList}">
+             
+              <div class="block-media-1 heading-with-border bg-white dietcom"  data-dietcom ="${post.postNo}" style="width:350px; height:350px;">
           
-	            	<c:if test="${empty post.photo}">
-		            	<img  src="/resources/images/1111.jpg"  class="img-fluid">
-		        	</c:if>
-	             	
-	             	<c:set var="youtubeThumbnail" value="${post.photo}"/>
-	              
-	            	<c:if test="${!empty post.photo}">
-		            	<c:choose>
-		            		<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-		            			<img src="${post.photo}" class="img-fluid" >
-		            		</c:when>   
-		            		<c:otherwise>
-		            			<img src="/resources/images/upload/${post.photo}"  class="img-fluid">
-		            		</c:otherwise>            			
-		            	</c:choose>
-	            	</c:if>
-		                	
-	            	<div class="p-4">
-		              	<h3 class="h5 heading">${post.title}</h3>
-		              
-		              	<%-- <input type="hidden" name="postNo" value="${post.postNo}"/>  --%>
-		              	<!-- <p></p> -->
-		              	<span class="d-flex align-items-center">
-		              		<div id="javaKing">
-		              			<img src="/resources/images/${post.userImage}">
-		              		</div>
-			                <span>${post.nickName}</span>
-		              	</span>
-		              	
-	            	<%-- <div class="p-4 col-md-4"> -->
- 						<div class="likeImage">
- 							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
- 						</div>
- 						<div class="likeCount" style="margin-left:38px">
- 							<h5>${post.likeCount}</h5>
- 						</div> 
- 					</div> --%>
- 					
- 					</div>
-          		</div>
-			</c:forEach>
-		
+                  <c:if test="${empty post.photo}">
+                     <img  src="/resources/images/1111.jpg"  class="img-fluid">
+                 </c:if>
+                  
+                   <c:set var="youtubeThumbnail" value="${post.photo}"/>
+                 
+                  <c:if test="${!empty post.photo}">
+                     <c:choose>
+                        <c:when test="${fn:contains(youtubeThumbnail,'https')}">
+                           <img src="${post.photo}" class="img-fluid" >
+                        </c:when>   
+                        <c:otherwise>
+                           <img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+                        </c:otherwise>                     
+                     </c:choose>
+                  </c:if>
+                         
+                  <div class="p-4">
+                       <h3 class="h5 heading">${post.title}</h3>
+                       <!-- <span class="heart">
+                       		<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:10px;">
+                       </span> -->
+                    
+                       <span class="d-flex align-items-center" style="width:200px; display:inline-block">
+                          <div id="userInfo">
+                             <img src="/resources/images/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                          </div>
+                         <span>${post.nickName}</span>
+                         <!-- <span class="d-flex align-items-center" style="width:100px; padding-left:200px; padding-bottom:100px; float:left">
+	                       		<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:10px;">
+	                       </span> -->
+                       </span>
+                       
+                       
+                  <%-- <div class="p-4 col-md-4"> -->
+                   <div class="likeImage">
+                      <img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
+                   </div>
+                   <div class="likeCount" style="margin-left:38px">
+                      <h5>${post.likeCount}</h5>
+                   </div> 
+                </div> --%>
+                
+                </div>
+                </div>
+         </c:forEach>
+      
 
         </div>
 
@@ -369,115 +365,60 @@
 
          <div class="nonloop-block-13 owl-carousel">
           
-          	<c:set var="i" value="0"/>
-          	<c:set var="i" value="${i+1}"/>
-          	<c:forEach var="post" items="${exComList}">
-          	
-        		<div class="block-media-1 heading-with-border bg-white excom"  data-excom ="${post.postNo}" style="width:350px; height:350px;">
+             <c:set var="i" value="0"/>
+             <c:set var="i" value="${i+1}"/>
+             <c:forEach var="post" items="${exComList}">
+             
+              <div class="block-media-1 heading-with-border bg-white excom"  data-excom ="${post.postNo}" style="width:350px; height:350px;">
           
-	            	<c:if test="${empty post.photo}">
-		            	<img  src="/resources/images/1111.jpg"  class="img-fluid">
-		        	</c:if>
-	             	
-	             	<c:set var="youtubeThumbnail" value="${post.photo}"/>
-	              
-	            	<c:if test="${!empty post.photo}">
-		            	<c:choose>
-		            		<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-		            			<img src="${post.photo}" class="img-fluid" >
-		            		</c:when>   
-		            		<c:otherwise>
-		            			<img src="/resources/images/upload/${post.photo}"  class="img-fluid">
-		            		</c:otherwise>            			
-		            	</c:choose>
-	            	</c:if>
-		                	
-	            	<div class="p-4">
-		              	<h3 class="h5 heading">${post.title}</h3>
-		              
-		              	<input type="hidden" name="postNo" value="${post.postNo}"/> 
-		              	<!-- <p></p> -->
-		              	<span class="d-flex align-items-center">
-		              		<div id="javaKing">
-		              			<img src="/resources/images/${post.userImage}">
-		              		</div>
-			                <span>${post.nickName}</span>
-		              	</span>
-		              	
-	            	<%-- <div class="p-4 col-md-4"> -->
- 						<div class="likeImage">
- 							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
- 						</div>
- 						<div class="likeCount" style="margin-left:38px">
- 							<h5>${post.likeCount}</h5>
- 						</div> 
- 					</div> --%>
- 					
- 					</div>
-          		</div>
-			</c:forEach>
-		
+                  <c:if test="${empty post.photo}">
+                     <img  src="/resources/images/1111.jpg"  class="img-fluid">
+                 </c:if>
+                   
+                   <c:set var="youtubeThumbnail" value="${post.photo}"/>
+                 
+                  <c:if test="${!empty post.photo}">
+                     <c:choose>
+                        <c:when test="${fn:contains(youtubeThumbnail,'https')}">
+                           <img src="${post.photo}" class="img-fluid" >
+                        </c:when>   
+                        <c:otherwise>
+                           <img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+                        </c:otherwise>                     
+                     </c:choose>
+                  </c:if>
+                         
+                  <div class="p-4">
+                       <h3 class="h5 heading">${post.title}</h3>
+                    
+                       <input type="hidden" name="postNo" value="${post.postNo}"/> 
+                       <!-- <p></p> -->
+                       <span class="d-flex align-items-center">
+                          <div id="userInfo">
+                             <img src="/resources/images/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                          </div>
+                         <span>${post.nickName}</span>
+                       </span>
+                       
+                  <%-- <div class="p-4 col-md-4"> -->
+                   <div class="likeImage">
+                      <img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
+                   </div>
+                   <div class="likeCount" style="margin-left:38px">
+                      <h5>${post.likeCount}</h5>
+                   </div> 
+                </div> --%>
+                
+                </div>
+                </div>
+         </c:forEach>
+      
 
         </div>
 
       </div>
     </div>
     
-    
-    <!-- <div class="site-section block-14">
-
-      <div class="container">
-        
-        <div class="heading-with-border text-center">
-          <h2 class="heading text-uppercase">Testimonials</h2>
-        </div>
-
-        <div class="nonloop-block-14 owl-carousel">
-
-          <div class="d-flex block-testimony">
-            <div class="person mr-3">
-              <img src="/resources/images/person_1.jpg" alt="Image" class="img-fluid rounded-circle">
-            </div>
-            <div>
-              <h2 class="h5">Katie Johnson, CEO</h2>
-              <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
-            </div>
-          </div>
-          <div class="d-flex block-testimony">
-            <div class="person mr-3">
-              <img src="/resources/images/person_2.jpg" alt="Image" class="img-fluid rounded-circle">
-            </div>
-            <div>
-              <h2 class="h5">Jane Mars, Designer</h2>
-              <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
-            </div>
-          </div>
-          <div class="d-flex block-testimony">
-            <div class="person mr-3">
-              <img src="/resources/images/person_3.jpg" alt="Image" class="img-fluid rounded-circle">
-            </div>
-            <div>
-              <h2 class="h5">Shane Holmes, CEO</h2>
-              <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
-            </div>
-          </div>
-          <div class="d-flex block-testimony">
-            <div class="person mr-3">
-              <img src="/resources/images/person_4.jpg" alt="Image" class="img-fluid rounded-circle">
-            </div>
-            <div>
-              <h2 class="h5">Mark Johnson, CEO</h2>
-              <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      
-    </div> -->
-
-
 
      <div class="site-section bg-light">
 

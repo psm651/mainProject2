@@ -184,7 +184,7 @@
 				WHERE p.user_id = u.user_id 
 				AND p.post_sub_no LIKE 'DC%'
 		AND p.delete_status = '0'
-		AND	ROWNUM &lt;= 3
+		AND	ROWNUM &lt;= 5
 		ORDER BY p.like_count) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
@@ -199,7 +199,7 @@
 				WHERE p.user_id = u.user_id 
 				AND p.post_sub_no LIKE 'EC%'
 		AND p.delete_status = '0'
-		AND	ROWNUM &lt;= 3
+		AND	ROWNUM &lt;= 5
 		ORDER BY p.like_count) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
