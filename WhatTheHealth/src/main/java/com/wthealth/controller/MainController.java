@@ -21,8 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
-import com.wthealth.service.dietcom.DietComService;
-import com.wthealth.service.excom.ExComService;
+import com.wthealth.service.community.CommunityService;
 import com.wthealth.service.exinfo.ExInfoService;
 import com.wthealth.service.main.MainService;
 import com.wthealth.service.meeting.MeetingService;
@@ -39,11 +38,8 @@ public class MainController {
    @Qualifier("exInfoServiceImpl")
    private ExInfoService exInfoService;
    @Autowired
-   @Qualifier("exComServiceImpl")
-   private ExComService exComService;
-   @Autowired
-   @Qualifier("dietComServiceImpl")
-   private DietComService dietComService;
+   @Qualifier("communityServiceImpl")
+   private CommunityService communityService;
    @Autowired
    @Qualifier("meetingServiceImpl")
    private MeetingService meetingService;
@@ -61,25 +57,33 @@ public class MainController {
    
    @RequestMapping(value="/", method=RequestMethod.GET)
    public String getMainPage(@ModelAttribute("search") Search search, Model model) throws Exception{
-      
       System.out.println("MainController Come in");
+      
+      if(search.getCurrentPage()==0) {
+          search.setCurrentPage(1);
+       }
+       
+       search.setPageSize(pageSize);
     
-/*      Map<String, Object> ex= exComService.listExComRecom(search);   
-      Map<String, Object> diet = dietComService.listDietComRecom(search);
-      Map<String, Object> meeting = meetingService.listMeeting(search);
-      List<Post> exInfo = exInfoService.listExInfo(Weather);*/
+      Map<String, Object> exCom= communityService.listExComRecom(search);   
+      Map<String, Object> dietCom = communityService.listDietComRecom(search);
+     // Map<String, Object> meeting = meetingService.listMeeting(search);
+     // List<Post> exInfo = exInfoService.listExInfo(Weather);
       
+      Page resultPageForExCom = new Page(search.getCurrentPage(), ((Integer)exCom.get("totalCount")).intValue(),pageUnit, pageSize); 
+	  System.out.println("resultPageForExCom" + resultPageForExCom);
+	  
+	  Page resultPageForDietCom = new Page(search.getCurrentPage(), ((Integer)dietCom.get("totalCount")).intValue(),pageUnit, pageSize); 
+	  System.out.println("resultPageForDietCom" + resultPageForDietCom);
+	  
+	  
+	  model.addAttribute("exComList", exCom.get("exComList"));
+	  model.addAttribute("dietComList", dietCom.get("dietComList"));
+	  model.addAttribute("resultPageForExCom", resultPageForExCom);
+	  model.addAttribute("resultPageForDietCom", resultPageForDietCom);
+	  model.addAttribute("search", search);
       
-      
-/*      if(search.getCurrentPage()==0) {
-         search.setCurrentPage(1);
-      }
-      
-      search.setPageSize(pageSize);*/
-      
-      
-      
-      return "main.jsp" ;
+      return "main.jsp";
    }
    
    @RequestMapping(value="listSearchMain", method=RequestMethod.GET)

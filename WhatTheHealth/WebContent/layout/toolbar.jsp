@@ -48,6 +48,20 @@
 			}); */
 	 	 });
 		
+		//$("#kakao_login").on("click", function(){
+			//alert("ddddddd");
+			//$('#loginModal').hide();
+			
+			/* if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
+				  
+				//location.replace("/main.jsp");
+				location.replace("/meeting/listMeeting.jsp");
+				
+			} ; */
+			
+			//window.close();
+		//});
+		
 		$( "#logout_toolbar").on("click", function(){
 			self.location = "/user/logout"	
 	 	 });
@@ -59,10 +73,11 @@
 		 /////////////////////////////////////// 운동꿀팁 메뉴바 ///////////////////////////////////////
 		
 		 $(document).on("click", '#exinfo_toolbar', function() {
-			 $(self.location).attr("href", "/exInfo/listExInfo")
+			 //$(self.location).attr("href", "/exInfo/listExInfo")
+			  self.location= "/exInfo/listExInfo";
 		 });
 
-		 
+		/*  
 		 $( "a[href='#' ]:contains('상체')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=0"
 			 });
@@ -81,15 +96,15 @@
 		 
 		 $( "a[href='#' ]:contains('전신')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=4"
-			 });
+			 }); */
 
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
 		
 		 $(document).on("click", '#myschedule_toolbar', function() {
-			 if(${sessionScope.user == null}){				 
+			 if("${sessionScope.user}" == null){				 
 				 alert("로그인이 필요한 서비스입니다.");
 				 //self.location = "/"
-			 } else if(${sessionScope.user != null}){
+			 } else if("${sessionScope.user}" != null){
 				self.location = "/schedule/listSchedule"	//UserId??????????
 			 }
 		 });
@@ -103,11 +118,11 @@
 				self.location = "/product/listProduct?menu=manage"
 		 }); */
 		 $(document).on("click", '#excom_toolbar', function() {
-				self.location = "/exCom/listExCom"
+				self.location = "/community/listExCom"
 		 });
 		 
 		 $(document).on("click", '#dietcom_toolbar', function() {
-				self.location = "/dietCom/listDietCom"
+				self.location = "/community/listDietCom"
 		 });
 		 
 		 /////////////////////////////////////// 소모임 메뉴바 ////////////////////////////////////
@@ -196,7 +211,11 @@
   #main {
   		color: white;
 		}
-		
+
+	h2{
+		cursor:pointer;
+	}
+
 #loginModal{
 	height: 700px;
 	margin: 0 auto;
@@ -283,14 +302,14 @@
                        
                       </li>
                       <li class = "has-children">
-                      	<a href="#">스케줄</a>
+                      	<a>스케줄</a>
                       	<ul class="dropdown arrow-top">
                           <li><a href="#" id="myschedule_toolbar">내 스케줄 관리</a></li>
                        	  <li><a href="#" id="calculator_toolbar">칼로리 계산기</a></li>
                         </ul>
                       </li>
                       <li class = "has-children">
-                      	<a href="#">커뮤니티</a>
+                      	<a>커뮤니티</a>
                       	<ul class="dropdown arrow-top">
                           <li><a href="#" id="excom_toolbar">운동 커뮤니티</a></li>
                           <li><a href="#" id="dietcom_toolbar">식단 커뮤니티</a></li>
@@ -305,7 +324,7 @@
                       </li>
                       <c:if test="${sessionScope.user.role == 'user'}"> 
                       <li class = "has-children">
-                      	<a href="#">마이페이지</a>
+                      	<a>마이페이지</a>
                       	<ul class="dropdown arrow-top">
                           <li><a href="#" id="getuser_toolbar">내정보 보기</a></li>
                           <li><a href="#" id="activity_toolbar">활동정보</a></li>
@@ -317,7 +336,7 @@
                        </c:if>
                       <c:if test="${sessionScope.user.role == 'admin'}"> 
                       <li class = "has-children">
-                      	<a href="#">관리페이지</a>
+                      	<a>관리페이지</a>
                       	<ul class="dropdown arrow-top">
                           <li><a href="#" id="useradmin_toolbar">회원관리</a></li>
                           <li><a href="#" id="claim_toolbar">신고관리</a></li>

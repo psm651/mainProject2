@@ -99,6 +99,114 @@
 		$('div').remove('.datepicker datepicker-inline');
 	};
 	
+	//============= 선금 있을 때/없을 때 event =============
+	var depoCheck = true;
+	$(function() {
+		
+	$("#depoPositive").on("click" , function() {
+		if(depoCheck == false){
+			 return;
+			}
+		
+		$("#depoPostiveHere").after("<div id=\"depoPosiAppend\"  >\r\n" + 
+				"<div class=\"row form-group\"  >\r\n" + 
+				"				<div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
+				"					&nbsp;\r\n" + 
+				"				</div>\r\n" + 
+				"				<div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
+				"                	선금금액 <input type=\"text\" class=\"form-control\" id=\"depoAmount\" name=\"depoAmount\"  placeholder=\"선금금액을 입력해주세요.\">\r\n" + 
+				"                </div>\r\n" + 
+				"                <!-- <div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
+				"                	입금마감기한 <input type=\"text\" class=\"form-control\" id=\"depoDeadline\" name=\"depoDeadline\"  placeholder=\"\">\r\n" + 
+				"                </div> -->\r\n" + 
+				"			</div>\r\n" + 
+				"			\r\n" + 
+				"			<div class=\"row form-group\">\r\n" + 
+				"				<div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
+				"					&nbsp;\r\n" + 
+				"				</div>\r\n" + 
+				"				<div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
+				"                	은행명 <input type=\"text\" class=\"form-control\" id=\"depoBank\" name=\"depoBank\"  placeholder=\"은행명\">\r\n" + 
+				"                </div>\r\n" + 
+				"               <!--  <div class=\"col-md-0.5 mb-5 mb-md-0\">\r\n" + 
+				"					&nbsp;\r\n" + 
+				"				</div> -->\r\n" + 
+				"                <div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
+				"                	예금주 <input type=\"text\" class=\"form-control\" id=\"depoAccHolder\" name=\"depoAccHolder\"  placeholder=\"예금주\">\r\n" + 
+				"                </div>\r\n" + 
+				"                <div class=\"col-md-1 mb-5 mb-md-0\">\r\n" + 
+				"					&nbsp;\r\n" + 
+				"				</div>\r\n" + 
+				"                <div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
+				"                	계좌번호 <input type=\"text\" class=\"form-control\" id=\"depoAccount\" name=\"depoAccount\"  placeholder=\"계좌번호를 입력해주세요.\">\r\n" + 
+				"                </div>\r\n" + 
+				"			</div></div>");
+		
+		depoCheck = false;
+		
+	   });
+	
+     	$("#depoNegative").on("click" , function() {
+     		$("#depoPosiAppend").remove();
+     		depoCheck = true;
+     	});
+     	
+	});	
+//============= 참가비 있을 때/없을 때 event =============	
+	var feeCheck = true;
+	$(function() {
+		
+	$("#feePositive").on("click" , function() {
+		if(feeCheck == false){
+			 return;
+			}
+		$("#feePostiveHere").after("<div class=\"row form-group\"  id=\"feePosiAppend\">\r\n" + 
+				"				<div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
+				"					&nbsp;\r\n" + 
+				"				</div>\r\n" + 
+				"				<div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
+				"                	참가비금액 <input type=\"text\" class=\"form-control\" id=\"entryfee\" name=\"entryfee\"  placeholder=\"참가비금액을 입력해주세요.\">\r\n" + 
+				"                </div>\r\n" + 
+				"             </div> ");
+		feeCheck = false;
+		});
+	
+		$("#feeNegative").on("click" , function() {
+ 			$("#feePosiAppend").remove();
+ 			feeCheck = true;
+ 		});
+	});
+	
+	//============= 인원제한 있을 때/없을 때 event =============	
+	var prtLimitCheck = true;
+	$(function() {
+		
+		$("#prtLimitPositive").on("click" , function() {
+			if(prtLimitCheck == false){
+				 return;
+				}
+			$("#prtLimitPositiveHere").after(	"<div class=\"row form-group\"  id=\"prtLimitPosiAppend\">\r\n" + 
+					"				<div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
+					"					&nbsp;\r\n" + 
+					"				</div>\r\n" + 
+					"				<div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
+					"                	최소인원 <input type=\"text\" class=\"form-control\" id=\"minParty\" name=\"minParty\"  placeholder=\"최소인원 수를 입력해주세요.\">\r\n" + 
+					"                </div>\r\n" + 
+					"                <div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
+					"                	최대인원 <input type=\"text\" class=\"form-control\" id=\"maxParty\" name=\"maxParty\"  placeholder=\"최대인원 수를 입력해주세요.\">\r\n" + 
+					"                </div>\r\n" + 
+					"			</div>");
+			prtLimitCheck = false;
+			});
+		
+			$("#prtLimitNegative").on("click" , function() {
+	 			$("#prtLimitPosiAppend").remove();
+	 			prtLimitCheck = true;
+	 		});
+		});
+	
+	
+	//////////////////////////////////////달력/////////////////////////////////
 	$(document).ready(function(){
 		datetime(); 
 	       });
@@ -195,27 +303,27 @@ $('#timepicker-actions-exmpl').data('datepicker')
      			 </div> -->
               </div>
 
-			 <div class="row form-group">
+			 <div class="row form-group"  id="depoPostiveHere">
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">선금</label>
                 </div>
                  <div class="col-md-5 mb-5 mb-md-0">
-                <input type="radio"   name="depoCondition"  value="1" >선금있음 
+                <input type="radio"   name="depoCondition"  value="1"  id="depoPositive">선금있음 
                   &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
-				<input type="radio"   name="depoCondition"  value="0" >선금없음
+				<input type="radio"   name="depoCondition"  value="0"  id="depoNegative">선금없음
 				 </div> 
 			</div>
-			
-			<div class="row form-group">
+			<!-- //////////////////////////////////////////////선금있음 시 다 동적으로 처리////////////////////////////////////////////// -->
+			<!-- <div class="row form-group">
 				<div class="col-md-2 mb-5 mb-md-0">
 					&nbsp;
 				</div>
 				<div class="col-md-5 mb-5 mb-md-0">
                 	선금금액 <input type="text" class="form-control" id="depoAmount" name="depoAmount"  placeholder="선금금액을 입력해주세요.">
                 </div>
-                <!-- <div class="col-md-5 mb-5 mb-md-0">
+                <div class="col-md-5 mb-5 mb-md-0">
                 	입금마감기한 <input type="text" class="form-control" id="depoDeadline" name="depoDeadline"  placeholder="">
-                </div> -->
+                </div>
 			</div>
 			
 			<div class="row form-group">
@@ -225,9 +333,9 @@ $('#timepicker-actions-exmpl').data('datepicker')
 				<div class="col-md-2 mb-5 mb-md-0">
                 	은행명 <input type="text" class="form-control" id="depoBank" name="depoBank"  placeholder="은행명">
                 </div>
-               <!--  <div class="col-md-0.5 mb-5 mb-md-0">
+                <div class="col-md-0.5 mb-5 mb-md-0">
 					&nbsp;
-				</div> -->
+				</div>
                 <div class="col-md-2 mb-5 mb-md-0">
                 	예금주 <input type="text" class="form-control" id="depoAccHolder" name="depoAccHolder"  placeholder="예금주">
                 </div>
@@ -237,41 +345,42 @@ $('#timepicker-actions-exmpl').data('datepicker')
                 <div class="col-md-5 mb-5 mb-md-0">
                 	계좌번호 <input type="text" class="form-control" id="depoAccount" name="depoAccount"  placeholder="계좌번호를 입력해주세요.">
                 </div>
-			</div>
-			
-			<div class="row form-group">
+			</div> -->
+			<!-- //////////////////////////////////////////////선금있음 시 다 동적으로 처리////////////////////////////////////////////// -->
+			<div class="row form-group"  id="feePostiveHere">
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">참가비</label>
                 </div>
                 <div class="col-md-5 mb-5 mb-md-0">
-                <input type="radio" >참가비있음 
+                <input type="radio"  name="feeCheck" id="feePositive">참가비있음 
                   &nbsp; &nbsp; &nbsp; &nbsp;
-				<input type="radio" >참가비없음
-			</div>
+				<input type="radio"   name="feeCheck"  id="feeNegative">참가비없음
+			   </div>
 				
 			</div>
-			
-			<div class="row form-group">
+			<!-- //////////////////////////////////////////////참가비 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
+			<!-- <div class="row form-group"  id="feePosiAppend">
 				<div class="col-md-2 mb-5 mb-md-0">
 					&nbsp;
 				</div>
 				<div class="col-md-5 mb-5 mb-md-0">
                 	참가비금액 <input type="text" class="form-control" id="entryfee" name="entryfee"  placeholder="참가비금액을 입력해주세요.">
                 </div>
-             </div>
+             </div> -->
+             <!-- //////////////////////////////////////////////참가비 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
              
-             <div class="row form-group">
+             <div class="row form-group"  id="prtLimitPositiveHere">
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">인원정원</label>
                 </div>
                 <div class="col-md-5 mb-5 mb-md-0">
-                <input type="radio" >제한있음 
+                <input type="radio"  name="prtLimitCheck"  id="prtLimitPositive">제한있음 
                   &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
-				<input type="radio" >제한없음
+				<input type="radio"  name="prtLimitCheck"  id="prtLimitNegative">제한없음
 				 </div> 
 			</div>
-			
-			<div class="row form-group">
+			<!-- //////////////////////////////////////////////인원정원 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
+			<!-- <div class="row form-group">
 				<div class="col-md-2 mb-5 mb-md-0">
 					&nbsp;
 				</div>
@@ -281,8 +390,8 @@ $('#timepicker-actions-exmpl').data('datepicker')
                 <div class="col-md-5 mb-5 mb-md-0">
                 	최대인원 <input type="text" class="form-control" id="maxParty" name="maxParty"  placeholder="최대인원 수를 입력해주세요.">
                 </div>
-			</div>
-			
+			</div> -->
+			<!-- //////////////////////////////////////////////인원정원 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
 			<div class="row form-group">
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">시간/ 장소</label>
