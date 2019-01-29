@@ -116,7 +116,7 @@
                 		<span class="text-uppercase date d-block mb-3">${post.postDate}</span>
                 		<div class="userInfo">
                 			<c:if test="${post.userImage != null and post.userImage != '' }">
-                				<img src="/resources/images/${post.userImage}" style="border-radius:100px; width:50px; height: 25px;">
+                				<img src="/resources/images/userImage/${post.userImage}" style="border-radius:100px; width:50px; height: 25px;">
                 			</c:if>
                 			<c:if test="${post.userImage == null or post.userImage ==  ''}">
 								<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 25px;"/>
