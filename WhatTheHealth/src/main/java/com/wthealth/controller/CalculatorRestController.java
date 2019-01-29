@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.BMI;
+import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.Food;
 
 @RestController
@@ -80,10 +81,10 @@ public class CalculatorRestController {
            if(tempCalorie.contains(".")) {
  
         	   String[] temp = tempCalorie.split("\\.");;     
-        	   food.setFoodCalorie(Integer.parseInt(temp[0])); 
+        	   food.setFoodCalorie(temp[0]); 
            }else {
         	 
-        	   food.setFoodCalorie(Integer.parseInt(tempCalorie.replaceAll(" ", "")));
+        	   food.setFoodCalorie(tempCalorie.replaceAll(" ", ""));
            
            }
            System.out.println(food);
@@ -101,6 +102,11 @@ public class CalculatorRestController {
 		return foodInfo; 
 	}
 
+	@RequestMapping(value="json/addDietSchedule", method=RequestMethod.POST)
+	public void addDietSchedule(@RequestBody DietSchedule dietSchedule) throws Exception{
+		
+		System.out.println();
+	}
 	
 	
 }

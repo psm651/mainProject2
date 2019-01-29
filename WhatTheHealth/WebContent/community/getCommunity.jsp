@@ -69,6 +69,7 @@
    </style>
    <script type="text/javascript">
   
+   
     function favoriteList(){
            $.ajax({
                url : '/favorite/json/listFavorite/'+'${post.postNo}',
@@ -120,7 +121,7 @@
                   favoriteList(); 
                   likeCount++;
                   //likeCount.attr('likeCount'); 
-                  $(".likeCount").replaceWith("좋아요 수  : "+ likeCount);
+                  $(".likeCount").html("<li><span class='likeCount'>좋아요 수  : "+likeCount+"</span></li>");        
                   }
                }            
             });
@@ -139,7 +140,8 @@
                              $(".likeImage").remove();
                       likeCount--;
                       //likeCount.attr('likeCount');
-                      $(".likeCount").replaceWith("좋아요 수  : "+ likeCount);        
+                      
+                      $(".likeCount").html("<li><span class='likeCount'>좋아요 수  : "+likeCount+"</span></li>");        
                      }
                    $(".like").append(a); 
                   }
@@ -179,29 +181,34 @@
           
     	   popWin 
            = window.open("/claim/addClaim?targetNo="+${post.postNo}+"&menu=post",
-                                "popWin", 
-                                "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
-                                "scrollbars=no,scrolling=no,menubar=no,resizable=no");
-            }
-          
+                   "popWin", 
+                   "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
+                   "scrollbars=no,scrolling=no,menubar=no,resizable=no");
+}
+
        
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
                self.location="/community/updateCommunity?postNo=${post.postNo}"
             });
           
-          if("${post.category == '2'}"){
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/community/deleteExCom?postNo=${post.postNo}"
-            });
-	       }else if("${post.category == '3'}"){
-	    	   $( "a[href='#' ]:contains('삭제')").on("click", function(){
-	               self.location="/community/deleteDietCom?postNo=${post.postNo}"
-	            });
-	       }
-         });
+	        	if("${post.category}" == '2'){
+	               self.location="/community/deleteExCom?postNo=${post.postNo}"
+	            }else if("${post.category}" == '3'){
+		               self.location="/community/deleteDietCom?postNo=${post.postNo}"
+	            }
+	         }); 
+	     });
        
    </script>
+   
+  <style>
+  label {
+    display: inline-block;
+    width: 5em;
+  }
+  </style>
 </head>
 <body>
    
@@ -218,19 +225,10 @@
         <div class="giyong">
           	<h4>${post.title}</h4>
           	<ul>
-          		<%-- <li><span class="likeCount" data-param="${post.likeCount}">좋아요 수  : ${post.likeCount}</span></li> --%>
           		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
           		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
           	</ul>
-          	
-          	<!-- <span class="title" > -->
-            	<%-- <h4 class="mb-3">${post.title}</h4> --%>
-            <!-- </span> -->
-            <!-- <span class="etc" > -->
-	             <%-- <small>좋아요 수  : ${post.likeCount}</small> --%> 
-	             <%-- <small>조회 수 : ${post.clickCount}</small> --%>
-	        <!-- </span> -->
-             
+ 
             <div class="contents" >
 				<p>${post.contents}</p>
            		 <%-- <p class="mb-4">${post.contents}</p> --%>
@@ -247,8 +245,8 @@
              <!-- <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite"> -->
                 
                 <div class="favoriteListHere" >
-                   <div style="float: left; width: 47%;" class="like">
-                   <img src="../resources/images/emptyHeart.png" width="60px" class="likeImage" onclick="emptyHeart()">
+                   <div style="float: left; width: 47%;" class="like" >
+                   <img src="../resources/images/emptyHeart.png" width="60px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
                    </div>
                    <div style="float: left; width: -2%;" class="interest">
                    <img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">

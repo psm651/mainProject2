@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
@@ -34,13 +32,9 @@
     <script src="/resources/js/jquery.stellar.min.js"></script>
     <script src="/resources/js/jquery.countdown.min.js"></script>
     <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/bootstrap-datepicker.min.js"></script>
     <script src="/resources/js/aos.js"></script>
     <script src="/resources/js/main.js"></script>
     
-    
-       <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </head>
   
@@ -58,9 +52,10 @@
 			self.location = "/community/addDietCom";
 		});
 	});	
+   
   </script>
   
-  
+ 
   
 <body>
 
@@ -77,54 +72,71 @@
     </div> <!-- .site-mobile-menu -->
     
     <div class="site-section">
-    	<div style = "margin-left : 15em">
-    		<h2>식단 커뮤니티 목록</h2>
-    	</div>
+    	
       <div class="container">
+      <div><h2>식단 커뮤니티 목록</h2></div> 
       <hr/>
-      <br/>
+ 
         <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
         <br/>
-        <div class="row mb-5">
         
-
-          <c:set var="i" value="0"/>
-          <c:set var="i" value="${i+1}"/>
-          <c:forEach var="post" items="${list}"> 
+        <!-- div : start -->
+        <div class="row mb-5">
+        	<c:set var="i" value="0"/>
+          	<c:set var="i" value="${i+1}"/>
+          	<c:forEach var="post" items="${list}"> 
           
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white" data-param="${post.postNo}">
-              <div class="image">
-              	<c:if test="${empty post.photo}">
-                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
-                </c:if>
-                <c:set var="youtubeThumbnail" value="${post.photo}"/>
-                 
-                <c:if test="${!empty post.photo}">
-               		<c:choose>
-               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-               				<img src="${post.photo}" class="img-fluid" width= "400;" height= "200;">
-               			</c:when>   
-               			<c:otherwise>
-               				<img src="/resources/images/upload/${post.photo}" class="img-fluid">
-               			</c:otherwise>            			
-               		</c:choose>
-                </c:if>
-              </div>
-              <div class="text p-6">
-                <h2 class="h3 text-black"><a href="#">${post.title}</a></h2>
-                <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
- 				<p class="mb-0">${post.likeCount}</p>
-                <span class="text-uppercase date d-block mb-3">
-                <small>${post.nickName}</small>
-                </span>                
-              </div>
+          	<div class="col-md-6 col-lg-4 mb-4">
+          		
+          		<!-- post-entry bg-white : start -->
+            	<div class="post-entry bg-white box" data-param="${post.postNo}">
+              		<div class="image"  style="width:400px; height:200px">
+	              		<c:if test="${empty post.photo}">
+	                    	<img  src="/resources/images/1111.jpg"  class="img-fluid">
+	                	</c:if>
+	                	<c:set var="youtubeThumbnail" value="${post.photo}"/>
+	                 
+	                	<c:if test="${!empty post.photo}">
+		               		<c:choose>
+		               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
+		               				<img src="${post.photo}" class="img-fluid" >
+		               			</c:when>   
+		               			<c:otherwise>
+		               				<img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+		               			</c:otherwise>            			
+		               		</c:choose>
+	                	</c:if>
+              		</div>
+              		
+              		<div class="text col-md-8">
+                		<h2 class="h3"><a href="#">${post.title}</a></h2>
+                		<span class="text-uppercase date d-block mb-3">${post.postDate}</span>
+                		<div class="userInfo">
+                			<img src="/resources/images/${post.userImage}" style="border-radius:100px; width:50px; height: 25px;">
+                			${post.nickName}
+                		</div>
+              		</div>
+              		
+              		<div class="col-md-4">
+ 						<div class="likeImage">
+ 							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
+ 						</div>
+ 						<div class="likeCount" style="margin-left:38px">
+ 							<h5>${post.likeCount}</h5>
+ 						</div>
+ 					</div>
+              	</div>
+              	<!-- post-entry bg-white : end -->
+              	
             </div>
-          </div>    
+            </c:forEach> 
+         </div>    
+         <!-- div : end -->
           
-   </c:forEach> 
+   <%-- </c:forEach>  --%>
                           
       </div>
+      <!-- container : end -->
     </div>
   </div>
    </body>

@@ -51,7 +51,7 @@
 		<result property="meetNo" 			column="meet_no" 		jdbcType="NUMERIC" />
 		<result property="partyId" 				column="party_id" 					jdbcType="VARCHAR" />
 		<result property="deleteStatus" 			column="delete_status" 				jdbcType="VARCHAR"  />
-		<result property="meetTime" 		column="meet_time" 			jdbcType="DATE" />
+		<result property="meetTime" 		column="meet_time" 			jdbcType="VARCHAR" />
 		<result property="meetTitle" 		column="title" 			jdbcType="VARCHAR" />
 		<result property="partyImage" 		column="user_image" 			jdbcType="VARCHAR" />
 	</resultMap>

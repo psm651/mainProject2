@@ -41,6 +41,7 @@
 <!-- 운동스케줄 Modal 창 -->
 <div class="modal fade" tabindex="-1" role="dialog" id="ex">
     <div class="modal-dialog" role="document" >
+    
         <div class="modal-content">
             <div class="modal-header">            
                 <h4 class="modal-title">운동등록</h4>

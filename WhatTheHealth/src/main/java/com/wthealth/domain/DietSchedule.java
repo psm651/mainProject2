@@ -1,6 +1,6 @@
 package com.wthealth.domain;
 
-import java.sql.Date;
+
 import java.util.List;
 
 public class DietSchedule {
@@ -8,17 +8,16 @@ public class DietSchedule {
 	private int dietScNo;
 	private String userId;
 	private List<Food> food;
-	private Date dietScDate;
+	private String dietScDate;
 	private double bmi;
 	private int dietScCalorie;
 	private String mealTime;
 	private int weight;
 	private String deleteStatus;
+
 	/**
 	 * 
 	 */
-	public DietSchedule() {
-	}
 	public int getDietScNo() {
 		return dietScNo;
 	}
@@ -37,10 +36,10 @@ public class DietSchedule {
 	public void setFood(List<Food> food) {
 		this.food = food;
 	}
-	public Date getDietScDate() {
+	public String getDietScDate() {
 		return dietScDate;
 	}
-	public void setDietScDate(Date dietScDate) {
+	public void setDietScDate(String dietScDate) {
 		this.dietScDate = dietScDate;
 	}
 	public double getBmi() {
@@ -75,11 +74,11 @@ public class DietSchedule {
 	}
 	@Override
 	public String toString() {
-		return "DietSchedule [dietScNo=" + dietScNo + ", userId=" + userId + ", food=" + food + ", dietScDate="
+		return "DietSchedule [dietScNo=" + dietScNo + ", userId=" + userId + ", foodInfo=" + food + ", dietScDate="
 				+ dietScDate + ", bmi=" + bmi + ", dietScCalorie=" + dietScCalorie + ", mealTime=" + mealTime
 				+ ", weight=" + weight + ", deleteStatus=" + deleteStatus + "]";
 	}
-	
+
 	
 	
 }

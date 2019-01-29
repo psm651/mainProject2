@@ -113,7 +113,7 @@ $( function() {
 		<div id="jb-header" >
         	<h4>∏¿¿÷∞‘ ∏‘¿∏∏È 0ƒÆ∑Œ∏Æ</h4>
       	</div>
-      	<div id="jb-content" style="overflow:auto; ">
+      	<div id="jb-content" style="overflow-y:hidden;  ">
 <div class="row" style="height: 500px; width:500px; margin: 0 auto;">
 	<c:set var="i" value="0"/>
 	<c:forEach var="defo" items="${food}">
@@ -123,11 +123,15 @@ $( function() {
      		 <div class="card" >
      		 <div class="card-header" align="center">${defo.foodName}</div>
      		 <div class="card-body" style="padding-bottom:-110px;padding-bottom: 8px;padding-top: 8px;" align="center">
-			<p>${ defo.amountFood} g</p>
+			<p>${ defo.amountFood} </p>
  				<p>${ defo.foodCalorie} </p>                               
           	</div>                                      
        	   </div>
       	</div>
+                         
+                         
+                     
+                         
                          
                 	</c:forEach>
                 	</div>

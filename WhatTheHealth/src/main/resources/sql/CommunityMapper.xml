@@ -7,27 +7,30 @@
 <mapper namespace="CommunityMapper">
 
 	<resultMap id="postSelectMap" type="com.wthealth.domain.Post">
-		<result property="postNo" column="post_no" jdbcType="NUMERIC" />
-		<result property="postSubNo" 	column="post_sub_no" jdbcType="VARCHAR" />
-		<result property="userId" column="user_id" jdbcType="VARCHAR" />
-		<result property="title" column="title" jdbcType="VARCHAR" />
-		<result property="contents" column="contents" jdbcType="VARCHAR" />
-		<result property="photo" column="photo" jdbcType="VARCHAR" />
-		<result property="clickCount" column="click_count" jdbcType="NUMERIC" />
-		<result property="blindStatus" column="blind_status" jdbcType="VARCHAR" />
-		<result property="deleteStatus" column="delete_status"	jdbcType="VARCHAR" />
-		<result property="likeCount" column="like_count" jdbcType="NUMERIC" />
-		<result property="category" column="category" jdbcType="VARCHAR" />
-		<result property="postDate" column="post_date" jdbcType="DATE" />
-		<result property="exScNo" column="ex_sc_no" jdbcType="NUMERIC" />
-		<result property="dietScNo" column="diet_sc_no" jdbcType="NUMERIC" />
-		<result property="locationTagName" column="locationtag_name"		jdbcType="VARCHAR" />
-		<result property="coordinate" column="coordinate" jdbcType="VARCHAR" />
-		<result property="address" column="address" jdbcType="VARCHAR" />
+		<result property="postNo" 			column="post_no" 				jdbcType="NUMERIC" />
+		<result property="postSubNo" 		column="post_sub_no"			jdbcType="VARCHAR" />
+		<result property="userId" 			column="user_id" 				jdbcType="VARCHAR" />
+		<result property="title" 			column="title" 					jdbcType="VARCHAR" />
+		<result property="contents" 		column="contents" 				jdbcType="VARCHAR" />
+		<result property="photo" 			column="photo" 					jdbcType="VARCHAR" />
+		<result property="clickCount" 		column="click_count" 			jdbcType="NUMERIC" />
+		<result property="blindStatus" 		column="blind_status" 			jdbcType="VARCHAR" />
+		<result property="deleteStatus" 	column="delete_status"			jdbcType="VARCHAR" />
+		<result property="likeCount" 		column="like_count" 			jdbcType="NUMERIC" />
+		<result property="category" 		column="category" 				jdbcType="VARCHAR" />
+		<result property="postDate" 		column="post_date" 				jdbcType="DATE" />
+		<result property="exScNo" 			column="ex_sc_no" 				jdbcType="NUMERIC" />
+		<result property="dietScNo" 		column="diet_sc_no" 			jdbcType="NUMERIC" />
+		<result property="locationTagName" 	column="locationtag_name"		jdbcType="VARCHAR" />
+		<result property="coordinate" 		column="coordinate" 			jdbcType="VARCHAR" />
+		<result property="address"			column="address" 				jdbcType="VARCHAR" />
 		
-		<result property="favoriteNo" column="favorite_no" jdbcType="NUMERIC" />
-		<result property="favoriteType" column="favorite_type" jdbcType="VARCHAR" />
-		<result property="pressedStatus" column="pressed_status" jdbcType="VARCHAR" />
+		<result property="nickName"	        column="nickname" 			    jdbcType="VARCHAR" />
+		<result property="userImage" 		column="user_image" 		    jdbcType="VARCHAR"  />
+		
+		<result property="favoriteNo" 		column="favorite_no" 			jdbcType="NUMERIC" />
+		<result property="favoriteType" 	column="favorite_type" 			jdbcType="VARCHAR" />
+		<result property="pressedStatus" 	column="pressed_status" 		jdbcType="VARCHAR" />
 	</resultMap>
 
 	<insert id="addExCom" parameterType="com.wthealth.domain.Post" useGeneratedKeys="true" keyProperty="postNo">
@@ -36,9 +39,9 @@
 		click_count, blind_status, delete_status, like_count,
 		category, post_date, diet_sc_no, locationtag_name, coordinate, address)
 		VALUES
-		(seq_post_post_no.nextval, 'EC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents},
+		(seq_post_post_no.nextval, 'EC'||seq_excom_excom_no.nextval, #{userId}, #{title}, #{contents},
 		#{photo:VARCHAR}, 0, '0', '0', 0, '2', SYSDATE,
-		#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
+		#{exScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
          SELECT seq_post_post_no.currval FROM dual
      	</selectKey>
@@ -123,22 +126,23 @@
 	<select id="listDietCom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-				FROM ( SELECT *
-						FROM post
-						WHERE post_sub_no LIKE 'DC%'
-						AND delete_status = '0'
+				FROM ( SELECT p.*, u.nickname, u.user_image 
+						FROM post p, users u
+						WHERE p.user_id = u.user_id 
+						AND p.post_sub_no LIKE 'DC%'
+						AND p.delete_status = '0'
 		<if test="searchCondition != null">
 				<if test="searchCondition == 0 and searchKeyword !='' ">
-					AND title LIKE '%'||#{searchKeyword}||'%'
+					AND p.title LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-					AND user_id LIKE '%'||#{searchKeyword}||'%'
+					AND p.user_id LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-					AND contents LIKE '%'||#{searchKeyword}||'%'
+					AND p.contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
 		</if>
-		ORDER BY post_no) inner_table
+		ORDER BY p.post_no) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -150,22 +154,23 @@
 	<select id="listExCom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-				FROM ( SELECT *
-						FROM post
-						WHERE post_sub_no LIKE 'EC%'
-						AND delete_status = '0'
+				FROM ( SELECT p.*, u.nickname, u.user_image 
+						FROM post p, users u
+						WHERE p.user_id = u.user_id 
+						AND p.post_sub_no LIKE 'EC%'
+						AND p.delete_status = '0'
 		<if test="searchCondition != null">
 				<if test="searchCondition == 0 and searchKeyword !='' ">
-					AND title LIKE '%'||#{searchKeyword}||'%'
+					AND p.title LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-					AND user_id LIKE '%'||#{searchKeyword}||'%'
+					AND p.user_id LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-					AND contents LIKE '%'||#{searchKeyword}||'%'
+					AND p.contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
 		</if>
-		ORDER BY post_no) inner_table
+		ORDER BY p.post_no) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -174,12 +179,13 @@
 	<select id="listDietComRecom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-		FROM ( SELECT *
-		FROM	post
-		WHERE	post_sub_no LIKE 'DC%'
-		AND delete_status = '0'
-		AND	ROWNUM &lt;= 3
-		ORDER BY like_count) inner_table
+		FROM ( SELECT  p.*, u.nickname, u.user_image 
+				FROM post p, users u
+				WHERE p.user_id = u.user_id 
+				AND p.post_sub_no LIKE 'DC%'
+		AND p.delete_status = '0'
+		AND	ROWNUM &lt;= 5
+		ORDER BY p.like_count) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -188,12 +194,13 @@
 	<select id="listExComRecom" resultMap="postSelectMap" parameterType="com.wthealth.common.Search">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-		FROM ( SELECT *
-		FROM	post
-		WHERE	post_sub_no LIKE 'EC%'
-		AND delete_status = '0'
-		AND	ROWNUM &lt;= 3
-		ORDER BY like_count) inner_table
+		FROM ( SELECT p.*, u.nickname, u.user_image 
+				FROM post p, users u
+				WHERE p.user_id = u.user_id 
+				AND p.post_sub_no LIKE 'EC%'
+		AND p.delete_status = '0'
+		AND	ROWNUM &lt;= 5
+		ORDER BY p.like_count) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -201,19 +208,20 @@
 	<!-- SQL : SELECT ROW Count -->
 	<select id="getTotalCountForDC" parameterType="com.wthealth.common.Search" resultType="int">
 		SELECT COUNT(*)
-		FROM( SELECT *
-		FROM post
-		WHERE post_sub_no LIKE 'DC%'
-			AND delete_status = '0'
+		FROM( SELECT p.*, u.nickname, u.user_image 
+			FROM post p, users u
+			WHERE p.user_id = u.user_id 
+			AND p.post_sub_no LIKE 'DC%'
+			AND p.delete_status = '0'
 		<if test="searchCondition != null">
 				<if test="searchCondition == 0 and searchKeyword !='' ">
-					AND title LIKE '%'||#{searchKeyword}||'%'
+					AND p.title LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-					AND user_id LIKE '%'||#{searchKeyword}||'%'
+					AND p.user_id LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-					AND contents LIKE '%'||#{searchKeyword}||'%'
+					AND p.contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
 			</if>
 		) countTable
@@ -222,19 +230,20 @@
 	<!-- SQL : SELECT ROW Count -->
 	<select id="getTotalCountForEC" parameterType="com.wthealth.common.Search" resultType="int">
 		SELECT COUNT(*)
-		FROM( SELECT *
-		FROM post
-		WHERE post_sub_no LIKE 'EC%'
-			AND delete_status = '0'
+		FROM( SELECT p.*, u.nickname, u.user_image 
+			FROM post p, users u
+			WHERE p.user_id = u.user_id 
+			AND p.post_sub_no LIKE 'EC%'
+			AND p.delete_status = '0'
 		<if test="searchCondition != null">
 				<if test="searchCondition == 0 and searchKeyword !='' ">
-					AND title LIKE '%'||#{searchKeyword}||'%'
+					AND p.title LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 1 and searchKeyword !='' ">
-					AND user_id LIKE '%'||#{searchKeyword}||'%'
+					AND p.user_id LIKE '%'||#{searchKeyword}||'%'
 				</if>
 				<if test="searchCondition == 2 and searchKeyword !='' ">
-					AND contents LIKE '%'||#{searchKeyword}||'%'
+					AND p.contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
 			</if>
 		) countTable
