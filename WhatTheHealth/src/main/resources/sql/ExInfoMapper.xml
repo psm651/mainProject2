@@ -72,6 +72,14 @@
        WHERE post_no = #{postNo}
     </update>
 
+ 	<!-- SQL : UPDATE :: 게시물 삭제 -->
+ 	 <update 	id="updateDeleteStatus"	parameterType="com.wthealth.domain.Post">
+		UPDATE post
+         <set>
+ 			delete_status = '1'	
+         </set>
+       WHERE post_no = #{postNo}
+    </update> 
 
 	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
 	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
@@ -186,6 +194,7 @@
 				     p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname 
 				) countTable									
 	 </select>
+	 
 	  
 	  
 </mapper>

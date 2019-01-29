@@ -1,6 +1,9 @@
 package com.wthealth.controller;
 
-import java.io.File;
+
+
+
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.DietSchedule;
+import com.wthealth.domain.Food;
 import com.wthealth.domain.Post;
+import com.wthealth.service.dietschedule.DietScheduleService;
 import com.wthealth.service.exinfo.ExInfoService;
 import com.wthealth.service.main.MainService;
 
@@ -29,6 +34,7 @@ public class ExInfoController {
 	@Qualifier("exInfoServiceImpl")
 	private ExInfoService exInfoService;
 	
+		
 	@Autowired
 	@Qualifier("mainServiceImpl")
 	private MainService mainService;
@@ -114,8 +120,8 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
-	@RequestMapping(value="listExInfo")
-	public String listExInfo(@RequestParam("exPart") String exPart, Model model) throws Exception{
+	@RequestMapping(value="listExInfoPart", method=RequestMethod.GET)
+	public String listExInfoPart(@RequestParam("exPart") String exPart, Model model) throws Exception{
 	
 		Search search = new Search();
 
@@ -138,5 +144,14 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}	
 	
+	@RequestMapping(value="updateDeleteStatus", method=RequestMethod.GET)
+	public String updateDeleteStatus(@RequestParam("postNo") String postNo) throws Exception {
+		
+		exInfoService.deleteStatus(postNo);
+		
+		return "redirect:/exinfo/listExInfo";
+	}
+	
+
 
 }

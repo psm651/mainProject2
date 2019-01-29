@@ -25,7 +25,13 @@
     
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-<!--     <link rel="stylesheet" href="/resources/css/style.css"> -->
+
+	<!-- include datetimepicker css/js-->
+	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
+	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
+	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
+   	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    
    <style>
    
@@ -87,7 +93,7 @@
             url : '/favorite/json/addLike/'+'${post.postNo}',
             type : "GET",
             success : function(data){
-            	alert(data)
+            	
                 if(data == 1) {
                   favoriteList(); 
                   }
@@ -155,10 +161,12 @@
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
         		var postNo = $(this).data("param");
-        	  self.location="/exInfo/updateExInfo?postNo="+postNo
+        	   self.location="/exInfo/updateExInfo?postNo="+postNo
             });
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
-               self.location="/exInfo/deleteExInfo?postNo=${post.postNo}"
+        	  var postNo = $(this).data("param1");
+        	  alert(postNo)
+               self.location="/exInfo/updateDeleteStatus?postNo="+postNo
             });
          });
        
@@ -182,6 +190,7 @@
             <h4 class="mb-3">${post.title}</h4>
              <small>좋아요 수  : ${post.likeCount}</small> 
              <small>조회 수 : ${post.clickCount}</small> 
+              <input type='text' class='datepicker-here' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:600px;"/>
              <hr/>
             <span><h6>프로그램 간략정보</h6></span>   
             
@@ -239,8 +248,8 @@
                 </div>
             
             <c:if test="${sessionScope.user.role == 'admin'}">
-            	<p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo }">수정</a>
-        	    <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
+            	<p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo}">수정</a>
+        	    <a href="#" class="btn btn-primary pill px-4" data-param1="${post.postNo}">삭제</a></p>
             </c:if>
             
           </div>

@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
     
+    
+    
+    
+    
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -35,11 +39,10 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="../resources/js/app.js"></script>
-	<!-- sweetalert -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	<style>
- 
+	
+
 
 	#sub {width:200px; height:30px; background:pink;
 
@@ -54,7 +57,7 @@
      top:30px; left:550px;
      }
 
-#sub:before {
+	#sub:before {
 
      border-top: 10px solid pink;
 

@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
-import com.wthealth.service.excom.ExComService;
+
 
 import junit.framework.Assert;
 
@@ -30,9 +30,9 @@ import junit.framework.Assert;
 public class ExComServiceTest {
 
 	// ==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
-	@Autowired
-	@Qualifier("exComServiceImpl")
-	private ExComService exComService;
+//	@Autowired
+//	@Qualifier("exComServiceImpl")
+//	private ExComService exComService;
 
 	/*
 	  @Test 
@@ -184,7 +184,7 @@ public class ExComServiceTest {
 		System.out.println(list);
 	}*/
 	
-	@Test
+/*	@Test
 	public void testListExComRecom() throws Exception {
 
 		Search search = new Search();
@@ -219,5 +219,5 @@ public class ExComServiceTest {
 	 	totalCount = (Integer)map.get("totalCount");
 	 	System.out.println("listExCom의 3개당 리스트 갯수 "+totalCount);
 
-	}
+	}*/
 }
