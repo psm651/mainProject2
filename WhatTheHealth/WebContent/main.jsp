@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%> 
 
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
@@ -20,8 +19,8 @@
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
-	
-    <title>IronMuscle &mdash; Colorlib Website Template</title>
+   
+    <title>What The Health</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -46,51 +45,58 @@
   
   <style>
   div p {
-  		overflow: hidden; 
- 	    text-overflow: ellipsis;
-  		white-space: nowrap; 
-  		width: 100px;
-  		height: 20px;
-		}
+        overflow: hidden; 
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+        width: 100px;
+        height: 20px;
+      }
+      
+  #javaKing{
+  	width : 50px;
+  	height : 50px;
+  	background-image : url("/resources/images/${post.userImage}");
+  	background-size : cover;
+  	border-radius : 100%;
+  }
+  
   </style>
   
   <script type="text/javascript">
   
   
   $(function(){
-	 
-	  //임박한 소모임 getMeeting
-	  $("#meeting").on("click", function(){
-		  alert("미팅");
-		 self.locaiton = "/meeting/listMeeting?postNo"+postNo 
-	  });
-	  
-	  //날씨별 운동추천 getWeather
-	  $("#exInfo").on("click", function(){
-		  alert("운동정보");
-		 self.locaiton = "/exinfo/listExinfoWeather?postNo"+postNo 
-	  });
-	  
-	  //추천 식단 커뮤니티
-	  $("#dietcom").on("click", function(){
-		  alert("추천식단");
-		 self.locaiton = "/dietcom/listDietComReCom?postNo="+postNo 
-	  });
-	  
-	  //추천 운동 커뮤니티
-	  $(".excom").on("click", function(){
-		  alert("추천운동");
-		self.locaiton = "/excom/listExComRecom?postNo"+postNo 
-	  });
-	  
-	  //썸네일로 이동시 마우스커서로 변경
-	  $(".img-fluid").on("mouseover", function(){
-		 $(".img-fluid").css("cursor","pointer")
-	  });
-	  
+    
+     //임박한 소모임 getMeeting
+     $("#meeting").on("click", function(){
+        alert("미팅");
+       self.locaiton = "/meeting/listMeeting?postNo"+postNo 
+     });
+     
+     //날씨별 운동추천 getWeather
+     $("#exInfo").on("click", function(){
+        alert("운동정보");
+       self.locaiton = "/exinfo/listExinfoWeather?postNo"+postNo 
+     });
+     
+     //추천 식단 커뮤니티
+     $(".dietcom").on("click", function(){
+        var postNo = $(this).data("dietcom");
+        self.location = "/community/getCommunity?postNo="+postNo;
+     });
+     
+     //추천 운동 커뮤니티
+     $(".excom").on("click", function(){
+        var postNo = $(this).data("excom");
+        self.location = "/community/getCommunity?postNo="+postNo;
+     });
+     
+     //썸네일로 이동시 마우스커서로 변경
+     $(".img-fluid").on("mouseover", function(){
+       $(".img-fluid").css("cursor","pointer")
+     });
+     
   });
-  
-  
   
   
   </script>
@@ -101,108 +107,39 @@
   
   <div class="site-wrap">
 <!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" /> 
-   	<!-- ToolBar End /////////////////////////////////////-->
+   <jsp:include page="/layout/toolbar.jsp" /> 
+      <!-- ToolBar End /////////////////////////////////////-->
 <!-- 툴바 인클루드 시작! -->
   
 
  <!--    <div class="slide-one-item home-slider owl-carousel"> -->
-      
-<!--       <div class="site-blocks-cover" style="background-image: url(/resources/images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
-           
-            </div>
-          </div>
-        </div>
-      </div>   -->
-
-      <div class="site-blocks-cover" style="background-image: url(/resources/images/22222.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+     
+      <div class="site-blocks-cover" style="background-image: url(/resources/video/original.gif); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
+      <!-- <div class="site-blocks-cover" data-aos="fade" data-stellar-background-ratio="0.5">
+      	<video autoplay muted loop>
+      		 <source src="/resources/video/run.mp4" type="video/mp4">
+      	</video> -->
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center" data-aos="fade">
             
-               <div class="form-group">		    	
-		    	<div class="col-sm-4">
-		      		<input type="text" class="form-control" id="searchKeyword" name="searchKeyword">
-		    	</div>
-		    	
-		    	<div class="form-group">
-		    		<div class="col-sm-offset-4  col-sm-8 text-right">
-		      		<button type="button" class="btn btn-primary">검색</button>
-		   		 </div>
-		  </div>
-		  </div>
+               <!-- <div class="form-group">             
+	             <div class="col-sm-4">
+	                  <input type="text" class="form-control" id="searchKeyword" name="searchKeyword">
+	             </div>
+	             
+	             <div class="form-group">
+	                <div class="col-sm-offset-4  col-sm-8 text-right">
+	                  <button type="button" class="btn btn-primary">검색</button>
+	                </div>
+		        </div>
+	        </div> -->
             </div>
           </div>
         </div>
       </div> 
     </div>
-<!-- 
-    <div class="border-bottom">
-      <div class="row no-gutters">
-        <div class="col-md-6 col-lg-3">
-          <div class="w-100 h-100 block-feature p-5 bg-light">
-            <span class="d-block mb-3">
-              <span class="flaticon-padmasana display-4"></span>
-            </span>
-            <h2>Yoga</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="w-100 h-100 block-feature p-5">
-            <span class="d-block mb-3">
-              <span class="flaticon-weight display-4"></span>
-            </span>
-            <h2>Weight Lifting</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="w-100 h-100 block-feature p-5 bg-light">
-            <span class="d-block mb-3">
-              <span class="flaticon-boxing-gloves display-4"></span>
-            </span>
-            
-            <h2>Boxing</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="w-100 h-100 block-feature p-5">
-            <span class="d-block mb-3">
-              <span class="flaticon-running display-4"></span>
-            </span>
-            <h2>Running</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-          </div>
-        </div>
-      </div>
-    </div> --> <!-- .block-feature -->
 
-<!--     <div class="site-section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-12 col-lg-5 mb-5 mb-lg-0">
-            <h2 class="mb-3 text-uppercase">All About <strong class="text-black font-weight-bold">Our Gym</strong></h2>
-            <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque accusamus, rerum illo facilis reiciendis.</p>
-            <p class="mb-4">Iste aut dolorem veritatis saepe nesciunt distinctio voluptas sapiente sunt perspiciatis autem minima, iure provident. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, quas.</p>
-            <ul class="site-block-check">
-              <li>Lorem ipsum dolor sit amet, consectetur adipisicing.</li>
-              <li>Nemo, voluptate? Voluptates odit, aperiam nostrum! Ipsa.</li>
-              <li>Itaque voluptatum ducimus aliquam, est fuga molestiae?</li>
-              <li>Accusamus porro at commodi delectus, nesciunt molestiae.</li>
-            </ul>
-            <p><a href="#" class="btn btn-primary pill px-4">Read More</a></p>
-          </div>
-          <div class="col-md-12 col-lg-6 ml-auto">
-            <img src="/resources/images/about.jpg" alt="Image" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <div class="featured-classes bg-light py-5 block-13">
       <div class="container">
@@ -247,9 +184,9 @@
             <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid meeting">
             <div class="p-4">
               <h3 class="h5 heading" >${post.title}</h3>
-            		
-		  	  <input type="hidden" name="postNo" value="${post.postNo}"/> 
-			
+                  
+             <input type="hidden" name="postNo" value="${post.postNo}"/> 
+         
               <p>${post.contents}</p>
               <span class="d-flex align-items-center">
                 <span class="icon-person h4 mr-3"></span>
@@ -279,7 +216,7 @@
     </div>
 
 
-	<div class="featured-classes bg-light py-5 block-13">
+   <div class="featured-classes bg-light py-3 block-13">
       <div class="container">
         
         <div class="heading-with-border">
@@ -354,8 +291,8 @@
     </div>
 
 
-	  <div class="featured-classes bg-light py-5 block-13">
-      <div class="container">
+     <div class="featured-classes bg-light py-3 block-13">
+     	<div class="container">
         
         <div class="heading-with-border">
           <h2 class="heading text-uppercase">식단 커뮤니티 추천</h2>
@@ -363,139 +300,117 @@
 
         <div class="nonloop-block-13 owl-carousel">
           
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid dietcom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid dietcom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid dietcom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid dietcom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
+          	<c:set var="i" value="0"/>
+          	<c:set var="i" value="${i+1}"/>
+          	<c:forEach var="post" items="${dietComList}">
+          	
+        		<div class="block-media-1 heading-with-border bg-white dietcom"  data-dietcom ="${post.postNo}" style="width:350px; height:350px;">
+          
+	            	<c:if test="${empty post.photo}">
+		            	<img  src="/resources/images/1111.jpg"  class="img-fluid">
+		        	</c:if>
+	             	
+	             	<c:set var="youtubeThumbnail" value="${post.photo}"/>
+	              
+	            	<c:if test="${!empty post.photo}">
+		            	<c:choose>
+		            		<c:when test="${fn:contains(youtubeThumbnail,'https')}">
+		            			<img src="${post.photo}" class="img-fluid" >
+		            		</c:when>   
+		            		<c:otherwise>
+		            			<img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+		            		</c:otherwise>            			
+		            	</c:choose>
+	            	</c:if>
+		                	
+	            	<div class="p-4">
+		              	<h3 class="h5 heading">${post.title}</h3>
+		              
+		              	<%-- <input type="hidden" name="postNo" value="${post.postNo}"/>  --%>
+		              	<!-- <p></p> -->
+		              	<span class="d-flex align-items-center">
+		              		<div id="javaKing">
+		              			<img src="/resources/images/${post.userImage}">
+		              		</div>
+			                <span>${post.nickName}</span>
+		              	</span>
+		              	
+	            	<%-- <div class="p-4 col-md-4"> -->
+ 						<div class="likeImage">
+ 							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
+ 						</div>
+ 						<div class="likeCount" style="margin-left:38px">
+ 							<h5>${post.likeCount}</h5>
+ 						</div> 
+ 					</div> --%>
+ 					
+ 					</div>
+          		</div>
+			</c:forEach>
+		
 
         </div>
 
       </div>
     </div>
     
-	<div class="featured-classes bg-light py-5 block-13">
+   <div class="featured-classes bg-light py-3 block-13">
       <div class="container">
         
         <div class="heading-with-border">
           <h2 class="heading text-uppercase">운동 커뮤니티 추천</h2>
         </div>
 
-        <div class="nonloop-block-13 owl-carousel">
+         <div class="nonloop-block-13 owl-carousel">
           
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid excom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid excom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid excom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid excom">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
+          	<c:set var="i" value="0"/>
+          	<c:set var="i" value="${i+1}"/>
+          	<c:forEach var="post" items="${exComList}">
+          	
+        		<div class="block-media-1 heading-with-border bg-white excom"  data-excom ="${post.postNo}" style="width:350px; height:350px;">
+          
+	            	<c:if test="${empty post.photo}">
+		            	<img  src="/resources/images/1111.jpg"  class="img-fluid">
+		        	</c:if>
+	             	
+	             	<c:set var="youtubeThumbnail" value="${post.photo}"/>
+	              
+	            	<c:if test="${!empty post.photo}">
+		            	<c:choose>
+		            		<c:when test="${fn:contains(youtubeThumbnail,'https')}">
+		            			<img src="${post.photo}" class="img-fluid" >
+		            		</c:when>   
+		            		<c:otherwise>
+		            			<img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+		            		</c:otherwise>            			
+		            	</c:choose>
+	            	</c:if>
+		                	
+	            	<div class="p-4">
+		              	<h3 class="h5 heading">${post.title}</h3>
+		              
+		              	<input type="hidden" name="postNo" value="${post.postNo}"/> 
+		              	<!-- <p></p> -->
+		              	<span class="d-flex align-items-center">
+		              		<div id="javaKing">
+		              			<img src="/resources/images/${post.userImage}">
+		              		</div>
+			                <span>${post.nickName}</span>
+		              	</span>
+		              	
+	            	<%-- <div class="p-4 col-md-4"> -->
+ 						<div class="likeImage">
+ 							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
+ 						</div>
+ 						<div class="likeCount" style="margin-left:38px">
+ 							<h5>${post.likeCount}</h5>
+ 						</div> 
+ 					</div> --%>
+ 					
+ 					</div>
+          		</div>
+			</c:forEach>
+		
 
         </div>
 
@@ -504,7 +419,7 @@
     
 
 
-    <div class="block-schedule overlay site-section" style="background-image: url('resources/images/22222.jpg');">
+   <!--  <div class="block-schedule overlay site-section" style="background-image: url('resources/images/22222.jpg');">
       <div class="container">
 
         <h2 class="text-white display-4 mb-5">Schedule</h2>
@@ -622,12 +537,12 @@
           
         </div>
 
-        
+      
 
       </div>      
-    </div>
+    </div>  -->  
 
-    <div class="site-section block-14">
+    <!-- <div class="site-section block-14">
 
       <div class="container">
         
@@ -678,11 +593,11 @@
 
       </div>
       
-    </div>
+    </div> -->
 
 
 
-    <div class="site-section bg-light">
+     <div class="site-section bg-light">
 
       <div class="container">
         
@@ -783,9 +698,9 @@
 
       </div>
       
-    </div>
+    </div> 
     
-    <footer class="site-footer">
+    <!-- <footer class="site-footer">
       <div class="container">
         
 
@@ -840,15 +755,15 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          <!--   Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a> -->
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             </p>
           </div>
           
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
 
   
