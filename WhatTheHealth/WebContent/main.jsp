@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
-
 <html>
   <head>
   
@@ -66,7 +65,6 @@
   
   
   $(function(){
-<<<<<<< HEAD
     
      //임박한 소모임 getMeeting
      $("#meeting").on("click", function(){
@@ -96,8 +94,6 @@
      $(".img-fluid").on("mouseover", function(){
        $(".img-fluid").css("cursor","pointer")
      });
-     
-=======
 	 
 	  //임박한 소모임 getMeeting
 	  $("#meeting").on("click", function(){
@@ -112,21 +108,22 @@
 	  });
 	  
 	  //추천 식단 커뮤니티
-	  $("#dietcom").on("click", function(){
-		  alert("추천식단");
-		 self.locaiton = "/dietcom/listDietComReCom?postNo="+postNo 
+	  $(".dietcom").on("click", function(){
+		 var postNo = $(this).data("dietcom");
+		 self.locaiton = "/community/getCommunity?postNo="+postNo;
 	  });
 	  
 	  //추천 운동 커뮤니티
 	  $(".excom").on("click", function(){
-		  alert("추천운동");
-		self.locaiton = "/excom/listExComRecom?postNo"+postNo 
+		var postNo = $(this).data("excom");
+		self.locaiton = "/community/getCommunity?postNo="+postNo;
 	  });
 	  
 	  //썸네일로 이동시 마우스커서로 변경
 	  $(".img-fluid").on("mouseover", function(){
 		 $(".img-fluid").css("cursor","pointer")
 	  });
+  });
 	  
 	  /*  if(${sessionScope.user} != null){
 		  
@@ -136,10 +133,6 @@
 		} ;
 		
 		window.close(); */
-	  
->>>>>>> refs/remotes/origin/master
-  });
-  
   
   </script>
   
@@ -332,7 +325,7 @@
       </div>
     </div>
 
-
+<!-- 식단 커뮤니티 추천 -->
      <div class="featured-classes bg-light py-3 block-13">
      	<div class="container">
         
@@ -459,131 +452,7 @@
       </div>
     </div>
     
-
-
-   <!--  <div class="block-schedule overlay site-section" style="background-image: url('resources/images/22222.jpg');">
-      <div class="container">
-
-        <h2 class="text-white display-4 mb-5">Schedule</h2>
-
-        <ul class="nav nav-pills tab-nav mb-4" id="pills-tab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="pills-sunday-tab" data-toggle="pill" href="#pills-sunday" role="tab" aria-controls="pills-sunday" aria-selected="true">Sunday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-monday-tab" data-toggle="pill" href="#pills-monday" role="tab" aria-controls="pills-monday" aria-selected="true">Monday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-tuesday-tab" data-toggle="pill" href="#pills-tuesday" role="tab" aria-controls="pills-tuesday" aria-selected="false">Tuesday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-wednesday-tab" data-toggle="pill" href="#pills-wednesday" role="tab" aria-controls="pills-wednesday" aria-selected="false">Wednesday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-thursday-tab" data-toggle="pill" href="#pills-thursday" role="tab" aria-controls="pills-thursday" aria-selected="false">Thursday</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-friday-tab" data-toggle="pill" href="#pills-friday" role="tab" aria-controls="pills-friday" aria-selected="false">Friday</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-sunday" role="tabpanel" aria-labelledby="pills-sunday-tab">
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Bruce Mars</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Yoga</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Josh White</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Bruce Mars</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-
-          </div>
-
-          <div class="tab-pane fade" id="pills-monday" role="tabpanel" aria-labelledby="pills-monday-tab">
-            
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Bruce Mars</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Yoga</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Josh White</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> Bruce Mars</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><a href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0">Join Now</a></div>     
-              </div>
-            </div>
-
-          </div>
-
-          
-        </div>
-
-      
-
-      </div>      
-    </div>  -->  
-
+    
     <!-- <div class="site-section block-14">
 
       <div class="container">
