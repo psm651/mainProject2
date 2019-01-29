@@ -66,6 +66,16 @@
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
+	
+	 $(document).ready(function() {
+		 if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
+				
+				//alert("${sessionScope.user}");
+				self.close();
+				//self.location("/main.jsp");
+				opener.location.replace("/main.jsp");
+			}  
+	 });
 
 		//============= "로그인"  Event 연결 =============
 		function fncLogin() {
@@ -122,35 +132,39 @@
 			});
 		});
 		 
-		 $( function() {
-				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				$("#naver_id_login").on("click" , function() {
-					//self.location = '/user/naverLogin';
-					popWin 
-					= window.open("/user/naverLogin",
-												"popWin", 
-												"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
-												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-				});
-			});
-		 
+		
 		 $( function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$("#kakao_login").on("click" , function() {
+					
+					$('#loginModal').hide();
 					//opner.close();
-					//self.location = '/user/naverLogin';
+					//self.location = '/user/kakaoLogin';
 					popWin 
 					= window.open("https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code",
 												"popWin", 
 												"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
-												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); 
 					
-					window.document.getElementById("submit").value = document.getElementById("pInput").value;
+					//location.reload();
+					//location.replace("/");
+					//popWin.close();
+					/* window.location.reload(); */
+					
+					
+					
+					
+					//window.document.getElementById("submit").value = document.getElementById("pInput").value;
 
 					//popWin.get
-					self.close();
-					location.replace("/user/kakaoLogin?code="+popWin.location.href.split("=")[1]);
 					
+					//opener.location.replace("/user/kakaoLogin?code="+popWin.location.href.split("=")[1]);
+					//alert("${sessionScope.user}");
+					 /*  if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
+						//opener.location.replace("/main.jsp");
+						alert("${sessionScope.user}");
+						popWin.close();
+					}   */ 
 				});
 			});
 		 

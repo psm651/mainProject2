@@ -214,6 +214,7 @@ public class UserController {
 		User user = KakaoLogin.changeData(profile);
 		System.out.println("카카오유저1111: "+user);
 		user.setUserId("k"+user.getUserId());
+		//user.setUserId(user.getEmail());
 		user.setAccessToken(token.path("access_token").toString());
 		user.setSnsType("1");
 		System.out.println("카카오유저2222: "+user);
@@ -274,7 +275,15 @@ public class UserController {
 		user.setUserId("n"+snsId);
 		user.setIdToken(snsId);
 		user.setNickName(name);
-		user.setGender(gender);
+		//user.setGender(gender);
+		
+		if(gender.equals("F")) {
+			user.setGender("0");
+		} else {
+			user.setGender("1");
+		}
+		
+		
 		user.setSnsType("2");
 		user.setPassword(snsId);
 		System.out.println(name);
