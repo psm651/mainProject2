@@ -280,7 +280,7 @@
               }); */
               
 	   popWin 
-       = window.open("/claim/addClaimReply?targetNo="+replyNo,
+       = window.open("/claim/addClaimReply?targetNo="+replyNo+"&menu=reply",
                             "popWin", 
                             "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
                             "scrollbars=no,scrolling=no,menubar=no,resizable=no");

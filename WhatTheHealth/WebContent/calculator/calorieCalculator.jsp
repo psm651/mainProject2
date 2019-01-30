@@ -268,26 +268,26 @@ $(function(){
 		
 			<div class="form-inline">	
 				<div class="row">
-		       <div class="col-md-2">
-		    	 <strong style="text-align:left;margin-bottom:-50px;">추가된 총 칼로리:</strong><span id="amount"></span>
+		       <div class="col-md-2" style="margin-left:2em; float:right;">
+		    	 <strong>추가된 총 칼로리:</strong><span id="amount"></span>
 			   </div>			
 			
 
-	 		   <div class="col-md-2">
+	 		   <div class="col-md-2" style="margin-left:3em; float:right;">
 				<select class="form-control" name="mealTime" id="mealTime" style="margin-left:290px;">
 					<option value="0" >아침</option>
 					<option value="1" >점심</option>
 					<option value="2" >저녁</option>		
 				</select>  
 			  </div>
-			   <div class="col-md-2" style="margin-left:850px;">	
+			   <div class="col-md-2" style="margin-left:1em; float:right;">	
 			 	 <img src="/resources/images/upload/schedule.png" alt="Image" class="img-fluid" id="scheduleIcon"> 
 			   </div>
-			   <div class="col-md-2" style="margin-left:850px;">		
+			   <div class="col-md-2" style="margin-left:4em; float:right;">		
 			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" /> 		
 		       </div>
 			  
-			  <div class="col-md-2" style="margin-left:1050px;padding-bottom:-100px;">	 			
+			  <div class="col-md-2" style="margin-left:2em; float:right;">	 			
 				 <a href="#" class="btn btn-primary pill px-4" id="button" >담기</a>
 		 	  </div>
 		 	  </div>

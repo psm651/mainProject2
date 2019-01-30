@@ -73,9 +73,10 @@ public class CalculatorRestController {
         // Now submit the form. WebDriver will find the form for us from the element
         element.submit();
      
-        WebElement foodss = driver.findElement(By.cssSelector("pizza"));
+        WebElement foodss = driver.findElement(By.cssSelector(".section2-2i8B2 > div"));
         //WebElement foodss = driver.findElement(By.className("jss44"));
-        System.out.println(foodss);
+        System.out.println(foodss.getTagName());
+        System.out.println(foodss.getText());
         	
         
 /*

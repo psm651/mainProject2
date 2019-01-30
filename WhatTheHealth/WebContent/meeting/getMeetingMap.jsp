@@ -150,16 +150,16 @@
                   });
             }
        
+          
        function fullSiren(){
-          
-            $.ajax({
-                  url : '/claim/json/addClaim/'+'${meeting.post.postNo}',
-                  type : "GET",
-                  success : function(data){
-                     }
-                  });
+           
+    	   popWin 
+           = window.open("/claim/addClaim?targetNo="+${meeting.post.postNo}+"&menu=post",
+                                "popWin", 
+                                "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
+                                "scrollbars=no,scrolling=no,menubar=no,resizable=no");
             }
-          
+       
        
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
@@ -355,7 +355,7 @@
 			<!-- 채팅방 인클루드 -->
 			 <div class="row">
 			<div class="col-md-12 mb-5"  >
-		   <%@ include file="/socket/groupChatting.jsp" %>  <!--  여기 댓글 수정하느라 주석-->
+		    <%@ include file="/socket/groupChatting.jsp" %> <!--  여기 댓글 수정하느라 주석-->
 			</div> 
 			</div> 
 			</div>
