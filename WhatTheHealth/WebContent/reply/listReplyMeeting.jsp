@@ -95,15 +95,15 @@
                 	a += '<div class="row" id="replyArea'+list.reReplyNo+'">';
                 	a += '<div class="col-md-1" style="padding-left:0px; padding-right:0px; margin-left : 15px">';
                 	if(list.userImage != null && list.userImage != '' ){
-                    	a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;" />';
+                    	a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" paramid = "'+list.writerId+'" onclick = "imageClick(this);" style="border-radius: 100px;" />';
                     	}
                     	if(list.userImage == null ||list.userImage == '' ){
-                    	a += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;"/>';
+                    	a += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="45px" width="45px" id="user_image" paramid = "'+list.writerId+'" onclick = "imageClick(this);" style="border-radius: 100px;"/>';
                     	}
                 	a += '</div>';
                 	a += '<div class="col-md-10" style="padding-right:0px">';
                     a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                    a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.writerId+'</b>';
+                    a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.nickname+'</b>';
                     a += '<div style="float: right">';
                     //a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
                     if(list.writerId == '${user.userId}'){
@@ -111,7 +111,7 @@
                     a += '<a onclick="replyDelete('+list.replyNo+');"> <img src="/resources/images/bin.png" height="20px"></a>';
                     }
                     if('${user.userId}' != null && '${user.userId}' !=''){
-                    a += '<a onclick="reReplyInsert('+list.replyNo+','+list.parentReplyNo+',\''+list.writerId+'\');" id="addReReButton'+list.replyNo+'"> <img src="/resources/images/reply.png" height="20px" style="opacity:0.6"></a>';
+                    a += '<a onclick="reReplyInsert('+list.replyNo+','+list.parentReplyNo+',\''+list.nickname+'\');" id="addReReButton'+list.replyNo+'"> <img src="/resources/images/reply.png" height="20px" style="opacity:0.6"></a>';
                     }
                     if('${user.userId}' != null && '${user.userId}' !='' && list.writerId != '${user.userId}'){
                     a += '<a onclick="fullSirenReply('+list.replyNo+');" id="addClaim'+list.replyNo+'"> <img src="/resources/images/fullSiren.png" height="25px"></a>';
@@ -239,7 +239,7 @@
         
     }
   //대댓글 달기 - 댓글 내용 출력에 input 폼 추가
-    function reReplyInsert(replyNo, parentReplyNo, targetUserId){
+    function reReplyInsert(replyNo, parentReplyNo, targetUserName){
     	if(formflag == false){
     		alert("다른 댓글 작성 중입니다.");
     		return;
@@ -249,7 +249,7 @@
         var a ='';
         
         a += '<div class="input-group">';
-        a += '<input type="text" class="form-control" name="contentReRe" onkeypress="if(window.event.keyCode==13){reReplyText('+parentReplyNo+')}" value="@'+targetUserId+' " />';
+        a += '<input type="text" class="form-control" name="contentReRe" onkeypress="if(window.event.keyCode==13){reReplyText('+parentReplyNo+')}" value="@'+targetUserName+' " />';
         a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="reReplyText('+parentReplyNo+');"><img src="/resources/images/pencil.png" width="30px"></button> </span>';   //등록버튼
         a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="replyList();"><img src="/resources/images/cancel.png" width="30px"></button> </span>';    //취소버튼
         a += '</div>';
@@ -299,6 +299,8 @@
 
     $(document).ready(function(){
         replyList(); //페이지 로딩시 댓글 목록 출력 
+        
+        
         
         
     });

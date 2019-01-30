@@ -36,11 +36,22 @@ public class ChattingDaoImpl implements ChattingDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("ChattingMapper.getChatting", chattingNo);
 	}
+	
+	@Override
+	public Chatting getChatting(String roomId) throws Exception{
+		return sqlSession.selectOne("ChattingMapper.getChattingByRoomId", roomId);
+	}
 
 	@Override
-	public List<Chatting> listChatting(String userId2) throws Exception {
+	public List<Chatting> listChatting1(String userId2) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("ChattingMapper.listChatting", userId2);
+		return sqlSession.selectList("ChattingMapper.listChatting1", userId2);
+	}
+	
+	@Override
+	public List<Chatting> listChatting2(String userId1) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("ChattingMapper.listChatting2", userId1);
 	}
 
 }

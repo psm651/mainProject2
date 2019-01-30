@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,26 +53,39 @@ public class CalculatorRestController {
         
 		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
 		
-        WebDriver driver = new ChromeDriver();
+        DesiredCapabilities capabilities =DesiredCapabilities.chrome();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("test-type");
+        options.addArguments("-disable-web-security");
+        options.addArguments("-allow-running-insecure-content");
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);		
+		
+        WebDriver driver = new ChromeDriver(capabilities);
       
         // And now use this to visit Google
-        driver.get("https://www.myfitnesspal.com/ko/food/calorie-chart-nutrition-facts");
+        driver.get("https://www.myfitnesspal.com/ko/food/search");
 
         // Find the text input element by its name
-        WebElement element = driver.findElement(By.name("search"));
-   
+        WebElement element = driver.findElement(By.cssSelector("form > input"));
+        
         // Enter something to search for
         element.sendKeys(searchFood);
         // Now submit the form. WebDriver will find the form for us from the element
         element.submit();
      
-        List<WebElement> getFood = driver.findElements(By.cssSelector(".food_search_results > li"));
-
-  
-        for(WebElement foods:getFood) {
+        WebElement foodss = driver.findElement(By.cssSelector("pizza"));
+        //WebElement foodss = driver.findElement(By.className("jss44"));
+        System.out.println(foodss);
+        	
+        
+/*
+        for(WebElement foods:foodName) {
            Food food = new Food();
 
+           	String foodNames = foods.getText();
+           	System.out.println(foodNames);
            String[] tempName = foods.getText().split("\n");
+           System.out.println(foods.getText());
            food.setFoodName(tempName[0].replaceAll(" ", ""));
         
            String[] tempAmountfood = tempName[1].substring(6).split(",");
@@ -90,7 +105,7 @@ public class CalculatorRestController {
            System.out.println(food);
            foodInfo.add(food);
          
-           }
+           }*/
         
        
         // Should see: "cheese! - Google Search"

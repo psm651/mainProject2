@@ -96,33 +96,37 @@ $(function(){
 						var bar2 = $("#12").offset();
 						var bar3 = $("#123").offset();
 						var bar4 = $("#1234").offset(); */
-						$("em").append(total);
 						
-			
+						if($("em").text()!=''){
+							$("em").text('');
+							
+						}
+				
+						$("em").text(total);
 						
 					     if(JSONdata.bmiState=='저체중'){
 							$("em").css({
 								 "position" : "absolute",
 								  "top" : "560px",
-								  "left" : "230px"
+								  "left" : "420px"
 							 });					
 						}else if(JSONdata.bmiState=='정상'){				
 							$("em").css({
 								   "position" : "absolute",
 								   "top" : "560px",
-								   "left" : "360px"
+								   "left" : "552px"
 								});
 						}else if(JSONdata.bmiState=='비만'){
 							$("em").css({
 								   "position" : "absolute",
 								   "top" : "560px",
-								   "left" : "525px"
+								   "left" : "710px"
 								});
 						}else if(JSONdata.bmiState=='고도비만'){
 							$("em").css({
 								   "position" : "absolute",
 								   "top" : "560px",
-								   "left" : "635px"
+								   "left" : "833px"
 								});
 						} 
 						
@@ -267,9 +271,9 @@ $(function(){
 
 	 </div>
 	   
-<div id="draggable">	
+<!-- <div id="draggable">	
 	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon">	   
-</div>
+</div> -->
 
 	   
 

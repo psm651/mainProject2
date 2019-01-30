@@ -97,7 +97,7 @@
                 	a += '</div>';
                 	a += '<div class="col-md-11" style="padding-right:0px">';
                     a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                    a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.writerId+'</b>';
+                    a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.nickname+'</b>';
                     a += '<div style="float: right">';
                     //a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
                     if(list.writerId == '${user.userId}' && list.deleteStatus != 1 && list.blindStatus != 1 ){
@@ -105,7 +105,7 @@
                     a += '<a onclick="replyDelete('+list.replyNo+');"> <img src="/resources/images/bin.png" height="20px"></a>';
                     }
                     if('${user.userId}' != null && '${user.userId}' !=''){
-                    a += '<a onclick="reReplyInsert('+list.replyNo+','+list.parentReplyNo+',\''+list.writerId+'\');" id="addReReButton'+list.replyNo+'"> <img src="/resources/images/reply.png" height="20px" style="opacity:0.6"></a>';
+                    a += '<a onclick="reReplyInsert('+list.replyNo+','+list.parentReplyNo+',\''+list.nickname+'\');" id="addReReButton'+list.replyNo+'"> <img src="/resources/images/reply.png" height="20px" style="opacity:0.6"></a>';
                     }
                     if('${user.userId}' != null && '${user.userId}' !='' && list.writerId != '${user.userId}'){
                     a += '<a onclick="fullSirenReply('+list.replyNo+');" id="addClaim'+list.replyNo+'"> <img src="/resources/images/fullSiren.png" height="25px"></a>';

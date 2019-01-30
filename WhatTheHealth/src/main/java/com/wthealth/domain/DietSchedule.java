@@ -37,10 +37,10 @@ public class DietSchedule {
 		this.food = food;
 	}
 	public String getDietScDate() {
-		return dietScDate;
+		return dietScDate.substring(0, 10);
 	}
 	public void setDietScDate(String dietScDate) {
-		this.dietScDate = dietScDate;
+		this.dietScDate = dietScDate.substring(0, 10);
 	}
 	public double getBmi() {
 		return bmi;

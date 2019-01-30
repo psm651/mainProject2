@@ -18,7 +18,7 @@ public interface DietScheduleService {
 	
 	public void updateDietSchedule(DietSchedule dietSchedule) throws Exception;
 	
-	public void getDietHistoryChart(String userId) throws Exception;
+	public List<DietSchedule> getDietHistoryChart(String userId) throws Exception;
 	
 	public void deleteDietSchedule(int dietScNo) throws Exception;
 	

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -46,11 +47,13 @@
   
   <script type="text/javascript">
  
-   function fncGetExPart(){
-	   var exPart = $("select[name='exPart']").val();
-	   alert(exPart)
-	   self.location="/exInfo/liseExInfo?exPart="+exPart
+
+   
+   function fncGetList(currentPage){
+	   $("#currentPage").val(currentPage);
+	   $(".form-inline").attr("method", "POST").attr("action", "/exInfo/listExInfo").submit();
    }
+   
   
    $(function(){
   	$(".post-entry").on("click", function(){
@@ -72,6 +75,12 @@
 	  });
    });
    
+   $(function(){
+	  $("button:contains('ê²€ìƒ‰')").on("click", function(){
+		  fncGetList('1');
+		 
+	  }); 
+   });
    
 var currentPage=1;
 
@@ -141,7 +150,7 @@ var currentPage=1;
                 	 
                 	 
                      $("#enters").append(" <div class='col-sm-6 col-md-3'> <br/> <div class='thumbnail' style='height:400px;'>  <br/> <img src='/images/uploadFiles/"+item['fileName']+"' style='height:200px;'>"+
-                           "<div class='caption'> <h3>"+item['prodName']+"</h3> <p>"+item['prodDetail']+"</p> <br/> <p><button type='button' class='btn btn-primary'  data-param4 ="+item['prodNo']+" data-param5 = "+item['proTranCode']+">»ó¼¼Á¤º¸</button>"+
+                           "<div class='caption'> <h3>"+item['prodName']+"</h3> <p>"+item['prodDetail']+"</p> <br/> <p><button type='button' class='btn btn-primary'  data-param4 ="+item['prodNo']+" data-param5 = "+item['proTranCode']+">ìƒì„¸ì •ë³´</button>"+
                            " </p> </div>   </div>  </div>");
                   });     */
                       
@@ -175,36 +184,35 @@ var currentPage=1;
 
     <div class="site-section">
       <div class="container">
-      <c:if test="${post.category==null}">
-      <h3><strong>¿îµ¿ºÎÀ§</strong></h3>
-      </c:if>
-
-      <form class="form-inline" name="detailForm">       
+     
+      <h3><strong>ìš´ë™ë¶€ìœ„</strong></h3>
+   
+    <form class="form-inline" name="detailForm">    
        	
 		<div class="form-group">  
-			<select class="form-control" id="searchFilter" name="exPart" onchange="javascript:fncGetExPart('1');" >
-				<option value=null>Ä«Å×°í¸®</option>
-				<option value="0" ${!empty post.exPart && post.exPart =='0' ? "selected" : "" }>Àü½Å</option>
-				<option value="1" ${!empty post.exPart && post.exPart =='1' ? "selected" : "" }>º¹ºÎ</option>
-				<option value="2" ${!empty post.exPart && post.exPart =='2' ? "selected" : "" }>»óÃ¼</option>	
-				<option value="3" ${!empty post.exPart && post.exPart =='3' ? "selected" : "" }>ÇÏÃ¼</option>	
-				<option value="4" ${!empty post.exPart && post.exPart =='4' ? "selected" : "" }>½ºÆ®·¹Äª</option>		
+			<select class="form-control" id="searchFilter" name="searchFilter" onchange="fncGetList('1');" >
+				<option value=''>ì¹´í…Œê³ ë¦¬</option>
+				<option value="0" ${!empty search.searchFilter && search.searchFilter =='0' ? "selected" : "" }>ì „ì‹ </option>
+				<option value="1" ${!empty search.searchFilter && search.searchFilter =='1' ? "selected" : "" }>ë³µë¶€</option>
+				<option value="2" ${!empty search.searchFilter && search.searchFilter =='2' ? "selected" : "" }>ìƒì²´</option>	
+				<option value="3" ${!empty search.searchFilter && search.searchFilter =='3' ? "selected" : "" }>í•˜ì²´</option>	
+				<option value="4" ${!empty search.searchFilter && search.searchFilter =='4' ? "selected" : "" }>ìŠ¤íŠ¸ë ˆì¹­</option>		
 			</select>   			
 		 </div> 
 		 
 		<div class="form-group">
 			<select class="form-control" id="searchCondition"name="searchCondition" >		
-				<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>Á¦¸ñ</option>
-				<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>³»¿ë</option>
+				<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>ì œëª©</option>
+				<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>ë‚´ìš©</option>
 			</select>
        </div>
 					  
 	   <div class="form-group" style="align:right">
-	     	<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î" 
+	     	<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="ê²€ìƒ‰ì–´" 
 					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 	   </div>
         
-           <button type="button" class="btn btn-info">°Ë»ö</button>
+           <button type="button" class="btn btn-info">ê²€ìƒ‰</button>
         		
            <input type="hidden" id="currentPage" name="currentPage" value=""/>		 
 		       
@@ -230,7 +238,7 @@ var currentPage=1;
      
      
      <c:if test="${sessionScope.user.role == 'admin'}">
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">±Û¾²±â</a></p>
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">ê¸€ì“°ê¸°</a></p>
     </c:if>
         <br/>
         

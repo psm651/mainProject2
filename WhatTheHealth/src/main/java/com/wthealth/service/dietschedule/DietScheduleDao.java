@@ -20,7 +20,7 @@ public interface DietScheduleDao {
 	
 	public void deleteDietSchedule(int dietScNo) throws Exception;
 	
-	public void getDietHistoryChart(String userId) throws Exception;
+	public List<DietSchedule> getDietHistoryChart(String userId) throws Exception;
 	
 	public void addBmi(BMI bmi) throws Exception;
 

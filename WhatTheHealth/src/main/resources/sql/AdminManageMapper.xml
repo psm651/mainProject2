@@ -76,33 +76,53 @@
 	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM (	SELECT user_id , nickname, reg_date, user_status_code
 						FROM users
-						<if test="searchCondition != null and searchFilter == null">
-							<where>
-								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			user_id LIKE '%'||#{searchKeyword}||'%'
+						
+						<if test="searchFilter != '' and searchKeyword == ''" >
+						  <where>
+								<if test="searchFilter == 0">
+									     user_status_code = '0'
 								</if>
-								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 			nickname LIKE '%'||#{searchKeyword}||'%'
-								</if>
-							</where>
-						</if>
-							<if test="searchFilter != null and searchCondition == null">
-								<where>
-									<if test="searchFilter == 0 and searchFilter !='' ">
-										user_status_code = '0'
-									</if>
-									<if test="searchFilter == 1 and searchFilter !='' ">
+								<if test="searchFilter == 1">
 										 user_status_code = '1'
-									</if>		
-									<if test="searchFilter == 2 and searchFilter !='' ">
+								</if>		
+								<if test="searchFilter == 2">
 										 user_status_code = '2'
-									</if>			
-								</where>												
-							</if>  							
-			
-							
-					
-						   
+								</if>			
+						   </where>
+						</if>
+						
+						<if test="searchFilter != '' and searchKeyword !=''">
+						  <where>
+								<if test="searchCondition == 0">
+						 			user_id LIKE '%'||#{searchKeyword}||'%' AND
+								</if>							
+								<if test="searchCondition == 1">
+						 			nickname LIKE '%'||#{searchKeyword}||'%' AND
+								</if>						  
+								<if test="searchFilter == 0">
+									     user_status_code = '0'
+								</if>
+								<if test="searchFilter == 1">
+										 user_status_code = '1'
+								</if>		
+								<if test="searchFilter == 2">
+										 user_status_code = '2'
+								</if>			
+						   </where>
+						</if>						
+						
+						<if test="searchFilter == '' and searchKeyword !=''" >
+						   <where>
+							<if test="searchCondition == 0">
+						 		user_id LIKE '%'||#{searchKeyword}||'%'
+							</if>							
+						
+							<if test="searchCondition == 1">
+						 		nickname LIKE '%'||#{searchKeyword}||'%'
+							</if>
+						 </where>
+						</if>   
+		
 						     ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
@@ -135,28 +155,52 @@
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT *
 						FROM users
-						<if test="searchCondition != null">
-							<where>
-								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			user_id LIKE '%'||#{searchKeyword}||'%'
+						<if test="searchFilter != '' and searchKeyword == ''" >
+						  <where>
+								<if test="searchFilter == 0">
+									     user_status_code = '0'
 								</if>
-								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 			nickname LIKE '%'||#{searchKeyword}||'%'
+								<if test="searchFilter == 1">
+										 user_status_code = '1'
+								</if>		
+								<if test="searchFilter == 2">
+										 user_status_code = '2'
+								</if>			
+						   </where>
+						</if>
+						
+						<if test="searchFilter != '' and searchKeyword !=''">
+						  <where>
+								<if test="searchCondition == 0">
+						 			user_id LIKE '%'||#{searchKeyword}||'%' AND
+								</if>							
+								<if test="searchCondition == 1">
+						 			nickname LIKE '%'||#{searchKeyword}||'%' AND
+								</if>						  
+								<if test="searchFilter == 0">
+									     user_status_code = '0'
 								</if>
-								<if test="searchFilter != null">
-									<if test="searchFilter == 0 and searchFilter !='' ">
-										AND	user_status_code = '0'
-									</if>
-									<if test="searchFilter == 1 and searchFilter !='' ">
-										AND user_status_code = '1'
-									</if>		
-									<if test="searchFilter == 2 and searchFilter !='' ">
-										AND user_status_code = '2'
-									</if>														
-							</if>  												
-								
-							</where>
-						</if> ) countTable						
+								<if test="searchFilter == 1">
+										 user_status_code = '1'
+								</if>		
+								<if test="searchFilter == 2">
+										 user_status_code = '2'
+								</if>			
+						   </where>
+						</if>						
+						
+						<if test="searchFilter == '' and searchKeyword !=''" >
+						   <where>
+							<if test="searchCondition == 0">
+						 		user_id LIKE '%'||#{searchKeyword}||'%'
+							</if>							
+						
+							<if test="searchCondition == 1">
+						 		nickname LIKE '%'||#{searchKeyword}||'%'
+							</if>
+						 </where>
+						</if>   
+						 ) countTable						
 	 </select>
 	 
 	 <select  id="getPointTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">

@@ -67,15 +67,40 @@
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-	 $(document).ready(function() {
+	$(document).ready(function() {
+	       if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
+	            
+	            //alert("${sessionScope.user}");
+	            self.close();
+	            //self.location("/main.jsp");
+	            opener.location.replace("/main.jsp");
+	         }  
+	    });
+	
+	
+	/*  $(document).ready(
+			function () {
+		
 		 if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
-				
+			 alert("이프문 안 : "+selfClose);
+			 
+		  
+			if(selfClose == 1){
+				//selfClose = true;
 				//alert("${sessionScope.user}");
 				self.close();
 				//self.location("/main.jsp");
 				opener.location.replace("/main.jsp");
-			}  
-	 });
+				selfClose = 0;
+				alert("클로즈 되고나서::: "+selfClose);
+			}   
+			if(selfClose == 0){
+				  alert("이프문 안 false로 안꺼짐");
+				 return;
+			 }
+		 }
+		 
+	 }); */
 
 		//============= "로그인"  Event 연결 =============
 		function fncLogin() {
@@ -119,16 +144,21 @@
 				self.location = "/user/addUser"
 			});
 		});
-		
+		var selfClose = 1;
 		 $( function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#naver_id_login").on("click" , function() {
+				
 				//self.location = '/user/naverLogin';
+				$('#loginModal').hide();
+				
+				
 				popWin 
 				= window.open("/user/naverLogin",
 											"popWin", 
 											"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
 											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+				
 			});
 		});
 		 
@@ -146,13 +176,13 @@
 												"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
 												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); 
 					
+					
+					
 					//location.reload();
 					//location.replace("/");
 					//popWin.close();
 					/* window.location.reload(); */
-					
-					
-					
+				
 					
 					//window.document.getElementById("submit").value = document.getElementById("pInput").value;
 
