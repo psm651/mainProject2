@@ -113,6 +113,9 @@ html {
 	.table th{
 		width : 10px;
 	}
+	.fc-content img{
+	display :none;
+	}
 }
 .modal a.close-modal{
 	background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
@@ -151,7 +154,7 @@ html {
 			        <thead>
 				                  <tr align="right">  
 					<c:forEach var="i"  begin="1" end="7" >
-					                     <th id="d${i}" class="giyong"></th>
+					                     <th id="d${i}" class="giyong">asdf</th>
 					</c:forEach>
 				                        </tr>  
 			        </thead>
@@ -298,7 +301,7 @@ html {
 </body>
 
 
-<link rel='stylesheet' href='/resources/css/fullcalendar.css' />
+<link rel='stylesheet' href='/resources/css/fullcalendar1.css' />
 <script src='/resources/javascript/jquery.min.js'></script>
 <script src='/resources/javascript/moment.min.js'></script>
  <script src='/resources/javascript/fullcalendar.js'></script>
@@ -327,7 +330,10 @@ $('.action-button:contains("Save")').on('click', function(e){
    		       				
 	    		          }),
 	    				success : function(JSONData ) {
-	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'#ffb1c1', imageurl : "../resources/images/pic.jpg"};
+	    					if(JSONData.exScPhoto==null){
+	    						JSONData.exScPhoto="../resources/images/pic.jpg"
+	    					}
+	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'#ffb1c1', imageurl :JSONData.exScPhoto};
 	        	    $('#calendar').fullCalendar( 'renderEvent', event, true); 
 	        	    var s=new Date(JSONData.exScDate);
 	        var d = s.getDay()+1;
@@ -484,7 +490,13 @@ var result = new Array();
 		    		  id:'${info.exScNo}',
 		    		  start:"${info.exScDate}",
 		    		  backgroundColor:'#ffb1c1', 
+		    		  <c:if test="${info.exScPhoto==null}">
 		    		  imageurl : "../resources/images/pic.jpg"
+		    		  </c:if>
+		    		  <c:if test="${info.exScPhoto!=null}">
+			    		  imageurl : "${info.exScPhoto}"
+			    		 </c:if>
+		    		  
 		    		  },
 		    		 </c:if>
 		    		  </c:forEach>
@@ -506,7 +518,8 @@ var result = new Array();
 		    		      }
 		    		  },eventRender:function(event, eventElement) {
 		                  if(event.imageurl) {
-		                      eventElement.find("span.fc-title").before("<img src='" + event.imageurl + "'>");
+		                	  console.log(event.imageurl);
+		                      eventElement.find("span.fc-title").before("<img src ='" + event.imageurl + "' style= width:30%; height:30%;>");
 		                  }
 		              },    		
 		    	  views: {
@@ -612,11 +625,9 @@ $(function() {
 												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 		      
 
-		    	   	var event={id:1 , title: 'New event', start:  date.format()};
+		    	  /*  	var event={id:1 , title: 'New event', start:  date.format()};
 
-		    	    $('#calendarr').fullCalendar( 'renderEvent', event, true);
-		    	    $(this).css('background-color', 'red');
-		    	 
+		    	    $('#calendarr').fullCalendar( 'renderEvent', event, true); */
 		    	  }, /* 
 		    	  $.ajax(
 			    			{	url : '../schedule/json/addExSchedule/'+date.format(),
@@ -714,42 +725,130 @@ $(function() {
 	});
 </script>
 <script>
+/*다음버튼 클릭  */
 $(function(){
 	$('.fc-next-button').click(function(){
-		   alert('nextis clicked, do something');
-		   $('#calendarr').fullCalendar({
-		   
+		   <c:forEach var="c"  begin="1" end="7" >
+			var exCal${c} = 0;
+			var dietCal${c} = 0;
+			
+			</c:forEach>
+
+			///<운동리스트 칼로리계산>///
+			<c:forEach items = "${exList}" var = "info">
+			<c:if test="${info.deleteStatus!='1'}">
+			
+		<c:forEach var="b"  begin="1" end="7" >
+			if ('${info.exScDate}'== $('.fc-day-header.fc-widget-header').eq(${b-1}).attr("data-date")) {
+				exCal${b}=exCal${b} + ${info.exScCalorie};
+			} 
+			</c:forEach>
+			</c:if>
+			</c:forEach>
+			
+			<c:forEach var="a"  begin="1" end="7" >
+			$("#${a}").text('+'+exCal${a}+' kCal');
+			</c:forEach>
+			
+			
+				///-----<식단리스트 칼로리계산>------///
+				<c:forEach items = "${dietList}" var = "dietcal">
+				<c:if test="${dietcal.deleteStatus!='1'}">
+				
+		<c:forEach var="f"  begin="1" end="7" >
+				if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${f-1}).attr("data-date")) {
+		  				dietCal${f}=dietCal${f} + ${dietcal.dietScCalorie};
+				} 
+				</c:forEach>
+				</c:if>
+				</c:forEach>
+				
+				<c:forEach var="d"  begin="1" end="7" >
+				$("#d${d}").text('+'+dietCal${d}+' kCal');
+				</c:forEach>
+				
+		   $('#calendar').fullCalendar({
+			
 		   })
 		});
+	/* 이전버튼클릭 */
+	$('.fc-prev-button').click(function(){
+		   <c:forEach var="c"  begin="1" end="7" >
+			var exCal${c} = 0;
+			var dietCal${c} = 0;
+			
+			</c:forEach>
+
+			///<운동리스트 칼로리계산>///
+			<c:forEach items = "${exList}" var = "info">
+			<c:if test="${info.deleteStatus!='1'}">
+			
+		<c:forEach var="b"  begin="1" end="7" >
+			if ('${info.exScDate}'== $('.fc-day-header.fc-widget-header').eq(${b-1}).attr("data-date")) {
+				exCal${b}=exCal${b} + ${info.exScCalorie};
+			} 
+			</c:forEach>
+			</c:if>
+			</c:forEach>
+			
+			<c:forEach var="a"  begin="1" end="7" >
+			$("#${a}").text('+'+exCal${a}+' kCal');
+			</c:forEach>
+			
+			
+				///-----<식단리스트 칼로리계산>------///
+				<c:forEach items = "${dietList}" var = "dietcal">
+				<c:if test="${dietcal.deleteStatus!='1'}">
+				
+		<c:forEach var="f"  begin="1" end="7" >
+				if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${f-1}).attr("data-date")) {
+		  				dietCal${f}=dietCal${f} + ${dietcal.dietScCalorie};
+				} 
+				</c:forEach>
+				</c:if>
+				</c:forEach>
+				
+				<c:forEach var="d"  begin="1" end="7" >
+				$("#d${d}").text('+'+dietCal${d}+' kCal');
+				</c:forEach>
+				
+		   $('#calendar').fullCalendar({
+			
+		   })
+		});
+	
+	
 	
 	<c:forEach var="c"  begin="1" end="7" >
 	var exCal${c} = 0;
 	var dietCal${c} = 0;
 	
 	</c:forEach>
+
 	///<운동리스트 칼로리계산>///
-		<c:forEach items = "${exList}" var = "info">
-		<c:if test="${info.deleteStatus!='1'}">
-		
+	<c:forEach items = "${exList}" var = "info">
+	<c:if test="${info.deleteStatus!='1'}">
+	
 <c:forEach var="b"  begin="1" end="7" >
-		if ('${info.exScDate}'== $('.fc-day-header.fc-widget-header').eq(${b-1}).attr("data-date")) {
-			exCal${b}=exCal${b} + ${info.exScCalorie};
-		} 
-		</c:forEach>
-		</c:if>
-		</c:forEach>
-		
-		<c:forEach var="a"  begin="1" end="7" >
-		$("#${a}").text('+'+exCal${a}+' kCal');
-		</c:forEach>
-		
+	if ('${info.exScDate}'== $('.fc-day-header.fc-widget-header').eq(${b-1}).attr("data-date")) {
+		exCal${b}=exCal${b} + ${info.exScCalorie};
+	} 
+	</c:forEach>
+	</c:if>
+	</c:forEach>
+	
+	<c:forEach var="a"  begin="1" end="7" >
+	$("#${a}").text('+'+exCal${a}+' kCal');
+	</c:forEach>
+	
+	
 		///-----<식단리스트 칼로리계산>------///
 		<c:forEach items = "${dietList}" var = "dietcal">
 		<c:if test="${dietcal.deleteStatus!='1'}">
 		
-<c:forEach var="c"  begin="1" end="7" >
-		if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${c-1}).attr("data-date")) {
-  				dietCal${c}=dietCal${c} + ${dietcal.dietScCalorie};
+<c:forEach var="f"  begin="1" end="7" >
+		if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${f-1}).attr("data-date")) {
+  				dietCal${f}=dietCal${f} + ${dietcal.dietScCalorie};
 		} 
 		</c:forEach>
 		</c:if>

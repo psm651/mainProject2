@@ -58,8 +58,8 @@ public class DietScheduleServiceImpl implements DietScheduleService {
 	}
 
 	@Override
-	public void getDietHistoryChart(String userId) throws Exception {
-		// TODO Auto-generated method stub
+	public List<DietSchedule> getDietHistoryChart(String userId) throws Exception {
+			return dietScheduleDao.listDietSchedule(userId);
 		
 	}
 

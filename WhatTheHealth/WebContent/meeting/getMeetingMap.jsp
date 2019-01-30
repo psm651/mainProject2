@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="../resources/css/style.css">
    
    <script type="text/javascript">
-   
+   selfClose = 0;
   /*  $( function (){
 	   alert(${user.userId});
 	   alert(${meeting.post.userId});
@@ -71,8 +71,26 @@
    
     $(document).ready(function(){
        favoriteList(); 
+       
+      
        });
-   
+    
+    function imageClick(e){
+    //$("#user_image").on("click", function(){
+   	  
+   	  //var userId = $(this).data("paramid");
+   	 
+   	  var userId = e.getAttribute("paramid");			////잠깐 주석
+   	  //alert(userId);
+
+   	  popWin 
+				= window.open("/user/getUserMeeting?userId="+userId,
+											"popWin", 
+											"left=300,top=200,width=1000%,height=700%,marginwidth=0,marginheight=0,"+
+											"scrollbars=no,scrolling=no,menubar=no ");
+    // });
+    
+    } 
     
     function emptyHeart(){
       $.ajax({
@@ -153,6 +171,7 @@
           $( "a[href='#' ]:contains('참여하기')").on("click", function(){
               self.location="/meeting/addJoin?meetNo=${meeting.meetNo}"
            });
+          
          });
        
    </script>
@@ -320,14 +339,14 @@
 	  		
 		
 	  		<c:if test="${join.partyImage != null and join.partyImage != '' }">
-			<div class="col-md-3"><img src = "/resources/images/userImage/${join.partyImage}" align="middle" height="60" id="user_image"/></div>
+			<div class="col-md-3"><img src = "/resources/images/userImage/${join.partyImage}" align="middle" height="60" id="user_image" paramid = "${join.partyId}" onclick = "imageClick(this);"/></div>
 			</c:if>
 			
 			<c:if test="${join.partyImage == null or join.partyImage == '' }">
-			<div class="col-md-3"><img src = "/resources/images/userImage/defaultUser.png" align="middle" height="60" id="user_image"/></div>
+			<div class="col-md-3"><img src = "/resources/images/userImage/defaultUser.png" align="middle" height="60" id="user_image" paramid = "${join.partyId}"  onclick = "imageClick(this);"/></div>
 			</c:if>
 			
-			<div class="col-md-4 mb-5"><h4>${join.partyId}</h4></div>
+			<div class="col-md-4 mb-5"><h4>${join.nickName}</h4></div>
 			
 			</div>
 			</c:forEach>

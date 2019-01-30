@@ -70,8 +70,8 @@ public class DietScheduleDaoImpl implements DietScheduleDao {
 	}
 	
 	@Override
-	public void getDietHistoryChart(String userId) throws Exception {
-		// TODO Auto-generated method stub
+	public List<DietSchedule> getDietHistoryChart(String userId) throws Exception {
+		return sqlSession.selectList("DietScMapper.listDietSchedule", userId);
 		
 	}
 	@Override

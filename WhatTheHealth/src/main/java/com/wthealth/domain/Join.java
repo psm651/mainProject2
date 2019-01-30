@@ -11,6 +11,7 @@ public class Join {
 	private String depoStatus;
 	private int meetNo;
 	private String partyId;
+	private String nickName;
 	private String partyImage;
 	private String deleteStatus;
 	private String meetTime;
@@ -103,12 +104,23 @@ public class Join {
 		this.partyImage = partyImage;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	@Override
 	public String toString() {
 		return "Join [joinNo=" + joinNo + ", joinDate=" + joinDate + ", joinStatus=" + joinStatus + ", depoStatus="
-				+ depoStatus + ", meetNo=" + meetNo + ", partyId=" + partyId + ", partyImage=" + partyImage
-				+ ", deleteStatus=" + deleteStatus + ", meetTime=" + meetTime + ", meetTitle=" + meetTitle + "]";
+				+ depoStatus + ", meetNo=" + meetNo + ", partyId=" + partyId + ", nickName=" + nickName
+				+ ", partyImage=" + partyImage + ", deleteStatus=" + deleteStatus + ", meetTime=" + meetTime
+				+ ", meetTitle=" + meetTitle + "]";
 	}
+
+	
 
 
 }

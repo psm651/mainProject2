@@ -14,6 +14,7 @@
 		<result property="user2" 				column="user2_id" 			jdbcType="VARCHAR"  />
 		<result property="user1Status" 			column="user1_status" 		jdbcType="VARCHAR"  />
 		<result property="user2Status" 			column="user2_status" 		jdbcType="VARCHAR"  />	
+		<result property="userImage" 			column="user_image" 		jdbcType="VARCHAR"  />	
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -31,12 +32,26 @@
 		WHERE chatting_no = #{value}
 	 </select>
 	 
+	 <select 	id="getChattingByRoomId"	parameterType="String"	resultMap="chattingSelectMap">
+		SELECT
+			chatting_no , room_id , user1_id , user2_id , user1_status, user2_status		
+		FROM chatting
+		WHERE room_id = #{value}
+	 </select>
 	 
-	 <select  id="listChatting"  parameterType="String"	resultMap="chattingSelectMap">
-	  	SELECT chatting_no , room_id , user1_id , user2_id , user1_status, user2_status
-											FROM chatting
-											WHERE user2_id = #{value} <!-- AND delete_status IS NULL OR delete_status='0'    -->
-											ORDER BY chatting_no
+	 
+	 <select  id="listChatting1"  parameterType="String"	resultMap="chattingSelectMap">
+	  	SELECT c.chatting_no , c.room_id , c.user1_id , c.user2_id , c.user1_status, c.user2_status, u.user_image
+											FROM chatting c, users u
+											WHERE c.user2_id = #{value} AND c.user2_id = u.user_id <!-- AND delete_status IS NULL OR delete_status='0'    -->
+											ORDER BY c.chatting_no
+	 </select>
+	 
+	  <select  id="listChatting2"  parameterType="String"	resultMap="chattingSelectMap">
+	  	SELECT c.chatting_no , c.room_id , c.user1_id , c.user2_id , c.user1_status, c.user2_status, u.user_image
+											FROM chatting c, users u
+											WHERE c.user1_id = #{value} AND c.user1_id = u.user_id <!-- AND delete_status IS NULL OR delete_status='0'    -->
+											ORDER BY c.chatting_no
 	 </select>
 
 

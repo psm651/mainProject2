@@ -8,7 +8,7 @@
 <html>
   <head>
   <!-- 템플릿 js -->
-  <script src="/resources/js/jquery-3.3.1.min.js"></script>
+<!--   <script src="/resources/js/jquery-3.3.1.min.js"></script> -->
   <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/js/jquery-ui.js"></script>
   <script src="/resources/js/popper.min.js"></script>
@@ -27,7 +27,7 @@
  <!-- ---------- 모달 -------- -->
   
   <!-- CDN(Content Delivery Network) 호스트 사용 -->
-	  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+ <!-- 	  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
 	<script type="text/javascript">
 	$(function() {
 		

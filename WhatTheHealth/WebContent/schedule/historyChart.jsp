@@ -37,12 +37,25 @@
 		console.log("ÇöÀçÁÖÂ÷"+new Date().getWeekNumber());
 	///////////////////////
 	var woy=new Array();;
-	var counts = [];
+	var exCounts = [];
+	var dietCounts = [];
+	var averageCounts = [];
+	
 	var c=${fn:length(exCalorie)} ;
 	var b;
 	<c:forEach items="${exCalorie}" var="info" begin="1">
 	b = "${info}";
-	 counts.push(-b);
+	 exCounts.push(-b);
+	</c:forEach>
+	
+	<c:forEach items="${dietCalorie}" var="diet" begin="1">
+	d = "${diet}";
+	dietCounts.push(d);
+	</c:forEach>
+	
+	<c:forEach items="${averageCalorie}" var="average" begin="1">
+	p = "${average}";
+	averageCounts.push(p);
 	</c:forEach>
 	
 	 for (var i = 0 ; i <new Date().getWeekNumber()+5 ; i++) {
@@ -50,9 +63,12 @@
 		if (i==new Date().getWeekNumber()) {
 		}
 	} 
+	 
+
 	 console.log(woy);
-	 console.log("tseet",counts);
-	 console.log("tseet",counts);
+	 console.log("exCounts",exCounts);
+	 console.log("dietCounts",dietCounts);
+	 console.log("c??",c);
 	 
 	
 		var MONTHS =woy;
@@ -60,18 +76,28 @@
 		var barChartData = {
 			labels: woy,
 			datasets: [{
+				type:'bar',
 				label: '¿îµ¿Ä®·Î¸®',
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				 data: counts,
+				 data: exCounts,
 			},{
-				
+				type:'bar',
 				label: '½Ä´ÜÄ®·Î¸®',
 				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.blue,
 				borderWidth: 1,
-				//data:counts,
+				data:dietCounts,
+			},{
+				type:'line',
+				fill: false,
+				borderWidth: 2,
+				label: 'Æò±Õ Ä®·Î¸®',
+				backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.yellow,
+				borderWidth: 1,
+				data:averageCounts,
 			}]
 
 		};
@@ -81,6 +107,17 @@
 			window.myBar = new Chart(ctx, {
 				type: 'bar',
 				data: barChartData,
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Chart.js Combo Bar Line Chart'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: true
+					}
+				}
 				
 			});
 
