@@ -110,8 +110,9 @@
 				return;
 			}
 				
+			alert("잠깐");
 			$("form").attr("method", "POST").attr("action", "/refund/authorizeAccount").submit();
-			
+						
 		} 
 		
 		

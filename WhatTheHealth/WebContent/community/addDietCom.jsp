@@ -153,6 +153,7 @@
             //videoPlayer = document.getElementById(event.target.id);
         }
 
+	   /////////////////////////////////지도///////////////////////////////////////////
         function relayout() {    
       		 map.relayout();
    		}         
@@ -290,7 +291,7 @@
               </div>
               
              <span class="forSchedule">
-				<img src="../resources/images/calendar.png"  style="width:30px; float:left;">
+				<img src="../resources/images/calendar.png"  style="width:30px;">
 				<input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
               	data-language="en" id="timepicker-actions-exmpl" name="dietSchedule"/> 
             </span>  	

@@ -33,6 +33,7 @@
    		border : 1px solid gray;
    		border-radius : 15px;
    		text-align : center;
+   		margin-bottom : 5em;
    	}
    	
    	.contents{
@@ -192,6 +193,14 @@
                self.location="/community/updateCommunity?postNo=${post.postNo}"
             });
           
+          $( "a[href='#' ]:contains('목록으로')").on("click", function(){
+        	  if("${post.category}" == '2'){
+              	  self.location="/community/listExCom"
+        	  }else if("${post.category}" == '3'){
+        		  self.location="/community/listDietCom"
+        	  }
+           });
+          
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
 	        	if("${post.category}" == '2'){
 	               self.location="/community/deleteExCom?postNo=${post.postNo}"
@@ -259,7 +268,8 @@
             <c:if test = "${user.userId == post.userId}">
             	<div style="margin-top : 5em;">
 	            	<p>
-	            		<a href="#" class="btn btn-primary pill px-4">수정</a>
+	            		<a href="#" class="btn btn-primary pill px-4">수정</a>&nbsp;
+	            		<a href="#" class="btn btn-primary pill px-4">목록으로</a>&nbsp;
 	            		<a href="#" class="btn btn-primary pill px-4">삭제</a>
 	            	</p>
 	            </div>

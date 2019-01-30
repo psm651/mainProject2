@@ -67,9 +67,9 @@
 	<script type="text/javascript">
 	
 	 $( function (){
-         $( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
+         /* $( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
               self.location="/refund/authorizeAccount.jsp";
-           });
+           }); */
          $( "a[href='#' ]:contains('환급하기')").on("click", function(){
              self.location="/refund/addRefund.jsp";
           });
@@ -113,7 +113,7 @@
 				  <div class="col-md-12 text-left text-primary"><strong>보유 포인트</strong>
 			     <span id="havingPoint" class="help-block">
 		      	 	<strong class="text">${user.havingPoint}P</strong>
-		      	 	<a href="#" class="btn btn-primary pill px-4">계좌등록하기</a>
+		      	 	<!-- <a href="#" class="btn btn-primary pill px-4">계좌등록하기</a> -->
 		      	 	<a href="#" class="btn btn-primary pill px-4">환급하기</a>
 		      	</span>
 		      </div>

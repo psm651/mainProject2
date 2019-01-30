@@ -35,8 +35,6 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="../resources/js/app.js"></script>
-	
 	
 	<!-- include datetimepicker css/js-->
 	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
@@ -44,12 +42,12 @@
 	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
 	
 	<style>
-		#video {
-      width: 300px;
-      height: 120px;
-      border: 1px solid red;
-  }
+		.giyong{
+ 	 	height : 720px;
+ 	 	overflow : hidden;
+ 	 }
 	</style>
+	
 <script type="text/javascript">
   var meetNo = ${meeting.meetNo};
 	function fncUpdateMeeting(){
@@ -67,24 +65,27 @@
 			return;
 		}
 
-		$("form").attr("method","POST").attr("action","/meeting/updateMeeting?meetNo="+meetNo).submit();	
+		$("form[name=communityPost]").attr("method","POST").attr("action","/meeting/updateMeeting?meetNo="+meetNo).submit();	
 	}
 	
+	function resetData(){
+		self.location="/meeting/listMeeting";
+	}
 		
 	//============= "등록"  Event 연결 =============
-	 $(function() {
+	 /* $(function() {
 		$( "button.btn.btn-primary" ).on("click" , function() {
 			fncUpdateMeeting();
 		});
-	});	
+	}); */	
 	
 	
 	//============= "취소"  Event 처리 및  연결 =============
-	$(function() {
+	/* $(function() {
 		$("a[href='#' ]").on("click" , function() {
 			history.go(-1);
 		});
-	});	
+	});	 */
 
 	//============= SummerNote 처리 =============
 	 $(document).ready(function(){
@@ -264,6 +265,91 @@
 	        }
 	    }) 
 	////////////////////////////////////달력달력///////////////////////////////////
+	
+	////////////////Youtube/////////////////////////////////////////////
+		function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+		   
+		   $(function() {
+			    $('form[name=youtubeForm]').on("submit", function(e) {
+			       e.preventDefault(); //추가적인 이벤트 (터치 이벤트나 포인터 이벤트) 가 일어나지 않도록 함.
+			       console.log(encodeURIComponent($("#search").val()));
+			       console.log($("#search").val());
+			       // prepare the request
+			       var request = gapi.client.youtube.search.list({
+			            part: "snippet",
+			            type: "video",
+			            q: $("#search").val().replace(/%20/g, "+"),
+			            maxResults: 10,
+			            order: "viewCount",
+			            publishedAfter: "2018-11-01T00:00:00Z"
+			       }); 
+			       
+			       // execute the request
+			       request.execute(function(response) {
+			    	  //var page = 1;
+			          var aa = response.result;
+			          console.log(aa);
+			          $("#aa").html("");
+			          
+			          $.each(aa.items, function(index, item) {
+			        	  /* $(window).scroll(function() {
+			                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+			                    console.log(++page);
+			                     */
+			            $.get("../resources/tpl/item.html", function(data) {
+			                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+			            });
+			            
+			            /*  }
+			                     
+			              });  */
+			          });
+			         resetVideoHeight();
+			       });
+			    });
+		       
+		      $(window).on("resize", resetVideoHeight);
+		   });
+		   
+		   function resetVideoHeight() {
+		      $(".video").css("height", $("#aa").width() * 9/16);
+		   }
+		   
+		   function init() {
+		       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
+		       gapi.client.load("youtube", "v3", function() {
+		       });
+		   }
+		   
+		   function youtubeSearch(text){
+				console.log(text);
+				document.getElementById("search").append(text);
+			}
+		   
+		   ///////////////////////////Drag and Drop////////////////////////////////////////
+		
+	        /*  function allowDrop(e) {
+			   console.log('allowDrop 들어옴');
+			   
+	        	e.preventDefault();
+	        	e.dataTransfer.setData("text/plain", e.target.id);
+	        	e.dropEffect = "move";
+	        }  */
+	        
+	        //var videoPlayer;
+	        function handleDragStart(e) {
+	        	console.log(' handleDragStart 들어옴');
+	        	
+	        	e.dataTransfer.effectAllowed = 'move';
+	        	
+	        	var zzz = e.target.id;
+	        	
+	        	var front = '<p><iframe frameborder="0" src="//www.youtube.com/embed/';
+	        	
+	        	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
+	        	 e.dataTransfer.setData("text", front+ zzz +back);  
+	            //videoPlayer = document.getElementById(event.target.id);
+	        }
 </script>
 </head>
 <body>
@@ -275,7 +361,7 @@
 	<!-- 툴바 인클루드 시작! -->
 	
 	</div>
-<form>
+<form name="communityPost">
 	
 	<div class="site-section bg-light">
       <div class="container">
@@ -427,18 +513,22 @@
                 </div>
               </div>
               
+              <input type="submit" value="수정" onclick = "fncUpdateMeeting()" class="form-control btn btn-danger">
+		<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           </div>
-       
+       </form>
           
-          <div class="col-lg-4">
-            <div class="p-4 mb-3 bg-white">
+            <div class="col-lg-4 giyong">
+            <div class="p-4 mb-1 bg-white giyong" style="overflow:auto;">
+            
               <h3 class="h5 text-black mb-3 ">YouTube 검색창</h3>
-               <form name="youtubeForm">
-              <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
-              <p><input type="submit" id="searchButton" value="Search" class="form-control btn btn-danger w100"></p>
-			  </form>
-            </div>
-
+				<form name = "youtubeForm">
+                    <p><input type="text" id="search" placeholder="영상을 검색해보아요~" autocomplete="on" class="form-control" /></p>
+                    <p><input type="submit" value="search" class="form-control btn btn-success w100"></p>
+                </form>
+                <div id="aa" draggable="true" ondragstart="handleDragStart(event)" >
+                </div>
+			  </div>
             </div>
            
             
@@ -446,13 +536,13 @@
         </div>
       </div>
     </div>
-              
-		<div class="form-group">
+  <script src="https://apis.google.com/js/client.js?onload=init"></script>            
+		<!-- <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary">수정</button>
 				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
 		    </div>
-		  </div>
-   </form>
+		  </div> -->
+   
 </body>
 </html>

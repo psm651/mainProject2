@@ -72,14 +72,14 @@
 		var refundButton = "#refundButton"+refundNo;
 		
 		 console.log(refundNo);
-		 $.ajax({
+		  $.ajax({
 	            url : '/refund/json/updateRefundStatus/'+refundNo,
 	            type : "GET",
 	            success : function(data){
 	            		$(refundButton).remove();
 	            		$(refundDate).text(data.refundDate);
 	            		$(wait).text('완료');
-	                          
+	                    $("#havingPoint").text(${user.havingPoint} - data.refundMoney +'P');     
 	            }
 		 } );
 	}

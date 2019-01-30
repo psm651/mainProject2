@@ -12,66 +12,60 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <!-- <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
-   
-    <!-- Bootstrap Dropdown Hover JS -->
-<!--    <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
+   	<script src="/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css">
     
-    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
-  
-    <link rel="stylesheet" href="/resources/css/aos.css">
+    
+    
+	<!-- include libraries(jQuery, bootstrap) -->
+<!-- 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	
+	include summernote css/js
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+	 -->
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 
-    <link rel="stylesheet" href="/resources/css/style.css">
-	
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-	  <script src="/resources/js/jquery-ui.js"></script>
-	  <script src="/resources/js/popper.min.js"></script>
-	  <script src="/resources/js/bootstrap.min.js"></script>
-	  <script src="/resources/js/owl.carousel.min.js"></script>
-	  <script src="/resources/js/jquery.stellar.min.js"></script>
-	  <script src="/resources/js/jquery.countdown.min.js"></script>
-	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-	  <script src="/resources/js/bootstrap-datepicker.min.js"></script>
-	  <script src="/resources/js/aos.js"></script>
-	
-	  <script src="/resources/js/main.js"></script>
-   
-	<!--  ///////////////////////// CSS ////////////////////////// -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"> -->
+
 	<style>
  	img{ 
 		max-width:120%;
     	border-radius: 100px;
 	}
+	
+	
      </style> 
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-	
+	//============= "취소", "계좌등록하기"  Event 처리 및  연결 =============
+	$(function() {
+		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		$("#cancel").on("click" , function() {
+			alert("cancel")
+			history.go(-1);
+		});
+		
+		$( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
+		
+			popWin 
+	           = window.open("/refund/authorizeAccount.jsp",
+	                   "popWin", 
+	                   "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
+	                   "scrollbars=no,scrolling=no,menubar=no,resizable=no");
+			
+           }); 
+	});		
 		//============= "수정"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -81,13 +75,7 @@
 		});	
 		
 		
-		//============= "취소"  Event 처리 및  연결 =============
-		$(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$("a[href='#' ]").on("click" , function() {
-				history.go(-1);
-			});
-		});	
+
 		
 		//=============이메일" 유효성Check  Event 처리 =============
 		 $(function() {
@@ -187,7 +175,7 @@
 	<input type="hidden" id="usedNickname" value="${sessionScope.user.nickName }"/>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" />
+ 	  <jsp:include page="/layout/toolbar.jsp" /> 
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
@@ -270,6 +258,9 @@
 		   <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="holder" class="font-weight-bold">예 금 주</label>
 		      <input type="text" class="form-control" id="holder" name="holder"  value="${user.holder}">
+		      <a href="#" class="btn btn-primary pill px-4">계좌등록하기</a>
+		      <!-- <button class="btn btn-primary pill px-4" type="button" id="test" data-toggle="modal" data-target="#accountAuth">계좌등록하기</button> -->
+		      
 		    </div>
 		  </div>
 		  
@@ -277,12 +268,17 @@
 		   <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="bankName" class="font-weight-bold">은 행 명</label>
 		       <select class="form-control" name="bankName" id="bankName">
-		       		<option value="" ></option>
-				  	<option value="국민" >국민</option>
-					<option value="신한" >신한</option>
-					<option value="우리" >우리</option>
+				  	<option value="국민은행" >국민은행</option>
+					<option value="신한은행" >신한은행</option>
+					<option value="우리은행" >우리은행</option>
 					<option value="농협" >농협</option>
-					<option value="하나" >하나</option>
+					<option value="기업은행" >기업은행</option>
+					<option value="새마을금고" >새마을금고</option>
+					<option value="외환은행" >외환은행</option>
+					<option value="카카오뱅크" >카카오뱅크</option>
+					<option value="SC제일은행" >SC제일은행</option>
+					<option value="씨티은행" >씨티은행</option>
+					<option value="우체국" >우체국</option>
 				</select>
 		    </div>
 		  </div>
@@ -299,7 +295,7 @@
 		  <div class="form-group">
 		    <div class="col-md-10 mb-3 mb-md-2 text-center">
 		      <button type="button" class="btn btn-primary"  >수 &nbsp;정</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
+			  <a class="btn btn-primary btn" id="cancel" href="#" role="button">취 &nbsp;소</a>
 		    </div>
 		  </div>
 		</form>
@@ -309,6 +305,30 @@
  	</div>
  	</div>
 	<!--  화면구성 div Start /////////////////////////////////////-->
+ 
+ 
+  <!-- Modal -->
+  
+  <!-- <div class="modal modal-center fade" id="accountAuth" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" > -->
+   <%-- <div class="modal fade" id="accountAuth" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+  
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size">
+     <div class="modal-header"> 계좌 인증 페이지
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+      </div> 
+      
+       <div class="modal-content">
+      <div class="modal-body">
+   		  <jsp:include page="/refund/authorizeAccount.jsp" />  
+        
+      </div>
+    </div>
+  </div>
+</div>  	
+</div>	 --%>
+	
  	
 </body>
 
