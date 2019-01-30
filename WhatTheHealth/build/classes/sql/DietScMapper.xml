@@ -14,14 +14,15 @@
 		<result property="mealTime" 		column="MEAL_TIME" 				jdbcType="VARCHAR" />
 		<result property="bmi" 				column="BMI_VALUE" 				jdbcType="NUMERIC" />
 		<result property="weight" 			column="WEIGHT" 					jdbcType="NUMERIC" />	
+		<result property="dietScCalorie" 	column="DIET_SC_CALORIE" 		jdbcType="VARCHAR" />	
 		<result property="deleteStatus" 		column="delete_status" 				jdbcType="VARCHAR" />	
 			
 	</resultMap>
 	
 	<resultMap id="foodSelectMap" type="com.wthealth.domain.Food">
 		<result property="foodName" 			column="food_name" 			jdbcType="VARCHAR"/>
-		<result property="foodCalorie"			column="food_calorie" 			jdbcType="NUMERIC" />
-		<result property="amountFood" 			column="amount_food" 			jdbcType="NUMERIC" />
+		<result property="foodCalorie"			column="food_calorie" 			jdbcType="VARCHAR" />
+		<result property="amountFood" 			column="amount_food" 			jdbcType="VARCHAR" />
 		<result property="dietScNo" 				column="diet_sc_no" 			jdbcType="NUMERIC" />
 	</resultMap>
 
@@ -29,8 +30,8 @@
 	  <!-- SQL : INSERT -->
    	<insert    id="addDietSchedule"  parameterType="com.wthealth.domain.DietSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
       	INSERT
-		INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , bmi_value, weight, delete_status) 
-		VALUES	 (	seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , sysdate, #{mealTime}, #{bmi} , #{weight},'0' )
+		INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , bmi_value, weight, diet_sc_calorie, delete_status) 
+		VALUES	 (	seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , #{dietScDate}, #{mealTime}, #{bmi} ,#{dietScCalorie} #{weight},'0' )
       		<selectKey resultType="int" keyProperty ="dietScNo" order="AFTER">
          		SELECT seq_diet_sc_diet_sc_no.currval FROM dual
       		</selectKey>

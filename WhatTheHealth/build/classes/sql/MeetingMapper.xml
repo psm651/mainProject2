@@ -41,6 +41,8 @@
 		<result property="post.locationTagName"		column="locationtag_name"		jdbcType="VARCHAR" />
 		<result property="post.coordinate"		column="coordinate"		jdbcType="VARCHAR" />
 		<result property="post.address"		column="address"	jdbcType="VARCHAR" />
+		<result property="post.nickName"	        column="nickname" 			    jdbcType="VARCHAR" />
+		<result property="post.userImage" 		column="user_image" 		    jdbcType="VARCHAR"  />
 	</resultMap>
 	
 	<resultMap id="joinSelectMap" type="com.wthealth.domain.Join">
@@ -76,6 +78,8 @@
 		<result property="locationTagName"		column="locationtag_name"		jdbcType="VARCHAR" />
 		<result property="coordinate"		column="coordinate"		jdbcType="VARCHAR" />
 		<result property="address"		column="address"	jdbcType="VARCHAR" />
+		<result property="nickName"	        column="nickname" 			    jdbcType="VARCHAR" />
+		<result property="userImage" 		column="user_image" 		    jdbcType="VARCHAR"  />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -222,10 +226,10 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT m.meet_no, p.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
 	  												p.user_id, p.title, p.photo, p.click_count, p.blind_status, p.delete_status, p.like_count, 
-													p.category, p.post_date
-											FROM meeting m, post p
+													p.category, p.post_date, u.nickname, u.user_image 
+											FROM meeting m, post p, users u
 											<where>
-												 'ME'||m.meet_no = p.post_sub_no AND p.delete_status = '0'
+												 'ME'||m.meet_no = p.post_sub_no AND p.delete_status = '0' AND p.user_id = u.user_id 
 												 <if test="searchCondition == 0 and searchKeyword !='' ">
 												 and p.title LIKE '%'||#{searchKeyword}||'%'
 												 </if>
@@ -275,10 +279,10 @@
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT m.meet_no, p.post_no, m.min_party, m.max_party, m.depo_condition, m.meet_time, m.deadline_time, m.entryfee, m.chief_id,
 	  												p.user_id, p.title, p.photo, p.click_count, p.blind_status, p.delete_status, p.like_count, 
-													p.category, p.post_date
-											FROM meeting m, post p
+													p.category, p.post_date, u.nickname, u.user_image 
+											FROM meeting m, post p, users u
 											<where>
-												  'ME'||m.meet_no = p.post_sub_no AND p.delete_status = '0'
+												 'ME'||m.meet_no = p.post_sub_no AND p.delete_status = '0' AND p.user_id = u.user_id 
 												 <if test="searchCondition == 0 and searchKeyword !='' ">
 												 and p.title LIKE '%'||#{searchKeyword}||'%'
 												 </if>

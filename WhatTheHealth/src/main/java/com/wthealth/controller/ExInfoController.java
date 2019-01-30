@@ -120,15 +120,16 @@ public class ExInfoController {
 		return "forward:/exinfo/listExInfo.jsp";
 	}
 	
-	@RequestMapping(value="listExInfoPart", method=RequestMethod.GET)
-	public String listExInfoPart(@RequestParam("exPart") String exPart, Model model) throws Exception{
+/*	@RequestMapping(value="listExInfoPart", method=RequestMethod.POST)
+	public String listExInfoPart(@ModelAttribute("search") Search search, Model model) throws Exception{
 	
-		Search search = new Search();
+	
 
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
 	
-		search.setCurrentPage(1);
 		search.setPageSize(pageSize);
-		search.setSearchFilter(exPart);
 		
 		//Business Logic
 		Map<String, Object> map = exInfoService.listExInfo(search);
@@ -142,7 +143,7 @@ public class ExInfoController {
 		model.addAttribute("search", search);
 				
 		return "forward:/exinfo/listExInfo.jsp";
-	}	
+	}	*/
 	
 	@RequestMapping(value="updateDeleteStatus", method=RequestMethod.GET)
 	public String updateDeleteStatus(@RequestParam("postNo") String postNo) throws Exception {

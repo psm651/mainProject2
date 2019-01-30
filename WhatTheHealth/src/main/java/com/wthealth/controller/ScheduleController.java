@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +15,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Food;
+import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
 import com.wthealth.service.dietschedule.DietScheduleService;
+import com.wthealth.service.exinfo.ExInfoService;
 import com.wthealth.service.exschedule.ExScheduleService;
 
 
@@ -41,6 +42,10 @@ public class ScheduleController {
 	@Autowired
 	@Qualifier("exScheduleServiceImpl")	
 	private ExScheduleService exScheduleService;
+	
+	@Autowired
+	@Qualifier("exInfoServiceImpl")	
+	private ExInfoService exInfoService;
 	//setter Method 占쏙옙占쏙옙 占쏙옙占쏙옙
 		
 	public ScheduleController(){
@@ -68,14 +73,51 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value="addExSchedule", method = RequestMethod.POST)
-	public void addExSchedule(@ModelAttribute ExSchedule exSchedule, Model model) throws Exception {
-
-		System.out.println("/schedule/addExSchedule : GET");
+	public void addExSchedule(@ModelAttribute ExSchedule exSchedule, Model model,HttpSession session) throws Exception {
+		System.out.println(exSchedule);
+		System.out.println("/schedule/addExSchedule : POST123123123123");
+		System.out.println("이건 운동넘버"+exSchedule.getPostNo());
+		
+		String photo =(exInfoService.getExInfo(exSchedule.getPostNo())).getPhoto();
+		System.out.println("퐅토다"+photo);
+		
+	      String userId = ((User)session.getAttribute("user")).getUserId();
+	      exSchedule.setUserId(userId);
+	      exSchedule.setExScPhoto(photo);
+	      System.out.println("add되는 exSchedule"+exSchedule);
+		exScheduleService.addExSchedule(exSchedule);
 		
 		//return "forward:/schedule/addEx.jsp";
 	}
 	
-	
+	   //칼로리계산기 스케줄 저장
+	   @RequestMapping(value="addDietSchedule", method=RequestMethod.POST)
+	   public void addDietSchedule( @ModelAttribute("food") Food food, @RequestParam String dietScDate, String mealTime, HttpSession session)throws Exception{
+	   
+	      User user = new User();
+	      DietSchedule dietSchedule = new DietSchedule();
+	      
+	      String userId = ((User)session.getAttribute("user")).getUserId();
+	      System.out.println("foodInfos"+food.getFoodInfos());
+	      
+	      dietSchedule.setUserId(userId);
+	      dietSchedule.setDietScDate(dietScDate);
+	      dietSchedule.setFood(food.getFoodInfos());
+	      dietSchedule.setMealTime(mealTime);
+	      
+	    
+	      
+	      System.out.println("dietSchedule!#!@#"+dietSchedule);
+	      
+	      dietScheduleService.addDietSchedule(dietSchedule);
+	      System.out.println("dietScNo받아오나"+dietSchedule.getDietScNo());
+	      //다이어트 scno넣어야함
+	      for (int i = 0; i < food.getFoodInfos().size(); i++) {
+	    	  System.out.println(food.getFoodInfos().get(i));
+	    	  food.getFoodInfos().get(i).setDietScNo(dietSchedule.getDietScNo());
+	    	  dietScheduleService.addMeal(food.getFoodInfos().get(i));
+		}
+	   }
 	
 	
 	@RequestMapping(value="getExSchedule", method = RequestMethod.GET)
@@ -107,8 +149,12 @@ public class ScheduleController {
 		String userId=((User)session.getAttribute("user")).getUserId();
 		
 		List<ExSchedule> exList = exScheduleService.getExHistoryChart(userId);
+		List<DietSchedule> dietList = dietScheduleService.getDietHistoryChart(userId);
 		
-		List calList = new ArrayList();
+		List exCalList = new ArrayList();
+		List dietCalList = new ArrayList();
+		List averageCalList = new ArrayList();
+		
 		//int cal=0;
 		
 		Calendar now = Calendar.getInstance();
@@ -125,17 +171,37 @@ public class ScheduleController {
 		
 	
 		for (int j = 0; j < 53; j++) {
-			int cal=0;
+			int exCal=0;
+			int dietCal=0;
+			
+			//exList
 			for (int i = 0; i < exList.size(); i++) {
 				now.setTime(sdf.parse(exList.get(i).getExScDate()));
 				if (j ==now.get(now.WEEK_OF_YEAR )) {
 					if (!exList.get(i).getDeleteStatus().equals("1")) {
-						cal+=exList.get(i).getExScCalorie();
+						exCal+=exList.get(i).getExScCalorie();
 					}
 				}
 			}
-			calList.add(j, cal);
-			System.out.println(j+"二쇱감"+calList.get(j));
+			
+			//dietList
+			for (int i = 0; i < dietList.size(); i++) {
+				now.setTime(sdf.parse(dietList.get(i).getDietScDate()));
+				if (j ==now.get(now.WEEK_OF_YEAR )) {
+					if (!exList.get(i).getDeleteStatus().equals("1")) {
+						dietCal+=dietList.get(i).getDietScCalorie();
+					}
+				}
+			}
+			exCalList.add(j, exCal);
+			dietCalList.add(j, dietCal);
+			if (exCal>dietCal) {
+				averageCalList.add(j,-(exCal-dietCal));
+			}else {
+				averageCalList.add(j,exCal-dietCal);
+			}
+			
+			System.out.println(j+"주차"+exCalList.get(j));
 		}
 		
 		
@@ -150,12 +216,18 @@ public class ScheduleController {
 		
 		
 		System.out.println("123123123123"+map.get("exList"));
+		System.out.println("456456465"+map.get("dietList"));
 
 		// Model 占쏙옙 View 占쏙옙占쏙옙
 		model.addAttribute("dietList", map.get("dietList"));
 		model.addAttribute("exList", map.get("exList"));
-		model.addAttribute("exCalorie", calList);
-		System.out.println("留듭씠�떎"+calList);
+		model.addAttribute("exCalorie", exCalList);
+		model.addAttribute("dietCalorie", dietCalList);
+		model.addAttribute("averageCalorie", averageCalList);
+		
+		
+		System.out.println("dietCalList"+dietCalList);
+		System.out.println("exCalList"+exCalList);
 
 		
 	

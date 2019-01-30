@@ -34,8 +34,8 @@
 	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
 	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
 	
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+ 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
 	
    	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
@@ -213,8 +213,8 @@ $('#exInfoSc').data('datepicker');
    
    <div class="site-wrap">
    <!-- ToolBar Start /////////////////////////////////////-->
-   <%-- <jsp:include page="/layout/toolbar.jsp" />  --%>
-    <jsp:include page="/calculator/test.jsp" />
+    <%-- <jsp:include page="/layout/toolbar.jsp" />   --%>
+     <jsp:include page="/calculator/test.jsp" /> 
       <!-- ToolBar End /////////////////////////////////////-->
    <!-- 툴바 인클루드 시작! -->
    
@@ -228,7 +228,7 @@ $('#exInfoSc').data('datepicker');
           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
           
           	
-         	
+<form name="exSchedule">
             <h4 class="mb-3">${post.title}</h4>
     
          
@@ -311,13 +311,19 @@ $('#exInfoSc').data('datepicker');
         </div>
       </div>
     
-         <form name="exSchedule">
+<<<<<<< HEAD
+         
              <input type="hidden" name="exScName" value="${post.title}" style="display:nont;"/>
+=======
+         <form name="exSchedule">
+             <input type="hidden" name="exScName" value="${post.title}"/>
+>>>>>>> refs/remotes/origin/master
              <input type="hidden" name="exScContents" value="${post.contents}"/>
              <input type="hidden" name="exScCalorie" value="${post.exCalorie}"/>
+                          <input type="hidden" name="postNo" value="${post.postNo}"/>
          </form>
 
-  <%--  <jsp:include page="/reply/listReply.jsp" />  --%>
+     <jsp:include page="/exinfo/listReplyTest.jsp" />
    </div>
 </div>
 

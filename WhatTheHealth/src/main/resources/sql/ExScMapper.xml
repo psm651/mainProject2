@@ -16,15 +16,16 @@
 		<result property="exScContents" 	column="ex_sc_contents" 		jdbcType="VARCHAR" />	
 		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="VARCHAR" />
 		<result property="postNo" 			column="post_no"	 			jdbcType="NUMERIC" />
-		<result property="deleteStatus" 		column="delete_status"	 			jdbcType="VARCHAR" />
+		<result property="exScPhoto" 		column="ex_sc_photo"	 		jdbcType="VARCHAR" />
+		<result property="deleteStatus" 		column="delete_status"	 		jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT DIET_SC -->
 	<insert 	id="addExSchedule"		parameterType="com.wthealth.domain.ExSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
 	 	INSERT
-		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, delete_status) 
+		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, ex_sc_photo, delete_status) 
 		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId:VARCHAR} , #{exScName:VARCHAR}, #{exScContents:VARCHAR}, #{exScCalorie:NUMERIC} , #{exScDate}, TO_CHAR(#{exScTime:VARCHAR},'hh:mi:ss'),
-		<if test="postNo==0">null</if><if test="postNo!=0">#{postNo}</if>,'0' )
+		<if test="postNo==0">null</if><if test="postNo!=0">#{postNo}</if>,#{exScPhoto:VARCHAR},'0' )
 		<selectKey resultType="int" keyProperty ="exScNo" order="AFTER">
          		SELECT seq_ex_sc_ex_sc_no.currval FROM dual
       		</selectKey>
@@ -35,7 +36,7 @@
 	 <!-- SQL : SELECT  -->
 	 <select 	id="getExSchedule"	 parameterType="int"	 resultMap="exScSelectMap">
 		SELECT
-		ex_sc_no,ex_sc_title, user_id, ex_sc_contents, ex_sc_calorie, ex_sc_time, post_no, ex_sc_date, delete_status
+		ex_sc_no,ex_sc_title, user_id, ex_sc_contents, ex_sc_calorie, ex_sc_time, post_no, ex_sc_date, delete_status,ex_sc_photo
 		FROM ex_sc
 		WHERE ex_Sc_no= #{exScNo}
 	 </select>
