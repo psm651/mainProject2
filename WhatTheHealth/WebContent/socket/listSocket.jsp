@@ -101,15 +101,19 @@
 
     <div class="site-section">
       <div class="container">
-      <div><h2>라이브방송 목록</h2></div> 
+      <div><h2>라이브방송 목록</h2>
+      
+       </div> 
       <hr/>
+      <p align="center"><a onclick="javascript:location.href='https://192.168.0.55:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">오픈채팅플랫폼 바로가기</a></p>
        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveRoom"  onclick="addLiveRoom();">방개설하기</a></p>
       <br/>
   
-       
-   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   align="right" class="btn btn-primary pill text-white px-4"   id="addSocket">화상채팅</a></p>
-   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
-   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/index.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브보기</a></p>
+ 
+
+ 
+ <%--   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/index.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브보기</a></p> --%>
        
         
         <div class="row mb-5">
