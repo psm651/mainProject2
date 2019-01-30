@@ -36,7 +36,7 @@
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	
-	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+	
 	
 	<!-- include datetimepicker css/js-->
 	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
@@ -44,7 +44,7 @@
  	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
 	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
 
-	
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	<style>
 	
 		.giyong{
@@ -78,7 +78,49 @@
 		$("form[name=communityPost]").attr("method","POST").attr("action","/meeting/addMeeting").submit();	
 	}
 	
+	//============= 지도 =============
+	function relayout() {    
+   		 map.relayout();
+	} 	
+	//지도 Event 발생
+	$(function(){
+		$("button:contains('지도')").on("click", function(){
+			alert("")
+			 $('#mapModal').on('shown.bs.modal', function () { 
+				 
+					$('#mapModal').modal('show');
+					$(document).ready(function() {
+						 relayout();
+					}); 
+						
+
+			});
+
+		});
 		
+	});
+	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
+	function sendInfo(locationTagName, address, coordinate){
+ 	
+ 		$(function(){
+ 		 var location = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
+						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+			 			
+			$("button:contains('확인')").on("click", function(){
+	     		
+			    var locationInfo = $("#sub").text();
+			    if(locationInfo != null || locationInfo!=''){
+			    	$(".locationInfo").remove();
+				}
+			    $('#sub').text(locationTagName);
+				$('#sub').append(location);
+				$("#mapModal").hide();
+				
+			});
+		});  
+	}
+	
 	//============= "등록"  Event 연결 =============
 	/*  $(function() {
 		$( "button.btn.btn-primary" ).on("click" , function() {
@@ -533,8 +575,33 @@ $('#timepicker-actions-exmpl').data('datepicker')
         </div>
       </div>
   
-   <script src="https://apis.google.com/js/client.js?onload=init" ></script> 
-              
+   
+       
+	<!-- Modal -->
+  <div class="modal modal-center fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="text-align:left">위치태그 등록</h4>
+      </div>
+      <div class="modal-body">
+      
+    	<jsp:include page="/common/addMap.jsp" /> 
+        
+      </div>
+      
+      <div class="modal-footer">
+    		
+       		 <button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+       		
+      </div>
+      
+    </div>
+  </div>
+</div>       
+       
+              <script src="https://apis.google.com/js/client.js?onload=init" ></script> 
 		<!-- <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
 		      <button type="button" class="btn btn-primary">등록</button>

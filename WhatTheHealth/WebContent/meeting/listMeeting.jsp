@@ -135,7 +135,7 @@
                 </span>   --%>              
                 <div class="userInfo">
                 			<c:if test="${meeting.post.userImage != null and meeting.post.userImage != '' }">
-                				<img src="/resources/images/userImage/${post.userImage}" style="border-radius:100px; width:50px; height: 50px;">
+                				<img src="/resources/images/userImage/${meeting.post.userImage}" style="border-radius:100px; width:50px; height: 50px;">
                 			</c:if>
                 			<c:if test="${meeting.post.userImage == null or meeting.post.userImage ==  ''}">
 								<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>

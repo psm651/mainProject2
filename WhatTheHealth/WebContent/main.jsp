@@ -144,7 +144,7 @@
     </div>
 
 
-    <div class="featured-classes bg-light py-5 block-13">
+    <%-- <div class="featured-classes bg-light py-5 block-13">
       <div class="container">
         
         <div class="heading-with-border">
@@ -216,10 +216,10 @@
         </div>
 
       </div>
-    </div>
+    </div> --%>
 
 
-   <div class="featured-classes bg-light py-3 block-13">
+   <%-- <div class="featured-classes bg-light py-3 block-13">
       <div class="container">
         
         <div class="heading-with-border">
@@ -291,7 +291,7 @@
         </div>
 
       </div>
-    </div>
+    </div> --%>
 
 <!-- 식단 커뮤니티 추천 -->
      <div class="featured-classes bg-light py-3 block-13">
@@ -336,7 +336,7 @@
                     
                        <span class="d-flex align-items-center" style="width:200px; display:inline-block">
                           <div id="userInfo">
-                             <img src="/resources/images/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                             <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
                           </div>
                          <span>${post.nickName}</span>
                          <!-- <span class="d-flex align-items-center" style="width:100px; padding-left:200px; padding-bottom:100px; float:left">
@@ -408,7 +408,7 @@
                        <!-- <p></p> -->
                        <span class="d-flex align-items-center">
                           <div id="userInfo">
-                             <img src="/resources/images/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                             <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
                           </div>
                          <span>${post.nickName}</span>
                        </span>

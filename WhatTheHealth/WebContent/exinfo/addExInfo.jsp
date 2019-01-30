@@ -11,7 +11,7 @@
  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
      <link rel="stylesheet" href="/resources/fonts/icomoon/style.css"> 
 
      <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
