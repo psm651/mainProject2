@@ -17,6 +17,9 @@
 		<result property="firPlayerId" 				column="fir_player_id" 					jdbcType="VARCHAR" />
 		<result property="secPlayerId" 			column="sec_player_id" 				jdbcType="VARCHAR"  />
 		<result property="liveStatus" 			column="live_status" 				jdbcType="VARCHAR"  />
+		<result property="nickname" 			column="nickname" 				jdbcType="VARCHAR"  />
+		<result property="userImage" 			column="user_image" 				jdbcType="VARCHAR"  />
+		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -24,7 +27,7 @@
 	 	INSERT
 		INTO socket ( socket_no, bj_id, live_date, live_title, total_viewer, live_type, fir_player_id , sec_player_id, live_status) 
 		VALUES (seq_socket_socket_no.nextval, #{bjId}, SYSDATE, #{liveTitle}, 
-							#{totalViewer:NUMERIC}, #{liveType}, #{firPlayerId:VARCHAR}, #{secPlayerId:VARCHAR}, '1')
+							#{totalViewer:NUMERIC}, '0', #{firPlayerId:VARCHAR}, #{secPlayerId:VARCHAR}, '1')
 	 	<selectKey resultType="int" keyProperty = "socketNo" order="AFTER">
 			SELECT seq_socket_socket_no.currval FROM dual
 		</selectKey>
@@ -52,18 +55,20 @@
 	<select  id="listLiveStream"  parameterType="com.wthealth.common.Search"	resultMap="socketSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT socket_no, bj_id, live_title, total_viewer, live_type, fir_player_id, sec_player_id, live_status
-											FROM socket
-											<where>
-											 live_status = 1										
-												<if test = "searchCondition == 0 and searchKeyword !='' ">	<!-- 게시자 검색-->
-													and bj_id LIKE '%'||#{searchKeyword}||'%'
+	  					FROM		(	SELECT s.socket_no, s.bj_id, s.live_title, s.total_viewer, s.live_type, s.live_status, u.nickname, u.user_image, s.live_date
+											FROM socket s, users u
+											WHERE  live_status = '1' AND s.bj_id = u.user_id		
+											<!-- <where>
+											  live_status = '1' AND s.bj_id == u.user_id									
+												<if test = "searchCondition == 0 and searchKeyword !='' ">	게시자 검색
+													and s.bj_id LIKE '%'||#{searchKeyword}||'%'
 												</if>			
-												<if test = "searchCondition == 1 and searchKeyword !='' ">	<!-- 제목 검색-->
-													and live_title LIKE '%'||#{searchKeyword}||'%'
+												<if test = "searchCondition == 1 and searchKeyword !='' ">	제목 검색
+													and s.live_title LIKE '%'||#{searchKeyword}||'%'
 												</if>		
-											</where>	
-											ORDER BY live_date ) inner_table
+											</where>	 -->
+											ORDER BY s.live_date, s.socket_no
+											 ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
@@ -81,18 +86,18 @@
 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT socket_no, bj_id, live_title, total_viewer, live_type, fir_player_id, sec_player_id, live_status
-											FROM socket
-											<where>
-											 live_status = 1										
-												<if test = "searchCondition == 0 and searchKeyword !='' ">	<!-- 게시자 검색-->
-													and bj_id LIKE '%'||#{searchKeyword}||'%'
+	  	FROM( SELECT s.socket_no, s.bj_id, s.live_title, s.total_viewer, s.live_type, s.live_status, u.nickname, u.user_image, s.live_date
+											FROM socket s, users u
+											WHERE  live_status = '1' AND s.bj_id = u.user_id		
+											<!-- <where>
+											 live_status = '1' AND s.bj_id == u.user_id									
+												<if test = "searchCondition == 0 and searchKeyword !='' ">	게시자 검색
+													and s.bj_id LIKE '%'||#{searchKeyword}||'%'
 												</if>			
-												<if test = "searchCondition == 1 and searchKeyword !='' ">	<!-- 제목 검색-->
-													and live_title LIKE '%'||#{searchKeyword}||'%'
+												<if test = "searchCondition == 1 and searchKeyword !='' ">	제목 검색
+													and s.live_title LIKE '%'||#{searchKeyword}||'%'
 												</if>		
-											</where>	
-											ORDER BY live_date 
+											</where>	 -->
 					 ) countTable						
 	 </select>
 	 
