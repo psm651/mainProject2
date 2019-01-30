@@ -10,7 +10,7 @@
     <title>IronMuscle &mdash; Colorlib Website Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- 	<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+ 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
@@ -24,10 +24,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-    <link rel="stylesheet" href="/resources/css/style.css">-->
+    <link rel="stylesheet" href="/resources/css/style.css">
     
     <script src="/resources/js/jquery-3.3.1.min.js"></script>
-   <!--  <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="/resources/js/jquery-ui.js"></script>
     <script src="/resources/js/popper.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
@@ -37,7 +37,7 @@
     <script src="/resources/js/jquery.magnific-popup.min.js"></script>
     <script src="/resources/js/bootstrap-datepicker.min.js"></script>
     <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>  -->
+    <script src="/resources/js/main.js"></script>  
     
     
 <!--   <link href="/css/animate.min.css" rel="stylesheet"> -->
@@ -179,14 +179,15 @@ var currentPage=1;
     </div> <!-- .site-mobile-menu -->
     
 
-    
-
-
     <div class="site-section">
+      
       <div class="container">
-     
-      <h3><strong>운동부위</strong></h3>
-   
+      <div><h2>운동꿀팁 목록</h2></div>
+   	  <hr/>
+   	  
+   	<c:if test="${sessionScope.user.role == 'admin'}">
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
+    </c:if>
     <form class="form-inline" name="detailForm">    
        	
 		<div class="form-group">  
@@ -217,29 +218,10 @@ var currentPage=1;
            <input type="hidden" id="currentPage" name="currentPage" value=""/>		 
 		       
 	  </form> 	      
-      <hr/>
       <br/>
       
-<!-- Split button -->
-<!-- <div class="btn-group">
-  <button type="button" class="btn btn-danger">Action</button>
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div> -->
-     
-     
-     <c:if test="${sessionScope.user.role == 'admin'}">
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
-    </c:if>
+       
+
         <br/>
         
         
@@ -250,8 +232,9 @@ var currentPage=1;
           
           
           <div class="col-md-6 col-lg-4 mb-4">
+          
             <div class="post-entry bg-white" data-param="${post.postNo}">
-              <div class="image">
+              <div class="image" style="width:400px; height:200px">
               	<c:if test="${empty post.photo}">
                     <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
                 </c:if>
@@ -268,85 +251,41 @@ var currentPage=1;
                		</c:choose>
                 </c:if>
               </div>
-              <div class="text p-6">
+              <div class="text col-md-8">
+              <!-- <div class="text p-6"> -->
                 <h2 class="h3 text-black"><a href="#">${post.title}</a></h2>
                 <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
- 				<p class="mb-0">${post.likeCount}</p>
-                <span class="text-uppercase date d-block mb-3">
-                <small>${post.nickName}</small>
-                </span>                
+ 				  <div class="userInfo">
+                	<c:if test="${post.userImage != null and post.userImage != '' }">
+                		<img src="/resources/images/userImage/${post.userImage}" style="border-radius:100px; width:50px; height: 50px;">
+                	</c:if>
+                	<c:if test="${post.userImage == null or post.userImage ==  ''}">
+						<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>
+					</c:if>
+                		${post.nickName}
+                  </div>
               </div>
-            </div>
+ 				
+ 				
+ 				<div class="col-md-4">
+ 					<div class="likeImage">
+ 						<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
+ 					</div>
+ 					<div class="likeCount" style="margin-left:38px">
+ 						<h5>${post.likeCount}</h5>
+ 					</div>
+ 				</div>
           </div>      
           
-          
+        </div> 
    </c:forEach> 
                           
-    <footer class="site-footer">
-      <div class="container">
-        
-
-        <div class="row">
-          <div class="col-lg-7">
-            <div class="row">
-              <div class="col-6 col-md-4 col-lg-8 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4 text-primary">About</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat quos rem ullam, placeat amet sint vel impedit reprehenderit eius expedita nemo consequatur obcaecati aperiam, blanditiis quia iste in! Assumenda, odio?</p>
-                <p><a href="#" class="btn btn-primary pill text-white px-4">Read More</a></p>
-              </div>
-              <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4 text-primary">Quick Menu</h3>
-                <ul class="list-unstyled">
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Approach</a></li>
-                  <li><a href="#">Sustainability</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Careers</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="row mb-5">
-              <div class="col-md-12"><h3 class="footer-heading mb-4 text-primary">Contact Info</h3></div>
-              <div class="col-md-6">
-                <p>New York - 2398 <br> 10 Hadson Carl Street</p>    
-              </div>
-              <div class="col-md-6">
-                Tel. + (123) 3240-345-9348 <br>
-                Mail. usa@youdomain.com
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12"><h3 class="footer-heading mb-4 text-primary">Social Icons</h3></div>
-              <div class="col-md-12">
-                <p>
-                  <a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>
-                  <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                  <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
-
-                </p>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          </div>
-          
-        </div>
+   
+  	    
       </div>
-    </footer>
-      </div>
+  
+     </div>
     </div>
-  </div>
+  </body>
+</html>
    

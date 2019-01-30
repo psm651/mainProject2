@@ -53,16 +53,19 @@ public class CalculatorRestController {
         
 		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
 		
+		//Cross 브라우저 해결을 위한 옵션 적용 
         DesiredCapabilities capabilities =DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
         options.addArguments("-disable-web-security");
         options.addArguments("-allow-running-insecure-content");
+        options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);		
-		
+        
+        //chrome 드라이버 설정 
         WebDriver driver = new ChromeDriver(capabilities);
       
-        // And now use this to visit Google
+        //크롤링 할 웹페이지 접근 
         driver.get("https://www.myfitnesspal.com/ko/food/search");
 
         // Find the text input element by its name
@@ -73,12 +76,20 @@ public class CalculatorRestController {
         // Now submit the form. WebDriver will find the form for us from the element
         element.submit();
      
-        WebElement foodss = driver.findElement(By.cssSelector(".section2-2i8B2 > div"));
+   //     WebE foodss = driver.findElement(By.cssSelector(".section2-2i8B2 "));
+       
         //WebElement foodss = driver.findElement(By.className("jss44"));
-        System.out.println(foodss.getTagName());
-        System.out.println(foodss.getText());
-        	
+  //      System.out.println(foodss.getTagName());
+   //     System.out.println(foodss.getText());
         
+        WebElement foodss = driver.findElement(By.className("jss45"));	
+       System.out.println( foodss.getText());     
+       System.out.println(foodss.getTagName());
+       System.out.println(foodss.getSize());
+       /* for(WebElement foods:foodss) {
+        
+        	
+        }*/
 /*
         for(WebElement foods:foodName) {
            Food food = new Food();

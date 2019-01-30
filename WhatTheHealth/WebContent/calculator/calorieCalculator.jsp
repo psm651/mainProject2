@@ -73,9 +73,9 @@
   
 <script type="text/javascript">
  
-$('#dietScDate').datepicker({
+/* $('#dietScDate').datepicker({
 	dateFormat : "yyyy-mm-dd"
-});
+}); */
 
 	$(function(){
 		$(".btn:contains('검색')").on("click", function(){
@@ -206,12 +206,14 @@ $(function(){
 	
 
 		$('#dietScDate').datepicker({
+			dateFormat : "yyyy-mm-dd",
 			autoClose: false,
 			position:  "right top",
 			autoClose: true,
 			todayButton : true
-	/* 	onSelect: function onSelect(fd){			
-		} */
+	 	onSelect: function onSelect(){			
+				alert("")
+	 	} 
 		});
 	// Select initial date from `eventDates`
 
