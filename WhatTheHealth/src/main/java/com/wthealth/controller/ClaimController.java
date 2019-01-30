@@ -89,9 +89,11 @@ public class ClaimController {
 		System.out.println("/addClaimReply : GET");
 		Reply claimedReply = claimService.getClaimedReply(targetNo);
 		model.addAttribute("claimed", claimedReply);
+		System.out.println(claimedReply);
 
 		return "forward:/claim/addClaim.jsp";
 	}
+	
 
 	@RequestMapping(value = "addClaim", method = RequestMethod.POST)
 	public String addClaim(@ModelAttribute("claim") Claim claim, HttpSession session) throws Exception {

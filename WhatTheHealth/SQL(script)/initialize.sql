@@ -146,15 +146,16 @@ CREATE TABLE diet_sc(
 	meal_time VARCHAR2(3) NOT NULL,
 	bmi_value NUMBER(5),
 	weight NUMBER(5),
+	diet_sc_calorie number(10),
 	delete_status VARCHAR2(3),
 	PRIMARY KEY(diet_sc_no)
 );
 
 CREATE TABLE MEAL( 
 	meal_no NUMBER NOT NULL,
-	food_name VARCHAR2(20) NOT NULL ,
-	food_calorie NUMBER(5) NOT NULL,
-	amount_food NUMBER(5) NOT NULL,
+	food_name VARCHAR2(100) NOT NULL ,
+	food_calorie VARCHAR2(10) NOT NULL,
+	amount_food VARCHAR2(10) NOT NULL,
 	diet_sc_no NUMBER REFERENCES diet_sc(diet_sc_no),
 	PRIMARY KEY(meal_no)
 );
@@ -167,6 +168,7 @@ CREATE TABLE EX_SC(
 	ex_sc_calorie NUMBER(5),
 	ex_sc_date DATE,
 	ex_sc_time DATE,
+	ex_sc_photo VARCHAR2(100),
 	post_no NUMBER REFERENCES POST(post_no),
 	delete_status VARCHAR2(3),
 	PRIMARY KEY(ex_sc_no)

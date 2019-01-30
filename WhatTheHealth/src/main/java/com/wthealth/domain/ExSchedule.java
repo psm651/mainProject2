@@ -12,6 +12,7 @@ public class ExSchedule {
 	private String exScContents;
 	private String exScDate;
 	private int postNo;
+	private String exScPhoto;
 	private String deleteStatus;
 	
 	public ExSchedule() {
@@ -90,10 +91,20 @@ public class ExSchedule {
 		this.deleteStatus = deleteStatus;
 	}
 
+	public String getExScPhoto() {
+		return exScPhoto;
+	}
+
+	public void setExScPhoto(String exScPhoto) {
+		this.exScPhoto = exScPhoto;
+	}
+
 	@Override
 	public String toString() {
 		return "ExSchedule [exScNo=" + exScNo + ", userId=" + userId + ", exScName=" + exScName + ", exScCalorie="
 				+ exScCalorie + ", exScTime=" + exScTime + ", exScContents=" + exScContents + ", exScDate=" + exScDate
-				+ ", postNo=" + postNo + ", deleteStatus=" + deleteStatus + "]";
+				+ ", postNo=" + postNo + ", exScPhoto=" + exScPhoto + ", deleteStatus=" + deleteStatus + "]";
 	}
+
+	
 }
