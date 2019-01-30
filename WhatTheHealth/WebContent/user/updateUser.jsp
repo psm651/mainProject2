@@ -61,7 +61,7 @@
 			popWin 
 	           = window.open("/refund/authorizeAccount.jsp",
 	                   "popWin", 
-	                   "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
+	                   "left=100,top=200,width=600,height=800,marginwidth=0,marginheight=0,"+
 	                   "scrollbars=no,scrolling=no,menubar=no,resizable=no");
 			
            }); 

@@ -110,9 +110,13 @@
 				return;
 			}
 				
-			alert("잠깐");
 			$("form").attr("method", "POST").attr("action", "/refund/authorizeAccount").submit();
-						
+			self.close();
+			
+			opener.document.getElementById("#accountNum").value= accountNum; 
+			opener.document.getElementById("#bankName").value= bankName; 
+			opener.document.getElementById("#holder").value= holder; 
+
 		} 
 		
 		
@@ -123,7 +127,7 @@
 <body>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" />
+	<%-- <jsp:include page="/layout/toolbar.jsp" /> --%>
    	<!-- ToolBar End /////////////////////////////////////-->
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->

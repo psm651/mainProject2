@@ -58,7 +58,13 @@
      background-size : cover;
      border-radius: 100px;
   } */
-  
+  .p-4{
+  }
+  .p-4 .heart{
+  	text-align : center;
+  	float : right;
+  	font-weight : bold;
+  }
   </style>
   
   <script type="text/javascript">
@@ -323,9 +329,10 @@
                   <div class="p-4">
                  		<span>
                        <h3 class="h5 heading">${post.title}</h3></span>
-                       <span class="heart">
-                       		<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:10px;">
-                       </span>
+                       <div class="heart">
+                       		<img src="../resources/images/fullHeart.png" style="width: 35px;">
+                       		${post.likeCount}
+                       </div>
                     
                        <span class="d-flex align-items-center" style="width:200px; display:inline-block">
                           <div id="userInfo">
@@ -390,7 +397,12 @@
                   </c:if>
                          
                   <div class="p-4">
-                       <h3 class="h5 heading">${post.title}</h3>
+                  <span>
+                       <h3 class="h5 heading">${post.title}</h3></span>
+                       <div class="heart">
+                       		<img src="../resources/images/fullHeart.png" style="width: 35px;">
+                       		${post.likeCount}
+                       </div>
                     
                        <input type="hidden" name="postNo" value="${post.postNo}"/> 
                        <!-- <p></p> -->
