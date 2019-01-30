@@ -271,9 +271,9 @@ $(function(){
 
 	 </div>
 	   
-<div id="draggable">	
+<!-- <div id="draggable">	
 	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon">	   
-</div>
+</div> -->
 
 	   
 
