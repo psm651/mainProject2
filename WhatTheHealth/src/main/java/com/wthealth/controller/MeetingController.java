@@ -63,8 +63,13 @@ public class MeetingController {
 		
 		Post post = meeting.getPost();
 		post.setUserId(user.getUserId());
+		/*if(post.getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(post);
+		}*/
 		if(post.getContents().indexOf("upload/") != -1) {
 			mainService.updateThumbnail(post);
+		}else if(post.getContents().indexOf("embed/") != -1){
+			mainService.updateYoutubeThumbnail(post);
 		}
 		meeting.setPost(post);
 		
@@ -119,9 +124,14 @@ public class MeetingController {
 		meetingService.updateMeeting(meeting);
 		
 
-		if(meeting.getPost().getContents().indexOf("upload/") != -1) {
+		/*if(meeting.getPost().getContents().indexOf("upload/") != -1) {
 			mainService.updateThumbnail(meeting.getPost());
-		};
+		};*/
+		if(meeting.getPost().getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(post);
+		}else if(meeting.getPost().getContents().indexOf("embed/") != -1){
+			mainService.updateYoutubeThumbnail(post);
+		}
 		
 		return "redirect:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
 	}

@@ -56,6 +56,7 @@
 		<result property="meetTime" 		column="meet_time" 			jdbcType="VARCHAR" />
 		<result property="meetTitle" 		column="title" 			jdbcType="VARCHAR" />
 		<result property="partyImage" 		column="user_image" 			jdbcType="VARCHAR" />
+		<result property="nickName" 		column="nickname" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="postSelectMap" 	type="com.wthealth.domain.Post">
@@ -196,7 +197,7 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="listJoin"	parameterType="int"	resultMap="joinSelectMap">
 		SELECT
-		j.join_no , j.join_date , j.join_status , j.depo_status, j.meet_no, j.party_id, j.delete_status, u.user_image
+		j.join_no , j.join_date , j.join_status , j.depo_status, j.meet_no, j.party_id, j.delete_status, u.user_image, u.nickname
 		FROM join j, users u
 		WHERE j.meet_no = #{value} AND j.party_id = u.user_id
 	 </select>

@@ -163,6 +163,8 @@
 	            //videoPlayer = document.getElementById(event.target.id);
 	        }
 
+	        ///////////////////////////////////지도///////////////////////////////////
+	        
 	        function relayout() {    
 	      		 map.relayout();
 	   		}         

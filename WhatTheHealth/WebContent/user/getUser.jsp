@@ -102,11 +102,16 @@
 			});
 		 
 		 $(function() {
+			 <c:set var="i" value="0"/>
+		  			
+					<c:forEach var = "chatting1" items="${chattinglist1}">
+						<c:set var="i" value="${i+1}"/>
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				 $( "#getChatting" ).on("click" , function() {
+				 $( "#getChatting${i}" ).on("click" , function() {
 					 var roomId = $(this).data("param");
 						self.location = "/socket/getChatting?roomId="+roomId
 					});
+					 </c:forEach>
 			});
 		 
 		 $(function() {
@@ -232,12 +237,38 @@
 		<div class="row">
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-primary" id="update">회원정보수정</button>
-	  			<c:set var="i" value="0"/>
-					<c:forEach var = "chatting" items="${chattinglist}">
-						<c:set var="i" value="${i+1}"/>
-						<button type="button" class="btn btn-primary" id="getChatting" data-param="${chatting.roomId}" >${chatting.chattingNo}</button>
-					</c:forEach>
+	  			
 	  			<button type="button" class="btn btn-primary" id="delete">탈퇴</button>
+	  			
+	  			<br/><br/>
+	  			<c:set var="i" value="0"/>
+	  			
+					<c:forEach var = "chatting1" items="${chattinglist1}">
+						<c:set var="i" value="${i+1}"/>
+						<button type="button" class="btn btn-primary" id="getChatting${i}" data-param="${chatting1.roomId}" >
+						<c:if test = "${user.userId == chatting1.user1}">
+						${chatting1.user2}님과 채팅
+						</c:if>
+						<c:if test = "${user.userId == chatting1.user2}">
+						${chatting1.user1}님과 채팅
+						</c:if>
+						</button>
+					</c:forEach>
+				
+					
+					<c:set var="j" value="0"/>
+					<c:forEach var = "chatting2" items="${chattinglist2}">
+						<c:set var="j" value="${j+1}"/>
+						<button type="button" class="btn btn-primary" id="getChatting${j}" data-param="${chatting2.roomId}" >
+						<c:if test = "${user.userId == chatting2.user1}">
+						${chatting2.user2}님과 채팅
+						</c:if>
+						<c:if test = "${user.userId == chatting2.user2}">
+						${chatting2.user1}님과 채팅
+						</c:if>
+						</button>
+					</c:forEach>
+	  			
 	  		</div>
 		</div>
 		

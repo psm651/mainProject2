@@ -17,6 +17,7 @@ public class Reply {
 	private String postTitle;
 	private String category;
 	private String userImage;
+	private String nickname;
 	
 	///Constructor
 	public Reply() {
@@ -119,13 +120,24 @@ public class Reply {
 		this.userImage = userImage;
 	}
 
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", parentReplyNo=" + parentReplyNo + ", reReplyNo=" + reReplyNo
 				+ ", replyDate=" + replyDate + ", postNo=" + postNo + ", text=" + text + ", writerId=" + writerId
 				+ ", blindStatus=" + blindStatus + ", deleteStatus=" + deleteStatus + ", postTitle=" + postTitle
-				+ ", category=" + category + ", userImage=" + userImage + "]";
+				+ ", category=" + category + ", userImage=" + userImage + ", nickname=" + nickname + "]";
 	}
+
+	
 
 
 	

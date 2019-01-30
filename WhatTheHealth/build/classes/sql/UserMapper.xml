@@ -28,7 +28,7 @@
 		
 		<result property="holder" 				column="holder" 					jdbcType="VARCHAR" />
 		<result property="bankName" 				column="bank_name" 					jdbcType="VARCHAR" />
-		<result property="bankCode" 				column="bank_code" 					jdbcType="NUMERIC" />
+		<result property="bankCode" 				column="bank_code" 					jdbcType="VARCHAR" />
 		<result property="accountNum" 				column="account_num" 					jdbcType="VARCHAR" />
 		<result property="dateOfBirth" 				column="date_of_birth" 					jdbcType="NUMERIC" />
 	</resultMap>
@@ -123,11 +123,11 @@
 	 <update	id="updateAccount"	parameterType="com.wthealth.domain.User" >
 	   	UPDATE users
 	   	<set>
-			holder 		= #{holder},
-			bank_name 	= #{bankName},
-			account_num	= #{accountNum},
-			date_of_birth = #{dateOfBirth},
-			bank_code = #{bankCode}
+			holder 		= #{holder:VARCHAR},
+			bank_name 	= #{bankName:VARCHAR},
+			account_num	= #{accountNum:VARCHAR},
+			date_of_birth = #{dateOfBirth:NUMERIC},
+			bank_code = #{bankCode:VARCHAR}
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>
@@ -136,7 +136,7 @@
 	 <update	id="updateHavingPoint"	parameterType="com.wthealth.domain.User" >
 	   	UPDATE users
 	   	<set>
-	   		having_point = #{havingPoint}
+	   		having_point = #{havingPoint:NUMERIC}
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>

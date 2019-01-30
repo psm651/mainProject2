@@ -20,6 +20,7 @@
 		<result property="postTitle" 		column="title" 			jdbcType="VARCHAR" />
 		<result property="category" 		column="category" 			jdbcType="VARCHAR" />
 		<result property="userImage" 		column="user_image" 			jdbcType="VARCHAR" />
+		<result property="nickname" 		column="nickname" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -94,7 +95,7 @@
 	 
 	 <!-- SQL : SELECT LIST -->
 	<select  id="listReply"  parameterType="int"	resultMap="replySelectMap">
-	  	SELECT r.reply_no , r.parent_reply_no , r.rereply_no , r.reply_date , r.post_no, text, r.writer_id, r.blind_status , r.delete_status, u.user_image
+	  	SELECT r.reply_no , r.parent_reply_no , r.rereply_no , r.reply_date , r.post_no, text, r.writer_id, r.blind_status , r.delete_status, u.user_image, u.nickname
 											FROM reply r, users u
 											WHERE r.post_No = #{postNo} AND r.writer_id = u.user_id<!-- AND delete_status IS NULL OR delete_status='0'    -->
 											ORDER BY r.parent_reply_no, r.reply_no

@@ -12,7 +12,13 @@ public interface ChattingDao {
 	// SELECT ONE
 	public Chatting getChatting(int chattingNo) throws Exception ;
 	
+	// SELECT ONE
+	public Chatting getChatting(String roomId) throws Exception ;
+	
 	// SELECT LIST
-	public List<Chatting> listChatting(String userId2) throws Exception ;
+	public List<Chatting> listChatting1(String userId2) throws Exception ;
+	
+	// SELECT LIST
+	public List<Chatting> listChatting2(String userId1) throws Exception ;
 
 }
