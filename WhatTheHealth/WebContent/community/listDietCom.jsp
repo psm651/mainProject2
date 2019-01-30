@@ -53,6 +53,16 @@
 		});
 	});	
    
+ /*   var page = 1;
+
+   $(window).scroll(function() {
+       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+         console.log(++page);
+         $("#startHere").append(page);
+         
+       }
+   }); */
+   
   </script>
   
  
@@ -81,7 +91,7 @@
         <br/>
         
         <!-- div : start -->
-        <div class="row mb-5">
+       <!--  <div class="row mb-5" id="startHere"> -->
         	<c:set var="i" value="0"/>
           	<c:set var="i" value="${i+1}"/>
           	<c:forEach var="post" items="${list}"> 
@@ -143,6 +153,6 @@
       </div>
       <!-- container : end -->
     </div>
-  </div>
+<!--   </div> -->
    </body>
 </html>

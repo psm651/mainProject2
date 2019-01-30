@@ -51,7 +51,7 @@ public class RefundRestController {
 		userService.updateHavingPoint(user);
 		
 		User admin = (User)session.getAttribute("user");
-		int havingPointAdmin =admin.getHavingPoint() - - refund.getRefundMoney();
+		int havingPointAdmin =admin.getHavingPoint() - refund.getRefundMoney();
 		admin.setHavingPoint(havingPointAdmin);
 		userService.updateHavingPoint(admin);
 		

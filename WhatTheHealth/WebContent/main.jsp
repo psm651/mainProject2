@@ -58,7 +58,13 @@
      background-size : cover;
      border-radius: 100px;
   } */
-  
+  .p-4{
+  }
+  .p-4 .heart{
+  	text-align : center;
+  	float : right;
+  	font-weight : bold;
+  }
   </style>
   
   <script type="text/javascript">
@@ -321,10 +327,12 @@
                   </c:if>
                          
                   <div class="p-4">
-                       <h3 class="h5 heading">${post.title}</h3>
-                       <!-- <span class="heart">
-                       		<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:10px;">
-                       </span> -->
+                 		<span>
+                       <h3 class="h5 heading">${post.title}</h3></span>
+                       <div class="heart">
+                       		<img src="../resources/images/fullHeart.png" style="width: 35px;">
+                       		${post.likeCount}
+                       </div>
                     
                        <span class="d-flex align-items-center" style="width:200px; display:inline-block">
                           <div id="userInfo">
@@ -356,7 +364,7 @@
       </div>
     </div>
     
-   <div class="featured-classes bg-light py-3 block-13">
+   <div class="featured-classes bg-light py-3 block-13" style="margin-bottom:10em;">
       <div class="container">
         
         <div class="heading-with-border">
@@ -389,7 +397,12 @@
                   </c:if>
                          
                   <div class="p-4">
-                       <h3 class="h5 heading">${post.title}</h3>
+                  <span>
+                       <h3 class="h5 heading">${post.title}</h3></span>
+                       <div class="heart">
+                       		<img src="../resources/images/fullHeart.png" style="width: 35px;">
+                       		${post.likeCount}
+                       </div>
                     
                        <input type="hidden" name="postNo" value="${post.postNo}"/> 
                        <!-- <p></p> -->
@@ -419,7 +432,7 @@
       </div>
     </div>
     
-
+<!-- 
      <div class="site-section bg-light">
 
       <div class="container">
@@ -521,7 +534,7 @@
 
       </div>
       
-    </div> 
+    </div> --> 
     
     <!-- <footer class="site-footer">
       <div class="container">

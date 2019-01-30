@@ -1,11 +1,13 @@
 package com.wthealth.controller;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
@@ -81,13 +83,13 @@ public class RefundController {
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
-		// Business logic ����
+		// Business logic 占쏙옙占쏙옙
 		Map<String , Object> map = refundService.listRefund(search,userId);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		// Model �� View ����
+		// Model 占쏙옙 View 占쏙옙占쏙옙
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -105,13 +107,13 @@ public class RefundController {
 		}
 		search.setPageSize(pageSize);
 		
-		// Business logic ����
+		// Business logic 占쏙옙占쏙옙
 		Map<String , Object> map = refundService.listRefundAdmin(search);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		// Model �� View ����
+		// Model 占쏙옙 View 占쏙옙占쏙옙
 		model.addAttribute("listAdmin", map.get("listAdmin"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -120,7 +122,7 @@ public class RefundController {
 	}
 	
 	@RequestMapping(value = "authorizeAccount")
-	public String authorizeAccount(HttpSession session, HttpServletRequest request, @ModelAttribute("refund") Refund refund) throws Exception{
+	public String authorizeAccount(HttpSession session, @ModelAttribute("refund") Refund refund) throws Exception{
 		System.out.println("/authorizeAccount : POST");
 		//System.out.println("refund:"+refund);
 		
@@ -131,14 +133,23 @@ public class RefundController {
 		String bankCode = refundService.getBankCode(refund.getBankName());
 		System.out.println("bankCode"+bankCode);
 		
-		Map<String, Object> accessToken = refundService.getAccessToken(); //token ȹ��
-		refundService.getAccount((String)accessToken.get("access_token"), refund.getAccountNum(), refund.getDateOfBirth(), bankCode);
-		//refundService.getAccount((String)accessToken.get("access_token"), "84860204104911", 9404162, "004"); //�Էµ��ִ� �Ķ���Ϳ� ������ �Է��� ������ ������ ��..
-		//refundService.getAccount((String)accessToken.get("access_token"), (String)request.getAttribute("accountNum"), (int)request.getAttribute("dateOfBirth"),(String)request.getAttribute("bankCode"));
+		Map<String, Object> accessToken = refundService.getAccessToken(); //token 획득
+		refundService.getAccount((String)accessToken.get("access_token"), refund.getAccountNum(), refund.getDateOfBirth(), bankCode); 
 		
-		refund.setHolder((String)request.getAttribute("holder")); //�����ָ� ����
+		refund.setHolder(refund.getHolder()); 
 		refund.setUserId(userId);
 		
+		User owner = userService.getUser(userId);
+		if(owner.getAccountNum() == null || owner.getAccountNum() == "") {
+			owner.setAccountNum(refund.getAccountNum());
+			owner.setDateOfBirth(refund.getDateOfBirth());
+			owner.setHolder(refund.getHolder());
+			owner.setBankCode(bankCode);
+			owner.setBankName(refund.getBankName());
+			userService.updateAccount(owner);
+			
+			System.out.println("유저에 계좌정보 업데이트 완료");
+		}
 		return "redirect:/refund/listRefund";
 		
 	}
@@ -151,14 +162,14 @@ public class RefundController {
 		User user = userService.getUser(userId);
 		session.setAttribute("user", user);
 		
-		Map<String, Object> accessToken = refundService.getAccessToken(); //token ȹ��
-		refundService.deposit((String)accessToken.get("access_token"), "84860204104911", 9404162, "004"); //�Էµ��ִ� �Ķ���Ϳ� ������ �Է��� ������ ������ ��..
+		Map<String, Object> accessToken = refundService.getAccessToken(); //token 획占쏙옙
+		refundService.deposit((String)accessToken.get("access_token"), "84860204104911", 9404162, "004"); //占쌉력듸옙占쌍댐옙 占식띰옙占쏙옙沽占� 占쏙옙占쏙옙占쏙옙 占쌉뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙..
 		//refundService.getAccount((String)accessToken.get("access_token"), (String)request.getAttribute("accountNum"), (int)request.getAttribute("dateOfBirth"),(String)request.getAttribute("bankCode"));
 		
 		Refund refund = new Refund();
-		refund.setHolder((String)request.getAttribute("holder")); //�����ָ� ����
+		refund.setHolder((String)request.getAttribute("holder")); //占쏙옙占쏙옙占쌍몌옙 占쏙옙占쏙옙
 		refund.setUserId(userId);
-		refund.setRefundStatus("1"); //ȯ�� �Ϸ�
+		refund.setRefundStatus("1"); //환占쏙옙 占싹뤄옙
 		
 		model.addAttribute("refund", refund);
 		
