@@ -8,6 +8,7 @@ public class Chatting {
 	private String user2;
 	private String user1Status;
 	private String user2Status;
+	private String userImage;
 
 
 	public Chatting() {
@@ -75,11 +76,21 @@ public class Chatting {
 	}
 
 
+	public String getUserImage() {
+		return userImage;
+	}
+
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Chatting [chattingNo=" + chattingNo + ", roomId=" + roomId + ", user1=" + user1 + ", user2=" + user2
-				+ ", user1Status=" + user1Status + ", user2Status=" + user2Status + "]";
+				+ ", user1Status=" + user1Status + ", user2Status=" + user2Status + ", userImage=" + userImage + "]";
 	}
 
-	
+
 }

@@ -1,5 +1,6 @@
 package com.wthealth.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,7 @@ import com.wthealth.service.socket.SocketService;
 
 @Controller
 @RequestMapping("/socket/*")
-public class SocketController {
+public class SocketControllerJisu {
 	
 	@Autowired
 	@Qualifier("socketServiceImpl")
@@ -34,7 +35,7 @@ public class SocketController {
 	@Qualifier("chattingServiceImpl")
 	private ChattingService chattingService;
 	
-	public SocketController() {
+	public SocketControllerJisu() {
 		System.out.println(this.getClass());
 	}
 	
@@ -102,18 +103,84 @@ public class SocketController {
 	@RequestMapping(value = "addChatting",  method=RequestMethod.GET)
 	public String addChating(@RequestParam("userId2") String userId2, Model model, HttpSession session) throws Exception {
 		
+		
+		String userId1 = ((User)session.getAttribute("user")).getUserId();
 		System.out.println("/socket/addChating : GET");
 		Chatting chatting = new Chatting();
-		chatting.setUser1(((User)session.getAttribute("user")).getUserId());
+
+		chatting.setUser1(userId1);
 		chatting.setUser2(userId2);
-		String roomId = userId2 + ";"+((User)session.getAttribute("user")).getUserId();
-		chatting.setRoomId(roomId);
 		
-		chattingService.addChatting(chatting);
+	/*	List<Chatting> list1 = chattingService.listChatting1(userId2);
+		List<Chatting> list2 = chattingService.listChatting2(userId1);
+		*/
 		
-		model.addAttribute("roomId", roomId);
+		String roomId1 = userId2 + ";"+((User)session.getAttribute("user")).getUserId();
+		String roomId2 = ((User)session.getAttribute("user")).getUserId()+ ";"+userId2;
 		
-	    return "forward:/socket/chatting.jsp";
+		if(chattingService.getChatting(roomId1) == null && chattingService.getChatting(roomId2) == null) {
+			chatting.setRoomId(roomId2);
+			
+			chattingService.addChatting(chatting);
+			
+			model.addAttribute("roomId", roomId2);
+			
+			System.out.println("////////////방추가됨");
+		}
+		
+		
+		/*boolean check = false;
+		//System.out.println("indexOF:::::"+list1.lastIndexOf(list1));
+		System.out.println("size::::"+list1.size());
+		System.out.println("roomId :::::"+roomId);*/
+		
+		/*if(list1 != null && list2 !=null) {
+			
+			for(int i=0; i<list1.size(); i++) {
+				if(list1.get(i).getUser1() != userId1 && list1.get(i).getUser2() != userId1
+						&& list2.get(i).getUser1() != userId2 && list2.get(i).getUser2() != userId2) {
+				
+				System.out.println("방 이름1:::::"+list1.get(i).getRoomId()+"::::::::");
+				System.out.println("방 이름2:::::"+list2.get(i).getRoomId());
+				
+				String roomId1 = list1.get(i).getRoomId();
+				String roomId2
+				
+				
+				if(list1.get(i).getUser1() == userId1 || list1.get(i).getUser2() == userId1
+						|| list2.get(i).getUser1() == userId2 || list2.get(i).getUser2() == userId2
+						|| list1.get(i).getRoomId() == roomId || list2.get(i).getRoomId() == roomId) {
+					
+					System.out.println("////////////방추가 안됨");
+					check = true;
+					break;
+					
+					
+	               chatting.setRoomId(roomId);
+					
+					chattingService.addChatting(chatting);
+					
+					model.addAttribute("roomId", roomId);
+					
+				    return "forward:/socket/chatting.jsp";
+				}
+			}*/
+		//}
+				/*if(check == false) {
+					chatting.setRoomId(roomId);
+					
+					chattingService.addChatting(chatting);
+					
+					model.addAttribute("roomId", roomId);
+					
+					System.out.println("////////////방추가됨");
+					
+				}*/
+		
+		
+		
+		 return "forward:/socket/chatting.jsp";
+		
 	   }
 	
 	@RequestMapping(value = "getChatting",  method=RequestMethod.GET)

@@ -320,15 +320,37 @@ public class UserController {
 		//Business Logic
 		User user = userService.getUser(userId);
 		/////////////////////채팅리스트 추가추가///////////////////
-		List<Chatting> list = chattingService.listChatting(userId);
+		List<Chatting> list1 = chattingService.listChatting1(userId);
+		List<Chatting> list2 = chattingService.listChatting2(userId);
 		/////////////////////////////////////////////////////
 		
 		// Model 과 View 연결
 		model.addAttribute("user", user);
-		model.addAttribute("chattinglist", list);
+		model.addAttribute("chattinglist1", list1);
+		model.addAttribute("chattinglist2", list2);
 		
 		return "forward:/user/getUser.jsp";
 	}
+	
+	@RequestMapping( value="getUserMeeting", method=RequestMethod.GET )
+	public String getUserMeeting( @RequestParam("userId") String userId , Model model ) throws Exception {
+		
+		System.out.println("/user/getUserMeeting : GET");
+		//Business Logic
+		User user = userService.getUser(userId);
+		/////////////////////채팅리스트 추가추가///////////////////
+		List<Chatting> list1 = chattingService.listChatting1(userId);
+		List<Chatting> list2 = chattingService.listChatting2(userId);
+		/////////////////////////////////////////////////////
+		
+		// Model 과 View 연결
+		model.addAttribute("user", user);
+		model.addAttribute("chattinglist1", list1);
+		model.addAttribute("chattinglist2", list2);
+		
+		return "forward:/user/getUserMeeting.jsp";
+	}
+	
 	
 	@RequestMapping( value="updateUser", method=RequestMethod.GET )
 	public String updateUser( @RequestParam("userId") String userId , Model model ) throws Exception{
