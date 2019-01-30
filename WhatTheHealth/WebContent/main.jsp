@@ -144,7 +144,7 @@
     </div>
 
 
-    <div class="featured-classes bg-light py-5 block-13">
+    <%-- <div class="featured-classes bg-light py-5 block-13">
       <div class="container">
         
         <div class="heading-with-border">
@@ -216,10 +216,10 @@
         </div>
 
       </div>
-    </div>
+    </div> --%>
 
 
-   <div class="featured-classes bg-light py-3 block-13">
+   <%-- <div class="featured-classes bg-light py-3 block-13">
       <div class="container">
         
         <div class="heading-with-border">
@@ -291,7 +291,7 @@
         </div>
 
       </div>
-    </div>
+    </div> --%>
 
 <!-- 식단 커뮤니티 추천 -->
      <div class="featured-classes bg-light py-3 block-13">

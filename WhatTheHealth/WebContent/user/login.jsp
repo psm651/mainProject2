@@ -171,7 +171,7 @@
 					//opner.close();
 					//self.location = '/user/kakaoLogin';
 					popWin 
-					= window.open("https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code",
+					= window.open("https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://192.168.0.48:8080/user/kakaoLogin&response_type=code",
 												"popWin", 
 												"left=300,top=200,width=780,height=130,marginwidth=0,marginheight=0,"+
 												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); 
