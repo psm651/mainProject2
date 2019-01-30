@@ -120,7 +120,7 @@
   
 	function fncAddExInfo(){
 
-	
+	alert("")
 	 	var title = $("input[name='title']").val();
 		var contents = $("textarea[name='contents']").val();
      	var exCalorie = $("input[name='exCalorie']").val();
@@ -144,7 +144,7 @@
 			alert("운동부위는 반드시 입력하여야합니다.");
 			return;
 		}
-		if(exPart == null || exPart.length<1){
+		if(exPlace == ''){
 			alert("운동장소 반드시 입력하여야합니다.");
 			return;
 		}  
@@ -302,7 +302,7 @@
  
           	  <div class="form-group">  
 				<select class="form-control" name="exPlace" id="exPlace" >
-					<option value=null>운동장소</option>
+					<option value="">운동장소</option>
 					<option value="0" >실내</option>
 					<option value="1" >실외</option>		
 				</select>   			

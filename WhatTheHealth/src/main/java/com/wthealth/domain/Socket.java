@@ -14,6 +14,8 @@ public class Socket {
 	private String firPlayerId;
 	private String secPlayerId;
 	private String liveStatus;
+	private String userImage;
+	private String nickname;
 	
 	///Constructor
 	public Socket() {
@@ -92,10 +94,28 @@ public class Socket {
 		this.liveStatus = liveStatus;
 	}
 
+	public String getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	@Override
 	public String toString() {
 		return "Socket [socketNo=" + socketNo + ", bjId=" + bjId + ", liveDate=" + liveDate + ", liveTitle=" + liveTitle
 				+ ", totalViewer=" + totalViewer + ", liveType=" + liveType + ", firPlayerId=" + firPlayerId
-				+ ", secPlayerId=" + secPlayerId + ", liveStatus=" + liveStatus + "]";
+				+ ", secPlayerId=" + secPlayerId + ", liveStatus=" + liveStatus + ", userImage=" + userImage
+				+ ", nickname=" + nickname + "]";
 	}
+
 }

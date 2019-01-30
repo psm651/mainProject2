@@ -6,7 +6,7 @@
 
 <html lang="ko">
   <head>
-    <title>소모임 목록 페이지</title>
+    <title>라이브방송 목록 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
@@ -48,16 +48,31 @@
  	
    $(function(){
   	$(".post-entry").on("click", function(){
-  		var meetNo = $(this).data("param");
-  		self.location = "/meeting/getMeetingMap?meetNo="+meetNo;
+  		var socketNo = $(this).data("param");
+  		//var bjId = "horan";
+  		var bjId = $(this).data("param2");
+         alert("socketNo"+socketNo+"; biId ;"+bjId+"; userId ;"+ '${user.userId}');
+  		 if( '${user.userId}'== bjId){
+  		self.location = "https://192.168.0.55:443/broadcast.html?nickName="+'${user.nickName}'+"&roomId="+socketNo;
+  		 }else{
+  			self.location = "https://192.168.0.55:443/index.html?nickName="+'${user.nickName}'+"&roomId="+socketNo;
+  		 }
   	});
   });
   
-   $(function() {
-		$("#addMeeting").on("click" , function() {
-			self.location = "/meeting/addMeeting";
-		});
-	});	
+
+   function addLiveRoom(){
+		    if( '${user.userId}'== null || '${user.userId}'=='' ){
+			  	alert("로그인 후 이용가능합니다.");
+			  	return;
+		   } 
+			popWin 
+			= window.open("/socket/addLiveStream",
+										"popWin", 
+										"left=300,top=200,width=500,height=300,marginwidth=0,marginheight=0,"+
+										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+
+   }
    
    /* $(function() {
 		$("#addSocket").on("click" , function() {
@@ -72,15 +87,6 @@
    <div class="site-wrap">
      <jsp:include page="/layout/toolbar.jsp" /> 
 
-    <div class="site-mobile-menu">
-      <div class="site-mobile-menu-header">
-<!--    <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div> -->
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
-    
 
     
 <!--     <div class="site-blocks-cover inner-page overlay" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
@@ -95,25 +101,29 @@
 
     <div class="site-section">
       <div class="container">
-      <div><h2>소모임 목록</h2></div> 
+      <div><h2>라이브방송 목록</h2></div> 
       <hr/>
-       <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addMeeting">글쓰기</a></p>
+       <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveRoom"  onclick="addLiveRoom();">방개설하기</a></p>
       <br/>
-   
+  
+       
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   align="right" class="btn btn-primary pill text-white px-4"   id="addSocket">화상채팅</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
+   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/index.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브보기</a></p>
        
         
         <div class="row mb-5">
           <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
-          <c:forEach var="meeting" items="${list}"> 
+          <c:forEach var="socket" items="${list}"> 
           
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white box" data-param="${meeting.meetNo}">
+            <div class="post-entry bg-white box"  data-param="${socket.socketNo}"   data-param2="${socket.bjId}">
               <div class="image"  style="width:400px; height:200px">
-              	<c:if test="${empty meeting.post.photo}">
+              	<%-- <c:if test="${empty meeting.post.photo}"> --%>
                     <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
-                </c:if>
-                <c:set var="youtubeThumbnail" value="${meeting.post.photo}"/>
+                <%-- </c:if> --%>
+                <%-- <c:set var="youtubeThumbnail" value="${meeting.post.photo}"/>
                 <c:if test="${!empty meeting.post.photo}">
                 <c:choose>
 		               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
@@ -123,35 +133,35 @@
 		               				<img src="/resources/images/upload/${meeting.post.photo}"  class="img-fluid">
 		               			</c:otherwise>            			
 		               		</c:choose>
-                	<%-- <img src="/resources/images/upload/${meeting.post.photo}" class="img-fluid" alt=""> --%>
-                </c:if>
+                	<img src="/resources/images/upload/${meeting.post.photo}" class="img-fluid" alt="">
+                </c:if> --%>
               </div>
               <div class="text col-md-8">
-                <h2 class="h3" ><a href="#">${meeting.post.title}</a></h2>
-                <span class="text-uppercase date d-block mb-3">${meeting.post.postDate}</span>
+                <h2 class="h3" ><a href="#">${socket.liveTitle}</a></h2>
+                <span class="text-uppercase date d-block mb-3">${socket.liveDate}</span>
  				<%-- <p class="mb-0">${meeting.post.likeCount}</p>
                 <span class="text-uppercase date d-block mb-3">
                 <small>${meeting.post.nickName}</small>
                 </span>   --%>              
                 <div class="userInfo">
-                			<c:if test="${meeting.post.userImage != null and meeting.post.userImage != '' }">
-                				<img src="/resources/images/userImage/${post.userImage}" style="border-radius:100px; width:50px; height: 50px;">
+                			<c:if test="${socket.userImage != null and socket.userImage != '' }">
+                				<img src="/resources/images/userImage/${socket.userImage}" style="border-radius:100px; width:50px; height: 50px;">
                 			</c:if>
-                			<c:if test="${meeting.post.userImage == null or meeting.post.userImage ==  ''}">
+                			<c:if test="${socket.userImage == null or socket.userImage ==  ''}">
 								<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>
 						    </c:if>
-                			${meeting.post.nickName}
+                			${socket.nickname}
                 		</div>
               </div>
               
-              <div class="col-md-4">
+              <%-- <div class="col-md-4">
  						<div class="likeImage">
  							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
  						</div>
  						<div class="likeCount" style="margin-left:38px">
  							<h5>${meeting.post.likeCount}</h5>
  						</div>
- 					</div>
+ 					</div> --%>
 
             </div>
           </div>    

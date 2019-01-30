@@ -158,172 +158,140 @@
 </head>
 
 <body>
-					
+	<input type="hidden" id="usedNickname" value="${sessionScope.user.nickName }"/>
+
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
-   	<!-- ToolBar End /////////////////////////////////////-->							
+   	<!-- ToolBar End /////////////////////////////////////-->
 	
-
-
-
+	<!--  화면구성 div Start /////////////////////////////////////-->
+	 <div class="site-section">
 	<div class="container">
-	<br/><br/>
 		<div class="row">
-      	 <div class="col-md-7 ">
+	 		
+	 		<div class="col-md-2"></div>
+	 		<div class="col-md-8">
 
-			<div class="panel panel-default">
-  				 <div class="panel-body">
-       
-  				  <div class="box box-info">
-  		<!-- <form action="submitReport1.do" method="post" enctype="multipart/form-data"></form> -->
-  				  <form class="form-horizontal" method="post" enctype="multipart/form-data">
-	    	
-	    			  <input type="hidden" name="userId" value="${user.userId}" />
-
-        
-          			  <div class="box-body">
-                      <div class="col-sm-6">
-                      <div align="center"> 
-                      
-                      <div class="form-group" id="j">
-                      <img alt="User Pic" src="/resources/images/upload/${!empty user.userImage? user.userImage : 'user_profile.png'}" 
-                     		 id="profile-image1" class="img-circle img-responsive"> 
-                     		 
-                     <!--   <input type="file"  id="fileForm" name="uploadFile" width="100px;" onchange="ChangeImage()"/>   -->
-                    <div style="text-align:center;">
-   					<input multiple="multiple" type="file" name="originalFileName" style="width:500px;" accept="image/*" multiple onchange="fileInfo(this)"/><br>
-   					<div id="img_box"></div> 
-              
-                	  </div>
-                	  </div> 
-   
-					</div>
-              <br>
-            </div>
-            
-            
-            
-         
-            <div class="form-group">
-            	<div class="col-sm-6">
-           		   <h3 style="color:#00b1b1;" text-align="center">${user.userId}</h3>      
-           		 </div>
-           	</div>
-           		 
-           	<div class="form-group">	 
-            	<div class="col-sm-offset-4  col-sm-4 text-full-right">
-		    	<button type="button" class="btn btn-primary">수정</button>
-		    	</div>
-            	<div class="clearfix"></div>
-            	<hr style="margin:5px 0 5px 0;">
-    		</div>
-    		
-            <div class="form-group"> 
-				<div class="col-sm-5 col-xs-6 tital">아이디</div>
-				<div class="col-sm-7 col-xs-6">${user.userId}</div>
-     			<div class="clearfix"></div>
-				<div class="bot-border"></div>			
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital">닉네임</div>
-				<div class="col-sm-7">
-					<input type="text" name="nickName"  value="${user.nickName}" oninput="CheckNickname()"/>
-					<span id="checkNicName" class="icon-check mr-3"></span>
-				</div>
-  				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital">이메일</div>
-				<div class="col-sm-7">
-					<input type="text" name="email" value="${user.email}"/>
-				</div>
- 				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital">휴대전화</div>
-				<div class="col-sm-7">
-					<input type="text" name="phone" value="${user.phone}"/>	
-				</div>
-  				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
+	    <!-- form Start /////////////////////////////////////-->
+		<form class="p-5 bg-white" enctype="multipart/form-data">
 		
-<%-- 			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital">계정상태</div>
-				<div class="col-sm-7">
-				<c:if test="${user.userStatus=='0'}">
-					<input type="text" name="userStatus" value="일반"/>
-				</c:if>
-				<c:if test="${user.userStatus=='1'}">
-					<input type="text" name="userStatus" value="탈퇴"/>
-				</c:if>
-				<c:if test="${user.userStatus=='2'}">
-					<input type="text" name="userStatus" value="블랙리스트"/>
-				</c:if>			
-							
-				</div> --%>
-			<div class="form-group">	
- 			<div class="col-sm-5 col-xs-6 tital">계정상태</div>
- 				 <div class="col-sm-7">			
-		      	 <select name="userStatus" class="form-control">
-					<option value="0" ${user.userStatus=='0' ? 'selected' : ''}>일반</option>
-					<option value="1" ${user.userStatus=='1' ? 'selected' : ''}>탈퇴</option>
-					<option value="2" ${user.userStatus=='2' ? 'selected' : ''}>블랙리스트</option>
+		  <div class="form-group">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="userId" class="font-weight-bold">아 이 디</label>
+		      <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" readonly>
+		       <span id="helpBlock" class="help-block">
+		      	<strong class="text-danger">아이디는 수정불가</strong>
+		      </span>
+		    </div>
+		  </div>
+		
+		  <div class="form-group">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="password" class="font-weight-bold">비밀번호</label>
+		      <input type="password" class="form-control" id="password" name="password" >
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="password2" class="font-weight-bold">비밀번호 확인</label>
+		     <span class="icon-check mr-3" id="checkPW"></span>
+		      <input type="password" class="form-control" id="password2" name="password2" >
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="nickName" class="font-weight-bold">닉 네 임</label>
+		   <span class="icon-check mr-3" id="checkNickname"></span>
+		      <input type="text" class="form-control" id="nickName" name="nickName" value="${user.nickName}" oninput="CheckNickname()">
+		    </div>
+		  </div>
+		  
+		 
+		  <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="phone" class="font-weight-bold">휴대전화</label>
+		     	<input type="text" class="form-control" id="phone" name="phone" value="${user.phone}"  >
+		    </div>
+		  </div>
+		  
+		   <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="email" class="font-weight-bold">이메일</label>
+		      <input type="text" class="form-control" id="email" name="email" value="${user.email}" >
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		  	<label for="gender" class="font-weight-bold">성별</label><br/>
+		  			<input type='radio' name='gender' value='0' checked />여
+		  			<input type='radio' name='gender' value='1'  />남
+		  		</div>
+		  </div>
+		  
+		  <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="uploadFile" class="font-weight-bold">프로필 사진</label><br/>
+		      <img src="/resources/images/userImage/${user.userImage}" align="middle" height="200"/><br/>
+		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="${user.userImage}">
+		    </div>
+		  </div>
+
+		  
+		   <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="holder" class="font-weight-bold">예 금 주</label>
+		      <input type="text" class="form-control" id="holder" name="holder"  value="${user.holder}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="bankName" class="font-weight-bold">은 행 명</label>
+		       <select class="form-control" name="bankName" id="bankName">
+		       		<option value="" ></option>
+				  	<option value="국민" >국민</option>
+					<option value="신한" >신한</option>
+					<option value="우리" >우리</option>
+					<option value="농협" >농협</option>
+					<option value="하나" >하나</option>
 				</select>
-				</div>				
- 				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital" >예금주</div>
-				<div class="col-sm-7">
-					<input type="text" name="holder" value="${user.holder}"/>
-				</div>
-				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital" >은행</div>
-				<div class="col-sm-7">
-					<input type="text" name="bankName" value="${user.bankName}"/>
-				</div>
-				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital">계좌번호</div>
-				<div class="col-sm-7">
-					<input type="text" name="accountNum" value="${user.accountNum}"/>
-				</div>
-				<div class="clearfix"></div>
-				<div class="bot-border"></div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-5 col-xs-6 tital">포인트</div>
-				<div class="col-sm-7">
-					<input type="text" name="havingPoint" value="${user.havingPoint}"/>
-				</div>
-			</div>
-
-
-
-          </div> 
-          </form> 
-       </div>
-   </div>
-</div>
-</div>
-</div>
-</div>
-
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		  <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="accountNum" class="font-weight-bold">계좌번호</label>
+		      <input type="text" class="form-control" id="accountNum" name="accountNum"  value="${user.accountNum}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		   <div class="col-md-12 mb-3 mb-md-0">
+		    <label for="userStatus" class="font-weight-bold">계정상태</label>
+		       <select class="form-control" name="userStatus" id="userStatus">
+				  	<option value="일반" >일반</option>
+					<option value="탈퇴" >탈퇴</option>
+					<option value="블랙리스트" >블랙리스트</option>
+				</select>
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <div class="col-md-10 mb-3 mb-md-2 text-center">
+		      <button type="button" class="btn btn-primary"  >수 &nbsp;정</button>
+			  <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
+		    </div>
+		  </div>
+		</form>
+		<!-- form Start /////////////////////////////////////-->
+	    </div>
+ 	</div>
+ 	</div>
+ 	</div>
+	<!--  화면구성 div Start /////////////////////////////////////-->
+ 	
 </body>
 </html>

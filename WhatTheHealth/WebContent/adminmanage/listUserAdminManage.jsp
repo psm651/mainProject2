@@ -104,7 +104,7 @@
         	
 			<div class="form-group">  
 				<select class="form-control" name="searchFilter" onchange="javascript:fncGetPageList('1');" >
-					<option value=null>계정상태</option>
+					<option value="">계정상태</option>
 					<option value="0" ${!empty search.searchFilter && search.searchFilter=='0' ? "selected" : "" }>일반</option>
 					<option value="1" ${!empty search.searchFilter && search.searchFilter=='1' ? "selected" : "" }>탈퇴</option>
 					<option value="2" ${!empty search.searchFilter && search.searchFilter=='2' ? "selected" : "" }>블랙리스트</option>		
@@ -155,7 +155,7 @@
             
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center">
-				<div class="col-sm-2 col-md-2 col-lg-2" ><span class="icon-person mr-2" "></span>${user.userId}</div>
+				<div class="col-sm-2 col-md-2 col-lg-2" ><span class="icon-person mr-2"></span>${user.userId}</div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${user.nickName}</div>
                 	<div class="col-sm-2 col-md-2 col-lg-2">${user.regDate}</div>
                			 <c:if test="${user.userStatus=='0'}">

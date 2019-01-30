@@ -64,7 +64,10 @@
    	   weight:80px;
    	   height:80px;
    	   }
-   	
+   		#scheduleIcon{
+   		weight:50px;
+   		height:50px;
+   		}
     </style>
     	
   
@@ -169,7 +172,7 @@ $('#dietScDate').datepicker({
         	var tr = $(this).closest("td").closest("tr"); 
         	var calorie = tr.children("td").eq(2).text();
         	tr.remove();
-        	tr
+        
 
     		
 		    var amount = parseInt($("#amount").text());
@@ -181,7 +184,7 @@ $('#dietScDate').datepicker({
      });   	
 
 	$(function(){
-		$(".btn:contains('저장')").on("click", function(){
+		$(".btn:contains('담기')").on("click", function(){
 			
 			var dietScDate =$("input[name='dietScDate']").val();
 			var mealTime = $("#mealTime").val();
@@ -191,26 +194,34 @@ $('#dietScDate').datepicker({
 			if(${sessionScope.user.userId != null}){
 			
 				 $("#test").attr("method","POST").attr("action", "/calculator/addDietSchedule?dietScDate="+dietScDate+"&mealTime="+mealTime+"&amount="+amount).submit()
-			 	/* $("form").attr("method","POST").attr("action", "/exInfo/addDietSchedule?dietScDate='"+dietScDate+"'").submit(); */
+			 	
 			}else{ 
 			    swal("회원만 이용 가능합니다.")
 			}
 		});
 	});
 
- 			
-/*  	$(function(){
 
-		$("#bmiIcon").draggable();
-		$("#bmiIcon").droppable();
-	}) ;
- 	
- 	$(function(){
- 	
- 		$('#bmiIcon').on("click", function(){
- 			
- 		});
- 	}) */
+$(function(){
+	
+
+		$('#dietScDate').datepicker({
+			autoClose: false,
+			position:  "right top",
+			autoClose: true,
+			todayButton : true
+	/* 	onSelect: function onSelect(fd){			
+		} */
+		});
+	// Select initial date from `eventDates`
+
+		$('#dietScDate').data('datepicker');
+	//Access instance of plugin
+	/* $('#exInfoSc').data('datepicker')    
+
+	}); */
+
+});
  	
 
 </script>
@@ -229,7 +240,7 @@ $('#dietScDate').datepicker({
 	    </div>
  	</div>
  
-<!--  	 <img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon"> --> 
+  	
 
    	<div class="container">
 	
@@ -253,28 +264,35 @@ $('#dietScDate').datepicker({
 				</div>
 			</div>
 
-	
+			<br/>
 		
-			<div class="row form-group">	
-			   <div class="col-md-3">		
-			 	 <input type='text' class='datepicker-here' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-left:800px;"/> 			
-		       </div>
-		       <div class="col-md-3">
-		    	 <strong>추가된 총 칼로리:</strong><span id="amount"></span>
-			   </div>
-	 		   <div class="col-md-3">
-				<select class="form-control" name="mealTime" id="mealTime" >
+			<div class="form-inline">	
+				<div class="row">
+		       <div class="col-md-2">
+		    	 <strong style="text-align:left;margin-bottom:-50px;">추가된 총 칼로리:</strong><span id="amount"></span>
+			   </div>			
+			
+
+	 		   <div class="col-md-2">
+				<select class="form-control" name="mealTime" id="mealTime" style="margin-left:290px;">
 					<option value="0" >아침</option>
 					<option value="1" >점심</option>
 					<option value="2" >저녁</option>		
 				</select>  
 			  </div>
-			  <div class="col-md-3">	 			
-				 <a href="#" class="btn btn-primary pill px-4" id="button"  >저장</a>
+			   <div class="col-md-2" style="margin-left:850px;">	
+			 	 <img src="/resources/images/upload/schedule.png" alt="Image" class="img-fluid" id="scheduleIcon"> 
+			   </div>
+			   <div class="col-md-2" style="margin-left:850px;">		
+			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" /> 		
+		       </div>
+			  
+			  <div class="col-md-2" style="margin-left:1050px;padding-bottom:-100px;">	 			
+				 <a href="#" class="btn btn-primary pill px-4" id="button" >담기</a>
+		 	  </div>
 		 	  </div>
 		   </div>
 		    
-
 	   
  <form:form commandName="foodInfos" id="test">
 
