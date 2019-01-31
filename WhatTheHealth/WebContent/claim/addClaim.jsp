@@ -36,7 +36,9 @@ String strDate= simpleDate.format(date);%>
  		body {
             padding-top : 50px;
         }
-        .row1 { display: none; }
+        .row1 {
+         display: none; 
+        }
      </style>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -71,31 +73,42 @@ String strDate= simpleDate.format(date);%>
 				$( ".btn.btn-primary" ).on("click" , function() {
 					alert("123");
 					var test = $("textarea").val();
-					var claimedUserId1 = $("input[name=claimedUserId]").val();
+					var claimedUserId = $("input[name=claimedUserId]").val();
 					var targetNo1= $("input[name=targetNo]").val();
-					alert(claimedUserId1);
-					alert(targetNo1);
-					console.log(test);
 				        $.ajax( {
 				          url: "/claim/json/addClaim",
 				          dataType: "json",
 				          method : "POST",
 				          data: JSON.stringify({
-				       		claimedUserId:claimedUserId1,
+				       		claimedUserId:claimedUserId,
 				       		targetNo:$("input[name=targetNo]").val(),
 				       		claimReasonNo:$("#selectBox").val(),
-				       		claimContents:test
+				       		<c:if test="${param.menu== 'post'}">
+								claimSortNo:"0"
+							</c:if>
+							<c:if test="${param.menu== 'reply'}">
+							claimSortNo:"1"
+						</c:if>
+				       		,claimContents:test
 				          }),
 				          headers : {
 				  			"Accept" : "application/json",
 				  			"Content-Type" : "application/json"},
 				  	   success: function( data ) {
-				  			alert("회원가입이 정상적으로 되었습니다");
-							self.close(); 
+
+				  		   if (data=="0") {
+							alert("이미 신고처리 된 게시물 입니다.");
+							self.close();
+						}
+				  		 if (data=="1") {
+								alert("신고완료!.");
+								self.close();
+							}
 			      		  } 
-				        } );
-				     
-				    } );
+				        });
+				        
+				    });
+				
 			});
 		 
 		 ////////////////////
