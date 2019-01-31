@@ -7985,7 +7985,6 @@ var BasicView = /** @class */ (function (_super) {
         var theme = this.calendar.theme;
         return '' +
             '<table class="' + theme.getClass('tableGrid') + '">' +
-            
             (this.opt('columnHeader') ?
                     '<thead class="fc-head">' +
                         '<tr>' +
@@ -10857,11 +10856,12 @@ var Calendar = /** @class */ (function () {
             el.toggleClass('fc-rtl', opts.isRTL);
         });
         this.contentEl = $("<div class='fc-view-container'/>").prependTo(el);
-        if (this.opt('defaultView')=='agendaWeek') {
+      /*  if (this.opt('defaultView')=='agendaWeek') {
 			this.initToolbarssaa();
 		}else if(this.opt('defaultView') =='basicWeek'){
+        
+		}*/
         this.initToolbars();
-		}
         this.renderHeader();
         this.renderFooter();
         console.log( this.opt('defaultView'));
@@ -11071,23 +11071,23 @@ var Calendar = /** @class */ (function () {
         this.footer = new Toolbar_1.default(this, this.computeFooterOptions());
         this.toolbarsManager = new Iterator_1.default([this.header, this.footer]);
     };
-    Calendar.prototype.initToolbarssaa = function () {
+   /* Calendar.prototype.initToolbarssaa = function () {
         this.header = new Toolbar_1.default(this, this.computeHeaderOptionssaa());
         this.footer = new Toolbar_1.default(this, this.computeFooterOptions());
         this.toolbarsManager = new Iterator_1.default([this.header, this.footer]);
-    };
+    };*/
     Calendar.prototype.computeHeaderOptions = function () {
         return {
             extraClasses: 'fc-header-toolbar',
             layout: this.opt('header')
         };
     };
-    Calendar.prototype.computeHeaderOptionssaa = function () {
+   /* Calendar.prototype.computeHeaderOptionssaa = function () {
         return {
             extraClasses: 'fc-header-toolbar',
       
         };
-    };
+    };*/
     
     
     Calendar.prototype.computeFooterOptions = function () {
@@ -11099,12 +11099,12 @@ var Calendar = /** @class */ (function () {
     // can be called repeatedly and Header will rerender
     Calendar.prototype.renderHeader = function () {
         var header = this.header;
-        if (this.opt('defaultView')=='agendaWeek') {
+       /* if (this.opt('defaultView')=='agendaWeek') {
         	header.setToolbarOptions(this.computeHeaderOptionssaa());
 		}else if (this.opt('defaultView')=='basicWeek') {
 			header.setToolbarOptions(this.computeHeaderOptions());
-		}
-        
+		}*/
+		header.setToolbarOptions(this.computeHeaderOptions());
         header.render();
         if (header.el) {
             this.el.prepend(header.el);

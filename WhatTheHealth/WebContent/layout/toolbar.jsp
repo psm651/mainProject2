@@ -101,9 +101,9 @@
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
 		
 		 $(document).on("click", '#myschedule_toolbar', function() {
-			 if("${sessionScope.user}" == null){				 
+			 if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
 				 alert("로그인이 필요한 서비스입니다.");
-				 //self.location = "/"
+				 /* self.location = "/" */
 			 } else if("${sessionScope.user}" != null){
 				self.location = "/schedule/listSchedule"	//UserId??????????
 			 }

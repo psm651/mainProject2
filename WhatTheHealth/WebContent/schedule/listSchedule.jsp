@@ -15,6 +15,7 @@
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
   }
+
   
 	* {margin: 0; padding: 0;}
 
@@ -129,7 +130,7 @@ html {
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 <br/><br/><br/>
-  
+
   <div style="height: 460px;" id='calendar'>
   
   </div>
@@ -147,6 +148,8 @@ html {
 		</table>
 	</div>
 </div>
+
+
 <div style="height: 400px;" id='calendarr'></div>
 <div class="giyong">
 	<div class="row" >
@@ -304,11 +307,11 @@ html {
 <link rel='stylesheet' href='/resources/css/fullcalendar1.css' />
 <script src='/resources/javascript/jquery.min.js'></script>
 <script src='/resources/javascript/moment.min.js'></script>
- <script src='/resources/javascript/fullcalendar.js'></script>
+ <script src='/resources/javascript/fullcalendar.js'></script> 
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />  
-<!-- <script src='/resources/javascript/fullcalendar1.js'></script> -->
+<!--  <script src='/resources/javascript/fullcalendar1.js'></script> --> 
 <script>
 
 $('.action-button:contains("Save")').on('click', function(e){
@@ -450,9 +453,9 @@ var result = new Array();
 		  			    	
 		  			  },
 		  header: {
-		        left: 'prev,next today,myCustomButton',//왼쪽상단버튼
+		        left: 'prev,next,myCustomButton,myCustomButton2',//왼쪽상단버튼
 		        center: 'title',//가운데
-		        right: 'basicWeek,basicDay'//오른쪽상단버튼
+		      /*   right: 'basicWeek'//오른쪽상단버튼 */
 		        },
 		        
 		      defaultView: 'basicWeek',//기본뷰 노터치
@@ -505,15 +508,15 @@ var result = new Array();
 		    		
 		    	  customButtons: {
 		    		    myCustomButton: {
-		    		      text: 'custom!',
+		    		      text: '<',
 		    		      click: function() {
-		    		        alert('clicked the custom button!');
+		    		    		$('.fc-prev-button').trigger('click');
 		    		      }
 		    		    },
-		    		    custom2: {
-		    		        text: 'custom 2',
+		    		    myCustomButton2: {
+		    		        text: '>',
 		    		        click: function() {
-		    		          alert('clicked custom button 2!');
+		    		        	$('.fc-next-button').trigger('click');
 		    		        }
 		    		      }
 		    		  },eventRender:function(event, eventElement) {
@@ -538,7 +541,11 @@ $(function() {
 	  $('#calendarr').fullCalendar({
 		  selectable: true,  //사용자가 클릭 및 드래그하여 선택을 할 수 있도록
 		   selectHelper: true,//사용자가 드래그되는 동안 "자리"이벤트를 그릴 것인지 여부를 지정할 수 있습니다.
-	
+		   header: {
+		        left: 'prev,next today,myCustomButton',//왼쪽상단버튼
+		        center: 'title',//가운데
+		        right: 'basicWeek,basicDay'//오른쪽상단버튼
+		        },
 			  eventClick: function(event) {
 			    	$.ajax(
 			    			{	url : '../schedule/json/getDietSchedule/'+event.id,
@@ -659,7 +666,11 @@ $(function() {
 		    	
 		    		  <c:forEach items = "${dietList}" var = "asdf">
 		    		  {
-		    		  title:'${asdf.mealTime}',
+		    		  title:<c:if test='${asdf.mealTime=="0"}'>'아침 식단'</c:if>
+		    		  <c:if test='${asdf.mealTime=="1"}'>'점심 식단'</c:if>
+		    		  <c:if test='${asdf.mealTime=="2"}'>'저녁 식단'</c:if>
+		    		  
+		    		  ,
 		    		  id:'${asdf.dietScNo}',
 		    		  start:"${asdf.dietScDate}"
 		    			  , imageurl : "../resources/images/min.jpg"
@@ -881,7 +892,13 @@ $(function(){
 	right:10px;
 }
 .modal{
-	background: linear-gradient(rgba(196, 102, 0, 1), rgba(155, 89, 182, 0.6));
+	/* background: linear-gradient(rgba(196, 102, 0, 1), rgba(155, 89, 182, 0.6)); */
 }
+ #calendarr .fc-toolbar{
+ display:none; 
+  }
+    .fc-prev-button, .fc-next-button{
+ display:none; 
+  }
 </style>
 </html>

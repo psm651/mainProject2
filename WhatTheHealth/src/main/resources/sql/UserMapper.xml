@@ -108,7 +108,8 @@
 			user_phone  = #{phone:VARCHAR},
 			holder 		= #{holder:VARCHAR},
 			bank_name 	= #{bankName:VARCHAR},
-			account_num	= #{accountNum:VARCHAR}
+			account_num	= #{accountNum:VARCHAR},
+			user_status_code = #{userStatus:VARCHAR}
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>
