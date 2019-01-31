@@ -69,7 +69,7 @@
  		function addLiveStream() {
  	        if (event.keyCode === 13) {
  	            event.preventDefault();
- 	        }
+ 	        } 
  	    	
  	        $.ajax({
  	            url : '/socket/json/addLiveStream',
@@ -128,13 +128,13 @@
 		  <div class="form-group">
 		    <label for="liveSteam" class="col-sm-4 control-label"  align="center" style="font-size : 18px;"><b>방 이름</b></label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="liveTitle" name="liveTitle">
+		      <input type="text" class="form-control" id="liveTitle" name="liveTitle"   onkeypress="if(window.event.keyCode=='13'){addLiveStream()}">
 		    </div>
 		  </div>
 		  
 		   <div class="form-group"> 
 		   	<div class="col-md-10 mb-3 mb-md-2 text-center">
-				<a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveStream"  onclick="addLiveStream();">방 개설하기</a>
+				<a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveStream"  onclick="addLiveStream();"  >방 개설하기</a>
 			 </div> 
 			</div>
 		  

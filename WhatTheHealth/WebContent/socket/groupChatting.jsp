@@ -351,7 +351,7 @@
             	//var outcomingid = $(".incoming_id").data("param");
             	if(outcomingid == msg.name){
             		alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
-                 	self.location = "http://192.168.0.10:8080";
+                 	self.location = "http://192.168.0.48:8080";
             	};
             	 console.log(msg.name+' 강퇴');
        	       $('<div class="incoming_msg"><div class="received_id"><p>'+msg.name+'님이 강제퇴장되었습니다.</p></div></div>').appendTo(".msg_history");
@@ -363,7 +363,7 @@
             	
             	
             	
-            	/* $j("#outt").click(function(){
+            	/*  $j("#outt").click(function(){
           		   
           		   var incomingid = $(this).data("param");
      	        	console.log("클릭됨 "+incomingid);
