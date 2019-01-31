@@ -57,7 +57,7 @@ public class ClaimDaoImpl implements ClaimDao {
 	}
 
 	@Override
-	public Post getClaimedPost(String targetNo) {
+	public Post getClaimedPost(int targetNo) {
 		return sqlSession.selectOne("ClaimMapper.getClaimedPost",targetNo);
 	}
 
@@ -68,8 +68,18 @@ public class ClaimDaoImpl implements ClaimDao {
 
 	@Override
 	public int getTotalCount(Search search) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("ClaimMapper.getTotalCount",search);
+	}
+
+	@Override
+	public Claim reduplication(Claim claim) throws Exception {
+		
+		return sqlSession.selectOne("ClaimMapper.reduplication",claim);
+	}
+
+	@Override
+	public int claimCount(String userId) throws Exception {
+		return sqlSession.selectOne("ClaimMapper.claimCount",userId);
 	}
 
 }

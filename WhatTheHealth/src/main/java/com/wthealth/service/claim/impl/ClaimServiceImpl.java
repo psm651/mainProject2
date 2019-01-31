@@ -62,13 +62,22 @@ public class ClaimServiceImpl implements ClaimService {
 		return claimDao.getClaim(claimNo);
 	}
 	@Override
-	public Post getClaimedPost(String targetNo) throws Exception {
+	public Post getClaimedPost(int targetNo) throws Exception {
 		
 		return claimDao.getClaimedPost(targetNo);
 	}
 	@Override
 	public Reply getClaimedReply(int targetNo) throws Exception {
 		return claimDao.getClaimedReply(targetNo);
+	}
+	@Override
+	public Claim reduplication(Claim claim) throws Exception {
+		
+		return claimDao.reduplication(claim);
+	}
+	@Override
+	public int claimCount(String userId) throws Exception {
+		return claimDao.claimCount(userId);
 	}
 
 }
