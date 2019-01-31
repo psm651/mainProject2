@@ -46,6 +46,11 @@
    $(function(){
   	$(".post-entry").on("click", function(){
   		var postNo = $(this).data("param");
+  		var blindStatus = $(this).data("blind");
+  		if(blindStatus == '1'){
+  			alert('블라인드 처리된 게시물입니다.');
+  			return;
+  		}
   		self.location = "/community/getCommunity?postNo="+postNo;
   	});
   });
@@ -90,7 +95,11 @@
           	<div class="col-md-6 col-lg-4 mb-4">
           		
           		<!-- post-entry bg-white : start -->
-            	<div class="post-entry bg-white box" data-param="${post.postNo}">
+            	<div class="post-entry bg-white box" data-param="${post.postNo}" data-blind="${post.blindStatus}">
+            	<c:if test = "${post.blindStatus == '1'}">
+            		<img src = "/resources/images/blind.PNG" style="width:339px; height:320px">
+            	</c:if>
+            	<c:if test = "${post.blindStatus == '0'}">
               		<div class="image"  style="width:400px; height:200px">
 	              		<c:if test="${empty post.photo}">
 	                    	<img  src="/resources/images/1111.jpg"  class="img-fluid">
@@ -131,6 +140,7 @@
  							<h5>${post.likeCount}</h5>
  						</div>
  					</div>
+ 					</c:if>
               	</div>
               	<!-- post-entry bg-white : end -->
               	

@@ -75,6 +75,7 @@
 	 function summerNoteUpdate(text){
 			console.log(text);
 			document.getElementById("summernote").append(text);
+			
 		}
 </script>
 	
