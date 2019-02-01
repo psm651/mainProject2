@@ -210,10 +210,11 @@ $(function(){
 			autoClose: false,
 			position:  "right top",
 			autoClose: true,
-			todayButton : true
-	 	onSelect: function onSelect(){			
-				alert("")
-	 	} 
+			todayButton : true,
+	 		onSelect: function onSelect(){			
+				
+	 			alert("")
+	 		} 
 		});
 	// Select initial date from `eventDates`
 

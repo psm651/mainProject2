@@ -19,6 +19,9 @@
 
   <script src="/resources/js/main.js"></script>
    
+ 
+   
+   
     <title>What The Health</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,6 +43,11 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     
+    
+
+    
+    
+    
   </head>
   
   <style>
@@ -50,6 +58,9 @@
         width: 100px;
         height: 20px;
       }
+   
+   
+   
       
  /*  #javaKing{
      width : 50px;
@@ -65,6 +76,243 @@
   	float : right;
   	font-weight : bold;
   }
+  
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
+body {
+  background-color: #EEEEEE;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.weather-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.weather-card {
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.8;
+  width: 270px;
+  height: 180px;
+  background-color: white;
+  box-shadow: 0px 0px 25px 1px rgba(50, 50, 50, 0.1);
+  -webkit-animation: appear 500ms ease-out forwards;
+          animation: appear 500ms ease-out forwards;
+}
+.weather-card h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+  margin-left: 11px;
+  margin-top: 15px;
+  color: #B8B8B8;
+  bottom: 0;
+  left: 35px;
+  opacity: 0;
+  -webkit-transform: translateX(150px);
+      -ms-transform: translateX(150px);
+          transform: translateX(150px);
+  -webkit-animation: title-appear 500ms ease-out 500ms forwards;
+          animation: title-appear 500ms ease-out 500ms forwards;
+}
+.weather-card p {
+  position: absolute;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: #d2d2d2;
+  bottom: 0;
+  left: 35px;
+  -webkit-animation: title-appear 1s ease-out 500ms forwards;
+          animation: title-appear 1s ease-out 500ms forwards;
+}
+
+.weather-icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  top: 0;
+  float: right;
+  margin: 40px 40px 0 0;
+  -webkit-animation: weather-icon-move 5s ease-in-out infinite;
+          animation: weather-icon-move 5s ease-in-out infinite;
+}
+
+.sun {
+  background: #FFCD41;
+  border-radius: 50%;
+  box-shadow: rgba(255, 255, 0, 0.1) 0 0 0 4px;
+  -webkit-animation: light 800ms ease-in-out infinite alternate, weather-icon-move 5s ease-in-out infinite;
+          animation: light 800ms ease-in-out infinite alternate, weather-icon-move 5s ease-in-out infinite;
+}
+
+@-webkit-keyframes light {
+  from {
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 0 10px;
+  }
+  to {
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 0 17px;
+  }
+}
+
+@keyframes light {
+  from {
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 0 10px;
+  }
+  to {
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 0 17px;
+  }
+}
+.cloud {
+  margin-right: 60px;
+  background: #e1e1e1;
+  border-radius: 20px;
+  width: 25px;
+  height: 25px;
+  box-shadow: #e1e1e1 24px -6px 0 2px, #e1e1e1 10px 5px 0 5px, #e1e1e1 30px 5px 0 2px, #e1e1e1 11px -8px 0 -3px, #e1e1e1 25px 11px 0 -1px;
+}
+.cloud:after {
+  content: "";
+  position: absolute;
+  border-radius: 10px;
+  background-color: transparent;
+  width: 4px;
+  height: 12px;
+  left: 0;
+  top: 31px;
+  -webkit-transform: rotate(30deg);
+      -ms-transform: rotate(30deg);
+          transform: rotate(30deg);
+  -webkit-animation: rain 800ms ease-in-out infinite alternate;
+          animation: rain 800ms ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes rain {
+  from {
+    box-shadow: #2092A9 8px 0px, #2092A9 32px -6px, #2092A9 20px 0px;
+  }
+  to {
+    box-shadow: #2092A9 8px 6px, #2092A9 32px 0px, #2092A9 20px 6px;
+  }
+}
+
+@keyframes rain {
+  from {
+    box-shadow: #2092A9 8px 0px, #2092A9 32px -6px, #2092A9 20px 0px;
+  }
+  to {
+    box-shadow: #2092A9 8px 6px, #2092A9 32px 0px, #2092A9 20px 6px;
+  }
+}
+@-webkit-keyframes weather-icon-move {
+  50% {
+    -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+  }
+}
+@keyframes weather-icon-move {
+  50% {
+    -webkit-transform: translateY(-8px);
+            transform: translateY(-8px);
+  }
+}
+.inspiration {
+  color: #aeaeae;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  text-align: center;
+}
+.inspiration a {
+  color: #FA565F;
+  font-weight: 400;
+  -webkit-animation: all 300ms ease-in-out;
+          animation: all 300ms ease-in-out;
+}
+
+@-webkit-keyframes appear {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  75% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes appear {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  75% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@-webkit-keyframes title-appear {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(150px);
+            transform: translateX(150px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+@keyframes title-appear {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(150px);
+            transform: translateX(150px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+  
+  
+  
+  
   </style>
   
   <script type="text/javascript">
@@ -79,9 +327,9 @@
      });
      
      //날씨별 운동추천 getWeather
-     $("#exInfo").on("click", function(){
-        alert("운동정보");
-       self.location = "/exinfo/listExinfoWeather?postNo"+postNo 
+     $(".exInfo").on("click", function(){
+       var postNo = $(this).data("exinfo");
+       self.location = "/exInfo/getExInfo?postNo="+postNo 
      });
      
      //추천 식단 커뮤니티
@@ -100,7 +348,19 @@
      $(".img-fluid").on("mouseover", function(){
        $(".img-fluid").css("cursor","pointer")
      });
+     
+   //날씨 지역위치 바꾸기
+ 	$('.card-header').css('cursor', 'pointer');
+ 	$('.card-header').on('click', function(){
+ 		
+ 	$('.card-header').tooltip();	
+ 	});
+     
+   
+   
   });
+
+	
   
   </script>
   
@@ -118,26 +378,61 @@
  <!--    <div class="slide-one-item home-slider owl-carousel"> -->
      
       <div class="site-blocks-cover" style="background-image: url(/resources/video/original.gif); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
-      <!-- <div class="site-blocks-cover" data-aos="fade" data-stellar-background-ratio="0.5">
-         <video autoplay muted loop>
+
+            
+             <div class="weather-card madrid" style="margin-left:10px;">
+				<div class="card-header" align="center" >${weather.cityName}</div> 
+			  
+         		<div class="weather-icon sun"></div>
+       			 <strong><h3>${weather.temperature}℃</h3></strong>
+        		<span style="margin-left:10px;">${weather.currentWeather}</span>
+   			 </div>
+   			 
+   			 
+   			 
+
+   	
+       <!--   <video autoplay muted loop>
              <source src="/resources/video/run.mp4" type="video/mp4">
-         </video> -->
+         </video> --> 
+     
+<!--       <div id="openweathermap-widget-15"></div>
+     <div class="row">
+  		<div class="col-xs-6 col-sm-3">
+  		<select name="state" class="ct_input_g" style="width: 200px; height: 40px" onchange="fncGetState(this)">
+			<option value="Seoul,KR" 	style="font-size:20px;" selected="">서울</option>
+			<option value="Busan,KR" 	style="font-size:20px;">부산</option>
+		  	<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
+			<option value="Incheon,KR" 	style="font-size:20px;">인천</option>
+			<option value="Gwangju,KR" 	style="font-size:20px;">광주</option>
+			<option value="Daejeon,KR" 	style="font-size:20px;">대전</option>
+			<option value="Ulsan,KR" 	style="font-size:20px;">울산</option>
+			<option value="Sejong,KR" 	style="font-size:20px;">세종특별자치시</option>
+			<option value="Jeju,KR" 	style="font-size:20px;">제주특별자치도</option>
+		</select>
+		</div>
+     </div> -->
+     
+  <!--    <div class="weather-wrapper" style="margin-left:50px;"> -->
+<%--      <div class="weather-card madrid" style="z-index:1;">
+		 <div class="card-header" align="center">${weather.cityName}</div> 
+		  
+        <div class="weather-icon sun"></div>
+        
+        <strong><h3>${weather.temperature}℃</h3></strong>
+        <span>${weather.currentWeather}</span>
+    </div>  --%>
+<!-- </div> -->
+
+         
         <div class="container">
           <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center" data-aos="fade">
+             <div class="col-md-7 text-center" data-aos="fade"> 
             
-               <!-- <div class="form-group">             
-                <div class="col-sm-4">
-                     <input type="text" class="form-control" id="searchKeyword" name="searchKeyword">
-                </div>
-                
-                <div class="form-group">
-                   <div class="col-sm-offset-4  col-sm-8 text-right">
-                     <button type="button" class="btn btn-primary">검색</button>
-                   </div>
-              </div>
-           </div> -->
-            </div>
+
+
+              
+             </div>
           </div>
         </div>
       </div> 
@@ -219,79 +514,62 @@
     </div> --%>
 
 
-   <%-- <div class="featured-classes bg-light py-3 block-13">
-      <div class="container">
+
+
+<!-- 날씨별 운동추천 -->
+     <div class="featured-classes bg-light py-3 block-13">
+        <div class="container">
         
         <div class="heading-with-border">
-          <h2 class="heading text-uppercase">날씨별 운동 추천</h2>
+          <h2 class="heading text-uppercase">날씨별 운동추천</h2>
         </div>
 
         <div class="nonloop-block-13 owl-carousel">
           
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid exinfo">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid exinfo">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid exinfo">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid exinfo">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
+             <c:forEach var="post" items="${weatherList}">
+             
+              <div class="block-media-1 heading-with-border bg-white exInfo"  data-exinfo ="${post.postNo}" style="width:350px; height:350px;">
+          
+                  <c:if test="${empty post.photo}">
+                     <img  src="/resources/images/1111.jpg"  class="img-fluid">
+                 </c:if>
+                  
+                   <c:set var="youtubeThumbnail" value="${post.photo}"/>
+                 
+                  <c:if test="${!empty post.photo}">
+                     <c:choose>
+                        <c:when test="${fn:contains(youtubeThumbnail,'https')}">
+                           <img src="${post.photo}" class="img-fluid" >
+                        </c:when>   
+                        <c:otherwise>
+                           <img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+                        </c:otherwise>                     
+                     </c:choose>
+                  </c:if>
+                         
+                  <div class="p-4">
+                 		<span>
+                       <h3 class="h5 heading">${post.title}</h3></span>
+                       <div class="heart">
+                       		<img src="../resources/images/fullHeart.png" style="width: 35px;">
+                       		${post.likeCount}
+                       </div>
+                    
+                       <span class="d-flex align-items-center" style="width:200px; display:inline-block">
+                          <div id="userInfo">
+                             <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                          </div>
+                         <span>${post.nickName}</span>
+                       </span>
+                </div>
+                </div>
+         </c:forEach>
+      
 
         </div>
 
       </div>
-    </div> --%>
+    </div> 
 
 <!-- 식단 커뮤니티 추천 -->
      <div class="featured-classes bg-light py-3 block-13">

@@ -170,8 +170,8 @@
 		
 		function fncAddUser() {
 			
-			var id=$("input[name='userId']").val();
-			var pw=$("input[name='password']").val();
+			var id=$("#userId").val();
+			var pw=$("#password").val();
 			var pw_confirm=$("input[name='password2']").val();
 			var nickName=$("input[name='nickName']").val();
 			var authNum=$("input[name='authNum']").val();
@@ -241,7 +241,7 @@
 			
 			
 			alert("가입이 완료되었습니다.");
-			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			$("#addForm").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 			
 		}
 		
@@ -276,7 +276,7 @@
 							"Content-Type" : "application/json"
 						},
 						data : JSON.stringify({
-							userId : $("input[name='userId']").val()
+							userId : $("#userId").val()
 						}),
 						success : function(JSONData , status) {
 							//alert(JSONData)
@@ -364,7 +364,7 @@
 		
 		function CheckPw(){
 			//alert("ddd")
-			var pw=$("input[name='password']").val();
+			var pw=$("#password").val();
 			var pw_confirm=$("input[name='password2']").val();
 			
 			if( pw != pw_confirm ) {				
@@ -435,7 +435,7 @@
                   <input type="text" id="fullname" class="form-control" placeholder="Full Name">
                 </div>
               </div> -->
-		<form class="p-5 bg-white" enctype="multipart/form-data">
+		<form class="p-5 bg-white" enctype="multipart/form-data" id="addForm">
 		
 		  <div class="form-group ">
 		  <!-- <label for="userId" class="font-weight-bold">아 이 디</label> -->

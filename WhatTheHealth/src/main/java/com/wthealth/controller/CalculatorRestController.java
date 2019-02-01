@@ -13,6 +13,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,20 +27,32 @@ import com.wthealth.common.Search;
 import com.wthealth.domain.BMI;
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.Food;
+import com.wthealth.service.claim.ClaimService;
+import com.wthealth.service.dietschedule.DietScheduleService;
 
 @RestController
 @RequestMapping("/calculator/*")
 public class CalculatorRestController {
 	
 	//Field	
+	@Autowired
+	@Qualifier("dietScheduleServiceImpl")
+	private DietScheduleService dietScheduleService;
+	
 	public CalculatorRestController() {
 		System.out.println(this.getClass());
+	}
+	
+	@RequestMapping(value="json/updateScheduleBMI", method=RequestMethod.POST)
+	public void updateScheduleBMI(@RequestBody BMI bmi) throws Exception{
+		
+		dietScheduleService.addBmi(bmi);		
 	}
 	
 	
 	@RequestMapping(value="json/getCalculationBMI", method=RequestMethod.POST)
 	public BMI getCalculationBMI(@RequestBody BMI bmi) throws Exception{
-		System.out.println(bmi);
+		
 		BMI calBmi = new BMI(bmi.getHeight(), bmi.getWeight());
 		
 		return calBmi;

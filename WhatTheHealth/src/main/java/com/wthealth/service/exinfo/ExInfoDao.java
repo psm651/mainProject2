@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
+import com.wthealth.domain.Weather;
 
 public interface ExInfoDao {
 
@@ -19,8 +20,7 @@ public interface ExInfoDao {
 
 	public List<Post> listExInfo(Search search) throws Exception;
 
-	
-	public List<Post> listExInfo(String Weather) throws Exception;
+	public List<Post> listWeatherRecom(Weather weather) throws Exception;
 
 	public int getTotalCount(Search search) throws Exception;
 	
