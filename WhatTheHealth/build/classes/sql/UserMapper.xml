@@ -110,7 +110,11 @@
 			holder 		= #{holder:VARCHAR},
 			bank_name 	= #{bankName:VARCHAR},
 			account_num	= #{accountNum:VARCHAR},
+<<<<<<< HEAD
 			weight = #{weight:NUMERIC}
+=======
+			user_status_code = #{userStatus:VARCHAR}
+>>>>>>> refs/remotes/origin/master
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>

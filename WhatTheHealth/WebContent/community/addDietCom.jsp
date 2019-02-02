@@ -177,6 +177,7 @@
     		console.log(locationTagName)
     		console.log(address)
     		console.log(coordinate)
+ 
      	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
      		$(function(){
      		 var location = '<input type="text" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
@@ -256,6 +257,7 @@
             }
         }) 
     
+        	
 </script>
 
 </head>

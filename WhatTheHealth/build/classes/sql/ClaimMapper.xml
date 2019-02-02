@@ -20,38 +20,36 @@
 	</resultMap>
 	
 	<resultMap id="postSelectMap" type="com.wthealth.domain.Post">
-		<result property="postNo" column="post_no" jdbcType="NUMERIC" />
-		<result property="userId" column="user_id" jdbcType="VARCHAR" />
-		<result property="title" column="title" jdbcType="VARCHAR" />
-		<result property="contents" column="contents" jdbcType="VARCHAR" />
-		<result property="photo" column="photo" jdbcType="VARCHAR" />
-		<result property="video" column="video" jdbcType="VARCHAR" />
-		<result property="clickCount" column="click_count" jdbcType="NUMERIC" />
-		<result property="blindStatus" column="blind_status" jdbcType="VARCHAR" />
-		<result property="deleteStatus" column="delete_status"
-			jdbcType="VARCHAR" />
-		<result property="likeCount" column="like_count" jdbcType="NUMERIC" />
-		<result property="category" column="category" jdbcType="VARCHAR" />
-		<result property="postDate" column="post_date" jdbcType="DATE" />
-		<result property="exScNo" column="ex_sc_no" jdbcType="NUMERIC" />
-		<result property="dietScNo" column="diet_sc_no" jdbcType="NUMERIC" />
-		<result property="locationTagName" column="locationtag_name"
-			jdbcType="VARCHAR" />
-		<result property="xCoordinate" column="x_coordinate" jdbcType="NUMERIC" />
-		<result property="yCoordinate" column="y_coordinate" jdbcType="NUMERIC" />
-		<result property="address" column="address" jdbcType="VARCHAR" />
+		<result property="postNo" 					column="post_no" 				jdbcType="NUMERIC" />
+		<result property="userId" 					column="user_id" 				jdbcType="VARCHAR" />
+		<result property="title" 						column="title" 					jdbcType="VARCHAR" />
+		<result property="contents" 					column="contents" 				jdbcType="VARCHAR" />
+		<result property="photo" 					column="photo" 					jdbcType="VARCHAR" />
+		<result property="video" 						column="video" 					jdbcType="VARCHAR" />
+		<result property="clickCount" 				column="click_count" 			jdbcType="NUMERIC" />
+		<result property="blindStatus" 				column="blind_status" 			jdbcType="VARCHAR" />
+		<result property="deleteStatus" 				column="delete_status"			jdbcType="VARCHAR" />
+		<result property="likeCount" 				column="like_count" 				jdbcType="NUMERIC" />
+		<result property="category" 					column="category" 				jdbcType="VARCHAR" />
+		<result property="postDate" 					column="post_date" 				jdbcType="DATE" />
+		<result property="exScNo" 					column="ex_sc_no"				jdbcType="NUMERIC" />
+		<result property="dietScNo" 					column="diet_sc_no" 			jdbcType="NUMERIC" />
+		<result property="locationTagName" 		column="locationtag_name"		jdbcType="VARCHAR" />
+		<result property="xCoordinate" 				column="x_coordinate" 			jdbcType="NUMERIC" />
+		<result property="yCoordinate" 				column="y_coordinate" 			jdbcType="NUMERIC" />
+		<result property="address" 					column="address" 				jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<resultMap id="replySelectMap" type="com.wthealth.domain.Reply">
-		<result property="replyNo" 			column="reply_no" 			jdbcType="NUMERIC"/>
-		<result property="parentReplyNo"	column="parent_reply_no" 		jdbcType="NUMERIC" />
-		<result property="reReplyNo" 	column="rereply_no" 		jdbcType="NUMERIC" />
+		<result property="replyNo" 					column="reply_no" 					jdbcType="NUMERIC"/>
+		<result property="parentReplyNo"			column="parent_reply_no" 			jdbcType="NUMERIC" />
+		<result property="reReplyNo" 				column="rereply_no" 					jdbcType="NUMERIC" />
 		<result property="replyDate" 				column="reply_date" 					jdbcType="DATE" />
-		<result property="postNo" 				column="post_no" 					jdbcType="VARCHAR" />
-		<result property="text" 			column="text" 		jdbcType="VARCHAR" />
-		<result property="writerId" 				column="writer_id" 					jdbcType="VARCHAR" />
-		<result property="blindStatus" 			column="blind_status" 				jdbcType="VARCHAR"  />
-		<result property="deleteStatus" 		column="delete_status" 			jdbcType="VARCHAR" />
+		<result property="postNo" 					column="post_no" 					jdbcType="VARCHAR" />
+		<result property="text" 						column="text" 						jdbcType="VARCHAR" />
+		<result property="writerId" 					column="writer_id" 					jdbcType="VARCHAR" />
+		<result property="blindStatus" 				column="blind_status" 				jdbcType="VARCHAR"  />
+		<result property="deleteStatus" 				column="delete_status" 				jdbcType="VARCHAR" />
 	</resultMap>
 		
 	<!-- SQL : INSERT DIET_SC -->
@@ -106,14 +104,28 @@
        SELECT  claim_no, user_id, claimed_id, claim_date, claim_type, claim_status, claim_reason, claim_target_no, claim_contents
         FROM (   SELECT inner_table.* , ROWNUM AS row_seq
                          FROM  (   SELECT *
-                       FROM claim     ) inner_table
-                  WHERE ROWNUM &lt;= #{endRowNum} )
+                       		FROM claim  
+                   			ORDER BY claim_date desc   ) inner_table
+                  WHERE ROWNUM &lt;= #{endRowNum}
+                   )
       WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+      
     </select>
 	 
 	  <select  id="getTotalCount"  parameterType="com.wthealth.common.Search"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT * FROM claim ) countTable			
+	 </select>
+	 
+	    <select  id="claimCount"  parameterType="String"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT * FROM claim WHERE claimed_id = #{claimedUserId} AND claim_status = '1') countTable			
+	 </select>
+	 
+	 <select  id="reduplication"  parameterType="com.wthealth.domain.Claim"	 resultMap="claimSelectMap">
+	  	SELECT *
+	  	FROM claim
+	  	WHERE  claim_target_no= #{targetNo} AND user_id=#{userId}
 	 </select>
 	 	
 </mapper>

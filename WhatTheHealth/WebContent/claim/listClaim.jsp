@@ -87,6 +87,9 @@
 								success : function() {
 									$('#aa'+claimNo).hide();
 									$('#bb'+claimNo).show();
+									if (data=="black") {
+										alert("black");
+									}
 								
 								}
 						});
@@ -181,9 +184,9 @@
 <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
                                 <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><c:choose>
-				<c:when test = "${claim.claimReasonNo =='1'}">모욕/욕설/비방</c:when>
-				<c:when test = "${claim.claimReasonNo =='2'}">음란/폭력</c:when>
-				<c:when test = "${claim.claimReasonNo =='3'}">기타</c:when>
+				<c:when test = "${claim.claimReasonNo =='0'}">모욕/욕설/비방</c:when>
+				<c:when test = "${claim.claimReasonNo =='1'}">음란/폭력</c:when>
+				<c:when test = "${claim.claimReasonNo =='2'}">기타</c:when>
 				<c:otherwise> 뾰로롱</c:otherwise>
 			</c:choose>		</div>
                 <div class="col-sm-2 col-md-2 col-lg-2">${claim.targetNo}<span class="icon-search mr-2"></span></div>
