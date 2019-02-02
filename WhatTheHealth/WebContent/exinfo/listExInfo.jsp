@@ -111,10 +111,11 @@
          success : function(data , status){
   				 
                   var list = data["list"];
-             
+                  
          
              list.forEach(function(item, index, array){     
-                  var appen = ""; 
+                  va
+            	  var appen = ""; 
                        
                   appen += '<div class="col-md-6 col-lg-4 mb-4">';
                   appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'">';
