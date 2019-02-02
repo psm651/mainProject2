@@ -519,22 +519,22 @@
 					 walkValue = walkkTime/4;
 			 		 walkCalorie = userWeight*0.9*walkkTime;
 			   }
-		   else if(Number(bycicleTime)>15){
+		   }else if(Number(bycicleTime)>15){
 			   if(${sessionScope.user.weight != null}){
 					 walkValue = walkkTime/4;
 			 		 walkCalorie = userWeight*0.9*walkkTime;
 			   }
-		   }	   
-		   		}else if(Number(walkkTime<15)){
+		   }else if(Number(walkkTime<15)){
 			   swal("15분 이상의 거리만  칼로리 측정이 가능합니다.")
 			   return
+	  	   }
 	   }
 	   
 	    
 	
 			 
 		 
-		  bycicleValue = bycicleTime/4;
+	/* 	  bycicleValue = bycicleTime/4;
 	
 				 		
 		  }else if(${sessionScope.user.weight != null} && workout=='1'){
@@ -547,7 +547,7 @@
 		   alert("sadfasf"+walkkTime)
 		   swal("15분 이상의 거리만  칼로리 측정이 가능합니다.")
 		   return
-	   }
+	   } */
 	   
 	   
 	  

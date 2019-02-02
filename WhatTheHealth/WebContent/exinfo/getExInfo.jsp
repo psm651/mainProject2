@@ -202,7 +202,7 @@ $('#exInfoSc').data('datepicker');
       
      $(function(){
     	 $("#button").on("click", function(){
-    		 alert("")
+    		 
     		 $("form[name='exSchedule']").attr("method","POST").attr("action","/schedule/addExSchedule").submit();	
     	 }) ;
      });

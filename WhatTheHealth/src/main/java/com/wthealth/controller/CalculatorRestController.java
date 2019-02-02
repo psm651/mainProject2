@@ -68,6 +68,7 @@ public class CalculatorRestController {
 		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
 		
 		//Cross 브라우저 해결을 위한 옵션 적용 
+		//Bot 크롤링 방지를 위한 user-Agent 설정
         DesiredCapabilities capabilities =DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
