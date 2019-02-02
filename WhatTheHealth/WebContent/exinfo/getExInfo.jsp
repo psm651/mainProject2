@@ -43,11 +43,100 @@
    <style>
    
    .img-fluid{
-   	width : 30px;
+   	 width : 30px;
    	 height: 30px;
    	 }
-  
-   	 
+
+   	.giyong{
+   	/* 	width: 63%; */
+   		margin-top : 5em;
+   		padding : 3em;
+   		border : 1px solid gray;
+   		border-radius : 15px;
+   		text-align : center;
+   		margin-bottom : 5em;
+   	}
+   	
+   	.contents{
+   		display : block;
+   		text-align : left;
+   	}
+   	
+   	.giyong ul{
+   		display : block;
+   		height : 60px;
+   		overflow : hidden;
+   		padding-inline-start : 0;
+   		margin : 0 auto;
+   		text-align : center;
+   		padding-left : 30em;
+   	}
+   	
+   	.giyong li{
+   		display : block;
+   		list-style-type : none;
+   		float : left;
+   	}
+   	
+   	.Kimgiyong{
+   		display : block;
+   		height : 60px;
+   	}
+   	
+   	.giyongInput{
+   		margin-top : 50px;
+   		text-align : left;
+   	}  
+   	.exinfo-class{
+   		display: block;
+   		font-size: 24px;
+    	padding-bottom: 8px;
+    	margin-bottom: 20px;
+    	border-bottom: 2px solid #5d5d5d;
+    	line-height: 1.3em;
+    	color: #2e2e2e;
+    	font-weight: 600;
+    	text-align:left
+   	} 
+   	.introClass{
+  		display: block;
+   		font-size: 15px;
+    	padding-bottom: 8px;
+    	margin-bottom: 20px;
+    	border-bottom: 1px solid #2e2e2e;
+    	line-height: 1em;
+    	color: #2e2e2e;
+    	font-weight: 300;
+    	text-align:left
+   	}
+   	.like and view{text-align:right;}
+   	
+   	.infoClass li{li-style:none;}
+   	
+   	.postImage{
+   	 width :110px;
+   	 height: 120px;
+
+ 	 padding: 3px;
+   	 border : 1px solid gray;
+   		
+   	}
+   	.imagelocation li{
+   		width:230px;
+   		hegiht:245px;
+   		
+    	padding-right: 0px;
+   		padding-bottom: 0px;
+    	padding-left: 0px;
+    	list-style-type : none;
+
+   	}
+ 
+ 	.imagelocation{
+ 		margin-top:-104%;
+ 		margin-left:70%
+ 	}
+ 	.right{margin-left:37.7%;margin-top:-41%}
    </style>
 
 
@@ -188,23 +277,37 @@ $('#exInfoSc').data('datepicker');
           
        
        $( function (){
-          $( "a[href='#' ]:contains('수정')").on("click", function(){
-        		var postNo = $(this).data("param");
-        	   self.location="/exInfo/updateExInfo?postNo="+postNo
-            });
-          $( "a[href='#' ]:contains('삭제')").on("click", function(){
-        	  var postNo = $(this).data("param1");
-        	  alert(postNo)
-               self.location="/exInfo/updateDeleteStatus?postNo="+postNo
-            });
-         });
-       
-      
+           $( "a[href='#' ]:contains('수정')").on("click", function(){
+                self.location="/exInfo/updateExInfo?postNo=${post.postNo}"
+           });
+           
+           $( "a[href='#' ]:contains('목록으로')").on("click", function(){
+         	    self.location="/exInfo/listExInfo"
+           });
+           
+           $( "a[href='#' ]:contains('삭제')").on("click", function(){
+ 	        	self.location="/exInfo/updateDeleteStatus?postNo=${post.postNo}"
+ 	      }); 
+ 	 });
+     
      $(function(){
-    	 $("#button").on("click", function(){
-    		 
-    		 $("form[name='exSchedule']").attr("method","POST").attr("action","/schedule/addExSchedule").submit();	
-    	 }) ;
+    	$(".postImage").css("cursor","pointer");
+    	
+    	$("#bmiLocation").on("click", function(){
+    		self.location = "/calculator/bmiCalculator.jsp"
+    	})
+    	
+    	$("#calorieLocation").on("click", function(){
+    		self.location = "/calculator/calorieCalculator.jsp"
+    	})
+    	
+    	$("#scheduleLocation").on("click", function(){
+    	 	self.location = "/schedule/listSchedule"
+    	})
+    	
+    	$("#historyChartLocation").on("click", function(){
+    	 	self.location = "/schedule/getHistoryChart"
+    	})    	
      });
        
    </script>
@@ -219,115 +322,136 @@ $('#exInfoSc').data('datepicker');
    <!-- 툴바 인클루드 시작! -->
    
    </div>
-   <div class="site-section">
-      <div class="container">
-      
-    	<input type="hidden" name="postNo" value="${post.postNo }"/>
-        <div class="row align-items-center">
-        
-          <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
+ <div class="container">
+	
+
+    	
+    <div class="row">
+       <div class="col-lg-8">
+       	
+      	<input type="hidden" name="postNo" value="${post.postNo }"/>
+        <div class="giyong">
+        	<div class="exinfo-class" >
+        		<c:if test="${post.exPart == '0'}">
+        		 운동꿀팁 > 전신 
+        		</c:if>
+        		<c:if test="${post.exPart == '1'}">
+        		 운동꿀팁 > 복부 
+        		</c:if>
+        		<c:if test="${post.exPart == '2'}">
+        		 운동꿀팁 > 상체 
+        		</c:if>
+        		<c:if test="${post.exPart == '3'}">
+        		 운동꿀팁 > 하체 
+        		</c:if>
+        		<c:if test="${post.exPart == '4'}">
+        		 운동꿀팁 > 스트레칭 
+        		</c:if>        	        	        	        	
+          	</div>
           
           	
-<form name="exSchedule">
-            <h4 class="mb-3">${post.title}</h4>
-    
-         
-             <small>좋아요 수  : ${post.likeCount}</small> 
-             
-             <div class="row">
-            	 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
-             		 <small>조회 수 : ${post.clickCount}</small> 
-             	 </div>
-             	 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">	
-              	 	<input type='text' id="exInfoSc"  data-language='en' name='exScDate' placeholder="내스케줄담기" style="alignt:right;"/>
-           		 </div>
-             	 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">	 
-             	 	<a href="#" class="btn btn-primary pill px-4" id="button" style="margin-right:300px;" >담기</a>
-             	 </div>
-            </div>
+ 			<h4 style="text-align:left;margin-top:3%">${post.title}</h4> 
+ 			          	
+          	<ul class="like and view">
+          		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
+          		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
+          	</ul>
+ 
 
-			<hr/>
-            <span><h6>프로그램 간략정보</h6></span>   
-            
-           <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
-                <img src="/resources/images/upload/clock.png" alt="Image" class="img-fluid">
-                <span>${post.exVideoTime}</span >
-           </div>   
-           
-                    
-            <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
-                <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
-                <span>${post.exCalorie} kcal</span>
-            </div>  
-            
-              <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">
-                <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">
-                <c:if test="${post.exPart=='0'}">
-                                     전신  
-                </c:if>
-                <c:if test="${post.exPart=='1'}">
-                                     복부  
-                </c:if>
-                <c:if test="${post.exPart=='2'}">
-                                     상체  
-                </c:if>
-                <c:if test="${post.exPart=='3'}">
-                                     하체  
-                </c:if>
-                <c:if test="${post.exPart=='4'}">
-                                    스트레칭  
-                </c:if>                                                                
-              </div>  
-              
+ 			
+            <div class="contents" style="margin-top:-12%;">
+				<p>${post.contents}</p>
+           	</div>
               <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
-              <div class="col-md-10 col-lg-5 mb-5 mb-lg-0">  
-                        	
-            	  <jsp:include page="/common/getMap.jsp" /> 
-            	            
-              </div>
-              </c:if>
-            <p class="mb-4">${post.contents}</p>
-             
-             <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
-                <div class="favoriteListHere">
-                   <div style="float: left; width: 33%;" class="like">
-                   <img src="../resources/images/emptyHeart.png" width="60px" class="likeImage" onclick="emptyHeart()">
+			  	  
+	              <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->  
+	            	  <jsp:include page="/common/getMap.jsp" /> 
+	              
+               </c:if>
+
+			<br/>
+			
+		 	<span><h6 class="introClass">간략정보</h6></span>   
+ 				
+			<ul class="infoClass">
+			  <li style="margin-left:-200%;">
+                <img src="/resources/images/upload/clock.png" alt="Image" class="img-fluid">
+                <span>${post.exVideoTime}</span >
+           	  </li>
+  			  <li style="margin-left:-80%;">
+                <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
+                <span>${post.exCalorie} kcal</span>
+           	  </li>
+         	  <li style="margin-left:50%">
+                <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">
+ 					<c:if test="${post.exPart=='0'}">전신</c:if>
+                	<c:if test="${post.exPart=='1'}">복부</c:if>
+               		<c:if test="${post.exPart=='2'}">상체  </c:if>
+                	<c:if test="${post.exPart=='3'}">하체</c:if>
+                	<c:if test="${post.exPart=='4'}">스트레칭</c:if>                 
+ 			   </li>
+ 			</ul>	
+
+		<div class="Kimgiyong">                        
+                       
+                <div class="favoriteListHere" >
+                   <div style="float: left; width: 43%;" class="like" >
+                   <img src="../resources/images/emptyHeart.png" width="60px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
                    </div>
-                   <div style="float: left; width: 33%;" class="interest">
+                   <div style="float: left; width: -5%;" class="interest">
                    <img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">
                    </div>
-                   <div style="float: left; width: 33%;" class="claim">
+                   <div style="float: left; width: 43%;" class="claim">
                    <img src="../resources/images/fullSiren.png"  width="60px" class="claimImage" onclick="fullSiren()">
                    </div>
                 </div>
             
-            <c:if test="${sessionScope.user.role == 'admin'}">
-            	<p><a href="#" class="btn btn-primary pill px-4"  data-param="${post.postNo}">수정</a>
-        	    <a href="#" class="btn btn-primary pill px-4" data-param1="${post.postNo}">삭제</a></p>
-            </c:if>
-            
+            <c:if test = "${sessionScope.user.role == 'admin'}">  
+             <br/>
+            	<div style="margin-top : 3.5em;margin-left:-5%;">
+	            	<p>
+	            		<a href="#" class="btn btn-primary pill px-4">수정</a>&nbsp;
+	            		<a href="#" class="btn btn-primary pill px-4">목록으로</a>&nbsp;
+	            		<a href="#" class="btn btn-primary pill px-4">삭제</a>
+	            	</p>
+	            </div>
+            </c:if> 
+ 			<br/><br/>
           </div>
-        </div>
+          
+          <br/>
+          
+          <div class="giyongInput">
+           <jsp:include page="/reply/listReply.jsp" />
+          </div>
+           
+        
       </div>
-    
-<<<<<<< HEAD
-         
-             <input type="hidden" name="exScName" value="${post.title}" style="display:nont;"/>
-=======
-         <form name="exSchedule">
-             <input type="hidden" name="exScName" value="${post.title}"/>
->>>>>>> refs/remotes/origin/master
-             <input type="hidden" name="exScContents" value="${post.contents}"/>
-             <input type="hidden" name="exScCalorie" value="${post.exCalorie}"/>
-                          <input type="hidden" name="postNo" value="${post.postNo}"/>
-         </form>
+      
+ </div>
+ 
+ 	<!-- <div class="col-lg-4" style="margin-left:100%;margin-top:-103%%;margin-left:72%"> -->
+	 <ul class="imagelocation">
+	   <li>
+	 		<img src="/resources/images/post/post_BMI.png" alt="Image" class="postImage" id="bmiLocation">
+	   </li>
+	   <li class="right">
+	 		<img src="/resources/images/post/post_Calorie.jpg" alt="Image" class="postImage" id="calorieLocation" >
+	   </li>
+	   <li>
+	 		<img src="/resources/images/post/post_HistroyChart.png" alt="Image" class="postImage" id="historyChartLocation">
+	   </li>
+	   <li class="right">
+	 		<img src="/resources/images/post/post_Schedule.png" alt="Image" class="postImage" id="scheduleLocation" >
+	   </li>
+	</ul>
+	
+	</div>
+	
 
-     <jsp:include page="/exinfo/listReplyTest.jsp" />
-   </div>
+
 </div>
-
-
 
 </body>
 </html>
