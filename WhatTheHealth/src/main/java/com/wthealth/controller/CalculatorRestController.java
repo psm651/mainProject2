@@ -1,18 +1,25 @@
 package com.wthealth.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,101 +29,94 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.common.URLConnection;
 import com.wthealth.domain.BMI;
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.Food;
+import com.wthealth.domain.NutritionixAPI;
+import com.wthealth.domain.PapaGo;
+import com.wthealth.domain.User;
+
+import com.wthealth.service.claim.ClaimService;
+import com.wthealth.service.dietschedule.DietScheduleService;
 
 @RestController
 @RequestMapping("/calculator/*")
 public class CalculatorRestController {
 	
 	//Field	
+	@Autowired
+	@Qualifier("dietScheduleServiceImpl")
+	private DietScheduleService dietScheduleService;
+	
 	public CalculatorRestController() {
 		System.out.println(this.getClass());
+	}
+	
+	@RequestMapping(value="json/updateScheduleBMI", method=RequestMethod.POST)
+	public String updateScheduleBMI(@RequestBody BMI bmi, HttpSession session) throws Exception{
+		
+		System.out.println(bmi);
+		
+		String userId = ((User)session.getAttribute("user")).getUserId();
+	
+		bmi.setUserId(userId);
+		dietScheduleService.addBmi(bmi);
+	
+		String successMessage = "스케줄에 저장이 완료되었습니다.";
+		return successMessage;
 	}
 	
 	
 	@RequestMapping(value="json/getCalculationBMI", method=RequestMethod.POST)
 	public BMI getCalculationBMI(@RequestBody BMI bmi) throws Exception{
-		System.out.println(bmi);
+		
 		BMI calBmi = new BMI(bmi.getHeight(), bmi.getWeight());
 		
 		return calBmi;
 	}
 	
- 
 	@RequestMapping(value = "json/getSearchFood/{searchFood}", method=RequestMethod.GET)
 	public List<Food> getSearchFood(@PathVariable String searchFood) throws Exception{
-		
 
 		List<Food> foodInfo = new ArrayList<Food>();
-        
-		System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
-		
-        DesiredCapabilities capabilities =DesiredCapabilities.chrome();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("test-type");
-        options.addArguments("-disable-web-security");
-        options.addArguments("-allow-running-insecure-content");
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);		
-		
-        WebDriver driver = new ChromeDriver(capabilities);
-      
-        // And now use this to visit Google
-        driver.get("https://www.myfitnesspal.com/ko/food/search");
 
-        // Find the text input element by its name
-        WebElement element = driver.findElement(By.cssSelector("form > input"));
+		//PapagoAPI Ko->En 변환 
+		String param = "source=ko&target=en&text=" + URLEncoder.encode(searchFood,"UTF-8");
+		PapaGo translate = new PapaGo(param);
+				
+        NutritionixAPI nutrition = new NutritionixAPI(translate.getResultTranslate());
+   
+        JSONObject result = nutrition.getResultJSON();
+        //api로부터 받은 JSON 데이터 가공 
+        nutrition.setJSONdata(result);     
+        JSONArray altMeasures = nutrition.getAltMeasures();
         
-        // Enter something to search for
-        element.sendKeys(searchFood);
-        // Now submit the form. WebDriver will find the form for us from the element
-        element.submit();
-     
-        WebElement foodss = driver.findElement(By.cssSelector(".section2-2i8B2 > div"));
-        //WebElement foodss = driver.findElement(By.className("jss44"));
-        System.out.println(foodss.getTagName());
-        System.out.println(foodss.getText());
+        //JSON 데이터로부터 칼로리계산에 필요한 값을 셋팅
+        nutrition.setCalories(altMeasures);
+        
+        double weightGrames = nutrition.getServing_weight_grames();
+        
+        for(int i=0;i<altMeasures.size();i++){
+        	Food food = new Food();
         	
-        
-/*
-        for(WebElement foods:foodName) {
-           Food food = new Food();
-
-           	String foodNames = foods.getText();
-           	System.out.println(foodNames);
-           String[] tempName = foods.getText().split("\n");
-           System.out.println(foods.getText());
-           food.setFoodName(tempName[0].replaceAll(" ", ""));
-        
-           String[] tempAmountfood = tempName[1].substring(6).split(",");
-           food.setAmountFood(tempAmountfood[0].replaceAll(" ", ""));
-           
-           String tempCalorie = tempAmountfood[1].substring(7);
-
-           if(tempCalorie.contains(".")) {
- 
-        	   String[] temp = tempCalorie.split("\\.");;     
-        	   food.setFoodCalorie(temp[0]); 
-           }else {
-        	 
-        	   food.setFoodCalorie(tempCalorie.replaceAll(" ", ""));
-           
-           }
-           System.out.println(food);
-           foodInfo.add(food);
-         
-           }*/
-        
+        	String amountFood = (String)((JSONObject)altMeasures.get(i)).get("measure");
+        	String foodName = (String)nutrition.getFoodJSON().get("food_name"); 
+        	
+        	double serving_weight = Double.parseDouble(((JSONObject)altMeasures.get(i)).get("serving_weight").toString());
+        	String calorie =Double.toString(Math.floor((serving_weight/weightGrames)*nutrition.getCalories()));
        
-        // Should see: "cheese! - Google Search"
-        System.out.println("Page title is: " + driver.getTitle());
+	        food.setAmountFood(amountFood);
+	        food.setFoodName(foodName);
+	        food.setFoodCalorie(calorie);
+	        
+	        foodInfo.add(food);
+	        System.out.println(foodInfo.get(i));
+        }
         
-        //Close the browser
-        driver.quit();
-       
-		return foodInfo; 
+		return foodInfo;
 	}
+
 
 	@RequestMapping(value="json/addDietSchedule", method=RequestMethod.POST)
 	public void addDietSchedule(@RequestBody DietSchedule dietSchedule) throws Exception{

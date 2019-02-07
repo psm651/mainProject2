@@ -76,8 +76,7 @@ public class DietScheduleDaoImpl implements DietScheduleDao {
 	}
 	@Override
 	public void addBmi(BMI bmi) throws Exception {
-		// TODO Auto-generated method stub
-		
+		sqlSession.insert("DietScMapper.addBmi", bmi);
 	}
 
 	@Override

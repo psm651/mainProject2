@@ -1,5 +1,8 @@
 package com.wthealth.controller;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wthealth.domain.Claim;
 import com.wthealth.domain.User;
 import com.wthealth.service.claim.ClaimService;
+import com.wthealth.service.user.UserService;
 
 
 //==> 회원관리 Controller
@@ -25,6 +29,10 @@ public class ClaimRestController {
 	@Autowired
 	@Qualifier("claimServiceImpl")
 	private ClaimService claimService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
 	//setter Method 구현 않음
 		
 	public ClaimRestController(){
@@ -44,30 +52,41 @@ public class ClaimRestController {
 	
 
 	@RequestMapping(value="json/updateClaim/{claimNo}/{claimStatus}", method=RequestMethod.GET)
-	public Claim updateClaim( @PathVariable("claimNo") int claimNo,@PathVariable("claimStatus") String claimStatus ) throws Exception{
+	public Claim updateClaim( @PathVariable("claimNo") int claimNo,@PathVariable("claimStatus") String claimStatus,HttpServletResponse response ) throws Exception{
 
 		System.out.println("/json/updateClaim : GET");
 		//Business Logic
 		Claim claim = claimService.getClaim(claimNo);
 		claim.setClaimStatus(claimStatus);
 		claimService.updateClaim(claim);
-		/* 나중에 3개이상 신고된 게시물이면 자동 블라인드, 블라인드게시물3개이상이면 블랙리스트 추가
-		  claimService.listClaim()*/
-		System.out.println("이걸타야ㅐ된다!!");
+		if (claimService.claimCount(claim.getClaimedUserId())>=3) {
+			User user = userService.getUser(claim.getClaimedUserId());
+			user.setUserStatus("2");
+			userService.updateUser(user);
+			
+		}
+		
+		
+		
 		return claim;
 	
 	}
 	
 	@RequestMapping(value="json/addClaim", method = RequestMethod.POST)
-	public void addClaim( @RequestBody Claim claim, HttpSession session ) throws Exception {
+	public String addClaim( @RequestBody Claim claim,  HttpSession session ) throws Exception {
 		System.out.println(claim);
 		System.out.println("/claim/json/addClaim : POST");
+
 		//Business Logic
-		
 		claim.setUserId(((User)session.getAttribute("user")).getUserId());
+
+		if (claimService.reduplication(claim)!=null) {
+			return "0";
+		}
 		
 		claimService.addClaim(claim);
-	
+		
+		return "1";
 		
 	}
 }

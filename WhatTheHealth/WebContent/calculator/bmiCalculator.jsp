@@ -13,22 +13,13 @@
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 
 
-	<!-- include libraries(jQuery, bootstrap) -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
 	<!-- include datetimepicker css/js-->
 	<script type="text/javascript" src="/resources/js/datepicker.js"></script>
 	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css">
 	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
-
-
-	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="/resources/js/app.js"></script>
-	
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-   
+ 
+    <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 	<style>
@@ -91,11 +82,6 @@ $(function(){
 							$("#bmiState").text(" ("+JSONdata.bmiState+")");
 					
 						var total = JSONdata.bmiValue + "("+JSONdata.bmiState+")";
-							
-				/* 		var bar1 = $("#1").offset();
-						var bar2 = $("#12").offset();
-						var bar3 = $("#123").offset();
-						var bar4 = $("#1234").offset(); */
 						
 						if($("em").text()!=''){
 							$("em").text('');
@@ -111,11 +97,12 @@ $(function(){
 								  "left" : "420px"
 							 });					
 						}else if(JSONdata.bmiState=='정상'){				
+
 							$("em").css({
-								   "position" : "absolute",
-								   "top" : "560px",
-								   "left" : "552px"
-								});
+								   "position" : "relative",
+								   "top" : "30%",
+								   "left" : "14%"
+								});								
 						}else if(JSONdata.bmiState=='비만'){
 							$("em").css({
 								   "position" : "absolute",
@@ -145,26 +132,76 @@ $('#bmiDatepicker').datepicker({inline : false})
 $('#bmiDatepicker').data('datepicker') 
  */
 ////////////////////////////////////달력달력///////////////////////////////////
-$('#bmiDatepicker').datepicker({
-	timepicker: true,
-    language: 'en',
-    minDate: new Date() // Now can select only dates, which goes after today
+$(function(){
+	$('#bmiDatepicker').datepicker({
+		autoClose: false,
+		position:  "right top",
+	 	autoClose: true,
+		todayButton : true,
+		dateFormat : 'yy/mm/dd'
+	});
 });
+
+$('#bmiDatepicker').data('datepicker');
 ////////////////////////////////////달력달력///////////////////////////////////
 
 
 
 
  
- $( "#draggable" ).draggable();
+
    
 $(function(){
 
-	$("#bmiIcon").on("click", function(){
-
+	 $('#save').on('click', function(){
+		 
+		 var dietScDate = $('#bmiDatepicker').val();
+		 console.log(dietScDate)
+		 console.log(typeof dietScDate)
+		 var weight = $('#weight').val();
+		 var bmiValue = $('#bmiValue').text();
+		 var bmiState = $('#bmiState').text();
+		 
+		 
+		 if(${sessionScope.user.userId == null}) {
+		     swal("회원만 이용 가능합니다.")
+		 	 return;
+		 }
+		 
+		 if(bmiValue == null || bmiValue.length<1){
+		     swal("BMI 계산을 먼저 진행해주세요!")
+		 	 return;
+		 }
+		 if(dietScDate == null || dietScDate.length<1){
+			 swal("날짜를 선택해주세요")
+			 $('#bmiDatepicker').focus()
+			 return;
+		 }	
+		 
 		
-	});
+			 
+ 		 	 $.ajax({
+			 	
+				 url:"/calculator/json/updateScheduleBMI",
+				 method: "POST",
+				 data : JSON.stringify({
+					dietScDateBMI: $('#bmiDatepicker').val(),	
+					bmiValue : $('#bmiValue').text(),
+					weight : $('#weight').val()
+				 }),
+				 dataType : "json", 
+				 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+				 success : function(JSONdata, status){
+						swal(JSONdata)
+				 }
+			 
+			 })//end of ajax  */
+			 
 		
+	 })	
 }); 
 
 </script>
@@ -190,7 +227,9 @@ $(function(){
 	   <div class="form-group">
 	   		<div class="row" style="align:right">
 	   			<div>내 스케줄 담기</div>
-	   			<input type='text' class='datepicker-here'  data-language='en'  id='bmiDatepicker'  name='meetTime'/> 
+	   			<input type='text' data-language='en'  id='bmiDatepicker'  name='dietScDate'/> 
+	   			<button type="button" id="save" class="btn btn-primary btn-sm" style="margin-left:1.2%"> 저장</button>
+		      	
 	   		</div>
 	   </div>
 		
@@ -271,10 +310,11 @@ $(function(){
 
 	 </div>
 	   
-<!-- <div id="draggable">	
-	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon">	   
+<!--  <div id="draggable">	
+	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon" onclick="">	   
+	<iframe id="iframe" src="/calculator/bmiCalculator.jsp"></iframe>
 </div> -->
-
+<!-- <img src="image.jpg" onclick="window.open('welcome.html')">  -->
 	   
 
 	   

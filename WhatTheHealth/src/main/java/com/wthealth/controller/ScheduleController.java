@@ -198,7 +198,7 @@ public class ScheduleController {
 			if (exCal>dietCal) {
 				averageCalList.add(j,-(exCal-dietCal));
 			}else {
-				averageCalList.add(j,exCal-dietCal);
+				averageCalList.add(j,dietCal-exCal);
 			}
 			
 			System.out.println(j+"주차"+exCalList.get(j));
@@ -228,6 +228,7 @@ public class ScheduleController {
 		
 		System.out.println("dietCalList"+dietCalList);
 		System.out.println("exCalList"+exCalList);
+		System.out.println("averageCalList"+averageCalList);
 
 		
 	

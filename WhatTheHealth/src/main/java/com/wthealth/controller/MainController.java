@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.Post;
 import com.wthealth.service.community.CommunityService;
 import com.wthealth.service.exinfo.ExInfoService;
 import com.wthealth.service.main.MainService;
@@ -67,14 +68,20 @@ public class MainController {
     
       Map<String, Object> exCom= communityService.listExComRecom(search);   
       Map<String, Object> dietCom = communityService.listDietComRecom(search);
-     // Map<String, Object> meeting = meetingService.listMeeting(search);
-     // List<Post> exInfo = exInfoService.listExInfo(Weather);
+      // Map<String, Object> meeting = meetingService.listMeeting(search);
+                
+      //날씨별 운동추천 프로그램  
+      Map<String, Object> weatherRecom = exInfoService.listWeatherRecom();
       
       Page resultPageForExCom = new Page(search.getCurrentPage(), ((Integer)exCom.get("totalCount")).intValue(),pageUnit, pageSize); 
 	  System.out.println("resultPageForExCom" + resultPageForExCom);
 	  
 	  Page resultPageForDietCom = new Page(search.getCurrentPage(), ((Integer)dietCom.get("totalCount")).intValue(),pageUnit, pageSize); 
 	  System.out.println("resultPageForDietCom" + resultPageForDietCom);
+	  
+	  
+	  model.addAttribute("weather", weatherRecom.get("weather"));
+	  model.addAttribute("weatherList", weatherRecom.get("weatherRecom"));
 	  
 	  
 	  model.addAttribute("exComList", exCom.get("exComList"));

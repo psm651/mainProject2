@@ -58,6 +58,95 @@
 			self.location = "/dietCom/addDietCom";
 		});
 	});	
+   
+   var currentPage=1;
+
+   $(window).scroll(function(){
+	  
+       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+      
+		currentPage++;
+     	alert(currentPage)
+      $.ajax({
+         
+         url: "/community/json/dietCommunitylist",
+         method: "POST",
+         data: JSON.stringify({
+            currentPage: currentPage ,            
+            searchCondition: $("#searchCondition").val(),
+            searchKeyword: $("#searchKeyword").val(),
+        	searchFilter : $("#exPart").val()
+            
+         }),
+         dataType: "json",
+         headers : {
+            "Accept" : "application/json",
+            "Content-Type" : "application/json"
+         },
+         success : function(data , status){
+  	
+                  var list = data["list"];
+                  
+         
+             list.forEach(function(item, index, array){     
+            
+            	  var youtube = item["photo"].indexOf("https");
+            	  var appen = ""; 
+                       
+                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'">';
+                 	 appen += '<div class="image" style="width:400px; height:200px">';
+             
+                  if(item["photo"]==null){
+              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+             	  }else if(item["photo"]!=null){
+            	  	
+             		 if(youtube!=-1){
+            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+            	  	 }else{
+            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
+            	  }
+              	}
+             	  appen += '</div>';   
+                  appen += '<div class="text col-md-8">';
+                  appen += '<h2 class="h3 text-black"><a href="#">'+item["title"]+'</a></h2>';
+                  appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
+                  appen += '<div class="userInfo">';
+                 
+                  
+                  if(item["userImage"] != null && item["userImage"] != ''){	
+                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+                  }else if(item["userImage"] == null && item["userImage"] == ""){
+                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+                  } 	  
+ 				  appen += item["nickName"];
+                  appen += '</div>';
+                  appen += '</div>';
+                  appen += '<div class="col-md-4">';
+                  appen += '<div class="likeImage">';
+                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
+                  appen += '</div>';
+                  appen += '<div class="likeCount" style="margin-left:38px">';
+                  appen += '<h5>'+item["likeCount"]+'</h5>';
+                  appen += '</div>';
+                  appen += '</div>';
+                  appen += '</div>';
+                  appen += '</div>';                
+
+                  $("#scroll").append(appen);              
+                  
+              
+      
+             });
+                  
+                  
+         }        
+      })
+      
+      
+      }
+   });   
+   
   </script>
   
   

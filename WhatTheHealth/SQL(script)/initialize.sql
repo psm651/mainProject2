@@ -79,6 +79,7 @@ CREATE TABLE users (
 	id_token		VARCHAR2(300),
 	access_token	VARCHAR2(300),
 	refresh_token	VARCHAR2(300),
+	weight                NUMBER,
 	PRIMARY KEY(user_id)
 );
 

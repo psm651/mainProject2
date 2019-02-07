@@ -1,15 +1,25 @@
 package com.wthealth.service.exinfo.impl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
+import com.wthealth.domain.Weather;
 import com.wthealth.service.exinfo.ExInfoDao;
 import com.wthealth.service.exinfo.ExInfoService;
 
@@ -62,9 +72,91 @@ public class ExInfoServiceImpl implements ExInfoService {
 
 
 	@Override
-	public List<Post> listExInfo(String Weather) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> listWeatherRecom() throws Exception {
+		
+		//서울의 위도와 경도
+        String urlstr = "http://api.openweathermap.org/data/2.5/weather?"
+                + "q=Seoul&appid=d61d8ae1c0822fa84c4234c5c5a5f290";    
+        
+        URL url = new URL(urlstr);
+        BufferedReader bf;
+        String line;
+        String result="";
+
+        //날씨 정보를 받아온다.
+        bf = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        //버퍼에 있는 정보를 문자열로 변환.
+        while((line=bf.readLine())!=null){
+            result=result.concat(line);
+        }
+
+        //문자열을 JSON으로 파싱
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObj = (JSONObject) jsonParser.parse(result);
+
+ 
+        //도시코드 출력
+        String cityID = (String)jsonObj.get("id").toString();
+       
+        //지역 출력
+        String cityName = (String)jsonObj.get("name");
+ 
+  
+        //날씨 출력
+        JSONArray weatherArray = (JSONArray) jsonObj.get("weather");
+        JSONObject obj = (JSONObject) weatherArray.get(0);
+
+        String weatherCode= (String) obj.get("id").toString();
+        
+        InputStream  inputStream = null;
+        String currentWeather = null;
+        
+        try {
+        Properties prop = new Properties();
+        String fileName = "com/wthealth/resources/weatherTranslation.properties";
+        
+        inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+        	if(inputStream != null) {
+        		prop.load(inputStream);
+        	}else {
+        		throw new FileNotFoundException("property file '" + fileName + "' not found in the classpath");
+        	}
+        		currentWeather = prop.getProperty(weatherCode);
+        		cityName = prop.getProperty(cityName);
+        		System.out.println("current : " +currentWeather);
+        }catch(Exception e){
+        	e.printStackTrace();
+        }finally {
+        	inputStream.close();
+        }
+        
+        	
+        //온도 출력(절대온도라서 변환 필요)
+        JSONObject mainArray = (JSONObject) jsonObj.get("main");
+        double ktemp = Double.parseDouble(mainArray.get("temp").toString());
+        String temp = String.format("%.2f\n", ktemp-273.15);
+        double temperature = Double.parseDouble(temp);
+        
+        Weather weather = new Weather();
+        weather.setCityName(cityName);
+        weather.setCurrentWeather(currentWeather);
+        weather.setTemperature(temperature);
+        weather.setCityID(cityID);
+        //Cloud, Rain
+        
+	    System.out.println(weather);
+        
+        bf.close();
+        
+        
+        List<Post> weatherRecom = exInfoDao.listWeatherRecom(weather);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("weather", weather);
+        map.put("weatherRecom", weatherRecom);
+        
+		return map;
 	}
 
 	@Override

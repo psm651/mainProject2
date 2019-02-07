@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wthealth.common.Search;
 import com.wthealth.domain.Post;
+import com.wthealth.domain.Weather;
 import com.wthealth.service.exinfo.ExInfoDao;
 
 @Repository("exInfoDaoImpl")
@@ -62,6 +63,11 @@ public class ExInfoDaoImpl implements ExInfoDao{
 	public void deleteStatus(String postNo) throws Exception {
 		sqlSession.update("ExInfoMapper.updateDeleteStatus", postNo);
 		
+	}
+
+	@Override
+	public List<Post> listWeatherRecom(Weather weather) throws Exception {		
+		return sqlSession.selectList("ExInfoMapper.listWeatherRecom", weather);
 	}
 	
 
