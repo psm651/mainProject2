@@ -8,22 +8,20 @@
 	<title>운동꿀팁 글쓰기 페이지</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-	
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+ 	 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
+<!-- 	
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
      <link rel="stylesheet" href="/resources/fonts/icomoon/style.css"> 
 
-     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> 
-    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css"> 
-    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css"> 
+     
     <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css"> 
+    <link rel="stylesheet" href="../resources/css/style.css"> --> 
     
  
     
@@ -178,7 +176,8 @@
 	});
 	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
 	function sendInfo(locationTagName, address, coordinate){
- 	
+	
+		
  		$(function(){
  		 var location = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
 						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
@@ -288,7 +287,7 @@
 	</div>
 	
 
-	
+
 
 	<div class="site-section bg-light">
       <div class="container">

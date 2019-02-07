@@ -36,6 +36,7 @@ public class ExInfoRestController {
 	@RequestMapping(value="json/listExInfo", method=RequestMethod.POST)
 	public Map<String, Object> listExInfo(@RequestBody Search search) throws Exception{
 		
+		System.out.println("rest");
 		if(search.getCurrentPage()==0) {
 		search.setCurrentPage(1);
 	}

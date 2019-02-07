@@ -7,6 +7,8 @@ public class BMI {
 	private Double weight;
 	private Double bmiValue;
 	private String bmiState;
+	private String dietScDateBMI;
+	private String userId;
 	
 	//Constructor
 	public BMI() {
@@ -53,13 +55,13 @@ public class BMI {
 		this.weight = weight;
 	}
 
-/*	public int getAge() {
-		return age;
+	public String getDietScDateBMI() {
+		return dietScDateBMI;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
-	}*/
+	public void setDietScDateBMI(String dietScDateBMI) {
+		this.dietScDateBMI = dietScDateBMI;
+	}
 
 	public Double getBmiValue() {
 		return bmiValue;
@@ -77,10 +79,21 @@ public class BMI {
 		this.bmiState = bmiState;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "BMI [height=" + height + ", weight=" + weight + ", bmiValue=" + bmiValue + ", bmiState=" + bmiState
-				+ "]";
+				+ ", dietScDateBMI=" + dietScDateBMI + ", userId=" + userId + "]";
 	}
+
+
+
 	
 }

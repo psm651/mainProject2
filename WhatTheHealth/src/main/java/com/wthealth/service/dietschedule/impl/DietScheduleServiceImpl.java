@@ -71,7 +71,7 @@ public class DietScheduleServiceImpl implements DietScheduleService {
 
 	@Override
 	public void addBmi(BMI bmi) throws Exception {
-		// TODO Auto-generated method stub
+		dietScheduleDao.addBmi(bmi);
 		
 	}
  

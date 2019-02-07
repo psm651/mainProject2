@@ -28,8 +28,9 @@
    <style>
    
    	.giyong{
+   	/* 	width: 63%; */
    		margin-top : 5em;
-   		padding : 2em;
+   		padding : 3em;
    		border : 1px solid gray;
    		border-radius : 15px;
    		text-align : center;
@@ -38,7 +39,7 @@
    	
    	.contents{
    		display : block;
-   		text-align : center;
+   		text-align : left;
    	}
    	
    	.giyong ul{
@@ -50,22 +51,65 @@
    		text-align : center;
    		padding-left : 30em;
    	}
+
    	
    	.giyong li{
    		display : block;
    		list-style-type : none;
    		float : left;
    	}
-   	
+
+  	
    	.Kimgiyong{
    		display : block;
    		height : 60px;
    	}
-   	
+
    	.giyongInput{
    		margin-top : 50px;
    		text-align : left;
    	}
+   	
+   	h4{
+   		display: block;
+   		font-size: 24px;
+    	padding-bottom: 8px;
+    	margin-bottom: 20px;
+    	border-bottom: 2px solid #5d5d5d;
+    	line-height: 1.3em;
+    	color: #2e2e2e;
+    	font-weight: 600;
+    	text-align:left
+    	
+   	}    	
+   	
+	.like and view{text-align:right;}
+	   	
+   	.postImage{
+   	 width :110px;
+   	 height: 120px;
+
+ 	 padding: 3px;
+   	 border : 1px solid gray;
+   		
+   	} 
+   	   	
+   	.imagelocation li{
+   		width:230px;
+   		hegiht:245px;
+   		
+    	padding-right: 0px;
+   		padding-bottom: 0px;
+    	padding-left: 0px;
+    	list-style-type : none;
+
+   	}
+ 
+ 	.imagelocation{
+ 		margin-top:-104%;
+ 		margin-left:70%
+ 	}
+ 	.right{margin-left:37.7%;margin-top:-41%}   	
    	
    </style>
    <script type="text/javascript">
@@ -231,14 +275,19 @@
    <!-- <div class="site-section" align="center"> -->
       <div class="container">
       
+      	<div class="row">
+       		<div class="col-lg-8">
+       	
+      		<input type="hidden" name="postNo" value="${post.postNo }"/>
+      
         <div class="giyong">
-          	<h4>${post.title}</h4>
-          	<ul>
+          	<h4 >${post.title}</h4>
+          	<ul class="like and view">
           		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
           		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
           	</ul>
  
-            <div class="contents" >
+            <div class="contents" style="margin-top:-12%;" >
 				<p>${post.contents}</p>
            		 <%-- <p class="mb-4">${post.contents}</p> --%>
            	</div>
@@ -282,7 +331,27 @@
            
         
       </div>
-    <!-- </div> -->
+
+	 <ul class="imagelocation">
+	   <li>
+	 		<img src="/resources/images/post/post_BMI.png" alt="Image" class="postImage" id="bmiLocation">
+	   </li>
+	   <li class="right">
+	 		<img src="/resources/images/post/post_Calorie.jpg" alt="Image" class="postImage" id="calorieLocation" >
+	   </li>
+	   <li>
+	 		<img src="/resources/images/post/post_HistroyChart.png" alt="Image" class="postImage" id="historyChartLocation">
+	   </li>
+	   <li class="right">
+	 		<img src="/resources/images/post/post_Schedule.png" alt="Image" class="postImage" id="scheduleLocation" >
+	   </li>
+	</ul>
+	
+	</div>
+	
+</div>
+
+</div>
 
   
 

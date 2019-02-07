@@ -105,24 +105,26 @@
 		//============= "로그인"  Event 연결 =============
 		function fncLogin() {
 			
-			$("#userId").focus();
+			$("#modalUserId").focus();
 			
-			var id=$("input:text").val();
-			var pw=$("input:password").val();
+
+			var id=$("#modalUserId").val();
+			alert(id)
+			var pw=$("#modalPassword").val();
 				
 			if(id == null || id.length <1) {
 				alert('아이디를 입력하지 않으셨습니다.');
-				$("#userId").focus();
+				$("#modalUserId").focus();
 				return;
 			}
 				
 			if(pw == null || pw.length <1) {
 				alert('패스워드를 입력하지 않으셨습니다.');
-				$("#password").focus();
+				$("#modalPassword").focus();
 				return;
 			}
 				
-			$("form").attr("method","POST").attr("action","/user/login").submit();
+			$("#loginForm").attr("method","POST").attr("action","/user/login").submit();
 		}
 
 		
@@ -243,7 +245,7 @@
 		<!--  row Start /////////////////////////////////////-->
 	
 
-			        <form class="form-horizontal">
+			        <form class="form-horizontal" id="loginForm">
 		  
 					  <div class="form-group">
 					    <div class ="row">
@@ -253,7 +255,7 @@
 					    <div class ="row">
 					    <div class="col-sm-1"></div>
 					    <div class="col-sm-10"">
-					      <input type="text" class="form-control" name="userId" id="userId"  placeholder="아이디" onkeypress="if(event.keyCode=='13'){fncLogin()}" >
+					      <input type="text" class="form-control" name="userId" id="modalUserId"  placeholder="아이디" onkeypress="if(event.keyCode=='13'){fncLogin()}" >
 					    </div>
 					  </div>
 					  </div>
@@ -266,7 +268,7 @@
 					    <div class ="row">
 					    <div class="col-sm-1"></div>
 					    <div class="col-sm-10">
-					      <input type="password" class="form-control" name="password" id="password" placeholder="패스워드" onkeypress="if(event.keyCode=='13'){fncLogin()}" >
+					      <input type="password" class="form-control" name="password" id="modalPassword" placeholder="패스워드" onkeypress="if(event.keyCode=='13'){fncLogin()}" >
 					    </div>
 					  </div>
 					    </div>

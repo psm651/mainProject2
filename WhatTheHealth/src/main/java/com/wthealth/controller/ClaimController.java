@@ -50,18 +50,18 @@ public class ClaimController {
 	int pageSize;
 
 	@RequestMapping(value = "addClaim", method = RequestMethod.GET)
-	public String addClaim(@RequestParam("targetNo") String targetNo, @RequestParam("menu") String menu, Model model)
+	public String addClaim(@RequestParam("targetNo") int targetNo, @RequestParam("menu") String menu, Model model)
 			throws Exception {
 
 		if (menu.equals("post")) {
 			System.out.println("/addClaimPost : GET");
 			Post claimedPost = claimService.getClaimedPost(targetNo);
-			System.out.println("포스트 유저아이디!!" + claimedPost.getTitle());
+			System.out.println("포스트 유저아이디!!" + claimedPost.getUserId());
 			model.addAttribute("claimed", claimedPost);
 			return "forward:/claim/addClaim.jsp";
 		} else
 			System.out.println("/addClaimReply : GET");
-		Reply claimedReply = claimService.getClaimedReply(Integer.parseInt(targetNo));
+		Reply claimedReply = claimService.getClaimedReply(targetNo);
 		System.out.println("클래임 유저아이디!!" + claimedReply.getText());
 		model.addAttribute("claimed", claimedReply);
 		System.out.println("댓글신고: " + claimedReply);
@@ -102,6 +102,7 @@ public class ClaimController {
 		System.out.println("클레임!#@!@#!@#!"+claim);
 		// Business Logic
 		claim.setUserId(((User) session.getAttribute("user")).getUserId());
+		
 		claimService.addClaim(claim);
 		// 어디로 가야하는가
 		return "forward:/product/addProductConform.jsp";
