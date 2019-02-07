@@ -30,7 +30,7 @@ public class PointDaoImpl implements PointDao {
 	
 	private final String REST_API_KEY = "11723e59094c12e0f6ad95a132887387";
 	private final String ADMIN_KEY = "54ebcb423af0a54257b01efe086cf92f";
-	private final String REDIRECT_URI = "http://192.168.0.48:8080/point/kakaoPay";
+	private final String REDIRECT_URI = "http://192.168.0.43:8080/point/kakaoPay";
 	private final String GET_TOKEN_API_URL = "https://kauth.kakao.com/oauth/token";
 
 	private final String PAYMENT_READY_URL = "https://kapi.kakao.com/v1/payment/ready";
@@ -100,8 +100,8 @@ public class PointDaoImpl implements PointDao {
 		int quantity = 1;
 
 	       String param = PAYMENT_TEST_PARAM+"&item_name="+item+"&quantity="+quantity+"&total_amount="+point
-	        			+ "&tax_free_amount=0&approval_url=http://192.168.0.48:8080/point/kakaoPaySuccess.jsp"
-	        			+ "&fail_url=http://192.168.0.48:8080/point/kakaoPay/fail&cancel_url=http://192.168.0.48:8080/point/kakaoPay/cancel";
+	        			+ "&tax_free_amount=0&approval_url=http://192.168.0.43:8080/point/kakaoPaySuccess.jsp"
+	        			+ "&fail_url=http://192.168.0.43:8080/point/kakaoPay/fail&cancel_url=http://192.168.0.43:8080/point/kakaoPay/cancel";
 	
 	       JSONObject obj = URLConnection.getJSON_PARAM(URLConnection.HTTPMETHOD_POST, PAYMENT_READY_URL, param,
 	       		"application/x-www-form-urlencoded; charset=utf-8",
@@ -121,8 +121,8 @@ public class PointDaoImpl implements PointDao {
 		int quantity = 1;
 
         String param = PAYMENT_TEST_PARAM+"&item_name="+item+"&quantity="+quantity+"&total_amount="+point
-        				+ "&tax_free_amount=0&approval_url=http://192.168.0.48:8080/point/kakaoPaySuccess.jsp"
-        				+ "&fail_url=http://192.168.0.48:8080/payment/kakaoPay/fail&cancel_url=http://192.168.0.48:8080/payment/kakaoPay/cancel";
+        				+ "&tax_free_amount=0&approval_url=http://192.168.0.43:8080/point/kakaoPaySuccess.jsp"
+        				+ "&fail_url=http://192.168.0.43:8080/payment/kakaoPay/fail&cancel_url=http://192.168.0.43:8080/payment/kakaoPay/cancel";
 		
         System.out.println(param);
         
@@ -133,7 +133,8 @@ public class PointDaoImpl implements PointDao {
         System.out.println("1");
 		this.tid = obj.get("tid").toString();
 		 System.out.println("222");
-		 System.out.println(obj.get("next_redirect_pc_url").toString());
+		 System.out.println("redirectUrl::::::"+obj.get("next_redirect_pc_url").toString());
+		 
 		return obj.get("next_redirect_pc_url").toString();
 	}
 

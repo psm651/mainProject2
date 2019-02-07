@@ -309,6 +309,37 @@
 	  			<button type="button" class="btn btn-primary" id="chatting" data-param="${user.userId }">1:1 채팅</button>
 	  			<button type="button" class="btn btn-primary" id="point">포인트 쏘기</button>
 	  			
+	  			<br/><br/>
+	  			
+	  			<c:set var="i" value="0"/>
+	  			
+					<c:forEach var = "chatting1" items="${chattinglist1}">
+						<c:set var="i" value="${i+1}"/>
+						<button type="button" class="btn btn-primary" id="getChatting${i}" data-param="${chatting1.roomId}" >
+						<c:if test = "${sessionScope.user.userId == chatting1.user1}">
+						${chatting1.user2}님과 채팅
+						</c:if>
+						<c:if test = "${sessionScope.user.userId == chatting1.user2}">
+						${chatting1.user1}님과 채팅
+						</c:if>
+						</button>
+					</c:forEach>
+				
+					
+					<c:set var="j" value="0"/>
+					<c:forEach var = "chatting2" items="${chattinglist2}">
+						<c:set var="j" value="${j+1}"/>
+						<button type="button" class="btn btn-primary" id="getChatting${j}" data-param="${chatting2.roomId}" >
+						<c:if test = "${sessionScope.user.userId == chatting2.user1}">
+						${chatting2.user2}님과 채팅
+						</c:if>
+						<c:if test = "${sessionScope.user.userId == chatting2.user2}">
+						${chatting2.user1}님과 채팅
+						</c:if>
+						</button>
+					</c:forEach>
+	  			
+	  			
 	  		</div>
 		</div>
 		</c:if>
