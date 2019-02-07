@@ -463,8 +463,8 @@ var result = new Array();
 		      editable: true,//드래그앤드랍 가능하게
 		      selectable:false,//드래그해서 여러칸선택
 		      
-		      eventTextColor:'black',//이벤트 글씨색
-		      eventBorderColor:'#ff7a96',//이벤트 주변 테두리색	
+		      eventTextColor:'white',//이벤트 글씨색
+		      eventBorderColor:'black',//이벤트 주변 테두리색	
 		      
 		    	  
 		    	/* if (${'random==2'}) {
@@ -492,9 +492,11 @@ var result = new Array();
 		    		  title:'${info.exScName}',
 		    		  id:'${info.exScNo}',
 		    		  start:"${info.exScDate}",
-		    		  backgroundColor:'#ffb1c1', 
+		    		  backgroundColor:'rgba(0,0,0,0.3)', 
 		    		  <c:if test="${info.exScPhoto==null}">
-		    		  imageurl : "../resources/images/pic.jpg"
+		    		  //imageurl : "../resources/images/pic.jpg"//default Image
+		    		  imageurl : "../resources/images/icons8-deadlift-48.png"
+		    			
 		    		  </c:if>
 		    		  <c:if test="${info.exScPhoto!=null}">
 			    		  imageurl : "${info.exScPhoto}"
