@@ -84,7 +84,7 @@
 						$("#appendFood").children("tbody").children("tr").remove();
 						
 						$.each(data, function(index){
-						var select = "<select class='selectpicker'>";
+	/* 					var select = "<select class='selectpicker'>";
 							
 						var option += "<option>"+data[index].amountFood+"</option>";
 								if
@@ -94,7 +94,7 @@
 								        		"<option>"+data[index].amountFood+"</option>"+
 								        		"<option></option>
 								        <option>Relish</option>
-								      </select>
+								      </select> */
 
 							
 						var	display = "<tr><th scope='row'>"+(index+1)+"</th>"+
@@ -206,17 +206,13 @@ $(function(){
 			autoClose: true,
 			todayButton : true,
 	 		onSelect: function onSelect(){			
-				
-	 			alert("")
+	
 	 		} 
 		});
-	// Select initial date from `eventDates`
+
 
 		$('#dietScDate').data('datepicker');
-	//Access instance of plugin
-	/* $('#exInfoSc').data('datepicker')    
 
-	}); */
 
 });
  	
@@ -228,7 +224,7 @@ $(function(){
 <body>
 	
 	<div class="site-wrap">
-		<jsp:include page="/layout/toolbar.jsp" />
+		<jsp:include page="/calculator/test.jsp" />
 	</div>
 
    	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/calorie.jpg');">
@@ -259,24 +255,24 @@ $(function(){
 		
 			<div class="form-inline">	
 				<div class="row">
-		       <div class="col-md-2" style="margin-left:2em; float:right;">
+		       <div class="col-md-3" style="margin-left:2em; float:right;">
 		    	 <strong>추가된 총 칼로리:</strong><span id="amount"></span>
 			   </div>			
 			
 
-	 		   <div class="col-md-2" style="margin-left:3em; float:right;">
-				<select class="form-control" name="mealTime" id="mealTime" style="margin-left:290px;">
+	 		   <div class="col-md-3" >
+				<select class="form-control" name="mealTime" id="mealTime" >
 					<option value="0" >아침</option>
 					<option value="1" >점심</option>
 					<option value="2" >저녁</option>		
 				</select>  
 			  </div>
 		
-			   <div class="col-md-2" style="margin-left:4em; float:right;">		
+			   <div class="col-md-3" >		
 			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" /> 		
 		       </div>
 			  
-			  <div class="col-md-2" style="margin-left:2em; float:right;">	 			
+			  <div class="col-md-3" >	 			
 				 <a href="#" class="btn btn-primary pill px-4" id="button" >담기</a>
 		 	  </div>
 		 	  </div>

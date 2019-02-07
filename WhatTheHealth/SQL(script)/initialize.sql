@@ -156,7 +156,7 @@ CREATE TABLE MEAL(
 	meal_no NUMBER NOT NULL,
 	food_name VARCHAR2(100) NOT NULL ,
 	food_calorie VARCHAR2(10) NOT NULL,
-	amount_food VARCHAR2(10) NOT NULL,
+	amount_food VARCHAR2(30) NOT NULL,
 	diet_sc_no NUMBER REFERENCES diet_sc(diet_sc_no),
 	PRIMARY KEY(meal_no)
 );
