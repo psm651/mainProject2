@@ -381,7 +381,18 @@ body {
 
             
              <div class="weather-card madrid" style="margin-left:10px;">
-				<div class="card-header" align="center" >${weather.cityName}</div> 
+				<div class="card-header" align="center" >${weather.cityName}
+					<select name="cityID" class="cityID" onchange="cityChange()">
+						<option value="Busan,KR" 	style="font-size:20px;">부산</option>
+		  				<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
+						<option value="Incheon,KR" 	style="font-size:20px;">인천</option>
+						<option value="Gwangju,KR" 	style="font-size:20px;">광주</option>
+						<option value="Daejeon,KR" 	style="font-size:20px;">대전</option>
+						<option value="Ulsan,KR" 	style="font-size:20px;">울산</option>
+						<option value="Sejong,KR" 	style="font-size:20px;">세종특별자치시</option>
+						<option value="Jeju,KR" 	style="font-size:20px;">제주특별자치도</option>
+					</select>
+				</div> 
 			  
          		<div class="weather-icon sun"></div>
        			 <strong><h3>${weather.temperature}℃</h3></strong>

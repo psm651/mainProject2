@@ -13,32 +13,22 @@
 	
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	
-
-	<!-- include libraries(jQuery, bootstrap) -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="/resources/js/app.js"></script>
 	
 	<!-- include datetimepicker css/js-->
 	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
-	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
- 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
+	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css"> 
 	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
+
    	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
 	
 	<style>
-       body > div.container{border: 3px solid #D6CDB7;margin-top: 5px; }
+      
        .datepicker-here{weight:60px; height: 30px;}	   
        .block-schedule{height:200px;}	
-	   #searchFood{
-	   height : 26px; 
-	   width: 180px;
-	   /* margin-left: 180px; */
-	   }
+
    	   #appendFood{
    	   /* width: 800px; */
    	   /* margin-left: 350px; */
@@ -57,17 +47,12 @@
    	   	font-weight : bold;
    	   	color : white;
    	   }
-   	   #input{
-   	   margin-top:70px;
-   	   }
-   	   #bmiIcon{
-   	   weight:80px;
-   	   height:80px;
-   	   }
+
    		#scheduleIcon{
    		weight:50px;
    		height:50px;
    		}
+
     </style>
     	
   
@@ -78,7 +63,7 @@
 }); */
 
 	$(function(){
-		$(".btn:contains('검색')").on("click", function(){
+		$("#btn-searchFood").on("click", function(){
 			
 			var searchFood = $("#searchFood").val();	
 	
@@ -94,18 +79,31 @@
 					  }, // end of header
 				  
 					  success : function(data, status){
-					
-						var totalDisplay = "";
+						
+					 	var totalDisplay = "";
 						$("#appendFood").children("tbody").children("tr").remove();
 						
 						$.each(data, function(index){
+						var select = "<select class='selectpicker'>";
+							
+						var option += "<option>"+data[index].amountFood+"</option>";
+								if
+						var displays = "<tr><th scope='row'>"+data[index].foodName+"</th>"+
+								        "<td>"+
+										   "<select class='selectpicker'>"+
+								        		"<option>"+data[index].amountFood+"</option>"+
+								        		"<option></option>
+								        <option>Relish</option>
+								      </select>
+
+							
 						var	display = "<tr><th scope='row'>"+(index+1)+"</th>"+
 					  					 "<td>"+data[index].foodName+"</td>"+
 						 				 "<td>"+data[index].amountFood+"</td>"+
 						 	 			 "<td>"+data[index].foodCalorie+"</td>"+
 										 "<td align='left'><button type='button' class='btn btn-default btn-sm'>추가</a></td>"+
 									  "</tr>";	
-						totalDisplay += display;	
+						totalDisplay += display;	 
 						});		
 						$("#appendFood").children("tbody").append(totalDisplay);
 				  }//end of success
@@ -144,10 +142,6 @@
 		 	 					 "<td>"+foodCalorie+"</td>"+
 		 	 					
 					   			 "<td align='left'><button type='button' class='btn btn-default btn-sm'>삭제</a></td>"+
-					   	  
-				 	   	 /* 	"<input type='hidden' id='foodName' name='foodName' value='"+ foodName+"'/>"+
-				   			"<input type='hidden' id='amountFood' name='amountFood' value='"+ amountFood+"'/>"+
-				   			"<input type='hidden' id='foodCalorie' name='foodCalorie' value='"+ foodCalorie+"'/>" */
  					   	    	"<input type='hidden' name='foodInfos["+(index-1)+"].foodName' value='"+ foodName+"'/>"+
 					   			"<input type='hidden' name='foodInfos["+(index-1)+"].amountFood' value='"+ amountFood+"'/>"+
 					   			"<input type='hidden' name='foodInfos["+(index-1)+"].foodCalorie' value='"+ foodCalorie+"'/>"  +
@@ -233,10 +227,10 @@ $(function(){
 
 <body>
 	
-	<jsp:include page="/calculator/test.jsp" />
-	
-	
-	
+	<div class="site-wrap">
+		<jsp:include page="/layout/toolbar.jsp" />
+	</div>
+
    	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/calorie.jpg');">
  		<div class="page-header">
 	       <h3 class=" text-info" align="center"><span>#WhatTheHealth 와 함께하는 칼로리계산</span></h3>
@@ -248,24 +242,18 @@ $(function(){
    	<div class="container">
 	
 		<br/><br/><br/>
-
-
-
-	
- 
-		    <div class="row" id="keyword">
-		    	<div>
-		    		<span><h4><strong>KEYWORD</strong></h4></span>
+		
+		    <div class="row form-group" > 
+		     <div class="col-lg-7" >
+		    	<input type="text" class="form-control" id="searchFood" placeholder="원하는 음식을 검색하세요" style="height:109%;width:45%;margin-left:60%"> 
+		     </div>
+		     <div class="col-lg-4" style="text-align:left;">
+		    	<button type="button" id="btn-searchFood" class="btn btn-danger" style="">
+		    		 <span class="icon-search mr-1" aria-hidden="true"></span> 
+		    	</button>
 		    	</div>
 		    </div>
-		    <div class="row" id="input" style="margin-top:30px;">
-		    	<div>
-		    		<input type="text" id="searchFood" name="searchFood">
-		    	</div>
-		    	<div>
-		    		<button type="button" class="btn pull-right" >검색</button>
-				</div>
-			</div>
+
 
 			<br/>
 		
@@ -283,9 +271,7 @@ $(function(){
 					<option value="2" >저녁</option>		
 				</select>  
 			  </div>
-			   <div class="col-md-2" style="margin-left:1em; float:right;">	
-			 	 <img src="/resources/images/upload/schedule.png" alt="Image" class="img-fluid" id="scheduleIcon"> 
-			   </div>
+		
 			   <div class="col-md-2" style="margin-left:4em; float:right;">		
 			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" /> 		
 		       </div>
@@ -331,6 +317,7 @@ $(function(){
 
 </div>	
 		
+		</div>
 </body>
 
 </html>

@@ -36,6 +36,7 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Override
 	public void addExCom(Post post) throws Exception {
+		System.out.println("dsfsd");
 		communityDao.addExCom(post);
 	}
 	

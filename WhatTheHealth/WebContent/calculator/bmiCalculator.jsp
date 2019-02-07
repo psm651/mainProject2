@@ -82,11 +82,6 @@ $(function(){
 							$("#bmiState").text(" ("+JSONdata.bmiState+")");
 					
 						var total = JSONdata.bmiValue + "("+JSONdata.bmiState+")";
-							
-				/* 		var bar1 = $("#1").offset();
-						var bar2 = $("#12").offset();
-						var bar3 = $("#123").offset();
-						var bar4 = $("#1234").offset(); */
 						
 						if($("em").text()!=''){
 							$("em").text('');
@@ -102,11 +97,7 @@ $(function(){
 								  "left" : "420px"
 							 });					
 						}else if(JSONdata.bmiState=='정상'){				
-							/* $("em").css({
-								   "position" : "absolute",
-								   "top" : "560px",
-								   "left" : "552px"
-								}); */
+
 							$("em").css({
 								   "position" : "relative",
 								   "top" : "30%",
@@ -146,7 +137,8 @@ $(function(){
 		autoClose: false,
 		position:  "right top",
 	 	autoClose: true,
-		todayButton : true
+		todayButton : true,
+		dateFormat : 'yy/mm/dd'
 	});
 });
 
@@ -160,42 +152,55 @@ $('#bmiDatepicker').data('datepicker');
 
    
 $(function(){
-	/*  $( "#draggable" ).draggable(); */
-	/*  $("#bmiIcon").on("click", function(){	
-	}); */
-	 
-	 $('.btn:contains("저장")').on('click', function(){
+
+	 $('#save').on('click', function(){
 		 
 		 var dietScDate = $('#bmiDatepicker').val();
+		 console.log(dietScDate)
+		 console.log(typeof dietScDate)
 		 var weight = $('#weight').val();
 		 var bmiValue = $('#bmiValue').text();
 		 var bmiState = $('#bmiState').text();
 		 
-		 if(weight =='' || bmiValue=='' || bmiState=='' || dietDate==''){
-			 swal("제대로 된 값을 입력해주세요", "입력되지 않는 값이 있는지 확인해주세요", "error");
-		 }else if(${sessionScope.user.userId==null}){
-			 swal("로그인이 필요한 서비스입니다.", "로그인을 해주세요", "warning")
-		 }else{
+		 
+		 if(${sessionScope.user.userId == null}) {
+		     swal("회원만 이용 가능합니다.")
+		 	 return;
+		 }
+		 
+		 if(bmiValue == null || bmiValue.length<1){
+		     swal("BMI 계산을 먼저 진행해주세요!")
+		 	 return;
+		 }
+		 if(dietScDate == null || dietScDate.length<1){
+			 swal("날짜를 선택해주세요")
+			 $('#bmiDatepicker').focus()
+			 return;
+		 }	
+		 
+		
 			 
-			 $.ajax({
+ 		 	 $.ajax({
 			 	
 				 url:"/calculator/json/updateScheduleBMI",
 				 method: "POST",
 				 data : JSON.stringify({
-					dietScDate: dietScDate,
-					weight : weight,
-					bmiValue : bmiValue,
-					bmiState : bmiState
+					dietScDateBMI: $('#bmiDatepicker').val(),	
+					bmiValue : $('#bmiValue').text(),
+					weight : $('#weight').val()
 				 }),
-				 dataType: "json",
-				 header: {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
+				 dataType : "json", 
+				 headers : {
+						"Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+				 success : function(JSONdata, status){
+						swal(JSONdata)
 				 }
 			 
-			 })//end of ajax
+			 })//end of ajax  */
 			 
-		 }
+		
 	 })	
 }); 
 
@@ -223,7 +228,7 @@ $(function(){
 	   		<div class="row" style="align:right">
 	   			<div>내 스케줄 담기</div>
 	   			<input type='text' data-language='en'  id='bmiDatepicker'  name='dietScDate'/> 
-	   			<button type="button" class="btn btn-primary btn-sm" style="margin-left:1.2%"> 저장</button>
+	   			<button type="button" id="save" class="btn btn-primary btn-sm" style="margin-left:1.2%"> 저장</button>
 		      	
 	   		</div>
 	   </div>
@@ -305,10 +310,10 @@ $(function(){
 
 	 </div>
 	   
- <div id="draggable">	
+<!--  <div id="draggable">	
 	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon" onclick="">	   
 	<iframe id="iframe" src="/calculator/bmiCalculator.jsp"></iframe>
-</div>
+</div> -->
 <!-- <img src="image.jpg" onclick="window.open('welcome.html')">  -->
 	   
 

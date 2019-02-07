@@ -102,7 +102,7 @@
   		display: block;
    		font-size: 15px;
     	padding-bottom: 8px;
-    	margin-bottom: 20px;
+    	margin-bottom: 20px;introClass
     	border-bottom: 1px solid #2e2e2e;
     	line-height: 1em;
     	color: #2e2e2e;

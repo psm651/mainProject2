@@ -7,7 +7,7 @@
 
 <html lang="ko">
   <head>
-    <title>IronMuscle &mdash; Colorlib Website Template</title>
+    <title>운동꿀팁 목록 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
@@ -49,25 +49,31 @@
  
 
    
-   function fncGetList(currentPage){
+    function fncGetList(currentPage){
 	   $("#currentPage").val(currentPage);
 	   $(".form-inline").attr("method", "POST").attr("action", "/exInfo/listExInfo").submit();
-   }
-   
-  
+   } 
    $(function(){
-  	$(".post-entry").on("click", function(){
-  		var postNo =$(this).data("param");
-  		self.location = "/exInfo/getExInfo?postNo="+postNo;
-  	});
-  });
-   
+	  	$(".post-entry").on("click", function(){
+	  		var postNo = $(this).data("param");
+	  		var blindStatus = $(this).data("blind");
+	  		if(blindStatus == '1'){
+	  			alert('블라인드 처리된 게시물입니다.');
+	  			return;
+	  		}
+	  		self.location = "/exInfo/getExInfo?postNo="+postNo;
+	  	});
+	  });
+  
+
+   //글쓰기
    $(function() {
 		$("a[href='#' ]").on("click" , function() {
 			self.location = "/exinfo/addExInfo.jsp" 
 		});
 	});	
    
+   //글 보기
    $(function(){
 	  $(document).on("click", ".post-entry", function(){
 		var postNo=$(this).data("param");
@@ -84,11 +90,11 @@
    
 
 
-
+   var currentPage=1;
 
    $(window).scroll(function(){
-	   var currentPage=1;
-      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+	  
+       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
      	alert(currentPage)
@@ -109,47 +115,42 @@
             "Content-Type" : "application/json"
          },
          success : function(data , status){
-  				 
+  	
                   var list = data["list"];
                   
          
              list.forEach(function(item, index, array){     
-                  va
+            
+            	  var youtube = item["photo"].indexOf("https");
             	  var appen = ""; 
                        
-                  appen += '<div class="col-md-6 col-lg-4 mb-4">';
-                  appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'">';
-                  appen += '<div class="image" style="width:400px; height:200px">';
-              if(item["photo"]==null){
-              	  appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
-              }
-                  
-                  /* appen += '<c:if test="'+(item["photo"] == null)+'">';
-                  appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">';
-                  appen += '</c:if>'; */
-                  appen += '<c:set var="youtubeThumbnail" value="'+item["photo"]+'"/>';
-                  appen += '<c:if test="'+item["photo"]+'">';
-                  appen += '<c:choose>';
-                  appen += '<c:when test="${fn:contains(youtubeThumbnail,"https")}">';
-                  appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
-                  appen += '</c:when>';  
-                  appen += '<c:otherwise>';
-                  appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';
-                  appen += '</c:otherwise>';                    
-                  appen += '</c:choose>';
-                  appen += '</c:if>';
-                  appen += '</div>';
+                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
+                 	 appen += '<div class="image" style="width:400px; height:200px">';
+             
+                  if(item["photo"]==null){
+              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+             	  }else if(item["photo"]!=null){
+            	  	
+             		 if(youtube!=-1){
+            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+            	  	 }else{
+            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
+            	  }
+              	}
+             	  appen += '</div>';   
                   appen += '<div class="text col-md-8">';
                   appen += '<h2 class="h3 text-black"><a href="#">'+item["title"]+'</a></h2>';
                   appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
                   appen += '<div class="userInfo">';
-                  appen += '<c:if test="'+item["userImage"] != null && item["userImage"] != "" +'">';
-                  appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
-                  appen += '</c:if>';
-                  appen += '<c:if test="'+item["userImage"] == null && item["userImage"] == "" +'">';
-                  appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
-                  appen += '</c:if>';
-                  appen += item["nickName"];
+                 
+                  
+                  if(item["userImage"] != null && item["userImage"] != ''){	
+                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+                  }else if(item["userImage"] == null && item["userImage"] == ""){
+                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+                  } 	  
+ 				  appen += item["nickName"];
                   appen += '</div>';
                   appen += '</div>';
                   appen += '<div class="col-md-4">';
@@ -157,13 +158,13 @@
                   appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
                   appen += '</div>';
                   appen += '<div class="likeCount" style="margin-left:38px">';
-                  appen += '<h5>${post.likeCount}</h5>';
+                  appen += '<h5>'+item["likeCount"]+'</h5>';
                   appen += '</div>';
                   appen += '</div>';
                   appen += '</div>';
                   appen += '</div>';                
 
-                  $(".scorll").append(appen);              
+                  $("#scroll").append(appen);              
                   
               
       
@@ -185,8 +186,8 @@
   <body>
 
    <div class="site-wrap">
-     <jsp:include page="/layout/toolbar.jsp" /> 
-
+    <jsp:include page="/layout/toolbar.jsp" /> 
+ 
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
       </div>
@@ -240,7 +241,7 @@
         <br/>
         
         
-        <div class="row mb-5">
+        <div class="row mb-5" id="scroll">
           <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
           <c:forEach var="post" items="${list}"> 
@@ -248,7 +249,7 @@
           
           <div class="col-md-6 col-lg-4 mb-4">
           
-            <div class="post-entry bg-white" data-param="${post.postNo}">
+            <div class="post-entry bg-white" data-param="${post.postNo}" data-blind="${post.blindStatus}">
               <div class="image" style="width:400px; height:200px">
               	<c:if test="${empty post.photo}">
                     <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
@@ -294,9 +295,9 @@
           
         </div> 
         
-        <span class="scorll"></span>
+        
    </c:forEach> 
-                          
+        
    
   	    
       </div>

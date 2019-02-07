@@ -76,9 +76,6 @@
    
    
    <script type="text/javascript">
-   var walkkTime;
-   var bycicleTime;
-   var selectBox = false; //셀렉박스 선택여부를 나타낸다
 
    var drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
    var moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
@@ -370,7 +367,7 @@
       if (distanceOverlay) { // 커스텀오버레이가 생성된 상태이면
           
           // 커스텀 오버레이의 위치와 표시할 내용을 설정합니다
-          distanceOverlay.setPosition(position);
+          distanceOverlay.setPosition(position)
           distanceOverlay.setContent(content);
           
       } else { // 커스텀 오버레이가 생성되지 않은 상태이면
@@ -392,8 +389,6 @@
    function deleteDistnce () {
 
 
-      
-	  //운동 방법을 선택 유무 if문
 		if (distanceOverlay) {
     	
  
@@ -451,44 +446,57 @@
 
       dots = [];
    }
+	
 
    //마우스 우클릭 하여 선 그리기가 종료됐을 때 호출하여 
    //그려진 선의 총거리 정보와 거리에 대한 도보, 자전거 시간을 계산하여
    //HTML Content를 만들어 리턴하는 함수입니다
    function getTimeHTML(distance) {
+	  
+	  var content = "";
+	  //BMI에 등록된 userWeight
+	 
+	   
+      // 걷기의 평균 분속은 67m/min입니다
+      var walkkTime = distance / 67 | 0;
+	  // 런닝의 평균 분속은 134m/min
+	  var runningTime = distance / 134 | 0;
+      // 자전거의 평균  분속은 267m/min입니다
+      var bycicleTime = distance / 267 | 0;
 
-      // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
-          walkkTime = distance / 67 | 0;
-      var walkHour = '', walkMin = '';
-
-      // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
-      if (walkkTime > 60) {
-          walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
-      }
-      walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
-
-      // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
-          bycicleTime = distance / 227 | 0;
-      var bycicleHour = '', bycicleMin = '';
-
-      // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
-      if (bycicleTime > 60) {
-          bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
-      }
-      bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
-
-      // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
-      var content = '<ul class="dotOverlay distanceInfo">';
-      content += '    <li>';
-      content += '        총거리 <span class="number">' + distance + '</span>m';
-      content += '    </li>'; 
-      content += '<select class="form-control" name="workout" id="exPlace" onchange="fncSelect(this)">';
-      content += '<option value="">운동을 선택해주세요</option>';
-      content += '<option value="0" >걷기</option>';	
-      content += '<option value="1" >자전거</option>';      
-      content += '</select>';            
-      content += '</ul>'; 
+  
       
+      if(${sessionScope.user.weight != null}){
+    	  var userWeight = ${sessionScope.user.weight};
+    	  var walkCalorie = (walkkTime/4)*0.9*userWeight;
+    	  var runningCalorie = (runningTime/4)*2.0*userWeight;
+    	  var bycicleCalorie =  (bycicleTime/4)*2.3*userWeight; 	    	  
+    	  
+      // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
+      content = '<ul class="dotOverlay distanceInfo">';
+      content += '    <li>';
+      content += '  	 총거리 <span class="number">' + distance + '</span>m';
+      content += '    </li>'; 
+      content += '    <li>';
+      content += '      걷기 칼로리 <span class="number">' + Math.round(walkCalorie) + '</span>Kcal'
+      content += '    </li>';
+      content += '    <li>';
+      content += '      런닝 칼로리 <span class="number">' + Math.round(runningCalorie) + '</span>Kcal'
+      content += '    </li>';      
+      content += '    <li>';
+      content += '      자전거 칼로리 <span class="number">' + Math.round(bycicleCalorie) +'</span>Kcal'
+      content += '    </li>';
+      content += '</ul>'
+      }else{
+          content = '<ul class="dotOverlay distanceInfo">';
+          content += '    <li>';
+          content += '  	 총거리 <span class="number">' + distance + '</span>m';
+          content += '    </li>';  
+          content += '    <li>';
+          content += '  	<span> BMI 측정을 하셔야 칼로리 확인이 가능해요</span>';
+          content += '    </li>';            
+      }
+
 
       return content;
    }        
@@ -498,70 +506,14 @@
 	   selectBox=true;
    
 	  return selectBox;
-   }
-   function fncSelect(){
-	   
-	   var workout = $('select[name=workout]').val();
-	
-	   var walkValue = 0;
-	   var bycicleValue = 0;
-	   
-	   var walkCalorie = 0;
-	   var runCalorie = 0;
-	   var biycleCalorie = 0;
+   } 
 
-	   var userWeight = ${sessionScope.user.weight};
-	    
-	   alert(walkkTime)
-	   if(workout=='0'){
-		   if(Number(walkkTime)>15){
-			   if(${sessionScope.user.weight != null}){
-					 walkValue = walkkTime/4;
-			 		 walkCalorie = userWeight*0.9*walkkTime;
-			   }
-		   }else if(Number(bycicleTime)>15){
-			   if(${sessionScope.user.weight != null}){
-					 walkValue = walkkTime/4;
-			 		 walkCalorie = userWeight*0.9*walkkTime;
-			   }
-		   }else if(Number(walkkTime<15)){
-			   swal("15분 이상의 거리만  칼로리 측정이 가능합니다.")
-			   return
-	  	   }
-	   }
-	   
-	    
-	
-			 
-		 
-	/* 	  bycicleValue = bycicleTime/4;
-	
-				 		
-		  }else if(${sessionScope.user.weight != null} && workout=='1'){
-			  biycleCalorie = userWeight*2.3*bycicleTime
-		  }
-		  
-		  $('.dotOverlay distanceInfo').append('<span>소모칼로리'+calorire+'</span>');
-		  
-	   }else if(Number(walkkTime)<15 || Number(bycicleTime)<15){
-		   alert("sadfasf"+walkkTime)
-		   swal("15분 이상의 거리만  칼로리 측정이 가능합니다.")
-		   return
-	   } */
-	   
-	   
-	  
-	   
-	   
-
-	   
-   }
 
    function drawLine(selectBox){
 	  
      	 daum.maps.event.addListener(map, 'click', function(mouseEvent) {
      		if(selectBox==false){
-     			 alert("오잉")
+     			
          // 마우스로 클릭한 위치입니다 
          var clickPosition = mouseEvent.latLng;
 
@@ -631,7 +583,8 @@
 
          // 마우스 클릭으로 그린 선의 좌표 배열을 얻어옵니다
          var path = clickLine.getPath();
-
+         console.log("path"+path)
+         
          // 선을 구성하는 좌표의 개수가 2개 이상이면
          if (path.length > 1) {
 
@@ -731,6 +684,7 @@
  		
 	 		$(document).on("click", "button:contains('등록')", function(){
 	 		
+	 			
 	 			var li =  $(this).closest("li");
 
 	 			
