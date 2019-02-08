@@ -83,7 +83,7 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#cancle").on("click" , function() {
-				self.location = "/main.jsp"
+				self.location = "/"
 			});
 		});	
 		
@@ -187,12 +187,10 @@
 		// $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$("#join").on("click" , function() {
-			    uploadFile = $("#uploadFile").val();
+			    //uploadFile = $("#uploadFile").val();
 			    params = $("#snsForm").serializeArray();
 			    var properJsonObj = jQFormSerializeArrToJson(params);
-
-			
-			    
+ 
 			    alert(JSON.stringify(properJsonObj));
 		        $.ajax({
 		            url : "/user/json/addSNSUser",
@@ -206,7 +204,7 @@
 		            success : function(data){
 		                if(data == 1) {
 		                    self.close(); //댓글 작성 후 댓글 목록 reload
-		                    opener.location.replace("/main.jsp");
+		                    opener.location.replace("/");
 		                }
 		            }
 		        }); 

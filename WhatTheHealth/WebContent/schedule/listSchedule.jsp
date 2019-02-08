@@ -25,11 +25,12 @@ html {
 
 /*form styles*/
 #exScheduleForm , #exEventScheduleForm {
-	width: 450px;
+	width: 400px;
 	/* margin: 50px auto; */
 	text-align: center;
 	position: relative;
 	height: 100%;
+	margin-top: -10px;
 	/*Image only BG fallback*/
 	
 	/*background = gradient + image pattern combo*/
@@ -40,9 +41,9 @@ html {
 	background: white;
 	border: 0 none;
 	border-radius: 3px;
-	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	
 	padding: 20px 30px;
-	box-sizing: border-box;
+	
 	width: 80%;
 	margin: 0 10%;
 	
@@ -66,7 +67,7 @@ html {
 	font-size: 13px;
 }
 /*buttons*/
-#exScheduleForm .action-button, #exEventScheduleForm .action-button {
+#exScheduleForm .action-button, #exEventScheduleForm .action-button, #dietEventScheduleForm .action-button {
 	width: 100px;
 	background: #27AE60;
 	font-weight: bold;
@@ -81,11 +82,20 @@ html {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
 /*headings*/
-.fmodal-title {
-	font-size: 15px;
+/* .fmodal-title {
+	font-size: 20px;
 	text-transform: uppercase;
 	color: #2C3E50;
 	margin-bottom: 10px;
+	text-align: center;
+}
+ */
+.modal-header {
+	font-size: 20px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+	text-align: center;
 }
 	
     #calendar {
@@ -168,24 +178,18 @@ html {
   
 <!-- modal -->
 
-          
 
-<div class="modal hide" id="exSchedule"  tabindex="-1" role="dialog" >
-          <form id="exScheduleForm" class="form-horizontal">
-          	<fieldset>
-    	<div class="modal-dialog">
-   
-      <!-- Modal content-->
-      		<div class="modal-content">
-	        	<div class="modal-header">
-	
-	<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-	          		<h4 class="modal-title">나만의 운동 Schedule</h4>
-	        	</div>
-	          
-	       		 <div class="modal-body" >
-		       		 <div class="control-group">
-		            	<label class="control-label" for="inputPatient"  text-align="left";>운동명</label>
+   <!----------- 등록 Modal ---------------->
+  <div class="modal hide" id="exSchedule" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size" style="border:0px;">
+      <div class="modal-header" >운동스케줄 등록</div>
+      
+      	<div class="modal-body">
+      			<form id="exScheduleForm" class="form-horizontal">
+          			<fieldset>
+     				<div class="control-group">
+		            	<label class="control-label" for="inputPatient" >운동명</label>
 		                	<input type="text" name="exScName" id="exScName" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
 		            		<div class="controls controls-row" id="when" style="margin-top:5px;">
 		       			</div>
@@ -205,44 +209,38 @@ html {
 		            	<label class="control-label" for="exScDate">날짜</label>
 		            		<input type="text" name="exScDate" id="exScDate"/>
 		            		<input type="hidden" id="exScDate1" />
-		        	</div>        	        	
-			   	</div>
-					    
-				        <div class="modal-footer">
-					          <button type="button" class="next action-button" data-dismiss="modal">Close</button>
+		        	</div>  
+		        	
 					<button type="button" class="next action-button" >Save</button> 
-					<!--                <input type="button" name="button" class="next action-button" value="등록" />-->
-				        </div>
-	  		</div>
-		</div>
-	
-  </fieldset>
-  </form>
-</div>
-  
+					
+		         </fieldset>
+  			</form>      	        	
+        
+      </div>
+    </div>
+  </div>
+</div>  
+
   
   <!-- 운동 event modal -->
 
           
 
-<div class="modal hide" id="exEventSchedule"  tabindex="-1" role="dialog" >
-          <form id="exEventScheduleForm" class="form-horizontal">
-          	<fieldset>
-    	<div class="modal-dialog">
-   
-      <!-- Modal content-->
-      		<div class="modal-content">
-	        	<div class="modal-header">
-	
-	<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-	          		<h4 class="modal-title">운동 Schedule</h4>
-	        	</div>
-	          
-	       		 <div class="modal-body" >
-		       		 <div class="control-group">
+<div class="modal hide" id="exEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel"  >
+     
+     <div class="modal-dialog modal-lg" role="document">
+    	<div class="modal-content modal-80size" style="border:0px;">
+    	
+    		<div class="modal-header" >운동스케줄 조회</div>
+    		
+          	 <div class="modal-body" >
+          		<form id="exEventScheduleForm" class="form-horizontal">
+          		<fieldset>
+
+		       		<div class="control-group">
 		            	<label class="control-label" for="inputPatient"  >운동명</label>
-		                	<input type="text" name="exScName" id="exScEventName"  value=""  style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
-		       			</div>
+		                <input type="text" name="exScName" id="exScEventName"  value=""  style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
+		       		</div>
 
 		        	<div class="control-group">
 		            	<label class="control-label" for="exScContents"> 운동내용</label>
@@ -256,50 +254,49 @@ html {
 
 		        	<div class="control-group">
 		            	<label class="control-label" for="exScDate">날짜</label>
-		            		<input type="text" name="exScDate" id="exScEventDate"value=""/>
+		            	<input type="text" name="exScDate" id="exScEventDate"value=""/>
 		            		
-		        	</div>        	        	
+		        	</div>  
+		        	      	        	
 					    <input type="hidden" id="exScEventNo"  name=exScNo value="" />
-				        <div class="modal-footer">
-					          <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
-					<button type="button" class="next action-button" >Update</button> 
-
-				        </div>
+				       
+					    <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
+						<button type="button" class="next action-button" >Update</button> 
+						</fieldset>
+ 						 </form>
+				    </div>
 	  		</div>
 		</div>
-  </fieldset>
-  </form>
+  
 </div>
 
 
-<!-- //diet -->
-<div class="modal hide" id="dietEventSchedule"  tabindex="-1" role="dialog" >
+<!---------------------- //dietModal ----------------------------->
+<div class="modal hide" id="dietEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel">
+      
+       <div class="modal-dialog modal-lg" role="document">
+    	<div class="modal-content modal-80size" style="border:0px;">
+          
           <form id="dietEventScheduleForm" class="form-horizontal">
           	<fieldset>
-    	<div class="modal-dialog">
+    
    
-      <!-- Modal content-->
-      		<div class="modal-content">
-	        	<div class="modal-header">
-	
-	<!--           <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-	          		<h4 class="modal-title">맛있게 먹으면 0칼로리</h4>
-	        	</div>
+      		<!-- Modal content-->
+	        	<div class="modal-header">맛있게 먹으면 0칼로리 	</div>
 	          
 	       		 <div class="modal-body row"  id ="dietScModal">
-		       		
 				
-                	</div>
-					    <input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
-				        <div class="modal-footer">
-					          <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
-					<button type="button" class="next action-button" >Update</button> 
+				</div>
+					 
+			<input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
+			</fieldset>	       
+			<button type="button" class="next action-button" data-dismiss="modal">Delete</button>
+			<button type="button" class="next action-button" >Update</button> 
 
-				        </div>
-	  		</div>
-		</div>
-  </fieldset>
+  
   </form>
+</div>
+</div>
 </div>
 </body>
 
@@ -334,9 +331,9 @@ $('.action-button:contains("Save")').on('click', function(e){
 	    		          }),
 	    				success : function(JSONData ) {
 	    					if(JSONData.exScPhoto==null){
-	    						JSONData.exScPhoto="../resources/images/pic.jpg"
+	    						JSONData.exScPhoto="../resources/images/icons8-deadlift-48.png"
 	    					}
-	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'#ffb1c1', imageurl :JSONData.exScPhoto};
+	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'white', imageurl :JSONData.exScPhoto};
 	        	    $('#calendar').fullCalendar( 'renderEvent', event, true); 
 	        	    var s=new Date(JSONData.exScDate);
 	        var d = s.getDay()+1;
@@ -356,29 +353,35 @@ $('.action-button:contains("Save")').on('click', function(e){
 /////////exEventSc 버튼
 
 	$('.action-button:contains("Update")').on("click" , function() {
-		$(".jquery-modal").hide();
-	  	$('#exEventSchedule').hide();
+	     $(".jquery-modal").hide();
+		  	$('#exEventSchedule').hide();
+		  	
 		var exScName = $("#exScName").val();
 		var exScContents = $("#exScContents").val();
 		var exScCalorie = $("#exScCalorie").val();
+		var exScNo =$("#exScEventNo").val();
+		//alert("수정ㅇㅇㅇ::::: "+exScNo);
 	        $.ajax( {
-	          url: "/schedule/json/updateExSchedule",
+	          url : '/schedule/json/updateExSchedule',
 	          dataType: "json",
 	          method : "POST",
-	          data: JSON.stringify({
-	        	  exScDate:$("#exScDate").val(),
-	        	  exScName:$("#exScName").val(),
-	        	  exScContents:$("#exScContents").val(),
-	        	  exScCalorie:$("#exScCalorie").val()
-	          }),
 	          headers : {
-	  			"Accept" : "application/json",
-	  			"Content-Type" : "application/json"},
+		  			"Accept" : "application/json",
+		  			"Content-Type" : "application/json"
+		  	},
+	          data: JSON.stringify({
+	        	  exScName:$('#exScEventName').val(),
+    		      exScContents:$('#exScEventContents').val(),
+   		       	  exScDate:$('#exScEventDate').val(),
+   		       	  exScCalorie:$('#exScEventCalorie').val(),
+   		       	  exScNo:$("#exScEventNo").val()
+   		     
+	          }),
 	  	   success: function( data ) {
 	  			alert("수정 완료");
       		  } 
 	        } );
-	     
+	   
 	    } );
 
 
@@ -460,11 +463,11 @@ var result = new Array();
 		        
 		      defaultView: 'basicWeek',//기본뷰 노터치
 		      contentHeight : 400,//운동스케줄 높이
-		      editable: true,//드래그앤드랍 가능하게
+		      editable: false,//드래그앤드랍 가능하게
 		      selectable:false,//드래그해서 여러칸선택
 		      
-		      eventTextColor:'white',//이벤트 글씨색
-		      eventBorderColor:'black',//이벤트 주변 테두리색	
+		      eventTextColor:'black',//이벤트 글씨색
+		      eventBorderColor:'#FB4441;',//이벤트 주변 테두리색	
 		      
 		    	  
 		    	/* if (${'random==2'}) {
@@ -492,7 +495,7 @@ var result = new Array();
 		    		  title:'${info.exScName}',
 		    		  id:'${info.exScNo}',
 		    		  start:"${info.exScDate}",
-		    		  backgroundColor:'rgba(0,0,0,0.3)', 
+		    		  backgroundColor:'white', 
 		    		  <c:if test="${info.exScPhoto==null}">
 		    		  //imageurl : "../resources/images/pic.jpg"//default Image
 		    		  imageurl : "../resources/images/icons8-deadlift-48.png"
@@ -549,8 +552,10 @@ $(function() {
 		        right: 'basicWeek,basicDay'//오른쪽상단버튼
 		        },
 			  eventClick: function(event) {
+				 // alert(event.id)
+				  
 			    	$.ajax(
-			    			{	url : '../schedule/json/getDietSchedule/'+event.id,
+			    			{	url : '/schedule/json/getDietSchedule/'+event.id,
 			    				method : "GET",
 			    				dataType : "json",
 			    				headers : {
@@ -617,12 +622,14 @@ $(function() {
 		        defaultView: 'agendaWeek',//기본뷰 노터치
 		      contentHeight : 400,//운동스케줄 높이
 		      columnHeader : false,
-		      editable: true,//드래그앤드랍 가능하게
+		      editable: false,//드래그앤드랍 가능하게
 		      selectable:false,//드래그해서 여러칸선택
 		      
 		      eventTextColor:'black',//이벤트 글씨색
-		      eventBorderColor:'#ff7a96',//이벤트 주변 테두리색
-		      eventBackgroundColor:'#ffe0e6',//이벤트 속 색
+		      //eventBorderColor:'#ff7a96',//이벤트 주변 테두리색
+		      eventBorderColor:'#FB4441;',
+		      eventBackgroundColor:'white',
+		      //eventBackgroundColor:'#ffe0e6',//이벤트 속 색
 		      displayEventTime: false, //시간안보이게
 		      
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
@@ -675,7 +682,7 @@ $(function() {
 		    		  ,
 		    		  id:'${asdf.dietScNo}',
 		    		  start:"${asdf.dietScDate}"
-		    			  , imageurl : "../resources/images/min.jpg"
+		    			  , imageurl : "../resources/images/icons8-meal-48.png"
 		    		  },
 		    		
 		    		  </c:forEach>
@@ -895,6 +902,7 @@ $(function(){
 }
 .modal{
 	/* background: linear-gradient(rgba(196, 102, 0, 1), rgba(155, 89, 182, 0.6)); */
+	padding: 0px 30px;
 }
  #calendarr .fc-toolbar{
  display:none; 

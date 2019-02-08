@@ -174,6 +174,16 @@
           
          });
        
+       function videoChatting(){
+    	   
+    	   popWin 
+           = window.open("https://192.168.0.55:6503/rtc_multi_me/index.html?nickName=${user.nickName}",
+                                "popWin", 
+                                "left=100,top=200,width=950,height=1000,marginwidth=0,marginheight=0,"+
+                                "scrollbars=no,scrolling=no,menubar=no,resizable=no");
+    	   
+       }
+       
    </script>
    
    <!--  ///////////////////////// CSS ////////////////////////// -->
@@ -351,6 +361,9 @@
 			</div>
 			</c:forEach>
 			</div>
+			
+			<%-- <p align="center"><a onclick="javascript:location.href='https://192.168.0.55:6503/rtc_multi_me/index.html?nickName=${user.nickName}';"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p> --%>
+			<p align="center"><a onclick="videoChatting();"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p>
 			 
 			<!-- 채팅방 인클루드 -->
 			 <div class="row">
