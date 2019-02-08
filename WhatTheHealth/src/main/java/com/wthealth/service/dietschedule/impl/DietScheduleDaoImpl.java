@@ -44,8 +44,8 @@ public class DietScheduleDaoImpl implements DietScheduleDao {
 	public void updateDietSchedule(DietSchedule dietSchedule) throws Exception {
 		sqlSession.update("DietScMapper.updateDietSchedule", dietSchedule);
 		sqlSession.delete("DietScMapper.deleteMeal", dietSchedule.getDietScNo());
-		for (int i = 0; i < dietSchedule.getFood().size(); i++) {
-			Food food = dietSchedule.getFood().get(i);
+		for (int i = 0; i < dietSchedule.getFoodList().size(); i++) {
+			Food food = dietSchedule.getFoodList().get(i);
 			sqlSession.insert("DietScMapper.addMeal", food);
 		}
 		

@@ -28,7 +28,7 @@ public class User {
 	private String accountNum;
 	private int dateOfBirth; //积斥岿老+茄磊府 ex)9404162 (accountHolderInfo)
 	private String bankCode; 
-	private int weight; //个公霸
+	private double weight; //个公霸
 	///Constructor
 	public User(){
 	}
@@ -209,11 +209,11 @@ public class User {
 		this.bankCode = bankCode;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 

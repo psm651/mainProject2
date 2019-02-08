@@ -84,17 +84,6 @@
 						$("#appendFood").children("tbody").children("tr").remove();
 						
 						$.each(data, function(index){
-	/* 					var select = "<select class='selectpicker'>";
-							
-						var option += "<option>"+data[index].amountFood+"</option>";
-								if
-						var displays = "<tr><th scope='row'>"+data[index].foodName+"</th>"+
-								        "<td>"+
-										   "<select class='selectpicker'>"+
-								        		"<option>"+data[index].amountFood+"</option>"+
-								        		"<option></option>
-								        <option>Relish</option>
-								      </select> */
 
 							
 						var	display = "<tr><th scope='row'>"+(index+1)+"</th>"+
@@ -134,24 +123,17 @@
  			var amountFood = tr.children("td").eq(1).text();
         	var foodCalorie = tr.children("td").eq(2).text();
 
-			var display =  "<tr><th scope='row'>"+index+"</th>"+
-	  							 "<td>"+foodName+"</td>"+
-	  							
-		 						 "<td>"+amountFood+"</td>"+
-		 						
-		 	 					 "<td>"+foodCalorie+"</td>"+
-		 	 					
+			var display =  "<tr><th scope='row' name='number'>"+index+"</th>"+
+	  							 "<td name='foodName["+index+"]'>"+foodName+"</td>"+
+		 						 "<td name='amountFood["+index+"]'>"+amountFood+"</td>"+
+		 	 					 "<td name='foodCalorie["+index+"]'>"+foodCalorie+"</td>"+
 					   			 "<td align='left'><button type='button' class='btn btn-default btn-sm'>삭제</a></td>"+
- 					   	    	"<input type='hidden' name='foodInfos["+(index-1)+"].foodName' value='"+ foodName+"'/>"+
-					   			"<input type='hidden' name='foodInfos["+(index-1)+"].amountFood' value='"+ amountFood+"'/>"+
-					   			"<input type='hidden' name='foodInfos["+(index-1)+"].foodCalorie' value='"+ foodCalorie+"'/>"  +
-					   			"</tr>"
-					   	    ;
-					   	   console.log(display);
+ 					 	   "</tr>";
+					   	   
 			 $("#calculate").children("tbody").append(display);
 		     index++;
 		     foodAmountCalorie += parseInt(foodCalorie)
-			 alert(foodAmountCalorie)
+		
 		     $("#amount").text(foodAmountCalorie);
         });
      });   
@@ -180,18 +162,59 @@
 	$(function(){
 		$(".btn:contains('담기')").on("click", function(){
 			
+			
 			var dietScDate =$("input[name='dietScDate']").val();
 			var mealTime = $("#mealTime").val();
-			var amount = $("#amount").text();
-			
-			
-			if(${sessionScope.user.userId != null}){
-			
-				 $("#test").attr("method","POST").attr("action", "/calculator/addDietSchedule?dietScDate="+dietScDate+"&mealTime="+mealTime+"&amount="+amount).submit()
+			var dietScCalorie = parseInt($("#amount").text());
+		
+			var foodList = [];
+		
+			var foods = null;
+		
+		   			
+			for(var i=1;i<=$("th[name='number']").length;i++){
+				foods = new Object(); 
+				foods.foodName = $("td[name='foodName["+i+"]']").text();
+				foods.amountFood = $("td[name='amountFood["+i+"]']").text();
+				foods.foodCalorie = $("td[name='foodCalorie["+i+"]']").text();
+				foodList.push(foods)
+			 } 
+					
+
+			 if(${sessionScope.user.userId != null}){ 
+		
+			 $.ajax({
 			 	
-			}else{ 
-			    swal("회원만 이용 가능합니다.")
-			}
+				 url:"/calculator/json/addDietSchedule" ,
+				 method: "POST",
+				 data : JSON.stringify({
+					 foodList : foodList, 
+					 dietScDate : dietScDate, 
+					 mealTime : mealTime, 
+					 dietScCalorie : dietScCalorie			
+				 }),
+				 dataType : "json",
+				 headers : {
+						 "Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+				 success : function(JSONdata, status){
+						swal(JSONdata)
+				 }
+			
+			 })//end of ajax  
+			
+			 swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
+	
+			
+	 		}else{ 
+				swal("회원만 이용 가능합니다.")
+			}	 
+				
+			 	
+			
+			    
+			
 		});
 	});
 
@@ -256,7 +279,7 @@ $(function(){
 			<div class="form-inline">	
 				<div class="row">
 		       <div class="col-md-3" style="margin-left:2em; float:right;">
-		    	 <strong>추가된 총 칼로리:</strong><span id="amount"></span>
+		    	 <strong style="back-ground:##ddd">Total:</strong><span id="amount"></span>
 			   </div>			
 			
 
@@ -268,7 +291,7 @@ $(function(){
 				</select>  
 			  </div>
 		
-			   <div class="col-md-3" >		
+			   <div class="col-md-3" style="align:right">		
 			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" /> 		
 		       </div>
 			  
@@ -279,7 +302,7 @@ $(function(){
 		   </div>
 		    
 	   
- <form:form commandName="foodInfos" id="test">
+<%--  <form:form commandName="foodInfos" id="foodInfomation"> --%>
 
 	<!-- 크롤링 append -->
 	<div class="row form-group">
@@ -309,7 +332,7 @@ $(function(){
 		</table>
 	</div>
 		
-</form:form>
+<%-- </form:form> --%>
 
 </div>	
 		

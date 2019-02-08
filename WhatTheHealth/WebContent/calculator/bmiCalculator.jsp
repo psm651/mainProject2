@@ -195,12 +195,12 @@ $(function(){
 						"Content-Type" : "application/json"
 					},
 				 success : function(JSONdata, status){
-						swal(JSONdata)
+						
 				 }
+			
+			 })//end of ajax  
 			 
-			 })//end of ajax  */
-			 
-		
+			 swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
 	 })	
 }); 
 

@@ -188,9 +188,9 @@ public class DietScServiceTest {
 		Assert.assertEquals("0", claim.getClaimReasonNo());*/
 		
 		dietSchedule.setBmi(137);
-		System.out.println("이거볼라고한거다"+dietSchedule.getFood());
-		dietSchedule.setFood(food);
-		System.out.println("이거볼라고한거다2"+dietSchedule.getFood());
+//		System.out.println("이거볼라고한거다"+dietSchedule.setFoodList());
+		dietSchedule.setFoodList(food);
+//		System.out.println("이거볼라고한거다2"+dietSchedule.setFoodList());
 		
 		dietScheduleService.updateDietSchedule(dietSchedule);
 		
