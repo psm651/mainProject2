@@ -487,7 +487,7 @@
       content += '      자전거 칼로리 <span class="number">' + Math.round(bycicleCalorie) +'</span>Kcal'
       content += '    </li>';
       content += '</ul>'
-      }else{
+      }else if(${sessionScope.user.weight == null} && ${sessionScope.user.weight == ''} ){
           content = '<ul class="dotOverlay distanceInfo">';
           content += '    <li>';
           content += '  	 총거리 <span class="number">' + distance + '</span>m';

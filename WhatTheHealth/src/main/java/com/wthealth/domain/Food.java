@@ -9,7 +9,7 @@ public class Food {
 	private String foodCalorie;
 	private String amountFood;
 	private int dietScNo;
-	private String dietScCalorie;
+//	private String dietScCalorie;
 	private List<Food> foodInfos;
 
 	public Food() {
@@ -47,6 +47,12 @@ public class Food {
 		this.dietScNo = dietScNo;
 	}
 
+	@Override
+	public String toString() {
+		return "Food [foodName=" + foodName + ", foodCalorie=" + foodCalorie + ", amountFood=" + amountFood
+				+ ", dietScNo=" + dietScNo + "]";
+	}
+
 	public List<Food> getFoodInfos() {
 		return foodInfos;
 	}
@@ -55,19 +61,16 @@ public class Food {
 		this.foodInfos = foodInfos;
 	}
 
-	public String getDietScCalorie() {
+
+/*	public String getDietScCalorie() {
 		return dietScCalorie;
 	}
 
 	public void setDietScCalorie(String dietScCalorie) {
 		this.dietScCalorie = dietScCalorie;
-	}
+	}*/
 
-	@Override
-	public String toString() {
-		return "Food [foodName=" + foodName + ", foodCalorie=" + foodCalorie + ", amountFood=" + amountFood
-				+ ", dietScNo=" + dietScNo + ", dietScCalorie=" + dietScCalorie + ", foodInfos=" + foodInfos + "]";
-	}
+
 
 	
 

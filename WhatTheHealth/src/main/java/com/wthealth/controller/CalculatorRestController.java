@@ -1,22 +1,14 @@
 package com.wthealth.controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wthealth.common.Page;
-import com.wthealth.common.Search;
-import com.wthealth.common.URLConnection;
 import com.wthealth.domain.BMI;
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.Food;
@@ -37,8 +27,8 @@ import com.wthealth.domain.NutritionixAPI;
 import com.wthealth.domain.PapaGo;
 import com.wthealth.domain.User;
 
-import com.wthealth.service.claim.ClaimService;
 import com.wthealth.service.dietschedule.DietScheduleService;
+import com.wthealth.service.user.UserService;
 
 @RestController
 @RequestMapping("/calculator/*")
@@ -48,7 +38,9 @@ public class CalculatorRestController {
 	@Autowired
 	@Qualifier("dietScheduleServiceImpl")
 	private DietScheduleService dietScheduleService;
-	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;	
 	public CalculatorRestController() {
 		System.out.println(this.getClass());
 	}
@@ -58,10 +50,13 @@ public class CalculatorRestController {
 		
 		System.out.println(bmi);
 		
-		String userId = ((User)session.getAttribute("user")).getUserId();
-	
+		User user = (User)session.getAttribute("user");
+		String userId = user.getUserId();
+		user.setWeight(bmi.getWeight())	;
 		bmi.setUserId(userId);
 		dietScheduleService.addBmi(bmi);
+		
+		userService.updateUser(user);
 	
 		String successMessage = "스케줄에 저장이 완료되었습니다.";
 		return successMessage;
@@ -116,13 +111,22 @@ public class CalculatorRestController {
         
 		return foodInfo;
 	}
-
-
-	@RequestMapping(value="json/addDietSchedule", method=RequestMethod.POST)
-	public void addDietSchedule(@RequestBody DietSchedule dietSchedule) throws Exception{
-		
-		System.out.println();
-	}
 	
+	
+	@RequestMapping(value="json/addDietSchedule", method=RequestMethod.POST)
+	public void addDietSchedule(@RequestBody DietSchedule dietSchedule, HttpSession session) throws Exception{
+
+	   String userId = ((User)session.getAttribute("user")).getUserId();
+	   dietSchedule.setUserId(userId);
+	   dietScheduleService.addDietSchedule(dietSchedule);
+	   
+	   System.out.println("dietScNo받아오나"+dietSchedule.getDietScNo());
+	   
+
+	    for (int i = 0; i < dietSchedule.getFoodList().size(); i++) {
+	    	dietSchedule.getFoodList().get(i).setDietScNo(dietSchedule.getDietScNo());
+	        dietScheduleService.addMeal(dietSchedule.getFoodList().get(i));
+	     }
+	}	
 	
 }

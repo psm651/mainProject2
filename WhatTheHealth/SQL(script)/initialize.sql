@@ -144,7 +144,7 @@ CREATE TABLE diet_sc(
 	diet_sc_no NUMBER NOT NULL,
 	user_id VARCHAR2(20) NOT NULL REFERENCES users(user_id),
 	diet_sc_date DATE NOT NULL,
-	meal_time VARCHAR2(3) NOT NULL,
+	meal_time VARCHAR2(3),
 	bmi_value NUMBER(5),
 	weight NUMBER(5),
 	diet_sc_calorie number(10),
