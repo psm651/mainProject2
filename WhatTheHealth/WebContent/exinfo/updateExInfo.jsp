@@ -313,7 +313,8 @@
                <div class="form-group">
                <div class="col-md-11 mb-5 mb-md-0">
                 	<input type="text" class="form-control" id="title" name="title" value="${post.title}">
-                	<input type="hidden" class = "form-control" name="userId" value="${sessionScope.user.userId}"/>
+                	<input type="hidden" class = "form-control" name="userId" value="${sessionScope.user.userId}">
+                	<input type="hidden" class="form-control" name="postNo" value="${post.postNo}">
                </div>
                </div>
                

@@ -311,6 +311,9 @@
                 
                  <p class="col-md-12 mb-4">${meeting.post.contents}</p>
          
+               <c:if test="${meeting.post.coordinate!=null}">
+	            	  <jsp:include page="/common/getMeetingMap.jsp" /> 
+               </c:if>
             
              <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
                 <div class="favoriteListHere">

@@ -168,9 +168,11 @@
 				
 				if($('#infoMap').val() != null || $('#infoMap').val().length>1){
 	     		
-				var formLocation = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
+				var formLocation = '<div id="formLocation">'+
+					'<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
 					'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-		 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+		 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
+		 			'</div>';
 			   
 		 		var markerImage =  '<div class="form-group" id="subs">';
 		 			markerImage += '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:92%;">';

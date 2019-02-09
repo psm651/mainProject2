@@ -726,6 +726,7 @@
  			$("#infoMap").remove();//모달창에서 등록된 주소 삭제
  			$("#subs").remove();// 본 게시물에 마커이미지 삭제
  			$("#location").remove();// 본 게시물 말풍선 내용 정보 삭제
+ 			$("#formLocation").remove();// 본 게시물 말풍선 내용 정보 삭제
  		});
  		
  		
