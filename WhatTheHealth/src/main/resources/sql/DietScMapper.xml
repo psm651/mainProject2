@@ -23,15 +23,16 @@
 		<result property="foodName" 			column="food_name" 			jdbcType="VARCHAR"/>
 		<result property="foodCalorie"			column="food_calorie" 			jdbcType="VARCHAR" />
 		<result property="amountFood" 			column="amount_food" 			jdbcType="VARCHAR" />
-		<result property="dietScNo" 				column="diet_sc_no" 			jdbcType="NUMERIC" />
+		<result property="dietScNo" 			column="diet_sc_no" 			jdbcType="NUMERIC" />
+	
+	
 	</resultMap>
-
 
 	  <!-- SQL : INSERT -->
    	<insert    id="addDietSchedule"  parameterType="com.wthealth.domain.DietSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
       	INSERT
-		INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , bmi_value, weight, diet_sc_calorie, delete_status) 
-		VALUES	 (	seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , #{dietScDate}, #{mealTime}, #{bmi} ,#{dietScCalorie} #{weight},'0' )
+		INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , diet_sc_calorie, delete_status) 
+		VALUES	 (	seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , #{dietScDate}, #{mealTime}, #{dietScCalorie},'0' )
       		<selectKey resultType="int" keyProperty ="dietScNo" order="AFTER">
          		SELECT seq_diet_sc_diet_sc_no.currval FROM dual
       		</selectKey>
@@ -44,6 +45,20 @@
 		INTO meal( meal_no, diet_sc_no, food_name, food_calorie, amount_food) 
 		VALUES  (seq_meal_meal_no.NEXTVAL , #{dietScNo} , #{foodName}, #{foodCalorie}, #{amountFood} )
 	 </insert>
+	 
+	 <insert   id="addBmi"    parameterType="com.wthealth.domain.BMI">
+	  MERGE INTO diet_sc
+		   USING dual
+	 		  ON (diet_sc_date = TO_DATE(#{dietScDateBMI}, 'YY/MM/DD'))
+	        WHEN MATCHED THEN
+	        	 UPDATE SET bmi_value = #{bmiValue}, 
+	        	            weight = #{weight}
+	        WHEN NOT MATCHED THEN
+	        	 INSERT (diet_sc_no, user_id, diet_sc_date, bmi_value, weight)
+	        	 VALUES (seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , #{dietScDateBMI}, #{bmiValue}, #{weight}) 		
+	 
+	 </insert> 
+	 
 	 
 	 <!-- SQL : SELECT  -->
 	<!--  <select 	id="getDietSchedule"	 parameterType="int"	 resultMap="dietScSelectMap">

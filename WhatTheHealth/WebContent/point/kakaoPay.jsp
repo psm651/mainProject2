@@ -31,8 +31,6 @@
 		
 		self.location="${url}";
 		
-		/* self.location="http://127.0.0.1:8080/user/login"; */
-		
 	});
 </script>
 </head>

@@ -28,7 +28,7 @@ public class User {
 	private String accountNum;
 	private int dateOfBirth; //积斥岿老+茄磊府 ex)9404162 (accountHolderInfo)
 	private String bankCode; 
-	
+	private double weight; //个公霸
 	///Constructor
 	public User(){
 	}
@@ -209,6 +209,14 @@ public class User {
 		this.bankCode = bankCode;
 	}
 
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", nickName=" + nickName + ", email=" + email
@@ -217,8 +225,10 @@ public class User {
 				+ ", havingPoint=" + havingPoint + ", role=" + role + ", snsType=" + snsType + ", idToken=" + idToken
 				+ ", accessToken=" + accessToken + ", refreshToken=" + refreshToken + ", holder=" + holder
 				+ ", bankName=" + bankName + ", accountNum=" + accountNum + ", dateOfBirth=" + dateOfBirth
-				+ ", bankCode=" + bankCode + "]";
+				+ ", bankCode=" + bankCode + ", weight=" + weight + "]";
 	}
+
+
 
 
 }

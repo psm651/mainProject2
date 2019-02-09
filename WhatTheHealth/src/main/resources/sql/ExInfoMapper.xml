@@ -98,7 +98,7 @@
 	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
 	  			FROM (		  	
                     SELECT 
-                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname     
+                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname, NVL(p.blind_status, '0') blind_status    
                     FROM 
                          post p, (SELECT 
                                   	u.user_id, u.nickname
@@ -141,7 +141,7 @@
 						
 					  </if> 
 			         GROUP BY 
-				     	p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname
+				     	p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname, blind_status
 					    	) inner_table                                
 	   			WHERE ROWNUM &lt;= #{endRowNum} )
 	   WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
@@ -164,7 +164,7 @@
                       post_sub_no LIKE '%EI%' AND
                       nick.user_id = p.user_id AND
 					  p.delete_status = '0' 
-					 <if test="searchFilter != null ">
+ 					    <if test="searchFilter != null ">
 					    	<if test="searchFilter == 0">
 					    		 AND p.ex_part = '0' 
 					    	</if>
@@ -189,12 +189,45 @@
 							     AND contents LIKE '%'||#{searchKeyword}||'%'
 							</if>
 						
-					  </if> 
+					  </if>  
 			         GROUP BY 
 				     p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname 
 				) countTable									
 	 </select>
 	 
-	  
+	<select  id="listWeatherRecom"  parameterType="com.wthealth.domain.Weather"	resultMap="exInfoSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
+	  			FROM (		  	
+                    SELECT 
+                         p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname     
+                    FROM 
+                         post p, (SELECT 
+                                  	u.user_id, u.nickname
+                                  FROM 
+                                  	users u, post p
+                                  WHERE 
+                                 	u.user_id = p.user_id
+                                  GROUP BY
+                                  	u.user_id, u.nickname) nick 
+                    WHERE
+                      post_sub_no LIKE '%EI%' AND
+                      nick.user_id = p.user_id AND
+					  p.delete_status = '0' 
+
+  				  <choose>
+   					 <when test="currentWeather == 'Rain' or currentWeather == 'Snow' or temperature gt 30 or temperature lt -15">
+    					AND  ex_place = '0'
+    				 </when>
+					 <otherwise>
+					 	 AND  ex_place = '1'
+					 </otherwise>
+			      </choose>
+			         GROUP BY 
+				     	p.title, p.post_date, p.photo, p.post_no, p.like_count, nick.nickname
+					    	) inner_table                                
+	   			WHERE ROWNUM &lt;= 5)
+	   WHERE row_seq BETWEEN 1 AND 5
+	 </select>	  
 	  
 </mapper>

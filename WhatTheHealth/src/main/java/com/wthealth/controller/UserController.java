@@ -107,7 +107,7 @@ public class UserController {
 			out.println("<script>alert('존재하지 않는 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/main.jsp";
+			return "/";
 			
 		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
 			System.out.println("일치하지않을때");
@@ -116,7 +116,7 @@ public class UserController {
 			out.println("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/main.jsp";
+			return "/";
 			
 		}else if(dbUser.getUserStatus().equals("1")){
 			System.out.println("탈퇴회원");
@@ -125,7 +125,7 @@ public class UserController {
 			out.println("<script>alert('탈퇴한 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/main.jsp";
+			return "/";
 			
 		}else if(dbUser.getUserStatus().equals("2")){
 			System.out.println("블랙리스트");
@@ -134,7 +134,7 @@ public class UserController {
 			out.println("<script>alert('블랙리스트 처리된 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/main.jsp";
+			return "/";
 			
 		}else if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
 			session.setAttribute("user", dbUser);
@@ -143,7 +143,7 @@ public class UserController {
 			
 		}
 		
-		return "forward:/main.jsp";
+		return "redirect:/";
 		
 		/*if(){
 			
@@ -166,7 +166,7 @@ public class UserController {
 		
 		session.invalidate();
 		
-		return "redirect:/main.jsp";
+		return "redirect:/";
 	}
 	
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
@@ -197,7 +197,7 @@ public class UserController {
 			System.out.println("없을때: "+user.getUserImage());
 		}
 		
-		return "redirect:/main.jsp";
+		return "redirect:/";
 	}
 	
 	@RequestMapping( value="kakaoLogin", produces ="applcation/json", method= {RequestMethod.GET, RequestMethod.POST} )

@@ -130,7 +130,7 @@ public class ScheduleRestController {
 		System.out.println("json/getDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		DietSchedule dietSchedule= dietScheduleService.getDietSchedule(dietScNo);
-		dietSchedule.setFood(dietScheduleService.listFood(dietScNo));
+		dietSchedule.setFoodList(dietScheduleService.listFood(dietScNo));
 		System.out.println("이거슨 다엇스케쥴"+dietSchedule);
 		
 		

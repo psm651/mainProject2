@@ -1,6 +1,9 @@
 package com.wthealth.controller;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> refs/remotes/origin/master
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,10 @@ public class CommunityRestController {
 	int pageUnit;
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
+<<<<<<< HEAD
+=======
+		
+>>>>>>> refs/remotes/origin/master
 
 	public CommunityRestController() {
 		System.out.println(this.getClass());
@@ -86,4 +93,38 @@ public class CommunityRestController {
 	      return list;
 	   }
 
+	@RequestMapping(value="json/dietCommunitylist", method=RequestMethod.POST)
+	public Map<String, Object> dietCommunitylist(@RequestBody Search search) throws Exception{
+		
+		System.out.println("rest");
+		if(search.getCurrentPage()==0) {
+		search.setCurrentPage(1);
+	}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = communityService.listDietCom(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+
+		
+		return map;
+	}
+	
+	@RequestMapping(value="json/exCommunitylist", method=RequestMethod.POST)
+	public Map<String, Object> exCommunitylist(@RequestBody Search search) throws Exception{
+		
+		System.out.println("rest");
+		if(search.getCurrentPage()==0) {
+		search.setCurrentPage(1);
+	}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = communityService.listExCom(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+
+		
+		return map;
+	}		
+	
 }

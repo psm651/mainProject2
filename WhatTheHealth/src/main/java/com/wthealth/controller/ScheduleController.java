@@ -102,7 +102,7 @@ public class ScheduleController {
 	      
 	      dietSchedule.setUserId(userId);
 	      dietSchedule.setDietScDate(dietScDate);
-	      dietSchedule.setFood(food.getFoodInfos());
+	      dietSchedule.setFoodList(food.getFoodInfos());
 	      dietSchedule.setMealTime(mealTime);
 	      
 	    

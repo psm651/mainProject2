@@ -79,6 +79,7 @@ CREATE TABLE users (
 	id_token		VARCHAR2(300),
 	access_token	VARCHAR2(300),
 	refresh_token	VARCHAR2(300),
+	weight                NUMBER,
 	PRIMARY KEY(user_id)
 );
 
@@ -143,7 +144,7 @@ CREATE TABLE diet_sc(
 	diet_sc_no NUMBER NOT NULL,
 	user_id VARCHAR2(20) NOT NULL REFERENCES users(user_id),
 	diet_sc_date DATE NOT NULL,
-	meal_time VARCHAR2(3) NOT NULL,
+	meal_time VARCHAR2(3),
 	bmi_value NUMBER(5),
 	weight NUMBER(5),
 	diet_sc_calorie number(10),
@@ -155,7 +156,7 @@ CREATE TABLE MEAL(
 	meal_no NUMBER NOT NULL,
 	food_name VARCHAR2(100) NOT NULL ,
 	food_calorie VARCHAR2(10) NOT NULL,
-	amount_food VARCHAR2(10) NOT NULL,
+	amount_food VARCHAR2(30) NOT NULL,
 	diet_sc_no NUMBER REFERENCES diet_sc(diet_sc_no),
 	PRIMARY KEY(meal_no)
 );

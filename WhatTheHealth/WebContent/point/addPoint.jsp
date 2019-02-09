@@ -98,13 +98,20 @@
 		///////////////////////////////////////////////////////////////////////
  		function fnckakaoPay() {
 			var point=$("input[name='point']").val();
+			var userId = $("input[name='userId']").val();
 			
 			if(point == null || point.length <1){
-				alert("전송할 포인트는  반드시 입력하셔야 합니다.");
+				alert("충전할 포인트는  반드시 입력하셔야 합니다.");
 				return;
 			}
+			
+			/* popWin 
+			= window.open("/point/kakaoPay?userId="+userId+"&point="+point,
+										"popWin", 
+										"left=300,top=200,width=600,height=600,marginwidth=0,marginheight=0,"+
+										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 				
-				
+			self.close();	 */
 			$("form").attr("method" , "POST").attr("action" , "/point/kakaoPay").submit();
 		} 
 		
