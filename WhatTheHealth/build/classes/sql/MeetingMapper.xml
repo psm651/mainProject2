@@ -165,7 +165,22 @@
 	   WHERE post_sub_no = #{postSubNo}
 	 </update>
 	 
-	 
+	 <update id="updateClickCount" parameterType="int">
+		UPDATE post
+		<set>
+			click_count = #{clickCount:NUMERIC}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
+	
+	<update id="updateLikeCount" parameterType="int">
+		UPDATE post
+		<set>
+			like_count = #{likeCount:NUMERIC}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
+	
 	 <!-- SQL : UPDATE -->
 	 <update	id="deleteMeeting"	parameterType="String" >
 	   	UPDATE post
@@ -219,6 +234,8 @@
 	   	</set>
 	   	WHERE join_no = #{value}
 	 </update>
+	 
+	 
 	
 	<!-- SQL : SELECT LIST -->
 	<select  id="listMeeting"  parameterType="com.wthealth.common.Search"	resultMap="meetingSelectMap">

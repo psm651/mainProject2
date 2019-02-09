@@ -41,7 +41,7 @@ public class MeetingRestController {
 		System.out.println(this.getClass());
 	}
 	
-	/*@RequestMapping(value="json/updateLikeCount/{postNo}", method=RequestMethod.GET)
+	@RequestMapping(value="json/updateLikeCount/{postNo}", method=RequestMethod.GET)
 	public int updateLikeCount(@PathVariable int postNo) throws Exception{
 		
 		int totalLikeCount = favoriteService.getTotalLikeCount(postNo);
@@ -52,7 +52,7 @@ public class MeetingRestController {
 		meetingService.updateLikeCount(post);
 		
 		return totalLikeCount;
-	}*/
+	}
 	
 	@RequestMapping(value="json/listMeeting", method=RequestMethod.POST)
 	   public List<Post> listMeeting(@RequestBody Search search) throws Exception{
