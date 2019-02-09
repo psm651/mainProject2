@@ -1,9 +1,6 @@
 package com.wthealth.controller;
 
-<<<<<<< HEAD
 import java.util.List;
-=======
->>>>>>> refs/remotes/origin/master
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +34,6 @@ public class CommunityRestController {
 	int pageUnit;
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
-<<<<<<< HEAD
-=======
-		
->>>>>>> refs/remotes/origin/master
 
 	public CommunityRestController() {
 		System.out.println(this.getClass());
