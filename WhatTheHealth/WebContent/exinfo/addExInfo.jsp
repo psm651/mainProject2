@@ -8,44 +8,15 @@
 	<title>운동꿀팁 글쓰기 페이지</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
- 	 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
-<!-- 	
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css"> 
+ 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
 
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css"> 
-     
-    <link rel="stylesheet" href="/resources/css/animate.css">
-    
-    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css"> --> 
-    
- 
-    
-    
-	<!-- include libraries(jQuery, bootstrap) -->
-<!-- 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-	
-	include summernote css/js
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	 -->
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 
-<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"> -->
-
-
-	<style>
-	
-
-
-	#sub {width:200px; height:30px; background:pink;
+	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+   <style>
+	#sub {width:160px; height:30px; background:pink;
 
      border-radius:10px;
 		
@@ -55,7 +26,7 @@
      
      position:absolute;
      
-     top:30px; left:550px;
+     top:2px; left:600px;
      }
 
 	#sub:before {
@@ -70,9 +41,9 @@
 
      content: ""; 
 
-    position:absolute;
+     position:absolute;
 
-    top:30px; left:160px;
+     top:30px; left:127px;
 
 }
 
@@ -91,8 +62,19 @@
  	 width:130px;
  	 margin-left : 17px;
  	}
+ 	#markerImage{
+  	 animation-duration: 1s;
+	 animation-name: slidein;
+　	 
+ 	}
+
+ 	@keyframes slidein {
+ 		
+  	  	from {position: absolute; top: 8%;}
+  	  	to{position: absolute; top: 4%;}
+	} 
+ 	
     #exPart{
- 
    	height: 30px;
 	}
 	#exCalorie{
@@ -118,7 +100,6 @@
   
 	function fncAddExInfo(){
 
-	alert("")
 	 	var title = $("input[name='title']").val();
 		var contents = $("textarea[name='contents']").val();
      	var exCalorie = $("input[name='exCalorie']").val();
@@ -127,34 +108,34 @@
 	
 
 		if(title == null || title.length<1){
-			alert("제목은 반드시 입력하여야 합니다.");
-			return;
+			swal("제목은 반드시 입력하여야 합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}
 		if(contents == null || contents.length<1){
-			alert("글 내용은 반드시 입력하셔야 합니다.");
-			return;
+			swal("글 내용은 반드시 입력하셔야 합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}
   		if(exCalorie == null || exCalorie.length<1){
-			alert("칼로리 소모량은 반드시 입력하여야 합니다.");
-			return;
+  			swal("칼로리 소모량은 반드시 입력하여야 합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}
 		if(exPart == null || exPart.length<1){
-			alert("운동부위는 반드시 입력하여야합니다.");
-			return;
+			swal("운동부위는 반드시 입력하여야합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}
 		if(exPlace == ''){
-			alert("운동장소 반드시 입력하여야합니다.");
-			return;
+			swal("운동장소 반드시 입력하여야합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}  
 		
-		$("form[name=communityPost]").attr("method","POST").attr("action","/exInfo/addExInfo").submit();	
+		$("form[name=exinfoPost]").attr("method","POST").attr("action","/exInfo/addExInfo").submit();	
 	}
 
 	//============= "취소"  Event 처리 및  연결 =============
 	function resetData(){
 		self.location="/exInfo/listExInfo";
 	}
-	//============= 지도 =============
+	//============= 지도 ====================================
 	function relayout() {    
    		 map.relayout();
 	} 	
@@ -174,28 +155,48 @@
 		});
 		
 	});
-	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
-	function sendInfo(locationTagName, address, coordinate){
-	
+
 		
  		$(function(){
- 		 var location = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
-						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+ 		
 			 			
 			$("button:contains('확인')").on("click", function(){
+				
+				var locationTagName = $('#locationTagName').text();
+				var coordinate = $('#coordinate').val();
+				var address = $('#address').val();
+				
+				if($('#infoMap').val() != null || $('#infoMap').val().length>1){
 	     		
-			    var locationInfo = $("#sub").text();
-			    if(locationInfo != null || locationInfo!=''){
-			    	$(".locationInfo").remove();
+				var formLocation = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
+					'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+		 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+			   
+		 		var markerImage =  '<div class="form-group" id="subs">';
+		 			markerImage += '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:92%;">';
+			        markerImage += '</div>';
+		 		
+		 		var locationName = '<div class="form-group" id="location">';
+					locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
+			    	locationName += '</div>';
+			 
 				}
-			    $('#sub').text(locationTagName);
-				$('#sub').append(location);
+
+				$('#standard > div:nth-child(2) > div:nth-child(2)').after(markerImage);
+				$('#standard > div:nth-child(2) > div:nth-child(2)').after(locationName);
+				$('#sub').after(formLocation);
+				
 				$("#mapModal").hide();
+				
 				
 			});
 		});  
-	}
+	
+	
+
+	
+	/////////////////////////지도 끝//////////////////////////////////////
+	
 	
 	////////////////Youtube/////////////////////////////////////////////
 	function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
@@ -291,13 +292,13 @@
 
 	<div class="site-section bg-light">
       <div class="container">
-   <form name="communityPost">  
+   <form name="exinfoPost">  
 
       	<h4 class="info-title margin-five no-margin-top">운동꿀팁 게시글 등록하기</h4>
       	<br/>
         <div class="row">
        
-          <div class="col-md-8 col-lg-8 mb-5">
+          <div class="col-md-8 col-lg-8 mb-5" id="standard">
  
           	  <div class="form-group">  
 				<select class="form-control" name="exPlace" id="exPlace" >
@@ -319,9 +320,13 @@
                </div>
                </div>
                
-           	<div class="form-group">
-              <div id="sub" style="text-align:center;"></div> 
-               </div>
+<!--            	  <div class="form-group" id="subs">
+              
+              
+              </div>
+              <div class="form-group" id="location">
+              
+              </div> -->
                
                
              <div class="form-group"> 
@@ -331,6 +336,12 @@
      			   </button>
      		   </div>
              </div>
+
+<!-- 			<div class="form-group" id="showAppendMap">
+			
+				<div id="showMap" style="width:600px;height:350px;"></div>
+			
+			</div> -->
 
 			<br/><br/><br/><br/>
 
@@ -422,7 +433,7 @@
         
       </div>
       
-      <div class="modal-footer">
+      <div class="modal-footer" id="footer-map">
     		
        		 <button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
        		

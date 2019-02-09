@@ -65,7 +65,7 @@
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
-     	alert(currentPage)
+     
       $.ajax({
          
          url: "/community/json/dietCommunitylist",

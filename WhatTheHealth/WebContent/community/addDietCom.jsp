@@ -9,43 +9,61 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
+ 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
 
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../resources/css/animate.css">
-    
-    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css">
-    
-	<!-- include libraries(jQuery, bootstrap) -->
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-	
-	<!-- include summernote css/js-->
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	
+
 	<!-- include datetimepicker css/js-->
-	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
-	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
- 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
-	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
-	
+ 	<script type="text/javascript" src="/resources/js/datepicker.js"></script> 
+	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
+	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
+
+ 	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	<style>
 
+	#sub {width:160px; height:30px; background:pink;
+
+     border-radius:10px;
+		
+	 padding-top:5px;
+		
+     opacity:.8;
+     
+     position:absolute;
+     
+     top:-80%; left:87%;
+     }
+
+	#sub:before {
+
+     border-top: 10px solid pink;
+
+     border-left: 10px solid transparent; 
+
+     border-right: 10px solid transparent; 
+
+     border-bottom:0 solid transparent; 
+
+     content: ""; 
+
+     position:absolute;
+
+     top:90%; left:77%;
+
+	}
+ 	#markerImage{
+  	 animation-duration: 1s;
+	 animation-name: slidein;
+　	 
+ 	}
+
+ 	@keyframes slidein {
+ 		
+  	  	from {position: absolute; top: 8%;}
+  	  	to{position: absolute; top: -15%;}
+	} 
  	 .giyong{
  	 	height : 720px;
  	 	overflow : hidden;
@@ -61,12 +79,12 @@
 		var contents = $("textarea[name=contents]").val();
 		
 		if(title == null || title.length<1){
-			alert("제목은 반드시 입력하여야 합니다.");
-			return;
+			swal("제목은 반드시 입력하여야 합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}
 		if(contents == null || contents.length<1){
-			alert("글 내용은 반드시 입력하셔야 합니다.");
-			return;
+			swal("글 내용은 반드시 입력하셔야 합니다.", "ok버튼을 눌러주세요", "error");
+			return false;
 		}
 
 		$("form[name=communityPost]").attr("method","POST").attr("action","/community/addDietCom").submit();	
@@ -153,45 +171,64 @@
             //videoPlayer = document.getElementById(event.target.id);
         }
 
-	   /////////////////////////////////지도///////////////////////////////////////////
-        function relayout() {    
-      		 map.relayout();
-   		}         
+    	//============= 지도 ====================================
+    	function relayout() {    
+       		 map.relayout();
+    	} 	
     	//지도 Event 발생
     	$(function(){
     		$("button:contains('지도')").on("click", function(){
-    				alert("버튼클릭")
     			 $('#mapModal').on('shown.bs.modal', function () { 
+    				 
     					$('#mapModal').modal('show');
     					$(document).ready(function() {
     						 relayout();
     					}); 
+    						
 
     			});
 
     		});
     		
-    	});        
+    	});
 
-    	function sendInfo(locationTagName, address, coordinate){
-    		console.log(locationTagName)
-    		console.log(address)
-    		console.log(coordinate)
- 
-     	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
+    		
      		$(function(){
-     		 var location = '<input type="text" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
-     		 
-    					 '<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-    			 		'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
-     			
+     		
+    			 			
     			$("button:contains('확인')").on("click", function(){
-    				var locationName = $("#infoMap").text();
-    				$(".glyphicon").append(location);
+    				
+    				var locationTagName = $('#locationTagName').text();
+    				var coordinate = $('#coordinate').val();
+    				var address = $('#address').val();
+    				
+    				if($('#infoMap').val() != null || $('#infoMap').val().length>1){
+    	     		
+    				var formLocation = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
+    					'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+    		 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
+    			   
+    		 		var markerImage =  '<div class="form-group" id="subs">';
+    		 			markerImage += '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">';
+    			        markerImage += '</div>';
+    		 		
+    		 		var locationName = '<div class="form-group" id="location">';
+    					locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
+    			    	locationName += '</div>';
+    			 
+    				}
+
+    				$('#standard').after(markerImage);
+    				$('#standard').after(locationName);
+    				$('#sub').after(formLocation);
+    				
     				$("#mapModal").hide();
+    				
+    				
     			});
     		});  
-    	}        
+        	
+/////////////////////////지도 끝//////////////////////////////////////
        
 ////////////////////////////////////달력달력///////////////////////////////////	
     	function datetime(){
@@ -273,14 +310,14 @@
 	
 	<div class="site-section bg-light">
       <div class="container">
-       <h4 class="info-title margin-five no-margin-top">식단 커뮤니티 게시글 등록하기</h4>
+       <h4 class="info-title margin-five no-margin-top" >식단 커뮤니티 게시글 등록하기</h4>
         <div class="row">
        
           <div class="col-md-12 col-lg-8 mb-5">
           
-              <div class="row form-group">
+              <div class="row form-group" >
                 <div class="col-md-11 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">Title</label>
+                  <label class="font-weight-bold" for="fullname" id="standard">Title</label>
                 </div>
                 <div class="col-md-11 mb-5 mb-md-0">
                 	<input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력해주세요.">
@@ -305,7 +342,7 @@
                 </div>
               </div>
 
-		<input type="submit" value="등록" onclick = "fncAddDietCom()" class="form-control btn btn-danger">
+		<input type="submit" value="등록" onclick = "return fncAddDietCom()" class="form-control btn btn-danger">
 		<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           </div>
           </form>
@@ -345,7 +382,7 @@
     <jsp:include page="/common/addMap.jsp" /> 
         
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="footer-map">
         <button type="button" class="btn btn-outline-success" data-dismiss="modal">확인</button>
       </div>
     </div>

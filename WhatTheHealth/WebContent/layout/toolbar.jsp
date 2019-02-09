@@ -17,7 +17,7 @@
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/aos.js"></script>
-  <script src="/resources/js/main.js"></script>
+   <script src="/resources/js/main2.js"></script>
 
   <!-- ---------- 모달 -------- -->
   

@@ -10,20 +10,8 @@
    
     <script src="../resources/js/jquery-3.3.1.min.js"></script>
    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../resources/css/animate.css">
-    
-    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css">
+   	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    
    <style>
    
@@ -291,13 +279,10 @@
 				<p>${post.contents}</p>
            		 <%-- <p class="mb-4">${post.contents}</p> --%>
            	</div>
-                     <!-- 다음맵지도 -->
+               <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
-			  	  
-	              <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->  
-	            	  <jsp:include page="/common/getMap.jsp" /> 
-	              
-                </c:if>
+	             <jsp:include page="/common/getMap.jsp" /> 
+              </c:if>
 
 		<div class="Kimgiyong">                        
              <!-- <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite"> -->
