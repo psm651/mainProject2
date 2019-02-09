@@ -285,17 +285,18 @@
 				
 				if($('#infoMap').val() != null || $('#infoMap').val().length>1){
 	     		
-				var formLocation = '<input type="hidden" name="post.locationTagName" value="'+locationTagName+'" text-align="left" >'+
-					'<input type="hidden"  name="post.address" value="'+address+'" style="display:none;"/>'+
-		 			'<input type="hidden" name="post.coordinate" value="'+coordinate+'" style="display:none;"/>'
-			   
-		 		var markerImage =  '<div id="subs">';
-		 			markerImage += '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:-15%; left:46%;">';
-			        markerImage += '</div>';
-		 		
-		 		var locationName = '<div id="location">';
+				var locationName = '<div class="form-group" id="location">';
 					locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
 			    	locationName += '</div>';
+					
+				var formLocation = '<div id="formLocation">'+
+					'<input type="hidden" name="post.locationTagName" value="'+locationTagName+'" text-align="left" >'+
+					'<input type="hidden"  name="post.address" value="'+address+'" style="display:none;"/>'+
+		 			'<input type="hidden" name="post.coordinate" value="'+coordinate+'" style="display:none;"/>'+
+		 			'</div>';
+		 			
+		 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:-15%; left:46%;">';
+
 			 
 				}
 
