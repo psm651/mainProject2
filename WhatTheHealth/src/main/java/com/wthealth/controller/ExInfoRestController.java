@@ -1,6 +1,7 @@
 package com.wthealth.controller;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.common.Page;
 import com.wthealth.common.Search;
+import com.wthealth.domain.Post;
 import com.wthealth.service.exinfo.ExInfoService;
 
 @RestController
@@ -48,4 +50,21 @@ public class ExInfoRestController {
 		
 		return map;
 	}
+	
+	@RequestMapping(value="json/listExInfoAd", method=RequestMethod.POST)
+	   public List<Post> listExInfoAd(@RequestBody Search search) throws Exception{
+	      
+	      System.out.println("rest");
+	      if(search.getCurrentPage()==0) {
+	      search.setCurrentPage(1);
+	   }
+	      search.setPageSize(pageSize);
+	      
+	      Map<String, Object> map = exInfoService.listExInfo(search);
+	      List<Post> list = (List<Post>) map.get("list");
+	      
+	      Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+	      
+	      return list;
+	   }
 }

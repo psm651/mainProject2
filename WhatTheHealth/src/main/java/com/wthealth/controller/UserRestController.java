@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -27,6 +28,7 @@ import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jackson.JsonNode;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
@@ -256,5 +258,93 @@ public class UserRestController {
 			return 1;
 		}
 	
+	
+	//////////////////////////안드로이드///////////////////////////////////////
+	@RequestMapping(value = "json/getUser/{userId}")
+	public User getUser(@PathVariable String userId) throws Exception{
+		
+		return userService.getUser(userId);
+		
+	}
+	
+	/*@RequestMapping(value="json/loginUser", method=RequestMethod.POST) 
+	public JSONObject loginUser(@RequestBody User user, HttpSession session, HttpServletResponse response) throws Exception{
+		
+		System.out.println("json/user/loginUser : POST");
+		System.out.println("Android 로그인한 user : " + user);
+		
+		User dbUser = userService.getUser(user.getUserId());
+		System.out.println("dbUser내용 확인" + dbUser);
+		
+		String userStatus = "null";
+		
+		if(dbUser==null){	
+			System.out.println("db에 없을 때");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			userStatus = "3"; //db에 없을 때 
+			
+		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
+			System.out.println("일치하지않을때");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			userStatus = "4"; //비밀번호가 일치하지 않을 때
+			
+		}else if(dbUser.getUserStatus().equals("1")){
+			System.out.println("탈퇴회원");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			userStatus = "1";
+			
+		}else if(dbUser.getUserStatus().equals("2")){
+			System.out.println("블랙리스트");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			userStatus = "2";
+			
+		}else if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
+			session.setAttribute("user", dbUser);
+			System.out.println("if문 들어왔나");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			userStatus = "0";
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("userStatus", userStatus);
+		
+		System.out.println("Login JSONData userStatus : " + jsonObject.toString());
+		
+		return jsonObject;
+	}
+	*/
+	@RequestMapping(value = "json/loginUserAndroid")
+	public User getUser(HttpServletRequest request, HttpSession session) throws Exception {
+
+		System.out.println("json/loginUserAndroid [getUser]실행");
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
+		if (userService.getUser(userId) == null) {
+			System.out.println("디비에없으면 return ");
+			return null;
+		} else {
+			User user = userService.getUser(userId);
+			if (user.getPassword().equals(password)) {
+				session.setAttribute("user", user);
+				System.out.println("세션생성");
+				return user;
+			} else {
+				System.out.println("세션생성X");
+				return null;
+			}
+		}
+	}
+
+	@RequestMapping(value = "json/logoutUserAndroid")
+	public int logOutUser(HttpSession session) throws Exception {
+		System.out.println("세션지우러들옴");
+		if (session != null) {
+			session.removeAttribute("user");
+			System.out.println("지웠다");
+			return 0;
+		} else {
+			System.out.println("세션 null아니라 안지웠다");
+			return 1;
+		}
+	}
 	
 }
