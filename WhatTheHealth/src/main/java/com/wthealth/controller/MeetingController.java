@@ -20,6 +20,7 @@ import com.wthealth.domain.Join;
 import com.wthealth.domain.Meeting;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
+import com.wthealth.service.favorite.FavoriteService;
 import com.wthealth.service.main.MainService;
 import com.wthealth.service.meeting.MeetingService;
 
@@ -34,6 +35,10 @@ public class MeetingController {
 	@Autowired
 	@Qualifier("mainServiceImpl")
 	private MainService mainService;
+	
+	@Autowired
+	@Qualifier("favoriteServiceImpl")
+	private FavoriteService favoriteService;
 	
 	public MeetingController() {
 		System.out.println(this.getClass());
@@ -93,6 +98,18 @@ public class MeetingController {
 	public String getMeetingMap(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
 		System.out.println("/getMeetingMap: GET");
 		Map<String, Object>	map = meetingService.getMeetingMap(meetNo);
+		
+		Meeting meeting = (Meeting)map.get("meeting");
+		Post post = meeting.getPost();
+		
+		int clickCount = post.getClickCount();
+		clickCount++;
+		post.setClickCount(clickCount);
+		meetingService.updateClickCount(post);
+
+		int totalLikeCount = favoriteService.getTotalLikeCount(post.getPostNo());
+		post.setLikeCount(totalLikeCount);
+		meetingService.updateLikeCount(post);
 		
 		model.addAttribute("meeting", map.get("meeting"));
 		model.addAttribute("joinlist", map.get("joinlist"));

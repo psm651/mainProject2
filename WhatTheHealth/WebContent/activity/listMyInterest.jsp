@@ -136,9 +136,9 @@
 				if(category == '1'){
 				 self.location ="/exinfo/getExInfo?postNo="+postNo;
 				} else if(category == '2'){
-				 self.location ="/exCom/getExCom?postNo="+postNo;
+				 self.location ="/community/getCommunity?postNo="+postNo;
 				} else if(category == '3'){
-				 self.location ="/dietCom/getDietCom?postNo="+postNo;
+				 self.location ="/community/getCommunity?postNo="+postNo;
 				}
 			});
 						
