@@ -17,8 +17,7 @@
    
    	.giyong{
    	/* 	width: 63%; */
-   		margin-top : 5em;
-   		padding : 3em;
+   		padding : 3em; 
    		border : 1px solid gray;
    		border-radius : 15px;
    		text-align : center;
@@ -33,11 +32,11 @@
    	.giyong ul{
    		display : block;
    		height : 60px;
-   		overflow : hidden;
+   		overflow : auto;
    		padding-inline-start : 0;
    		margin : 0 auto;
-   		text-align : center;
-   		padding-left : 30em;
+   		text-align : right;
+   		/* padding-left : 30em; */
    	}
 
    	
@@ -260,22 +259,22 @@
    <!-- 툴바 인클루드 시작! -->
    
    </div>
-   <!-- <div class="site-section" align="center"> -->
+  <div class="site-section bg-light">
       <div class="container">
       
       	<div class="row">
-       		<div class="col-lg-8">
+       		<div class="col-lg-10">
        	
       		<input type="hidden" name="postNo" value="${post.postNo }"/>
       
-        <div class="giyong">
-          	<h4 >${post.title}</h4>
+       <div class="giyong"> 
+          	<h4 ><b>${post.title}</b></h4>
           	<ul class="like and view">
           		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
-          		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
+          		<li><span>&nbsp; / 조회 수 : ${post.clickCount}</span></li>
           	</ul>
  
-            <div class="contents" style="margin-top:-12%;" >
+            <div class="contents" style="margin-top:-50px;" >
 				<p>${post.contents}</p>
            		 <%-- <p class="mb-4">${post.contents}</p> --%>
            	</div>
@@ -301,11 +300,12 @@
             
             <c:if test = "${user.userId == post.userId}">
             	<div style="margin-top : 5em;">
-	            	<p>
+	            	<div  class = " border-top border-bottom" >
 	            		<a href="#" class="btn btn-primary pill px-4">수정</a>&nbsp;
-	            		<a href="#" class="btn btn-primary pill px-4">목록으로</a>&nbsp;
 	            		<a href="#" class="btn btn-primary pill px-4">삭제</a>
-	            	</p>
+	            		<a href="#" class="btn btn-primary pill px-4">목록으로</a>&nbsp;
+	            		
+	            	</div>
 	            </div>
             </c:if>
           </div>
@@ -315,9 +315,13 @@
           </div>
            
         
+     </div> 
+      </div>
+      <div class="col-lg-2"  style="margin-left:-15px;">
+      여기추가예정
       </div>
 
-	 <ul class="imagelocation">
+	 <!-- <ul class="imagelocation">
 	   <li>
 	 		<img src="/resources/images/post/post_BMI.png" alt="Image" class="postImage" id="bmiLocation">
 	   </li>
@@ -330,7 +334,7 @@
 	   <li class="right">
 	 		<img src="/resources/images/post/post_Schedule.png" alt="Image" class="postImage" id="scheduleLocation" >
 	   </li>
-	</ul>
+	</ul> -->
 	
 	</div>
 	
