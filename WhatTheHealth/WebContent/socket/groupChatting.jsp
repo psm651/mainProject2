@@ -79,6 +79,10 @@
    max-width:120%;
    border-radius: 50px;
 } 
+#upload{
+	max-width:70%;
+	max-height: 70%
+}
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
@@ -189,7 +193,7 @@
   font-size: 12px;
   margin: 8px 0 0;
 }
-.received_withd_msg { width: 57%;}
+.received_withd_msg { width: 60%;}
 .mesgs {
   float: left;
   width: 100%;
@@ -206,7 +210,7 @@
 .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
 .sent_msg {
   float: right;
-  width: 46%;
+  width: 60%;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -235,6 +239,38 @@
 .msg_history {
   height: 516px;
   overflow-y: auto;
+}
+
+#attach {
+ /*  background: #05728f none repeat scroll 0 0; */
+  background: #05728f  none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 40px;
+  top: 11px;
+  width: 33px;
+}
+
+
+#filee{
+	display: none;
+}
+
+#status{
+	display: none;
+}
+
+.bar{
+	display: none;
+}
+
+.percent{
+	display: none;
 }
 
 
@@ -266,7 +302,7 @@
 
   <script>
  		var $j = jQuery.noConflict();
-  		var postNo = ${meeting.post.postNo};
+  		//var postNo = ${meeting.post.postNo};
   		var targetName = '';
   		var incomingid = '';
   		
@@ -289,11 +325,44 @@
 	        console.log("클릭됨 "+incomingid);
 	         socket.emit("kickout",{targetName:incomingid});
 	         alert(incomingid);
-	         	//self.location = "http://127.0.0.1:8080";
+	       // self.location = "/";
 	
 	        };
   		
-  		
+  		/* function preloadContext(){
+  			 if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
+              	console.log("111111")
+              	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+dbData.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+              } 
+              
+              else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img == "" || dbData.img == null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
+              	console.log("3333")
+              	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+              }  
+              else if(dbData.name == "${sessionScope.user.nickName}" && dbData.msg.substring(dbData.msg.length-3)!='jpg') {
+              	console.log("55555")
+              	$('<div class="outgoing_msg"  id="chatContext"><div class="sent_msg"><div class="outgoing_id" data-param1="'+dbData.name+'">'+dbData.name+'</div><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div>').appendTo(".msg_history");
+          	}
+             
+              else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)=='jpg' ){
+               	console.log("777777")
+               	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+dbData.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+               } 
+               
+               else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img == "" || dbData.img == null && dbData.msg.substring(dbData.msg.length-3)=='jpg'  ){
+               	console.log("99999")
+               	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+               }  
+               else if(dbData.name == "${sessionScope.user.nickName}" && dbData.msg.substring(dbData.msg.length-3)=='jpg') {
+               	console.log("1131313")
+               	$('<div class="outgoing_msg" id="chatContext"><div class="sent_msg"><div class="outgoing_id" data-param1="'+dbData.name+'">'+dbData.name+'</div><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div>').appendTo(".msg_history");
+           	}
+              
+              $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
+  			
+  		}
+	        
+	         */
         $(document).ready(function() {
         	
         	
@@ -345,13 +414,71 @@
                 //#msg에 벨류값을 비워준다.
                 $(".write_msg").val("");
             });
+            
+            
+            
+            /* if($("#chatContext").text()!="" || $("#chatContext").text()!=null){ 
+            	$("#chatContext").remove();
+            	
+            	console.log("null이 아닐때"); */
+            	
+            	socket.on('preload',function(dbData){
+                    /* var output = '';
+                    output += '<div class="alert alert-info"><strong>';
+                    output += data.sender;
+                    output += '</strong> : ';
+                    output += data.data;
+                    output += '</div>';
+                    $(output).appendTo(".msg_history"); */
+                    
+                    //console.log(dbData.msg);
+                   // console.log("file::::"+dbData.msg.substring(dbData.msg.length-3));
+                    //$(".outgoing_msg").empty();
+                    //$(".incoming_msg").empty();
+             
+                    
+            	    // $("#chatContext").remove();
+            	   
+              		if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
+                     	console.log("111111")
+                     	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+dbData.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" param="'+dbData.name+'" onclick="outClick(this);">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+                     } 
+                     
+                     else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img == "" || dbData.img == null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
+                     	console.log("3333")
+                     	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" param="'+dbData.name+'" onclick="outClick(this);">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+                     }  
+                     else if(dbData.name == "${sessionScope.user.nickName}" && dbData.msg.substring(dbData.msg.length-3)!='jpg') {
+                     	console.log("55555")
+                     	$('<div class="outgoing_msg" ><div class="sent_msg"><div class="outgoing_id" data-param1="'+dbData.name+'">'+dbData.name+'</div><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div>').appendTo(".msg_history");
+                 	}
+                    
+                     else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)=='jpg' ){
+                      	console.log("777777")
+                      	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+dbData.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" param="'+dbData.name+'" onclick="outClick(this);">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+                      } 
+                      
+                      else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img == "" || dbData.img == null && dbData.msg.substring(dbData.msg.length-3)=='jpg'  ){
+                      	console.log("99999")
+                      	$('<div class="incoming_msg" ><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" param="'+dbData.name+'" onclick="outClick(this);">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
+                      }  
+                      else if(dbData.name == "${sessionScope.user.nickName}" && dbData.msg.substring(dbData.msg.length-3)=='jpg') {
+                      	console.log("1131313")
+                      	$('<div class="outgoing_msg"><div class="sent_msg"><div class="outgoing_id" data-param1="'+dbData.name+'">'+dbData.name+'</div><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div>').appendTo(".msg_history");
+                  	}
+                     
+                     $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
+                    
+                }); 
+            	
+            
  
             socket.on('kickout', function(msg){
             	var outcomingid = $(".outgoing_id").data("param1");
             	//var outcomingid = $(".incoming_id").data("param");
             	if(outcomingid == msg.name){
             		alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
-                 	self.location = "http://192.168.0.48:8080";
+                 	self.location = "http://192.168.0.43:8080";
             	};
             	 console.log(msg.name+' 강퇴');
        	       $('<div class="incoming_msg"><div class="received_id"><p>'+msg.name+'님이 강제퇴장되었습니다.</p></div></div>').appendTo(".msg_history");
@@ -363,7 +490,7 @@
             	
             	
             	
-            	/*  $j("#outt").click(function(){
+            	 /*  $j("#outt").click(function(){
           		   
           		   var incomingid = $(this).data("param");
      	        	console.log("클릭됨 "+incomingid);
@@ -371,7 +498,7 @@
      	         	alert(incomingid);
      	         	//self.location = "http://127.0.0.1:8080";
      	
-     	        }); */
+     	        });  */
             	
 			
             	console.log("세션에서 받은 이미지: "+"${sessionScope.user.userImage}");
@@ -399,15 +526,134 @@
                
             })
             
+            socket.on('send_img', function(msg) {
+			
+            	console.log("서버에서 받은 파일: "+msg.msg);
+                //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
+                //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
+                
+                if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
+                	console.log("111111")
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                } 
+                
+                else if(msg.name != "${sessionScope.user.nickName}" && msg.img == "" || msg.img == null ){
+                	console.log("3333")
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                }  
+                else if(msg.name == "${sessionScope.user.nickName}") {
+                	console.log("55555")
+                	$('<div class="outgoing_msg"><div class="sent_msg"><div class="outgoing_id" data-param1="'+msg.name+'">'+msg.name+'</div><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div>').appendTo(".msg_history");
+            	}
+                
+                $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
+            })
+            
             socket.on('in_msg', function(msg) {
+            	
+            	//$(".outgoing_msg").empty();
+               // $(".incoming_msg").empty();
+            
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
+                
             })
             
             socket.on('out_msg', function(msg) {
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
             })
+            
+                        //////////////////////////////////////////file Upload//////////////////////////////////////////
+           // $('#image_name').on('change',function(){
+        	   
+        	$('#filee').on('change',function(){   
+           // $('#submit').on('click',function(){
+            	
+           
+            	alert("전송");
+            	event.preventDefault();
+
+                //var formData = new FormData($('form')[0]);
+                
+                var formData = new FormData($('#multiForm')[0]);
+                var bar = $('.bar');
+                var percent = $('.percent');
+                var status = $('#status');  
+                   var ajaxReq = $.ajax({
+                        type : 'post',
+                        url : '/socket/json/uploadFile/',
+                        data : formData,
+                        processData : false,
+                        contentType : false,
+                        uploadProgress: function(event, position, total, percentComplete) {
+                            var percentVal = percentComplete + '%';
+                            bar.width(percentVal);
+                            percent.html(percentVal);
+                        },
+                        success : function(data, statusText, xhr) {                                      
+                       //    $("#msg").val(data);
+                           var percentVal = '100%';
+                            bar.width(percentVal);
+                            percent.html(percentVal);
+                            status.html(xhr.responseText);
+                            //msg_process.click();
+                            
+                        },
+                        error : function(error) {
+                            alert("파일 업로드에 실패하였습니다.");
+                            console.log(error);
+                            console.log(error.status);
+                        }
+                    });
+                   
+                   ajaxReq.done(function(msg){
+                  
+                      if (msg.substring(msg.length-3)=='mp4') {
+                         setTimeout(function() {
+                            while(true){
+                               var path = 'http://192.168.0.43:8080/resources/images/chatImage/'+msg;
+                               var re = doesFileExist(path);
+                               if (re) {
+                                  //socket.emit("send_msg",msg);
+                                  socket.emit("send_img", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}",  file : msg});
+                               break;
+                            }
+                            }
+                         },5000);
+                   }else{
+                      setTimeout(function() {
+                            while(true){
+                               var path = 'http://192.168.0.43:8080/resources/images/chatImage/'+msg;
+                               var re = doesFileExist(path);
+                               if (re) {
+                                  //socket.emit("send_msg",msg);
+                                  socket.emit("send_img", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}", file : msg});
+                               break;
+                            }
+                            }
+                         },3000);
+                   }
+                      
+                      
+                 
+                   });
+                   
+                   function doesFileExist(urlToFile) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('HEAD', urlToFile, false);
+                    xhr.send();
+                     
+                    if (xhr.status == "404") {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+                  
+                   
+          });
+		//////////////////////////////////////////file Upload//////////////////////////////////////////  
             
 
            
@@ -424,12 +670,27 @@
           <div class="type_msg">
             <div class="input_msg_write">
               <input type="text" class="write_msg" placeholder="Type a message" />
+               <label for="filee"><img id="attach" src="/resources/images/icons8-attach-30.png"></label>
               <button class="msg_send_btn" type="button" id="send"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>
       </div>
       
+      
+<!------------------------------------------- file Upload ---------------------------------------->   
+  
+    <form enctype="multipart/form-data" id="multiForm">
+    	<input type="file" name="multipartFile" id="filee">
+	</form> 
+	 
+	
+	<div class="bar"></div>
+	<div class="percent"></div>
+	<div id="status"></div> 
+      
+<!------------------------------------------- file Upload ---------------------------------------->     
+            
       
     </div>
     </body>

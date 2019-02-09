@@ -27,7 +27,6 @@
 		<mapper resource="sql/ChattingMapper.xml"/>
 		<!-- 정연 -->
 		<mapper resource="sql/CommunityMapper.xml"/>
-		<mapper resource="sql/DietComMapper.xml"/>
 		<mapper resource="sql/RefundMapper.xml"/>
 		<mapper resource="sql/FavoriteMapper.xml"/>
 		<!-- 성민 -->

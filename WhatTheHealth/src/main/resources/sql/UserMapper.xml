@@ -110,8 +110,7 @@
 			holder 		= #{holder:VARCHAR},
 			bank_name 	= #{bankName:VARCHAR},
 			account_num	= #{accountNum:VARCHAR},
-			weight = #{weight:NUMERIC},
-			user_status_code = #{userStatus:VARCHAR}
+			weight = #{weight:NUMERIC}
 
 	   	</set>
 	   	WHERE user_id = #{userId}

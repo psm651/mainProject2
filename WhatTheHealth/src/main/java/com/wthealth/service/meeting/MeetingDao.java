@@ -54,4 +54,9 @@ public interface MeetingDao {
 	
 	//���� ���� ����
 	public void updateDeposit(int joinNo) throws Exception;
+	
+	public void updateClickCount(Post post) throws Exception;
+	
+	public void updateLikeCount(Post post) throws Exception;
+	
 }

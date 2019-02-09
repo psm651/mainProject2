@@ -59,7 +59,14 @@
    
    $(function() {
 		$("a[href='#' ]").on("click" , function() {
-			self.location = "/community/addExCom";
+			
+			if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
+				 alert("로그인이 필요한 서비스입니다.");
+				 self.location = "/" 
+			 } else if("${sessionScope.user}" != null){
+				self.location = "/community/addExCom"	//UserId??????????
+			 }
+
 		});
 	});	
    

@@ -542,7 +542,7 @@ body {
               <div class="block-media-1 heading-with-border bg-white exInfo"  data-exinfo ="${post.postNo}" style="width:350px; height:350px;">
           
                   <c:if test="${empty post.photo}">
-                     <img  src="/resources/images/1111.jpg"  class="img-fluid">
+                     <img  src="/resources/images/1111.jpg"  class="img-fluid" style="width:350px; height:196px;">
                  </c:if>
                   
                    <c:set var="youtubeThumbnail" value="${post.photo}"/>
@@ -568,9 +568,17 @@ body {
                     
                        <span class="d-flex align-items-center" style="width:200px; display:inline-block">
                           <div id="userInfo">
-                             <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                          
+                          	<c:if test="${post.userImage != null and post.userImage != '' }">
+								 <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+							</c:if>
+			
+							<c:if test="${post.userImage == null or post.userImage == '' }">
+								<img src="/resources/images/userImage/defaultUser.png" style="border-radius: 100px; width:50px; height:50px;">
+							</c:if>
+							
                           </div>
-                         <span>${post.nickName}</span>
+                         <span>&nbsp;&nbsp;${post.nickName}</span>
                        </span>
                 </div>
                 </div>
@@ -599,7 +607,7 @@ body {
               <div class="block-media-1 heading-with-border bg-white dietcom"  data-dietcom ="${post.postNo}" style="width:350px; height:350px;">
           
                   <c:if test="${empty post.photo}">
-                     <img  src="/resources/images/1111.jpg"  class="img-fluid">
+                     <img  src="/resources/images/1111.jpg"  class="img-fluid"  style="width:350px; height:196px;">
                  </c:if>
                   
                    <c:set var="youtubeThumbnail" value="${post.photo}"/>
@@ -625,9 +633,17 @@ body {
                     
                        <span class="d-flex align-items-center" style="width:200px; display:inline-block">
                           <div id="userInfo">
-                             <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                          	
+                          	<c:if test="${post.userImage != null and post.userImage != '' }">
+								 <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+							</c:if>
+			
+							<c:if test="${post.userImage == null or post.userImage == '' }">
+								<img src="/resources/images/userImage/defaultUser.png" style="border-radius: 100px; width:50px; height:50px;">
+							</c:if>
+                          
                           </div>
-                         <span>${post.nickName}</span>
+                         <span>&nbsp;&nbsp;${post.nickName}</span>
                          <!-- <span class="d-flex align-items-center" style="width:100px; padding-left:200px; padding-bottom:100px; float:left">
 	                       		<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:10px;">
 	                       </span> -->
@@ -669,7 +685,7 @@ body {
               <div class="block-media-1 heading-with-border bg-white excom"  data-excom ="${post.postNo}" style="width:350px; height:350px;">
           
                   <c:if test="${empty post.photo}">
-                     <img  src="/resources/images/1111.jpg"  class="img-fluid">
+                     <img  src="/resources/images/1111.jpg"  class="img-fluid" style="width:350px; height:196px;">
                  </c:if>
                    
                    <c:set var="youtubeThumbnail" value="${post.photo}"/>
@@ -697,9 +713,15 @@ body {
                        <!-- <p></p> -->
                        <span class="d-flex align-items-center">
                           <div id="userInfo">
-                             <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+                             <c:if test="${post.userImage != null and post.userImage != '' }">
+								 <img src="/resources/images/userImage/${post.userImage}" style="border-radius: 100px; width:50px; height:50px;">
+							</c:if>
+			
+							<c:if test="${post.userImage == null or post.userImage == '' }">
+								<img src="/resources/images/userImage/defaultUser.png" style="border-radius: 100px; width:50px; height:50px;">
+							</c:if>
                           </div>
-                         <span>${post.nickName}</span>
+                         <span>&nbsp;&nbsp;${post.nickName}</span>
                        </span>
                        
                   <%-- <div class="p-4 col-md-4"> -->

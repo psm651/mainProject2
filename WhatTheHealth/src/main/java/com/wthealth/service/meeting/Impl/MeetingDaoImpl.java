@@ -52,6 +52,18 @@ public class MeetingDaoImpl implements MeetingDao {
 		sqlSession.update("MeetingMapper.updateMeetingPost", post);
 
 	}
+	
+	
+
+	@Override
+	public void updateClickCount(Post post) throws Exception {
+		sqlSession.update("MeetingMapper.updateClickCount", post);
+	}
+
+	@Override
+	public void updateLikeCount(Post post) throws Exception {
+		sqlSession.update("MeetingMapper.updateLikeCount", post);
+	}
 
 	@Override
 	public void addMeetingPost(Post post) throws Exception {

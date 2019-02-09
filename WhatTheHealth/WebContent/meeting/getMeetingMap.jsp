@@ -174,6 +174,16 @@
           
          });
        
+       function videoChatting(){
+    	   
+    	   popWin 
+           = window.open("https://192.168.0.55:6503/rtc_multi_me/index.html?nickName=${user.nickName}",
+                                "popWin", 
+                                "left=100,top=200,width=950,height=1000,marginwidth=0,marginheight=0,"+
+                                "scrollbars=no,scrolling=no,menubar=no,resizable=no");
+    	   
+       }
+       
    </script>
    
    <!--  ///////////////////////// CSS ////////////////////////// -->
@@ -351,11 +361,16 @@
 			</div>
 			</c:forEach>
 			</div>
+			
+			<%-- <p align="center"><a onclick="javascript:location.href='https://192.168.0.55:6503/rtc_multi_me/index.html?nickName=${user.nickName}';"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p> --%>
+			<p align="center"><a onclick="videoChatting();"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p>
 			 
 			<!-- 채팅방 인클루드 -->
 			 <div class="row">
-			<div class="col-md-12 mb-5"  >
-		    <%@ include file="/socket/groupChatting.jsp" %> <!--  여기 댓글 수정하느라 주석-->
+			<div class="col-md-12"  >
+			<button type="button" class="btn btn-primary pill text-white px-4" id="getMeetingChat" data-param="${meeting.post.postNo}">채팅하기</button>
+			
+		   <%--  <%@ include file="/socket/groupChatting.jsp" %>  --%><!--  여기 댓글 수정하느라 주석-->
 			</div> 
 			</div> 
 			</div>

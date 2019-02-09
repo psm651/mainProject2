@@ -48,6 +48,18 @@ public class MeetingServiceImpl implements MeetingService {
 	public void updateMeeting(Meeting meeting) throws Exception {
 		meetingDao.updateMeeting(meeting);
 	}
+	
+	
+	
+	@Override
+	public void updateClickCount(Post post) throws Exception {
+		meetingDao.updateClickCount(post);
+	}
+
+	@Override
+	public void updateLikeCount(Post post) throws Exception {
+		meetingDao.updateLikeCount(post);
+	}
 
 	@Override
 	public void deleteMeeting(String postSubNo) throws Exception {

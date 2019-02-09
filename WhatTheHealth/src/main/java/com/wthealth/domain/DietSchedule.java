@@ -46,12 +46,14 @@ public class DietSchedule {
 
 
 	public String getDietScDate() {
-		return dietScDate;
+		//return dietScDate;
+		return dietScDate.substring(0, 10);
 	}
 
 
 	public void setDietScDate(String dietScDate) {
-		this.dietScDate = dietScDate;
+		//this.dietScDate = dietScDate;
+		this.dietScDate = dietScDate.substring(0, 10);
 	}
 
 
