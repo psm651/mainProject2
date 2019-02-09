@@ -159,51 +159,71 @@ public class ScheduleController {
 		
 		Calendar now = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		now.setTime(sdf.parse("2019-01-29"));
+		//now.setTime(sdf.parse("2019-01-29"));
 		/*System.out.println("�뀈"+now.get(1));
 		System.out.println("�썡"+now.get(2));
 		System.out.println("�씪"+now.get(5));
 		*/
 		
-		System.out.println("�쁽�옱紐뉗＜李⑥씤吏� �뜲�씠�꽣���엯"+(now.get(now.WEEK_OF_YEAR )+"").getClass());
-		System.out.println("db�뿉�꽌 諛쏆븘�삩 �궇吏� �뜲�씠�꽣���엯"+(exList.get(2).getExScDate()).getClass());
-		System.out.println((now.get(now.WEEK_OF_YEAR ))+"");
+		System.out.println("히스토리차트:::::"+(now.get(now.WEEK_OF_YEAR )+"").getClass());
+		//System.out.println("히스토리차트:::::왜안돼"+(exList.get(2).getExScDate()).getClass());
+		//System.out.println((now.get(now.WEEK_OF_YEAR ))+"");
 		
-	
+		System.out.println("534546546654564456564546"+exList);
+		System.out.println("534546546654564456564546"+dietList);
+
 		for (int j = 0; j < 53; j++) {
 			int exCal=0;
 			int dietCal=0;
-			
+			System.out.println("큰FOR문 들어옴");
 			//exList
 			for (int i = 0; i < exList.size(); i++) {
+				System.out.println("111111FOR문 들어옴");
+				System.out.println("for문 안 주차"+now.get(now.WEEK_OF_YEAR ));
+
 				now.setTime(sdf.parse(exList.get(i).getExScDate()));
+				System.out.println("히스토리차트 주차"+j);
 				if (j ==now.get(now.WEEK_OF_YEAR )) {
-					if (!exList.get(i).getDeleteStatus().equals("1")) {
+					if (exList.get(i).getDeleteStatus().equals("0")) {
 						exCal+=exList.get(i).getExScCalorie();
+						System.out.println("히스토리차트 운동칼로리:::"+exCal);
 					}
 				}
 			}
 			
 			//dietList
 			for (int i = 0; i < dietList.size(); i++) {
+				System.out.println("2222222222FOR문 들어옴");
+
 				now.setTime(sdf.parse(dietList.get(i).getDietScDate()));
 				if (j ==now.get(now.WEEK_OF_YEAR )) {
-					if (!exList.get(i).getDeleteStatus().equals("1")) {
+					if (dietList.get(i).getDeleteStatus().equals("0")) {
 						dietCal+=dietList.get(i).getDietScCalorie();
+						System.out.println("히스토리차트 식단칼로리:::"+dietCal);
 					}
 				}
 			}
 			exCalList.add(j, exCal);
+			//System.out.println("exCalList들어갔나55:::::"+exCalList.get(5));
+			//System.out.println("exCalList들어갔나66:::::"+exCalList.get(6));
+			
 			dietCalList.add(j, dietCal);
+			//System.out.println("dietCalList들어갔나55:::::"+dietCalList.get(5));
+			//System.out.println("dietCalList들어갔나66:::::"+dietCalList.get(6));
+			
+			System.out.println("exCal::::"+exCal+"dietCal"+dietCal);
+			
 			if (exCal>dietCal) {
 				averageCalList.add(j,-(exCal-dietCal));
+				System.out.println("if문 들어옴:::::"+exCal+"::::;"+dietCal);
 			}else {
 				averageCalList.add(j,dietCal-exCal);
+				System.out.println("else문 들어옴:::::"+exCal+"::::;"+dietCal);
 			}
 			
-			System.out.println(j+"주차"+exCalList.get(j));
+			//System.out.println(j+"주차"+exCalList.get(j));
 		}
-		
+		System.out.println("끝ㅌ/////");
 		
 		
 		
