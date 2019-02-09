@@ -412,22 +412,22 @@ body{
             
             socket.on('send_img', function(msg) {
 			
-            	console.log("서버에서 받은 파일: "+msg.file);
+            	console.log("서버에서 받은 파일: "+msg.msg);
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
                 
                 if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
                 	console.log("111111")
-                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.file+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
                 } 
                 
                 else if(msg.name != "${sessionScope.user.nickName}" && msg.img == "" || msg.img == null ){
                 	console.log("3333")
-                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.file+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
                 }  
                 else if(msg.name == "${sessionScope.user.nickName}") {
                 	console.log("55555")
-                	$('<div class="outgoing_msg"><div class="sent_msg"><div class="outgoing_id" data-param1="'+msg.name+'">'+msg.name+'</div><p><img id="upload" src="/resources/images/chatImage/'+msg.file+'"></p><span class="time_date">'+msg.rt+'</span></div>').appendTo(".msg_history");
+                	$('<div class="outgoing_msg"><div class="sent_msg"><div class="outgoing_id" data-param1="'+msg.name+'">'+msg.name+'</div><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div>').appendTo(".msg_history");
             	}
                 
                 $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);

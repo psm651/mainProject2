@@ -367,8 +367,10 @@
 			 
 			<!-- 채팅방 인클루드 -->
 			 <div class="row">
-			<div class="col-md-12 mb-5"  >
-		    <%@ include file="/socket/groupChatting.jsp" %> <!--  여기 댓글 수정하느라 주석-->
+			<div class="col-md-12"  >
+			<button type="button" class="btn btn-primary pill text-white px-4" id="getMeetingChat" data-param="${meeting.post.postNo}">채팅하기</button>
+			
+		   <%--  <%@ include file="/socket/groupChatting.jsp" %>  --%><!--  여기 댓글 수정하느라 주석-->
 			</div> 
 			</div> 
 			</div>

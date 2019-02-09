@@ -290,9 +290,9 @@ html {
 					 
 			<input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
 			</fieldset>	       
-			<button type="button" class="next action-button" data-dismiss="modal">Delete</button>
+<!-- 			<button type="button" class="next action-button" data-dismiss="modal">Delete</button>
 			<button type="button" class="next action-button" >Update</button> 
-
+ -->
   
   </form>
 </div>
@@ -456,7 +456,7 @@ var result = new Array();
 		  			    	
 		  			  },
 		  header: {
-		        left: 'prev,next,myCustomButton,myCustomButton2',//왼쪽상단버튼
+		        left: 'myCustomButton,myCustomButton2',//왼쪽상단버튼
 		        center: 'title',//가운데
 		      /*   right: 'basicWeek'//오른쪽상단버튼 */
 		        },
@@ -564,14 +564,14 @@ $(function() {
 			    				},
 			    				success : function(JSONData) {	
 			    					var total="";
-			    				    for(var i=0; i<JSONData.food.length ; i++){
+			    				    for(var i=0; i<JSONData.foodList.length ; i++){
 			    						
 			    						var a='<div class="col-xs-4 col-sm-4" style="max-width:150px; height:150px; margin-bottom : 2.5em;">'+
 	    								 '<div class="card" >'+
-		    								'<div class="card-header" align="center" >'+JSONData.food[i].foodName+'</div>'+
+		    								'<div class="card-header" align="center" >'+JSONData.foodList[i].foodName+'</div>'+
 		    								 '<div class="card-body" style="padding-bottom:-110px;padding-bottom: 8px;padding-top: 8px;" align="center">'+
-		    									'<p >'+JSONData.food[i].amountFood+'</p>'+
-		    									'<p >'+JSONData.food[i].foodCalorie+' </p>'+                               
+		    									'<p >'+JSONData.foodList[i].amountFood+'</p>'+
+		    									'<p >'+JSONData.foodList[i].foodCalorie+' </p>'+                               
 		    								'</div>'+                                      
 		    							   '</div>'+
 		    							   '</div>'+
@@ -635,9 +635,9 @@ $(function() {
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
 
 		    	   	popWin 
-					= window.open("../calculator/calorieCalculator.jsp",
+					= window.open("../calculator/scheduleCalorieCalculator.jsp",
 												"popWin", 
-												"left=100,top=200,width=780,height=630,marginwidth=0,marginheight=0,"+
+												"left=100,top=200,width=1000,height=650,marginwidth=0,marginheight=0,"+
 												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 		      
 
@@ -869,7 +869,9 @@ $(function(){
 <c:forEach var="f"  begin="1" end="7" >
 		if ('${dietcal.dietScDate}'== $('.fc-day-header.fc-widget-header').eq(${f-1}).attr("data-date")) {
   				dietCal${f}=dietCal${f} + ${dietcal.dietScCalorie};
+  				
 		} 
+
 		</c:forEach>
 		</c:if>
 		</c:forEach>
@@ -877,7 +879,7 @@ $(function(){
 		<c:forEach var="d"  begin="1" end="7" >
 		$("#d${d}").text('+'+dietCal${d}+' kCal');
 		</c:forEach>
-		
+	
 		
 	
 });

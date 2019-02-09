@@ -22,8 +22,32 @@
 
    	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
-	
-	
+	 <!-- <script src="/resources/js/jquery-3.3.1.min.js"></script>  -->
+  	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  	<script src="/resources/js/jquery-ui.js"></script>
+	<!--   <script src="/resources/js/popper.min.js"></script> -->
+  	<script src="/resources/js/owl.carousel.min.js"></script>
+	  <script src="/resources/js/jquery.stellar.min.js"></script>
+	  <script src="/resources/js/jquery.countdown.min.js"></script>
+	  <script src="/resources/js/jquery.magnific-popup.min.js"></script> 
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/css/animate.css">
+    
+    
+    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
+  
+    <link rel="stylesheet" href="/resources/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/css/style.css"> 
+		
 	<style>
       
        .datepicker-here{weight:60px; height: 30px;}	   
