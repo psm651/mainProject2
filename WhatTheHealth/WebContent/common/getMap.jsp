@@ -26,7 +26,7 @@
 
 <body>
  	<!-- 이미지 지도를 표시할 div 입니다 -->
-	<div id="map" style="width:600px;height:350px;"></div>
+	<div id="map" style="width:600px; height:350px; float:center;"></div>
 </body>
 
 <script>
@@ -35,7 +35,7 @@
 		mapCenter = new daum.maps.LatLng(${post.coordinate}), // 지도의 중심좌표
 		mapOption = {
     		center: mapCenter,// 지도의 중심좌표
-    		disableDoubleClick: true,
+    //		disableDoubleClick: true,
     		level: 3 // 지도의 확대 레벨
 		};
 	var map = new daum.maps.Map(mapContainer, mapOption);
@@ -46,8 +46,8 @@
 	});
 
 	
-	map.setDraggable(false);
-	map.setZoomable(false);
+	//map.setDraggable(false);
+	//map.setZoomable(false);
 	
 //커스텀 오버레이에 표시할 내용입니다
 //HTML 문자열 또는 Dom Element 입니다
