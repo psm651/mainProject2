@@ -168,23 +168,24 @@
 					
 					if($('#infoMap').val() != null || $('#infoMap').val().length>1){
 		     		
-					var formLocation = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
-						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
-				   
-			 		var markerImage =  '<div class="form-group" id="subs">';
-			 			markerImage += '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:92%;">';
-				        markerImage += '</div>';
-			 		
-			 		var locationName = '<div class="form-group" id="location">';
+					var locationName = '<div class="form-group" id="location">';
 						locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
 				    	locationName += '</div>';
+						
+					var formLocation = '<div id="formLocation">'+
+						'<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
+						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
+			 			'</div>';
+				   
+			 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:92%;">';
+				        
 				 
 					}
 
-					$('#standard > div:nth-child(2) > div:nth-child(2)').after(markerImage);
 					$('#standard > div:nth-child(2) > div:nth-child(2)').after(locationName);
-					$('#standard > div:nth-child(2) > div:nth-child(2)').after(formLocation);
+					$('#location').append(markerImage);
+					$('#location').append(formLocation);
 					
 					$("#mapModal").hide();
 					
@@ -319,19 +320,18 @@
                </div>
                
 			<c:if test="${!empty post.coordinate}">
-				<input type="hidden" name="locationTagName" value="${post.locationTagName}" text-align="left" >
-				<input type="hidden"  name="address" value="${post.address}" style="display:none;"/>
-			 	<input type="hidden" name="coordinate" value="${post.coordinate}" style="display:none;"/>
-				 <div class="form-group" id="subs">
-			 		<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:92%;">
-				 </div>
-			 		
-			 	 <div class="form-group" id="location">
-					<div id="sub" style="text-align:center;">${post.locationTagName}</div>
-				 </div>
-				 
-					
-		</c:if>
+			 	<div class="form-group" id="location">
+				   <div id="sub" style="text-align:center;">${post.locationTagName}</div>
+			    	
+			    	<div id="formLocation">
+					 <input type="hidden" name="locationTagName" value="${post.locationTagName}" text-align="left" >
+					 <input type="hidden"  name="address" value="${post.address}" style="display:none;"/>
+		 			 <input type="hidden" name="coordinate" value="${post.coordinate}" style="display:none;"/>
+		 			</div> 
+			   
+		 		   <img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:92%;">
+			     </div>  
+			</c:if>
                
                
              <div class="form-group"> 
@@ -439,7 +439,7 @@
     		<c:if test="${!empty post.coordinate}">
     		
     			<button type="button" class="btn btn-light btn-sm" id="infoMap" name="locationTagName" value="${post.locationTagName}">
-    				<h6 id="locationTagName">한강</h6>
+    				<h6 id="locationTagName">${post.locationTagName}</h6>
     				<input type="hidden" id="address" name="address" value="${post.address}" style="display:none;">
     				<input type="hidden" id="coordinate" name="coordinate" value="${post.coordinate}" style="display:none;">
     			</button>

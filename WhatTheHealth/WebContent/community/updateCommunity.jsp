@@ -38,6 +38,51 @@
 	<script src="../resources/js/app.js"></script>
 	
 	<style>
+	#sub {width:160px; height:30px; background:pink;
+
+     border-radius:10px;
+		
+	 padding-top:5px;
+		
+     opacity:.8;
+     
+     position:absolute;
+     
+     top:-80%; left:87%;
+     }
+
+	#sub:before {
+
+     border-top: 10px solid pink;
+
+     border-left: 10px solid transparent; 
+
+     border-right: 10px solid transparent; 
+
+     border-bottom:0 solid transparent; 
+
+     content: ""; 
+
+     position:absolute;
+
+     top:90%; left:77%;
+
+	}
+ 	#markerImage{
+  	 animation-duration: 1s;
+	 animation-name: slidein;
+　	 
+ 	}
+
+ 	@keyframes slidein {
+ 		
+  	  	from {position: absolute; top: 8%;}
+  	  	to{position: absolute; top: -15%;}
+	} 
+ 	 .giyong{
+ 	 	height : 720px;
+ 	 	overflow : hidden;
+ 	 }	
 		.giyong{
  	 	height : 720px;
  	 	overflow : hidden;
@@ -163,45 +208,65 @@
 	            //videoPlayer = document.getElementById(event.target.id);
 	        }
 
-	        ///////////////////////////////////지도///////////////////////////////////
-	        
-	        function relayout() {    
-	      		 map.relayout();
-	   		}         
-	    	//지도 Event 발생
-	    	$(function(){
-	    		$("button:contains('지도')").on("click", function(){
-	    				alert("버튼클릭")
-	    			 $('#mapModal').on('shown.bs.modal', function () { 
-	    					$('#mapModal').modal('show');
-	    					$(document).ready(function() {
-	    						 relayout();
-	    					}); 
+			//============= 지도 ====================================
+			function relayout() {    
+		   		 map.relayout();
+			} 	
+			//지도 Event 발생
+			$(function(){
+				$("button:contains('지도')").on("click", function(){
+					 $('#mapModal').on('shown.bs.modal', function () { 
+						 
+							$('#mapModal').modal('show');
+							$(document).ready(function() {
+								 relayout();
+							}); 
+								
 
-	    			});
+					});
 
-	    		});
-	    		
-	    	});        
+				});
+				
+			});
 
-	    	function sendInfo(locationTagName, address, coordinate){
-	    		console.log(locationTagName)
-	    		console.log(address)
-	    		console.log(coordinate)
-	     	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
-	     		$(function(){
-	     		 var location = '<input type="text" readonly name="locationTagName" value="'+locationTagName+'" text-align="left" ><h6>'+locationTagName+'</h6></div>'+
-	     		 
-	    					 '<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-	    			 		'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
-	     			
-	    			$("button:contains('확인')").on("click", function(){
-	    				var locationName = $("#infoMap").text();
-	    				$(".glyphicon").append(location);
+				
+		 		$(function(){
+		 		
+					 			
+					$("button:contains('확인')").on("click", function(){
+						
+						var locationTagName = $('#locationTagName').text();
+						var coordinate = $('#coordinate').val();
+						var address = $('#address').val();
+						
+						if($('#infoMap').val() != null || $('#infoMap').val().length>1){
+			     		
+						var locationName = '<div class="form-group" id="location">';
+							locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
+					    	locationName += '</div>';
+							
+						var formLocation = '<div id="formLocation">'+
+							'<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
+							'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
+				 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
+				 			'</div>';
+					   
+				 		var markerImage =  '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">';
+					        
+					 
+						}
+
+	    				$('#standard').after(locationName);
+	    				$('#location').append(markerImage);   				
+	    				$('#location').append(formLocation);
+	    				
 	    				$("#mapModal").hide();
-	    			});
-	    		});  
-	    	}        
+						
+						
+					});
+				});  
+
+	/////////////////////////지도 끝//////////////////////////////////////	 
 	       
 </script>
 </head>
@@ -225,8 +290,24 @@
               
               <div class="row form-group">
                 <div class="col-md-11 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">Title</label>
+                  <label class="font-weight-bold" for="fullname" id="standard">Title</label>
                 </div>
+                
+      	  <c:if test="${!empty post.coordinate}">
+			 	<div class="form-group" id="location">
+				   <div id="sub" style="text-align:center;">${post.locationTagName}</div>
+			    	
+			    	<div id="formLocation">
+					 <input type="hidden" name="locationTagName" value="${post.locationTagName}" text-align="left" >
+					 <input type="hidden"  name="address" value="${post.address}" style="display:none;"/>
+		 			 <input type="hidden" name="coordinate" value="${post.coordinate}" style="display:none;"/>
+		 			</div> 
+			   
+		 		     <img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">
+			     </div>  
+			</c:if>          
+                
+                
                 <div class="col-md-11 mb-5 mb-md-0">
                 	<input type="text" class="form-control" id="title" name="title"  value="${post.title}">
                 </div>
@@ -261,13 +342,43 @@
                 </div>
 			  </div>
             </div>
-           
-            
-          </div>
-        </div>
-      </div>
-    </div>
+     
               
 		<script src="https://apis.google.com/js/client.js?onload=init" ></script>
+
+	<!-- Modal -->
+  <div class="modal modal-center fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="text-align:left">위치태그 등록</h4>
+      </div>
+      <div class="modal-body">
+      
+    	<jsp:include page="/common/addMap.jsp" /> 
+        
+      </div>
+      
+      <div class="modal-footer" id="footer-map">
+    		
+       <c:if test="${!empty post.coordinate}">
+    		
+    	 <button type="button" class="btn btn-light btn-sm" id="infoMap" name="locationTagName" value="${post.locationTagName}">
+    		<h6 id="locationTagName">${post.locationTagName}</h6>
+    			<input type="hidden" id="address" name="address" value="${post.address}" style="display:none;">
+    			<input type="hidden" id="coordinate" name="coordinate" value="${post.coordinate}" style="display:none;">
+    	 </button>
+    			
+    	</c:if>	 
+       		 
+       	<button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+       		
+      </div>
+      
+    </div>
+  </div>
+</div>   
+
 </body>
 </html>

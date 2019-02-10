@@ -67,7 +67,10 @@
   			ex_calorie = #{exCalorie:NUMERIC}, 
   			ex_place = #{exPlace:VARCHAR}, 
   			ex_part = #{exPart:VARCHAR}, 
-  			ex_videotime = #{exVideoTime:VARCHAR}		
+  			ex_videotime = #{exVideoTime:VARCHAR},
+  			address = #{address:VARCHAR},
+  			coordinate = #{coordinate:VARCHAR},
+  			locationtag_name = #{locationTagName:VARCHAR}
          </set>
        WHERE post_no = #{postNo}
     </update>
