@@ -86,6 +86,7 @@
  	                if(data == 1) {
  	                   // replyList(); //댓글 작성 후 댓글 목록 reload
  	                    self.close();
+ 	                   opener.location.reload();
  	                }
  	            }
  	        });
