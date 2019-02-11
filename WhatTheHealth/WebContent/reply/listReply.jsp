@@ -9,7 +9,7 @@
 <!-- <title>Insert title here</title> -->
 
 <!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 
 <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
 	
 <!--  -->
-<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<!-- <script src="/resources/js/jquery-3.3.1.min.js"></script>
   <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/js/jquery-ui.js"></script>
   <script src="/resources/js/popper.min.js"></script>
@@ -29,11 +29,11 @@
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/aos.js"></script>
 
-  <script src="/resources/js/main.js"></script>
+  <script src="/resources/js/main.js"></script> -->
 	
-    <title>IronMuscle &mdash; Colorlib Website Template</title>
+    <title>Reply</title>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!--  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
@@ -52,10 +52,17 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     
+    <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+    
+    
     <style>
-    	#replyArea1{
+    	 #replyArea1{
     		margin-left : 50px;
     	} 
+      #replyInsertHere{
+    		margin-top : 70px;
+    	}  
     </style>
     
     <script>
@@ -87,7 +94,7 @@
                 		list.text = "블라인드 처리된 댓글입니다.";
                 	}
                 	a += '<div class="row" id="replyArea'+list.reReplyNo+'">';
-                	a += '<div  style="padding-left:0px; padding-right:0px; margin-left : 15px">';
+                	a += '<div  style="padding-left:0px; padding-right:0px; margin-top : 20px; ">';
                 	if(list.userImage != null && list.userImage != '' ){
                 	a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;" />';
                 	}
@@ -96,7 +103,7 @@
                 	}
                 	a += '</div>';
                 	a += '<div class="col-md-11" style="padding-right:0px">';
-                    a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-top: 15px;">';
                     a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.nickname+'</b>';
                     a += '<div style="float: right">';
                     //a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
@@ -104,14 +111,14 @@
                     a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"  id="updateButton'+list.replyNo+'"> <img src="/resources/images/pencil.png" height="20px"></a>';
                     a += '<a onclick="replyDelete('+list.replyNo+');"> <img src="/resources/images/bin.png" height="20px"></a>';
                     }
-                    if('${user.userId}' != null && '${user.userId}' !=''){
+                    if('${user.userId}' != null && '${user.userId}' !='' && list.deleteStatus != 1 &&  list.blindStatus != 1 ){
                     a += '<a onclick="reReplyInsert('+list.replyNo+','+list.parentReplyNo+',\''+list.nickname+'\');" id="addReReButton'+list.replyNo+'"> <img src="/resources/images/reply.png" height="20px" style="opacity:0.6"></a>';
                     }
                     if('${user.userId}' != null && '${user.userId}' !='' && list.writerId != '${user.userId}'){
                     a += '<a onclick="fullSirenReply('+list.replyNo+');" id="addClaim'+list.replyNo+'"> <img src="/resources/images/fullSiren.png" height="25px"></a>';
                     }
                     a += '</div></div>';
-                    a += '<div class="replyContent"  name="'+list.replyNo+'"> <p id="atmark">'+list.text+'</p>';
+                    a += '<div class="replyContent" style="word-break:break-all; padding-left: 3px; margin-bottom: -10px;"  name="'+list.replyNo+'"> <p>'+list.text+'</p>';
                     a += '</div></div>';
                     a += '</div></div>';
                 });
@@ -213,7 +220,12 @@
     //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
     function replyUpdate(replyNo, text){
     	if(formflag == false){
-    		alert("다른 댓글 작성 중입니다.");
+    		//alert("다른 댓글 작성 중입니다.");
+    		swal(
+    				'다른 댓글 작성 중',
+    				'다른 댓글 작성 완료 후 수정가능합니다.',
+    				'error'
+    				)
     		return;
     	}
     	$('#updateButton'+replyNo+'').attr('onclick', "replyList();");
@@ -298,9 +310,8 @@
 </head>
 <body>
 <!-- ///////////////////////////////////////////////// AJAX ///////////////////////////////////////////////// -->
-<div class="container">
-       <!--  <label for="content">reply</label> -->
-        <form name="replyInsertForm"  >
+<!-- <div class="container"> -->
+        <form name="replyInsertForm"  id="replyInsertHere">
            <div class="input-group">
                <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요."  onkeypress="if(window.event.keyCode=='13'){replyInsert()}">
                <span class="input-group-btn">
@@ -308,9 +319,9 @@
                </span>
               </div>
         </form>
-    </div>
+   <!--  </div> -->
     
-    <div class="container">
+    <div class="container replyListHere">
         <div class="replyList"></div>
     </div>
 </div>

@@ -26,35 +26,35 @@
 
 <body>
  	<!-- 이미지 지도를 표시할 div 입니다 -->
-	<div id="map" style="width:600px; height:350px; float:center;"></div>
+	<div id="map" style="width:600px;height:350px;"></div>
 </body>
 
 <script>
 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapCenter = new daum.maps.LatLng(${post.coordinate}), // 지도의 중심좌표
+		mapCenter = new daum.maps.LatLng(${meeting.post.coordinate}), // 지도의 중심좌표
 		mapOption = {
     		center: mapCenter,// 지도의 중심좌표
-    //		disableDoubleClick: true,
+    		disableDoubleClick: true,
     		level: 3 // 지도의 확대 레벨
 		};
 	var map = new daum.maps.Map(mapContainer, mapOption);
 
 	var marker = new daum.maps.Marker({
     	map : map,
-		position: new daum.maps.LatLng(${post.coordinate})
+		position: new daum.maps.LatLng(${meeting.post.coordinate})
 	});
 
 	
-	//map.setDraggable(false);
-	//map.setZoomable(false);
+	map.setDraggable(false);
+	map.setZoomable(false);
 	
 //커스텀 오버레이에 표시할 내용입니다
 //HTML 문자열 또는 Dom Element 입니다
 var content ='<div class="overlay_info">';
-		content += '    <div class="title"><strong>${post.locationTagName}</div></a>';
+		content += '    <div class="title"><strong>${meeting.post.locationTagName}</div></a>';
 		content += '    <div class="desc">';
-		content += '     <span> ${post.address}</span>';
+		content += '     <span> ${meeting.post.address}</span>';
 		content += '    </div>';
 		content += '</div>';
 

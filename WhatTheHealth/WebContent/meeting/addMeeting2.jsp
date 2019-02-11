@@ -8,52 +8,63 @@
 	<title>소모임 글쓰기 페이지</title>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
+	
+ 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
 
-    <link rel="stylesheet" href="../resources/css/animate.css">
-    
-    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css">
-    
-	<!-- include libraries(jQuery, bootstrap) -->
-	<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  -->
-	
-	<!-- include summernote css/js-->
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	
-	
-	
+	<script src="https://apis.google.com/js/client.js?onload=init"></script>
+
 	<!-- include datetimepicker css/js-->
 	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
 	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
- 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
 	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
+		
+	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	<style>
+
+	#sub {width:160px; height:30px; background:pink;
+
+     border-radius:10px;		
+	 padding-top:5px;		
+     opacity:.8;    
+     position:absolute;     
+     top:0.5%; left:67%;
+     z-index:1;
+     }
+
+	#sub:before {
+
+     border-top: 10px solid pink;
+     border-left: 10px solid transparent; 
+     border-right: 10px solid transparent; 
+     border-bottom:0 solid transparent; 
+     content: ""; 
+     position:absolute;
+     top:32%; left:-8.8%;
+	 transform: rotate(90deg);
+	}
 	
-		.giyong{
+ 	#markerImage{
+  	 animation-duration: 1s;
+	 animation-name: slidein;
+　	 
+ 	}
+
+ 	@keyframes slidein {
+ 		
+  	  	from {position: absolute; left:30%;}
+  	  	to{position: absolute; right:32%;}
+	}		
+	
+	.giyong{
  	 	height : 720px;
  	 	overflow : hidden;
  	 }
  	 
 	</style>
-<script type="text/javascript">
+	<script type="text/javascript">
   
 	function fncAddMeeting(){
 
@@ -78,48 +89,7 @@
 		$("form[name=communityPost]").attr("method","POST").attr("action","/meeting/addMeeting").submit();	
 	}
 	
-	//============= 지도 =============
-	function relayout() {    
-   		 map.relayout();
-	} 	
-	//지도 Event 발생
-	$(function(){
-		$("button:contains('지도')").on("click", function(){
-			alert("")
-			 $('#mapModal').on('shown.bs.modal', function () { 
-				 
-					$('#mapModal').modal('show');
-					$(document).ready(function() {
-						 relayout();
-					}); 
-						
 
-			});
-
-		});
-		
-	});
-	//모달 '확인'이벤트 클릭 후 닫기와 다음지도 값 전달 수행
-	function sendInfo(locationTagName, address, coordinate){
- 	
- 		$(function(){
- 		 var location = '<input type="hidden" name="locationTagName" value="'+locationTagName+'" text-align="left" >'+
-						'<input type="hidden"  name="address" value="'+address+'" style="display:none;"/>'+
-			 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'
-			 			
-			$("button:contains('확인')").on("click", function(){
-	     		
-			    var locationInfo = $("#sub").text();
-			    if(locationInfo != null || locationInfo!=''){
-			    	$(".locationInfo").remove();
-				}
-			    $('#sub').text(locationTagName);
-				$('#sub').append(location);
-				$("#mapModal").hide();
-				
-			});
-		});  
-	}
 	
 	//============= "등록"  Event 연결 =============
 	/*  $(function() {
@@ -281,6 +251,73 @@
 	 		});
 		});
 	
+	//============= 지도 ====================================
+	function relayout() {    
+   		 map.relayout();
+	} 	
+	//지도 Event 발생
+	$(function(){
+		$("button:contains('지도')").on("click", function(){
+			
+			 $('#mapModal').on('shown.bs.modal', function () { 
+				 
+					$('#mapModal').modal('show');
+					$(document).ready(function() {
+						 relayout();
+					}); 
+						
+
+			});
+
+		});
+		
+	});
+
+		
+ 		$(function(){
+ 		
+			 			
+			$("button:contains('확인')").on("click", function(){
+				
+				var locationTagName = $('#locationTagName').text();
+				var coordinate = $('#coordinate').val();
+				var address = $('#address').val();
+				
+				if($('#infoMap').val() != null || $('#infoMap').val().length>1){
+	     		
+				var locationName = '<div class="form-group" id="location">';
+					locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
+			    	locationName += '</div>';
+					
+				var formLocation = '<div id="formLocation">'+
+					'<input type="hidden" name="post.locationTagName" value="'+locationTagName+'" text-align="left" >'+
+					'<input type="hidden"  name="post.address" value="'+address+'" style="display:none;"/>'+
+		 			'<input type="hidden" name="post.coordinate" value="'+coordinate+'" style="display:none;"/>'+
+		 			'</div>';
+		 			
+		 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:-15%; left:46%;">';
+
+			 
+				}
+
+				$('#standard').after(locationName);
+				$('#location').append(markerImage);
+				$('#location').append(formLocation);
+	
+				$("#mapModal").hide();
+				
+				
+			});
+		});  
+	
+	
+
+	
+	/////////////////////////지도 끝//////////////////////////////////////
+	
+	
+	
+	
 	
 	//////////////////////////////////////달력/////////////////////////////////
 	$(document).ready(function(){
@@ -424,9 +461,9 @@ $('#timepicker-actions-exmpl').data('datepicker')
 <body>
 	<div class="site-wrap">
 		 <!-- ToolBar Start /////////////////////////////////////-->
-	<jsp:include page="/layout/toolbar.jsp" /> 
+ 	<jsp:include page="/layout/toolbar.jsp" /> 
    	<!-- ToolBar End /////////////////////////////////////-->
-	<!-- 툴바 인클루드 시작! -->
+	
 	
 	</div>
 <form name="communityPost">
@@ -560,7 +597,7 @@ $('#timepicker-actions-exmpl').data('datepicker')
                 <!-- 	<div class="col-md-1 mb-5 mb-md-0"> -->
               	    &nbsp; &nbsp;
               	    
-              	    <button type="button" class="btn btn-default btn-sm">
+              	    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mapModal" id="standard">
          			 <span class="glyphicon glyphicon-map-marker"></span> 지도
      			   </button>
      			<!--  </div> -->
@@ -620,24 +657,15 @@ $('#timepicker-actions-exmpl').data('datepicker')
     	<jsp:include page="/common/addMap.jsp" /> 
         
       </div>
-      
-      <div class="modal-footer">
-    		
-       		 <button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
-       		
-      </div>
-      
+      <div class="modal-footer" id="footer-map">	
+       	 <button type="button" class="btn btn-success" data-dismiss="modal">확인</button>       		
+      </div>      
     </div>
   </div>
 </div>       
+
        
-              <script src="https://apis.google.com/js/client.js?onload=init" ></script> 
-		<!-- <div class="form-group">
-		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary">등록</button>
-				<a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
-		    </div>
-		  </div> -->
+   <script src="https://apis.google.com/js/client.js?onload=init" ></script> 
 	
 </body>
 </html>

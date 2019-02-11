@@ -72,10 +72,10 @@
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
-     	alert(currentPage)
+     
       $.ajax({
          
-         url: "/community/json/dietCommunitylist",
+         url: "/meeting/json/listMeeting",
          method: "POST",
          data: JSON.stringify({
             currentPage: currentPage ,            

@@ -11,31 +11,13 @@
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
-    
-   
-<!--     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
-    
-    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="/resources/css/aos.css"> -->
-
-
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 
 	<!-- include datetimepicker css/js-->
  	<script type="text/javascript" src="/resources/js/datepicker.js"></script> 
 	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
 	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
-	
- 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
+
 	
    	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
@@ -48,7 +30,6 @@
    	 }
 
    	.giyong{
-   	/* 	width: 63%; */
    		margin-top : 5em;
    		padding : 3em;
    		border : 1px solid gray;
@@ -316,8 +297,8 @@ $('#exInfoSc').data('datepicker');
    
    <div class="site-wrap">
    <!-- ToolBar Start /////////////////////////////////////-->
-    <%-- <jsp:include page="/layout/toolbar.jsp" />   --%>
-     <jsp:include page="/calculator/test.jsp" /> 
+     <jsp:include page="/layout/toolbar.jsp" />
+    
       <!-- ToolBar End /////////////////////////////////////-->
    <!-- 툴바 인클루드 시작! -->
    

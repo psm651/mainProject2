@@ -42,7 +42,44 @@
 	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
 	
 	<style>
-		.giyong{
+
+
+	#sub {width:160px; height:30px; background:pink;
+
+     border-radius:10px;		
+	 padding-top:5px;		
+     opacity:.8;    
+     position:absolute;     
+     top:21.7%; left:87%;
+     z-index:1;
+     }
+
+	#sub:before {
+
+     border-top: 10px solid pink;
+     border-left: 10px solid transparent; 
+     border-right: 10px solid transparent; 
+     border-bottom:0 solid transparent; 
+     content: ""; 
+     position:absolute;
+     top:32%; left:-8.8%;
+	 transform: rotate(90deg);
+	}
+	
+ 	#markerImage{
+  	 animation-duration: 1s;
+	 animation-name: slidein;
+　	 
+ 	}
+
+ 	@keyframes slidein {
+ 		
+  	  	from {position: absolute; left:30%;}
+  	  	to{position: absolute; right:32%;}
+	}
+
+
+	.giyong{
  	 	height : 720px;
  	 	overflow : hidden;
  	 }
@@ -350,6 +387,72 @@
 	        	 e.dataTransfer.setData("text", front+ zzz +back);  
 	            //videoPlayer = document.getElementById(event.target.id);
 	        }
+	        
+	    	//============= 지도 ====================================
+	    	function relayout() {    
+	       		 map.relayout();
+	    	} 	
+	    	//지도 Event 발생
+	    	$(function(){
+	    		$("button:contains('지도')").on("click", function(){
+	    			
+	    			 $('#mapModal').on('shown.bs.modal', function () { 
+	    				 
+	    					$('#mapModal').modal('show');
+	    					$(document).ready(function() {
+	    						 relayout();
+	    					}); 
+	    						
+
+	    			});
+
+	    		});
+	    		
+	    	});
+
+	    		
+	     		$(function(){
+	     		
+	    			 			
+	    			$("button:contains('확인')").on("click", function(){
+	    				
+	    				var locationTagName = $('#locationTagName').text();
+	    				var coordinate = $('#coordinate').val();
+	    				var address = $('#address').val();
+	    				
+	    				if($('#infoMap').val() != null || $('#infoMap').val().length>1){
+	    	     		
+	    				var locationName = '<div class="form-group" id="location">';
+	    					locationName += '<div id="sub" style="text-align:center;">'+locationTagName+'</div>'; 
+	    			    	locationName += '</div>';
+	    					
+	    				var formLocation = '<div id="formLocation">'+
+	    					'<input type="hidden" name="post.locationTagName" value="'+locationTagName+'" text-align="left" >'+
+	    					'<input type="hidden"  name="post.address" value="'+address+'" style="display:none;"/>'+
+	    		 			'<input type="hidden" name="post.coordinate" value="'+coordinate+'" style="display:none;"/>'+
+	    		 			'</div>';
+	    		 			
+	    		 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:-15%; left:46%;">';
+
+	    			 
+	    				}
+
+	    				$('#standard').after(locationName);
+	    				$('#location').append(markerImage);
+	    				$('#location').append(formLocation);
+	    	
+	    				$("#mapModal").hide();
+	    				
+	    				
+	    			});
+	    		});  
+	    	
+	    	
+
+	    	
+	    	/////////////////////////지도 끝//////////////////////////////////////
+	        
+	        
 </script>
 </head>
 <body>
@@ -499,11 +602,27 @@
                 <!-- 	<div class="col-md-1 mb-5 mb-md-0"> -->
               	    &nbsp; &nbsp;
               	    
-              	    <button type="button" class="btn btn-default btn-sm">
+              	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal" id="standard">
          			 <span class="glyphicon glyphicon-map-marker"></span> 지도
      			   </button>
      			<!--  </div> -->
                 </div>
+                
+			<c:if test="${!empty meeting.post.coordinate}">
+			 	<div class="row form-group" id="location">
+				   <div id="sub" style="text-align:center;">${meeting.post.locationTagName}</div>
+			    	
+			    	<div id="formLocation">
+					 <input type="hidden" name="post.locationTagName" value="${meeting.post.locationTagName}" text-align="left" >
+					 <input type="hidden"  name="post.address" value="${meeting.post.address}" style="display:none;"/>
+		 			 <input type="hidden" name="post.coordinate" value="${meeting.post.coordinate}" style="display:none;"/>
+		 			</div> 
+			   
+		 		   <img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:21%; left:79%;">
+			     </div>  
+			</c:if>                
+                
+                
 			</div>
 			
               <div class="row form-group">
@@ -531,11 +650,7 @@
 			  </div>
             </div>
            
-            
-          </div>
-        </div>
-      </div>
-    </div>
+          
   <script src="https://apis.google.com/js/client.js?onload=init"></script>            
 		<!-- <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
@@ -544,5 +659,67 @@
 		    </div>
 		  </div> -->
    
+	<!-- Modal -->
+  <div class="modal modal-center fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="text-align:left">위치태그 등록</h4>
+      </div>
+      <div class="modal-body">
+      
+    	<jsp:include page="/common/addMap.jsp" /> 
+        
+      </div>
+      
+      <div class="modal-footer" id="footer-map">
+    		
+    		<c:if test="${!empty meeting.post.coordinate}">
+    		
+    			<button type="button" class="btn btn-light btn-sm" id="infoMap" name="locationTagName" value="${post.locationTagName}">
+    				<h6 id="locationTagName">${meeting.post.locationTagName}</h6>
+    				<input type="hidden" id="address" name="address" value="${meeting.post.address}" style="display:none;">
+    				<input type="hidden" id="coordinate" name="coordinate" value="${meeting.post.coordinate}" style="display:none;">
+    			</button>
+    			
+    		</c:if>
+    		
+       		 <button type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+       		
+      </div>
+      
+    </div>
+  </div>
+</div>   
+               
+
+            
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

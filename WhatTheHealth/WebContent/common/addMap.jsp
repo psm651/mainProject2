@@ -487,7 +487,7 @@
       content += '      자전거 칼로리 <span class="number">' + Math.round(bycicleCalorie) +'</span>Kcal'
       content += '    </li>';
       content += '</ul>'
-      }else if(${sessionScope.user.weight == null} && ${sessionScope.user.weight == ''} ){
+      }else if(${sessionScope.user.weight == null}){
           content = '<ul class="dotOverlay distanceInfo">';
           content += '    <li>';
           content += '  	 총거리 <span class="number">' + distance + '</span>m';
@@ -683,7 +683,15 @@
  	$(function(){
  		
 	 		$(document).on("click", "button:contains('등록')", function(){
-	 		
+	 			alert("확인")
+ 	 		 	var validation = $("#infoMap").val();
+
+	 			if(validation!=null){
+	 				swal("위치는 한 곳만 등록이 가능합니다.");	 				
+	 				return false
+	 			}
+	 			
+	 	
 	 			
 	 			var li =  $(this).closest("li");
 
@@ -699,22 +707,14 @@
 	 			
 	 			var	appendInfo =
 	 				'<button type="button" class="btn btn-light btn-sm" id="infoMap" name="locationTagName" value="'+locationTagName+'" >'+
-	 						'<h6>'+locationTagName+'</h6>'+
-	 							 '<div name="address" value="'+address+'" style="display:none;"/>'+
-	 							 '<div name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
+	 						'<h6 id="locationTagName">'+locationTagName+'</h6>'+
+	 							 '<input type="hidden" id="address" value="'+address+'" style="display:none;"/>'+
+	 							 '<input type="hidden" id="coordinate" value="'+coordinate+'" style="display:none;"/>'+
 	 							 '</button>'
-	 							
-
-	 		 	var validation = $("#infoMap").val();
-
-	 			if(validation!=null){
-	 				swal("위치는 한 곳만 등록이 가능합니다.");
-	 				return
-	 			}
-	 			validation = null;
-	 			$(".modal-footer button").before(appendInfo);
-	 			//add+게시물.jsp로 값전달
-	 			sendInfo(locationTagName, address, coordinate);
+	 	
+	 			$("#footer-map button").before(appendInfo);
+	 			
+	 			
 	 		});
 
 	 	});
@@ -723,7 +723,11 @@
  	$(function(){
  		
  		$(document).on("click", "#infoMap", function(){
- 			$("#infoMap").remove();
+ 			$("#infoMap").remove();//모달창에서 등록된 주소 삭제
+ 			$('#location').remove();
+ //			$('#markerImage').remove();
+ //			$('#formLocation').remove();
+ //			$('#sub').remove();
  		});
  		
  		

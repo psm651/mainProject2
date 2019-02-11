@@ -54,7 +54,9 @@
   		self.location = "/community/getCommunity?postNo="+postNo;
   	});
   });
-  
+
+ 
+   
    $(function() {
 		$("a[href='#' ]").on("click" , function() {
 			
@@ -75,8 +77,8 @@
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
-     	alert(currentPage)
-      $.ajax({
+  
+		$.ajax({
          
          url: "/community/json/exCommunitylist",
          method: "POST",

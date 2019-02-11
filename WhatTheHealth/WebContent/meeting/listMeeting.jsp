@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
@@ -34,14 +32,11 @@
     <script src="/resources/js/jquery.stellar.min.js"></script>
     <script src="/resources/js/jquery.countdown.min.js"></script>
     <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/bootstrap-datepicker.min.js"></script>
     <script src="/resources/js/aos.js"></script>
     <script src="/resources/js/main.js"></script>
     
-    
-       <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+ 
   </head>
   
   <script type="text/javascript">
@@ -64,6 +59,92 @@
 			self.location = "/socket/addLiveStream";
 		});
 	}); */
+	
+	   var currentPage=1;
+
+	   $(window).scroll(function(){
+		  
+	       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+	      
+			currentPage++;
+	     
+	      $.ajax({
+	         
+	         url: "/meeting/json/listMeeting",
+	         method: "POST",
+	         data: JSON.stringify({
+	            currentPage: currentPage
+	         }),
+	         dataType: "json",
+	         headers : {
+	            "Accept" : "application/json",
+	            "Content-Type" : "application/json"
+	         },
+	         success : function(data , status){
+	  	
+	        	
+	               var list = data["list"];
+	   
+	                  
+	             list.forEach(function(item, index, array){     
+	            
+	            	  
+	            	  var youtube = item.post["photo"].indexOf("https");
+	            	  var appen = ""; 
+	                       
+	                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+	                  	 appen += '<div class="post-entry bg-white" data-param="'+item.post["postNo"]+'">';
+	                 	 appen += '<div class="image" style="width:400px; height:200px">';
+	             
+	                  if(item.post["photo"]==null){
+	              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+	             	  }else if(item.post["photo"]!=null){
+	            	  	
+	             		 if(youtube!=-1){
+	            	  	 appen += '<img src="'+item.post["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+	            	  	 }else{
+	            	  	 appen += '<img src="/resources/images/upload/'+item.post["photo"]+'" class="img-fluid">';  
+	            	  	}
+	              	  }
+	             	  appen += '</div>';   
+	                  appen += '<div class="text col-md-8">';
+	                  appen += '<h2 class="h3 text-black"><a href="#">'+item.post["title"]+'</a></h2>';
+	                  appen += '<span class="text-uppercase date d-block mb-3"><small>'+item.post["postDate"]+'</small></span>';
+	                  appen += '<div class="userInfo">';
+	                 
+	                  if(item.post["userImage"] != null && item.post["userImage"] != ''){	
+	                  	appen += '<img src="/resources/images/userImage/'+item.post["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+	                  }else{
+	                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+	                  } 	  
+	 				  appen += item.post["nickName"];
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '<div class="col-md-4">';
+	                  appen += '<div class="likeImage">';
+	                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
+	                  appen += '</div>';
+	                  appen += '<div class="likeCount" style="margin-left:38px">';
+	                  appen += '<h5>'+item.post["likeCount"]+'</h5>';
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '</div>';                
+
+	                  $("#scroll").append(appen);              
+	                  
+	              
+	      
+	             });
+	                  
+	                  
+	         }        
+	      })
+	      
+	      
+	      }
+	   });  	
+	
   </script>
   
   
@@ -102,7 +183,7 @@
    
        
         
-        <div class="row mb-5">
+        <div class="row mb-5" id="scroll">
           <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
           <c:forEach var="meeting" items="${list}"> 

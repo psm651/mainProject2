@@ -9,66 +9,57 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
     <script src="../resources/js/jquery-3.3.1.min.js"></script>
-   
+    
+    <!-- div 때문에 인클루드 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+    
+     <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../resources/css/magnific-popup.css">
     <link rel="stylesheet" href="../resources/css/jquery-ui.css">
     <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="../resources/css/animate.css">
     
-    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet"  href="../resources/fonts/flaticon/font/flaticon.css">
+    <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
+    <!--div 때문에 인클루드  -->
    
+   	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+   <!-- <link rel="stylesheet" href="/resources/css/bootstrap.min.css"> -->
    <style>
    
-   	.giyong{
+   	.postHere{
    	/* 	width: 63%; */
-   		margin-top : 5em;
-   		padding : 3em;
+   		padding : 3em; 
    		border : 1px solid gray;
    		border-radius : 15px;
    		text-align : center;
    		margin-bottom : 5em;
    	}
    	
-   	.contents{
+   	#map{
    		display : block;
+   		float: center;
+   	}
+   	
+   	.contents{
+   		/* display : block; */
    		text-align : left;
    	}
-   	
-   	.giyong ul{
-   		display : block;
-   		height : 60px;
-   		overflow : hidden;
-   		padding-inline-start : 0;
-   		margin : 0 auto;
-   		text-align : center;
-   		padding-left : 30em;
-   	}
-
-   	
-   	.giyong li{
-   		display : block;
+ 
+   	 .postHere li{
+   		/* display : block; */
    		list-style-type : none;
    		float : left;
-   	}
+   	} 
 
-  	
-   	.Kimgiyong{
-   		display : block;
-   		height : 60px;
-   	}
-
-   	.giyongInput{
-   		margin-top : 50px;
+   	.replyInclude{
    		text-align : left;
-   	}
+   	} 
    	
    	h4{
    		display: block;
@@ -83,12 +74,18 @@
     	
    	}    	
    	
-	.like and view{text-align:right;}
-	   	
+	 .likeandview{
+		border-bottom: 1px solid #DCDCDC; 
+		list-style-type: none; 
+		float: right; 
+		padding-left: 5px;  
+		color: gray; 
+		font-size: 15px; 
+	 }
+	   	 
    	.postImage{
    	 width :110px;
    	 height: 120px;
-
  	 padding: 3px;
    	 border : 1px solid gray;
    		
@@ -103,6 +100,10 @@
     	padding-left: 0px;
     	list-style-type : none;
 
+   	}
+   	
+   	.ytp-cued-thumbnail-overlay-image{
+   		
    	}
  
  	.imagelocation{
@@ -129,21 +130,21 @@
                         console.log(list.pressedStatus);
                         if(list.pressedStatus == '1'){
                            if(list.favoriteType == '0'){
-                              a += '<img src="../resources/images/fullHeart.png"  width="60px" class="likeImage" onclick="fullHeart()">';
-                              $(".likeImage").remove();
+                        	   $(".likeImage").remove();
+                              a += '<img src="../resources/images/fullHeart.png"  width="30px" class="likeImage" onclick="fullHeart()">';
                               
                            }else if(list.favoriteType == '1'){
                               $(".interestImage").remove();
-                              b += '<img src="../resources/images/fullStar.png" width="60px" class="interestImage" onclick="fullStar()" >';
+                              b += '<img src="../resources/images/fullStar.png" width="30px" class="interestImage" onclick="fullStar()" >';
                                
                            }
                         }
                    });
                     if(a != ''){
-                       $(".like").append(a); 
+                       $("#like").append(a); 
                     }
                     if(b != ''){
-                       $(".interest").append(b);
+                       $("#interest").append(b);
                     }
                }
            });
@@ -166,7 +167,7 @@
                   favoriteList(); 
                   likeCount++;
                   //likeCount.attr('likeCount'); 
-                  $(".likeCount").html("<li><span class='likeCount'>좋아요 수  : "+likeCount+"</span></li>");        
+                  $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                   }
                }            
             });
@@ -181,14 +182,14 @@
                   var a =''; 
                   
                    if(data == 1) {
-                      a += '<img src="../resources/images/emptyHeart.png"  width="60px" class="likeImage" onclick="emptyHeart()">';
+                      a += '<img src="../resources/images/emptyHeart.png"  width="30px" class="likeImage" onclick="emptyHeart()">';
                              $(".likeImage").remove();
                       likeCount--;
                       //likeCount.attr('likeCount');
                       
-                      $(".likeCount").html("<li><span class='likeCount'>좋아요 수  : "+likeCount+"</span></li>");        
+                      $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                      }
-                   $(".like").append(a); 
+                   $("#like").append(a); 
                   }
                });
          }
@@ -214,10 +215,10 @@
                      var a =''; 
                      
                       if(data == 1) {
-                         a += '<img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">';
+                         a += '<img src="../resources/images/emptyStar.png"  width="30px" class="interestImage" onclick="emptyStar()">';
                                 $(".interestImage").remove();
                         }
-                      $(".interest").append(a); 
+                      $("#interest").append(a); 
                      }
                   });
             }
@@ -272,67 +273,92 @@
    <!-- 툴바 인클루드 시작! -->
    
    </div>
-   <!-- <div class="site-section" align="center"> -->
+  <div class="site-section bg-light">
       <div class="container">
       
       	<div class="row">
-       		<div class="col-lg-8">
+      	<div class="col-md-12 col-lg-9 mb-5">
+      	 <div class="container">
+      	<div class="postHere"> 
+      	
+       		
        	
       		<input type="hidden" name="postNo" value="${post.postNo }"/>
       
-        <div class="giyong">
-          	<h4 >${post.title}</h4>
-          	<ul class="like and view">
-          		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
-          		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
+       
+     
+			 
+          	<h4 ><b>${post.title}</b></h4>
+          	<ul class="likeandview" >
+          	   <li><span><b> <img src="../resources/images/dateImage.png" width="17px"  style="opacity: 0.7">&nbsp;${post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
+          		<li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="17px"  style="opacity: 0.7">&nbsp;${post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
+          		<li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="19px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${post.clickCount}</b></span></li><!-- 조회수 이미지 -->
           	</ul>
- 
-            <div class="contents" style="margin-top:-12%;" >
+        	<div style="margin-top:40px;  background-color:white; padding:2em;" > 
+            <div class="contents"  style="font-size : 18px;">
 				<p>${post.contents}</p>
            		 <%-- <p class="mb-4">${post.contents}</p> --%>
            	</div>
-                     <!-- 다음맵지도 -->
+               <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
-			  	  
-	              <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->  
-	            	  <jsp:include page="/common/getMap.jsp" /> 
-	              
-                </c:if>
-
-		<div class="Kimgiyong">                        
+              <b style="font-size: 17px; float: left; border-bottom:2px solid #DCDCDC; padding-left: 10px; margin-top: 5px;"><img src="../resources/images/map/marker-480.png" width="25px"  style="opacity: 0.7">위치 &nbsp;</b>
+              <div style="float:center; background-color: #EDEDED; padding: 2em; padding-left:2.5em; border-radius:15px 50px;">
+	             <jsp:include page="/common/getMap.jsp" /> 
+              </div>
+              </c:if>
+              </div>
+             
+            
+            
+        
+		                 
              <!-- <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite"> -->
                 
-                <div class="favoriteListHere" >
-                   <div style="float: left; width: 47%;" class="like" >
-                   <img src="../resources/images/emptyHeart.png" width="60px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
+                <div class="favoriteListHere"  style="margin-top:10px; float: center;" >
+                <div class="row form-group" >
+                   <div class="col-md-3 mb-5" >
                    </div>
-                   <div style="float: left; width: -2%;" class="interest">
-                   <img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">
+              
+                   <div  class="col-md-2 "  style="border: 3px solid #DCDCDC; border-radius : 15px; margin-top: 20px; padding: 7px;" id="like" >
+                   <img src="../resources/images/emptyHeart.png" width="30px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
                    </div>
-                   <div style="float: left; width: 45%;" class="claim">
-                   <img src="../resources/images/fullSiren.png"  width="60px" class="claimImage" onclick="fullSiren()">
+                   <div class="col-md-2"   style="border: 3px solid #DCDCDC; border-radius : 15px; margin-top: 20px; padding: 7px;" id="interest">
+                   <img src="../resources/images/emptyStar.png"  width="30px" class="interestImage" onclick="emptyStar()">
                    </div>
+                   <div  class="col-md-2"  style="border: 3px solid #DCDCDC; border-radius : 15px; margin-top: 20px; padding: 7px;" id="claim">
+                   <img src="../resources/images/fullSiren.png"  width="30px" class="claimImage" onclick="fullSiren()">
+                   </div>
+
+                   
+                   <div class="col-md-3 mb-5" >
+                   </div>
+                  </div>
                 </div>
-            
-            <c:if test = "${user.userId == post.userId}">
-            	<div style="margin-top : 5em;">
-	            	<p>
-	            		<a href="#" class="btn btn-primary pill px-4">수정</a>&nbsp;
-	            		<a href="#" class="btn btn-primary pill px-4">목록으로</a>&nbsp;
-	            		<a href="#" class="btn btn-primary pill px-4">삭제</a>
-	            	</p>
+            	<div class = "row form-group"  style="margin-top:10px; float: right;" >
+            	<c:if test = "${user.userId == post.userId}">
+	            		<a href="#" class="btn btn-primary pill px-3"  style="font-size:13px; height: 30px; "><b>수정</b></a>&nbsp;
+	            		<a href="#" class="btn btn-primary pill px-3" style="font-size:13px; height: 30px; "><b>삭제</b></a>&nbsp;
+	            </c:if> 
+	            		<a href="#" class="btn btn-primary pill px-3"  style="font-size:13px; height: 30px; "><b>목록으로</b></a>
 	            </div>
-            </c:if>
-          </div>
-          
-          <div class="giyongInput">
+         
+        	<div class="replyInclude">
            <jsp:include page="/reply/listReply.jsp" />
+           </div>
+
+       
           </div>
+          </div> 
+   </div>
+            <div class="col-md-12 col-lg-3 mb-5" style="background-color:silver; float: right;">
+      여기추가예정
+      </div>
            
         
-      </div>
-
-	 <ul class="imagelocation">
+     
+     
+   </div>
+	 <!-- <ul class="imagelocation">
 	   <li>
 	 		<img src="/resources/images/post/post_BMI.png" alt="Image" class="postImage" id="bmiLocation">
 	   </li>
@@ -345,7 +371,7 @@
 	   <li class="right">
 	 		<img src="/resources/images/post/post_Schedule.png" alt="Image" class="postImage" id="scheduleLocation" >
 	   </li>
-	</ul>
+	</ul> -->
 	
 	</div>
 	

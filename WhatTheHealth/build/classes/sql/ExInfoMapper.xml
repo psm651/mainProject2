@@ -67,7 +67,10 @@
   			ex_calorie = #{exCalorie:NUMERIC}, 
   			ex_place = #{exPlace:VARCHAR}, 
   			ex_part = #{exPart:VARCHAR}, 
-  			ex_videotime = #{exVideoTime:VARCHAR}		
+  			ex_videotime = #{exVideoTime:VARCHAR},
+  			address = #{address:VARCHAR},
+  			coordinate = #{coordinate:VARCHAR},
+  			locationtag_name = #{locationTagName:VARCHAR}
          </set>
        WHERE post_no = #{postNo}
     </update>
@@ -84,7 +87,7 @@
 	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
 	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
 		SELECT 
-  			title, contents, photo, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address
+  			title, contents, photo, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address, ex_place
 	    FROM 
   			post
 		WHERE
