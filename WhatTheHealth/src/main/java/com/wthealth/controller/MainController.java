@@ -71,7 +71,8 @@ public class MainController {
       // Map<String, Object> meeting = meetingService.listMeeting(search);
                 
       //날씨별 운동추천 프로그램  
-      Map<String, Object> weatherRecom = exInfoService.listWeatherRecom();
+      String mainCityName = "Seoul";
+      Map<String, Object> weatherRecom = exInfoService.listWeatherRecom(mainCityName);
       
       Page resultPageForExCom = new Page(search.getCurrentPage(), ((Integer)exCom.get("totalCount")).intValue(),pageUnit, pageSize); 
 	  System.out.println("resultPageForExCom" + resultPageForExCom);

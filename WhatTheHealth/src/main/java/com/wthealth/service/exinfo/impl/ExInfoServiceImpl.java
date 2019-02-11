@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.wthealth.common.Search;
+import com.wthealth.common.URLConnection;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.Weather;
 import com.wthealth.service.exinfo.ExInfoDao;
@@ -72,12 +73,14 @@ public class ExInfoServiceImpl implements ExInfoService {
 
 
 	@Override
-	public Map<String, Object> listWeatherRecom() throws Exception {
+	public Map<String, Object> listWeatherRecom(String mainCityName) throws Exception {
 		
+	
 		//서울의 위도와 경도
         String urlstr = "http://api.openweathermap.org/data/2.5/weather?"
-                + "q=Seoul&appid=d61d8ae1c0822fa84c4234c5c5a5f290";    
+                + "q="+mainCityName+"&appid=d61d8ae1c0822fa84c4234c5c5a5f290";   
         
+        System.out.println(urlstr);
         URL url = new URL(urlstr);
         BufferedReader bf;
         String line;

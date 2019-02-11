@@ -318,6 +318,8 @@ body {
   <script type="text/javascript">
   
   
+  
+  
   $(function(){
     
      //임박한 소모임 getMeeting
@@ -361,6 +363,24 @@ body {
   });
 
 	
+  function cityChange(){
+	  
+	  var cityName = $("select[name=cityID]").val();
+	  
+	  $.ajax({
+		  		url: "/exinfo/json/getWeather/"+cityName ,
+		  		method : "GET",
+		  		header : {
+		  			"Accept" : "application/json",
+					"Content-Type" : "application/json"	
+		  		},
+		  		
+		  		success : function(data, status){
+		  			
+		  		}
+	  });//end of ajax
+	
+  }
   
   </script>
   
@@ -382,7 +402,7 @@ body {
             
              <div class="weather-card madrid" style="margin-left:10px;">
 				<div class="card-header" align="center" >${weather.cityName}
-					<select name="cityID" class="cityID" onchange="cityChange()">
+					<select name="cityID" class="cityID" onchange="cityChange(this)">
 						<option value="Busan,KR" 	style="font-size:20px;">부산</option>
 		  				<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
 						<option value="Incheon,KR" 	style="font-size:20px;">인천</option>
