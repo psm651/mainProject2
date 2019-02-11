@@ -7,37 +7,20 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
-	<script src="../resources/js/jquery-3.3.1.min.js"></script>
-	
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
+ 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
 
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../resources/css/animate.css">
-    
-    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css">
-    
-	<!-- include libraries(jQuery, bootstrap) -->
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-	
-	<!-- include summernote css/js-->
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-	<script src="../resources/js/app.js"></script>
+
+	<!-- include datetimepicker css/js-->
+ 	<script type="text/javascript" src="/resources/js/datepicker.js"></script> 
+	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
+	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
+
+ 	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
 	<style>
+
 	#sub {width:160px; height:30px; background:pink;
 
      border-radius:10px;
@@ -48,7 +31,7 @@
      
      position:absolute;
      
-     top:-80%; left:87%;
+     top:-7%; left:80%;
      }
 
 	#sub:before {
@@ -76,17 +59,15 @@
 
  	@keyframes slidein {
  		
-  	  	from {position: absolute; top: 8%;}
-  	  	to{position: absolute; top: -15%;}
+  	  	from {position: absolute; top: 5%;}
+  	  	to{position: absolute; top: 3%;}
 	} 
+
  	 .giyong{
  	 	height : 720px;
  	 	overflow : hidden;
- 	 }	
-		.giyong{
- 	 	height : 720px;
- 	 	overflow : hidden;
  	 }
+ 	 
 	</style>
 <script type="text/javascript">
   
@@ -251,7 +232,7 @@
 				 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
 				 			'</div>';
 					   
-				 		var markerImage =  '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">';
+				 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">';
 					        
 					 
 						}
@@ -293,7 +274,18 @@
                   <label class="font-weight-bold" for="fullname" id="standard">Title</label>
                 </div>
                 
-      	  <c:if test="${!empty post.coordinate}">
+      	                  
+                <div class="col-md-11 mb-5 mb-md-0">
+                	<input type="text" class="form-control" id="title" name="title"  value="${post.title}">
+                </div>
+                <div class="col-md-1 mb-5 mb-md-0">
+              	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">
+         			 <span class="glyphicon glyphicon-map-marker"></span> 지도
+     			   </button>
+     			 </div>
+              </div>
+
+			<c:if test="${!empty post.coordinate}">
 			 	<div class="form-group" id="location">
 				   <div id="sub" style="text-align:center;">${post.locationTagName}</div>
 			    	
@@ -303,20 +295,9 @@
 		 			 <input type="hidden" name="coordinate" value="${post.coordinate}" style="display:none;"/>
 		 			</div> 
 			   
-		 		     <img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">
+		 		    <img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:-2%; left:93.3%;">
 			     </div>  
-			</c:if>          
-                
-                
-                <div class="col-md-11 mb-5 mb-md-0">
-                	<input type="text" class="form-control" id="title" name="title"  value="${post.title}">
-                </div>
-                <div class="col-md-1 mb-5 mb-md-0">
-              	    <button type="button" class="btn btn-default btn-sm">
-         			 <span class="glyphicon glyphicon-map-marker"></span> 지도
-     			   </button>
-     			 </div>
-              </div>
+			</c:if>
 
               <div class="row form-group">
                 <div class="col-md-12">

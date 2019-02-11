@@ -75,7 +75,7 @@
      
       $.ajax({
          
-         url: "/community/json/dietCommunitylist",
+         url: "/meeting/json/listMeeting",
          method: "POST",
          data: JSON.stringify({
             currentPage: currentPage ,            

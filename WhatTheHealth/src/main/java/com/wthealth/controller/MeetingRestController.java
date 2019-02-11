@@ -54,7 +54,7 @@ public class MeetingRestController {
 		return totalLikeCount;
 	}
 	
-	@RequestMapping(value="json/listMeeting", method=RequestMethod.POST)
+/*	@RequestMapping(value="json/listMeeting", method=RequestMethod.POST)
 	   public List<Post> listMeeting(@RequestBody Search search) throws Exception{
 	      
 	      System.out.println("rest");
@@ -75,6 +75,25 @@ public class MeetingRestController {
 	      Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
 	      
 	      return listForPost;
-	   }
+	   }*/
+	
+	
+	//무한스크롤 
+	@RequestMapping(value="json/listMeeting", method=RequestMethod.POST)
+	public Map<String, Object> listMeeting(@RequestBody Search search) throws Exception{
+		
+		System.out.println("rest");
+		if(search.getCurrentPage()==0) {
+		search.setCurrentPage(1);
+	}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = meetingService.listMeeting(search);
 
+		
+		Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+
+		
+		return map;
+	}
 }

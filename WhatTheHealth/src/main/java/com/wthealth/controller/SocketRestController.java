@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.Socket;
 import com.wthealth.domain.User;
@@ -32,6 +33,11 @@ public class SocketRestController {
 	private SocketService socketService;
 	
 	private String fileName;
+	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
 	
 	public SocketRestController() {
 		System.out.println(this.getClass());
@@ -84,4 +90,25 @@ public class SocketRestController {
 	        return fileName;
 	   }
 
+	//무한스크롤 
+	@RequestMapping(value="json/listLiveStream", method=RequestMethod.POST)
+	public Map<String, Object> listLiveStream(@RequestBody Search search) throws Exception{
+		
+	
+		if(search.getCurrentPage()==0) {
+		search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = socketService.listLiveStream(search);
+
+		
+		Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+
+		
+		return map;
+	}	
+	
+	
+	
 }
