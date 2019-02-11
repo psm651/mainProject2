@@ -178,7 +178,9 @@
 					 	//var roomId = userId+"+${sessionScope.user.userId}";
 						
 						//$("#append_here").append('<button type="button" class="btn btn-primary" id="receiveRoom" data-param="'+roomId+'">방 입장하기</button>')
-						self.location = "/socket/addChatting?userId2="+userId
+						//self.location = "/socket/addChatting?userId2="+userId
+					 	$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/addChatting?userId2='+userId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
+						 $("#mydiv").css("display","inline");
 				 });
 			});
 		 
@@ -374,10 +376,10 @@
 						<c:set var="i" value="${i+1}"/>
 						<button type="button" class="btn btn-primary" id="getChatting${chatting1.user1}${i}" data-param="${chatting1.roomId}" >
 						<c:if test = "${user.userId == chatting1.user1}">
-						${chatting1.user2}님과 채팅1111
+						${chatting1.user2}님과 채팅
 						</c:if>
 						<c:if test = "${user.userId == chatting1.user2}">
-						${chatting1.user1}님과 채팅2222
+						${chatting1.user1}님과 채팅
 						</c:if>
 						</button>
 					</c:forEach>
@@ -388,10 +390,10 @@
 						<c:set var="j" value="${j+1}"/>
 						<button type="button" class="btn btn-primary" id="getChatting${chatting2.user2}${j}" data-param="${chatting2.roomId}" >
 						<c:if test = "${user.userId == chatting2.user1}">
-						${chatting2.user2}님과 채팅333
+						${chatting2.user2}님과 채팅
 						</c:if>
 						<c:if test = "${user.userId == chatting2.user2}">
-						${chatting2.user1}님과 채팅444
+						${chatting2.user1}님과 채팅
 						</c:if>
 						</button>
 					</c:forEach>
@@ -448,10 +450,10 @@
 						<c:set var="i" value="${i+1}"/>
 						<button type="button" class="btn btn-primary" id="getChatting${i}" data-param="${chatting1.roomId}" >
 						<c:if test = "${sessionScope.user.userId == chatting1.user1}">
-						${chatting1.user2}님과 채팅111111
+						${chatting1.user2}님과 채팅
 						</c:if>
 						<c:if test = "${sessionScope.user.userId == chatting1.user2}">
-						${chatting1.user1}님과 채팅222222
+						${chatting1.user1}님과 채팅
 						</c:if>
 						</button>
 					</c:forEach>
@@ -462,10 +464,10 @@
 						<c:set var="j" value="${j+1}"/>
 						<button type="button" class="btn btn-primary" id="getChatting${j}" data-param="${chatting2.roomId}" >
 						<c:if test = "${sessionScope.user.userId == chatting2.user1}">
-						${chatting2.user2}님과 채팅33333
+						${chatting2.user2}님과 채팅
 						</c:if>
 						<c:if test = "${sessionScope.user.userId == chatting2.user2}">
-						${chatting2.user1}님과 채팅44444
+						${chatting2.user1}님과 채팅
 						</c:if>
 						</button>
 					</c:forEach>

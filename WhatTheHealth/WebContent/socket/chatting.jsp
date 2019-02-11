@@ -24,6 +24,7 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<link rel="stylesheet" href="../resources/css/style.css">
 <script type="text/javascript">
 
 ///$('img').dropdown();
@@ -49,8 +50,8 @@ body{
     border-radius: 50px;
 }
 #upload{
-	max-width:50%;
-	max-height: 50%
+	max-width:70%;
+	max-height: 70%
 }
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;

@@ -347,4 +347,49 @@ public class UserRestController {
 		}
 	}
 	
+	@RequestMapping( value="kakaoLogin", produces ="applcation/json", method= {RequestMethod.GET, RequestMethod.POST} )
+	public String kakaoLogin(@RequestParam("code") String code , HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception{
+
+		System.out.println("kakaoLogin: GET/POST");
+		System.out.println("code: "+code);
+		
+
+		JsonNode token = KakaoLogin.getAccessToken(code);
+
+		JsonNode profile = KakaoLogin.getKakaoUserInfo(token.path("access_token").toString());
+		System.out.println("카카오프로필 : "+profile);
+		User user = KakaoLogin.changeData(profile);
+		System.out.println("카카오유저1111: "+user);
+		user.setUserId("k"+user.getUserId());
+		//user.setUserId(user.getEmail());
+		user.setAccessToken(token.path("access_token").toString());
+		user.setSnsType("1");
+		System.out.println("카카오유저2222: "+user);
+
+		/*System.out.println(session);
+		session.setAttribute("user", vo);
+		System.out.println("세션에 들어갔나 ");
+		System.out.println(vo.toString());*/
+		
+		if(userService.getUser(user.getUserId())==null) {
+			//vo.setPassword(vo.getUserId());
+			//session.setAttribute("kakaoUser", user);
+			model.addAttribute("user", user);
+			System.out.println("카카오유저333: "+user);
+			return "forward:/user/addSNSUser.jsp";
+			
+		} else if(userService.getUser(user.getUserId())!=null) {
+			User dbUser=userService.getUser(user.getUserId());
+			session.setAttribute("user", dbUser);
+			System.out.println("세션에 들어갔나 "+session.getAttribute("user"));
+			System.out.println(user.toString());
+		}
+		//userService.addUser(vo);
+		
+	
+		 //vo = service.kakaoLogin(vo);  
+		//return "redirect:/main.jsp";
+		return "forward:/user/kakaoLogin.jsp";
+	}
+	
 }
