@@ -12,21 +12,22 @@
 <meta charset="UTF-8">
  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 
 
 <!-- --------------------------------메뉴바--------------- -->
 <!-- 참조 : http://getbootstrap.com/css/   참조 -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script> 
+<link rel="stylesheet" href="../resources/css/style.css">
 
 <!--  메인 스타일 -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
     <script src="../resources/js/jquery-3.3.1.min.js"></script>
    
@@ -41,9 +42,10 @@
     <link rel="stylesheet" href="../resources/css/animate.css">
     
     <link rel="stylesheet"  href="../resources/fonts/flaticon/font/flaticon.css">
-    <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
+    <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css">
     <link rel="stylesheet" href="../resources/css/aos.css">
-    <link rel="stylesheet" href="../resources/css/style.css">
+    <link rel="stylesheet" href="../resources/css/style.css"> -->
+    
 
 
 <!-- 메인 스타일 -->
@@ -74,7 +76,11 @@
 <!-- --------------------------------메뉴바--------------- -->
 
 <style>
-/* .container{max-width:1170px; margin:auto;} */
+ .container{max-width:1170px; margin:auto;}
+
+body{
+	background : rgba(0,0,0,0.3);
+}
 #chattingimage{ 
    max-width:120%;
    border-radius: 50px;
@@ -156,7 +162,8 @@
  .received_id {
    background: none repeat scroll 0 0;
   border-radius: 3px;
-  color: #646464;
+  /* color: #646464; */
+  color: white;
   font-size: 16px;
   margin: 0;
   padding: 5px 10px 5px 12px;
@@ -165,16 +172,16 @@
  }
  
   .incoming_id {
-  color: #646464;
+  color: white;
   font-size: 14px;
-  width: 50%;
+  width: 30%;
   text-align: left;
  }
  
    .outgoing_id {
-  color: #646464;
+  color: white;
   font-size: 14px;
-  width: 50%;
+  width: 30%;
   
  }
  
@@ -188,34 +195,37 @@
   width: 100%;
 }
 .time_date {
-  color: #747474;
+  color: white;
   display: block;
   font-size: 12px;
   margin: 8px 0 0;
 }
-.received_withd_msg { width: 60%;}
+.received_withd_msg { width: 57%;}
 .mesgs {
   float: left;
+   padding: 15px 0 0 15px;
   width: 100%;
 }
 
  .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
+  background: #F74D4A none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 16px;
-  margin: 0; color:#fff;
+  margin: 0; 
+  color:#fff;
   padding: 5px 10px 5px 12px;
   width:100%;
 }
 .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
 .sent_msg {
   float: right;
-  width: 60%;
+  width: 46%;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
-  color: #4c4c4c;
+ /*  color: #4c4c4c; */
+  color: white;
   font-size: 15px;
   min-height: 48px;
   width: 100%;
@@ -223,7 +233,7 @@
 
 .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
 .msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
+  background: #F74D4A none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
   color: #fff;
@@ -235,7 +245,7 @@
   top: 11px;
   width: 33px;
 }
-.messaging { padding: 0 0 0 0;}
+.messaging { padding: 0 0 50px 0;}
 .msg_history {
   height: 516px;
   overflow-y: auto;
@@ -243,7 +253,7 @@
 
 #attach {
  /*  background: #05728f none repeat scroll 0 0; */
-  background: #05728f  none repeat scroll 0 0;
+  background: #F74D4A  none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
   color: #fff;
@@ -390,14 +400,14 @@
         	//var socket = io("http://192.168.0.10:3000");
            
             
-            socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId :postNo});
+            socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${postNo}"});
           	
             socket.emit("in_msg", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}"});
             
             socket.emit("out_msg", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}"});
             
            	//socket.emit("kickout", {targetName :targetName, roomId : "${roomId}"});
-            socket.emit("user_list",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId :postNo});
+            socket.emit("user_list",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId :"${postNo}"});
  
             //msg에서 키를 누를떄
             $(".write_msg").keydown(function(key) {
@@ -478,7 +488,9 @@
             	//var outcomingid = $(".incoming_id").data("param");
             	if(outcomingid == msg.name){
             		alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
-                 	self.location = "http://192.168.0.43:8080";
+                 	//self.location = "http://192.168.0.43:8080";
+                 	parent.document.location.replace("/");
+            		//opener.location.replace("/");
             	};
             	 console.log(msg.name+' 강퇴');
        	       $('<div class="incoming_msg"><div class="received_id"><p>'+msg.name+'님이 강제퇴장되었습니다.</p></div></div>').appendTo(".msg_history");
@@ -534,12 +546,12 @@
                 
                 if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
                 	console.log("111111")
-                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
                 } 
                 
                 else if(msg.name != "${sessionScope.user.nickName}" && msg.img == "" || msg.img == null ){
                 	console.log("3333")
-                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
+                	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
                 }  
                 else if(msg.name == "${sessionScope.user.nickName}") {
                 	console.log("55555")

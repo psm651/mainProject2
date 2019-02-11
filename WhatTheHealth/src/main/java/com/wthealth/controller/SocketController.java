@@ -194,5 +194,17 @@ public class SocketController {
          
           return "forward:/socket/chatting.jsp";
          }
+      
+      @RequestMapping(value = "getMeetChatting",  method=RequestMethod.GET)
+      public String getMeetChatting(@RequestParam("roomId") String roomId, Model model, HttpSession session) {
+         
+         System.out.println("/socket/getMeetChatting : GET");
+         
+         //String roomId = userId + "+"+((User)session.getAttribute("user")).getUserId();
+         
+         model.addAttribute("roomId", roomId);
+         
+          return "forward:/socket/groupChatting.jsp";
+         }
 }
 
