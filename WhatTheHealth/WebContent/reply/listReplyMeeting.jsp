@@ -30,7 +30,7 @@
   <script src="/resources/js/aos.js"></script>
   <script src="/resources/js/main.js"></script> -->
 	
-    <title>IronMuscle &mdash; Colorlib Website Template</title>
+    <title>ReplyforMeeting</title>
     
   <!--   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
@@ -50,6 +50,9 @@
    <link rel="stylesheet" href="/resources/css/aos.css">
 
     <link rel="stylesheet" href="/resources/css/style.css">
+    
+    <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
     
     <style>
     	 #replyArea1{
@@ -110,14 +113,14 @@
                     a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"  id="updateButton'+list.replyNo+'"> <img src="/resources/images/pencil.png" height="20px"></a>';
                     a += '<a onclick="replyDelete('+list.replyNo+');"> <img src="/resources/images/bin.png" height="20px"></a>';
                     }
-                    if('${user.userId}' != null && '${user.userId}' !=''){
+                    if('${user.userId}' != null && '${user.userId}' !='' && list.deleteStatus != 1 &&  list.blindStatus != 1 ){
                     a += '<a onclick="reReplyInsert('+list.replyNo+','+list.parentReplyNo+',\''+list.nickname+'\');" id="addReReButton'+list.replyNo+'"> <img src="/resources/images/reply.png" height="20px" style="opacity:0.6"></a>';
                     }
                     if('${user.userId}' != null && '${user.userId}' !='' && list.writerId != '${user.userId}'){
                     a += '<a onclick="fullSirenReply('+list.replyNo+');" id="addClaim'+list.replyNo+'"> <img src="/resources/images/fullSiren.png" height="25px"></a>';
                     }
                     a += '</div></div>';
-                    a += '<div class="replyContent"  name="'+list.replyNo+'"> <p id="atmark">'+list.text+'</p>';
+                    a += '<div class="replyContent" style="word-break:break-all; padding-left: 4px; margin-bottom: -10px;"  name="'+list.replyNo+'"> <p>'+list.text+'</p>';
                     a += '</div></div>';
                     a += '</div></div>';
                 });
@@ -221,7 +224,12 @@
     //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
     function replyUpdate(replyNo, text){
     	if(formflag == false){
-    		alert("다른 댓글 작성 중입니다.");
+    		//alert("다른 댓글 작성 중입니다.");
+    		swal(
+    				'다른 댓글 작성 중',
+    				'다른 댓글 작성 완료 후 수정가능합니다.',
+    				'error'
+    				)
     		return;
     	}
     	$('#updateButton'+replyNo+'').attr('onclick', "replyList();");
