@@ -347,7 +347,7 @@ public class UserRestController {
 		}
 	}
 	
-	@RequestMapping( value="kakaoLogin", produces ="applcation/json", method= {RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping( value="josn/kakaoLogin", produces ="applcation/json", method= {RequestMethod.GET, RequestMethod.POST} )
 	public String kakaoLogin(@RequestParam("code") String code , HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception{
 
 		System.out.println("kakaoLogin: GET/POST");
