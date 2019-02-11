@@ -72,46 +72,74 @@
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#update" ).on("click" , function() {
-					self.location = "/user/updateUser?userId=${user.userId}"
-				});
+				 self.close(); 
+                 opener.location.replace("/user/updateUser?userId=${user.userId}");
+				 //self.location = "/user/updateUser?userId=${user.userId}"
+			});
 		});
 		
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "#delete" ).on("click" , function() {
-						self.location = "/user/deleteUser?userId=${user.userId}"
-					});
+					 self.close(); 
+	                 opener.location.replace("/user/deleteUser?userId=${user.userId}");
+					 //self.location = "/user/deleteUser?userId=${user.userId}"
+				});
 			});
 		 
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "#chatting" ).on("click" , function() {
 					 	var userId = $(this).data("param");
+					 	
 					 	//var roomId = userId+"+${sessionScope.user.userId}";
 						
 						//$("#append_here").append('<button type="button" class="btn btn-primary" id="receiveRoom" data-param="'+roomId+'">방 입장하기</button>')
 						self.location = "/socket/addChatting?userId2="+userId
+					 	//$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/addChatting?userId2='+userId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
+						// $("#mydiv").css("display","inline");
 				 });
 			});
 		 
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "#point" ).on("click" , function() {
-						self.location = "/point/updatePoint?receiverId=${user.userId}"
-					});
+					 self.close(); 
+	                 opener.location.replace("/point/updatePoint?receiverId=${user.userId}");
+					 //self.location = "/point/updatePoint?receiverId=${user.userId}"
+				});
 			});
 		 
 		 $(function() {
 			 <c:set var="i" value="0"/>
 		  			
-					<c:forEach var = "chatting1" items="${chattinglist1}">
-						<c:set var="i" value="${i+1}"/>
+				<c:forEach var = "chatting1" items="${chattinglist1}">
+					<c:set var="i" value="${i+1}"/>
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				 $( "#getChatting${i}" ).on("click" , function() {
 					 var roomId = $(this).data("param");
-						self.location = "/socket/getChatting?roomId="+roomId
+					
+					self.location = "/socket/getChatting?roomId="+roomId
+					 //$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getChatting?roomId='+roomId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
+					// $("#mydiv").css("display","inline");
 					});
-					 </c:forEach>
+				 </c:forEach>
+				
+			<c:set var="i" value="0"/>
+				<c:forEach var = "chatting2" items="${chattinglist2}">
+					<c:set var="i" value="${i+1}"/>
+					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+					 $( "#getChatting${chatting2.user2}${i}" ).on("click" , function() {
+						var roomId = $(this).data("param");
+						 alert(roomId);
+					
+						self.location = "/socket/getChatting?roomId="+roomId
+						//$("#mydiv").empty();	 
+						//$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getChatting?roomId='+roomId+'" align="middle" style="height:100%; width: 100%;" frameborder="0" scrolling="no"></iframe>');
+						//$("#mydiv").css("display","inline");
+
+						});
+					</c:forEach>
 			});
 		 
 		 $(function() {
@@ -132,6 +160,8 @@
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	 <div class="site-section">
+	 <div id="mydiv"></div>
+
 	<div class="container">
 	<div class="row">
 	 		
@@ -255,7 +285,7 @@
 					<c:set var="j" value="0"/>
 					<c:forEach var = "chatting2" items="${chattinglist2}">
 						<c:set var="j" value="${j+1}"/>
-						<button type="button" class="btn btn-primary" id="getChatting${j}" data-param="${chatting2.roomId}" >
+						<button type="button" class="btn btn-primary" id="getChatting${chatting2.user2}${j}" data-param="${chatting2.roomId}" >
 						<c:if test = "${user.userId == chatting2.user1}">
 						${chatting2.user2}님과 채팅
 						</c:if>

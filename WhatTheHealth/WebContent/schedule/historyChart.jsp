@@ -1,30 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>	
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script src='/resources/javascript/Chart.bundle.js'></script>
 <script src='/resources/javascript/utils.js'></script>
 <script src='/resources/javascript/jquery.min.js'></script>
+
+<style>
+
+
+#container {
+	margin-top: 5%;
+	margin-left: 7%;
+}
+/* #addData{margin-left:50%;margin-top:0.5%;width:5%;} */
+
+ .card-img-user{width:30%;height:5%;margin-left:35%;margin-top:5%;}
+ .card{width:60%;}
+</style>
 
 <title>Insert title here</title>
 </head>
 
 <body>
 	<jsp:include page="/layout/toolbar.jsp" />
-	
-	<div id="container" style="width: 75%;">
-		<canvas id="canvas"></canvas>
-	</div>
-	<button id="randomizeData">Randomize Data</button>
-	<button id="addDataset">Add Dataset</button>
-	<button id="removeDataset">Remove Dataset</button>
-	<button id="addData">Add Data</button>
-	<button id="removeData">Remove Data</button>
+
+	<div id="container">
+
+		<div class="row">
+
+			<div class="col-md-7">
+				<canvas id="canvas"></canvas>
+				<button id="addData" class="btn btn-danger btn-sm">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true">Next
+						Week</span>
+				</button>
+			</div>
+			
+			
+		   <div class="col-md-5">
+				<div class="card">
+					<c:if test="${user.userImage != null and user.userImage != '' }">
+						<img class="card-img-user" src="/resources/images/userImage/${user.userImage}" alt="Card image cap">
+						
+					</c:if>			
+					<c:if test="${user.userImage == null or user.userImage == '' }">
+						<img class="card-img-user" src="/resources/images/userImage/defaultUser.png" alt="Card image cap">
+					</c:if>
+				<hr/>
+ 			   <div class="card-body">
+    		    	<h5 class="card-title"><strong>${user.nickName}님의 History</strong></h5>
+				  <c:forEach var="list" items="${exList}">
+    				<p class="card-text">
+    				
+    				
+    				</p>
+    			  </c:forEach>	
+    			    <a href="#" class="btn btn-primary">Go somewhere</a>
+  			   </div>
+			   </div>
+		  </div>
+
+		</div>
+		</div>
+
 	<script>
 	Date.prototype.getWeekNumber = function(){
 		  var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
@@ -65,13 +110,14 @@
 	} 
 	 
 
-	 console.log(woy);
+	 console.log("woy"+woy);
 	 console.log("exCounts",exCounts);
 	 console.log("dietCounts",dietCounts);
 	 console.log("c??",c);
 	 
 	
 		var MONTHS =woy;
+		console.log("MONTHS : " +MONTHS)
 		var color = Chart.helpers.color;
 		var barChartData = {
 			labels: woy,
@@ -110,20 +156,22 @@
 				options: {
 					responsive: true,
 					title: {
+						fontSize : 20,
 						display: true,
-						text: 'Chart.js Combo Bar Line Chart'
+						text: 'Calories History Chart'
 					},
 					tooltips: {
 						mode: 'index',
 						intersect: true
 					}
+
 				}
 				
 			});
 
 		};
 
-		document.getElementById('randomizeData').addEventListener('click', function() {
+/* 		document.getElementById('randomizeData').addEventListener('click', function() {
 			var zero = Math.random() < 0.2 ? true : false;
 			barChartData.datasets.forEach(function(dataset) {
 				dataset.data = dataset.data.map(function() {
@@ -152,13 +200,16 @@
 
 			barChartData.datasets.push(newDataset);
 			window.myBar.update();
-		});
+		}); */
 
 		document.getElementById('addData').addEventListener('click', function() {
 			if (barChartData.datasets.length > 0) {
-				var month = MONTHS[barChartData.labels.length % MONTHS.length];
+//				var month = MONTHS[barChartData.labels.length % MONTHS.length];
+				var month = (MONTHS.length+1)+"주차";
 				barChartData.labels.push(month);
+				
 
+				
 				for (var index = 0; index < barChartData.datasets.length; ++index) {
 					// window.myBar.addData(randomScalingFactor(), index);
 					barChartData.datasets[index].data.push(randomScalingFactor());
@@ -168,7 +219,7 @@
 			}
 		});
 
-		document.getElementById('removeDataset').addEventListener('click', function() {
+/* 		document.getElementById('removeDataset').addEventListener('click', function() {
 			barChartData.datasets.pop();
 			window.myBar.update();
 		});
@@ -181,7 +232,7 @@
 			});
 
 			window.myBar.update();
-		});
+		}); */
 	</script>
 </body>
 </html>

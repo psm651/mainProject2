@@ -92,6 +92,69 @@
 			self.location = "/socket/addLiveStream";
 		});
 	}); */
+	
+	   var currentPage=1;	
+	
+	   $(window).scroll(function(){
+			  
+	       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+	      
+			currentPage++;
+	     
+	      $.ajax({
+	         
+	         url: "/socket/json/listLiveStream",
+	         method: "POST",
+	         data: JSON.stringify({
+	            currentPage: currentPage
+	         }),
+	         dataType: "json",
+	         headers : {
+	            "Accept" : "application/json",
+	            "Content-Type" : "application/json"
+	         },
+	         success : function(data , status){
+	  	
+	        	
+	               var list = data["list"];
+	              
+	   
+	                  
+	             list.forEach(function(item, index, array){     
+
+	            	var appen = ""; 
+	            	 
+	                appen +='<div class="col-md-6 col-lg-4 mb-4">';
+	                appen +='<div class="post-entry bg-white box"  data-param="'+item["socketNo"]+'" data-param2="'+item["bjId"]+'">';
+	                appen +='<div class="image" style="width:400px; height:200px">';
+	                appen +='<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">';
+	                appen +='</div>';
+	                appen +='<div class="text col-md-8">';
+	                appen +='<h2 class="h3" ><a href="#">'+item["liveTitle"]+'</a></h2>';
+	                appen +='<span class="text-uppercase date d-block mb-3">'+item["liveDate"]+'</span>';
+	                appen +='<div class="userInfo">';
+	                
+	                	if(item["userImage"] != null && item["userImage"] != ''){
+	                appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';	
+	               		}
+	                	else if(item["userImage"] == null && item["userImage"] == ''){
+	                appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>'; 		
+	                	}
+	                appen += item["nickname"];
+	  				appen += '</div></div></div></div>';
+	      		
+	  				 $("#scroll").append(appen);  
+	           
+	             });
+	                  
+	                  
+	         }        
+	      })
+	      
+	      
+	      }
+	   });  	
+	
   </script>
   
   
@@ -129,7 +192,7 @@
    <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/index.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브보기</a></p> --%>
        
         
-        <div class="row mb-5">
+        <div class="row mb-5" id="scroll">
           <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
           <c:forEach var="socket" items="${list}"> 

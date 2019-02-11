@@ -300,9 +300,9 @@
 			 
 				}
 
-				$('#standard').after(markerImage);
 				$('#standard').after(locationName);
-				$('#sub').after(formLocation);
+				$('#location').append(markerImage);
+				$('#location').append(formLocation);
 	
 				$("#mapModal").hide();
 				

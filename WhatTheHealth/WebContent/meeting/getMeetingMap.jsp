@@ -184,6 +184,68 @@
     	   
        }
        
+       $(function() {
+   		
+			$( "#getMeetingChat" ).on("click" , function() {
+				var roomId = $(this).data("param");
+				alert(roomId);
+				//self.location = "/socket/getChatting?roomId="+roomId
+				//$("#mydiv").empty();
+				$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getMeetChatting?roomId='+roomId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
+				$("#mydiv").css("display","inline");
+		 });
+       });
+       
+       $(function(){
+   	    dragElement(document.getElementById("mydiv"));
+   	    function dragElement(elmnt) {
+   		var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+   			if (document.getElementById(elmnt.id + "header")) {
+   				/* if present, the header is where you move the DIV from:*/
+   				document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+   			} else {
+   				/* otherwise, move the DIV from anywhere inside the DIV:*/
+   				elmnt.onmousedown = dragMouseDown;
+   			}
+   	
+   		function dragMouseDown(e) {
+   			e = e || window.event;
+   			e.preventDefault();
+   			// get the mouse cursor position at startup:
+   			pos3 = e.clientX;
+   			pos4 = e.clientY;
+   			document.onmouseup = closeDragElement;
+   			// call a function whenever the cursor moves:
+   			document.onmousemove = elementDrag;
+   		}
+   	
+   		function elementDrag(e) {
+   			e = e || window.event;
+   			e.preventDefault();
+   			// calculate the new cursor position:
+   			pos1 = pos3 - e.clientX;
+   			pos2 = pos4 - e.clientY;
+   			pos3 = e.clientX;
+   			pos4 = e.clientY;
+   			// set the element's new position:
+   			elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+   			elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+   		}
+   	
+   		function closeDragElement() {
+   			/* stop moving when mouse button is released:*/
+   			document.onmouseup = null;
+   			document.onmousemove = null;
+   			}
+   		}
+   	 })
+   	 
+   	 function exit(){
+   				$("#mydiv").css("display","none"); 
+   				$("#mydiv").empty();
+   				//$(this).hide();
+   				//$("#exit").show();
+   	}
    </script>
    
    <!--  ///////////////////////// CSS ////////////////////////// -->
@@ -192,6 +254,33 @@
 		max-width:120%;
     	border-radius: 100px;
 	}
+	
+		
+/* /////////////////////////////draggable///////////////////////// */
+
+
+#mydiv {
+  position: absolute;
+  z-index: 8;
+  text-align: center;
+  background : rgba(0,0,0,0);
+  height: 650px; 
+  /*height: 800px;*/
+  width: 500px;
+  display: none;
+}
+
+#mydivheader {
+  cursor: move;
+  z-index: 9;
+  background-color: rgba(0,0,0,0.3);
+  color: #fff;
+  /* margin-top: 200px; */
+  /* border-top-width: 150px; */
+
+}
+
+/* /////////////////////////////draggable///////////////////////// */
      </style> 
   
 </head>
@@ -205,6 +294,8 @@
    
    </div>
    <div class="site-section bg-light">
+   
+   <div id="mydiv"></div>
        <div class="container"> 
      <div class="row"> 
         <!-- <div class="row align-items-center"> -->
