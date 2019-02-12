@@ -21,6 +21,7 @@ public class URLConnection {
 	public static JSONObject getJSON_PARAMS(String requestMethod, String requestURL, String param, String contentType,
 			String propertyName, String propertyValue, String propertyName2, String propertyValue2) throws Exception {
 
+	
 		if(requestMethod.equals("GET")) {
 			requestURL += "?" + param;
 		}
@@ -80,6 +81,8 @@ public class URLConnection {
 			if(requestMethod.equals("GET")) {
 				requestURL += "?" + param;
 			}
+			
+			System.out.println(requestURL);
 			
 			HttpURLConnection con = (HttpURLConnection)new URL(requestURL).openConnection();
 			 

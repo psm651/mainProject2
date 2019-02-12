@@ -10,36 +10,35 @@
 
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 	<script src="/resources/js/jquery-3.3.1.min.js"></script>
 	
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 	
-	<!-- include datetimepicker css/js-->
-	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
-	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css"> 
-	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
 
-   	<!-- sweetalert -->
+	<script type="text/javascript" src="/resources/js/datepicker.js"></script>
+	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
+	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
+
+
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 	<style>
       
        .datepicker-here{weight:60px; height: 30px;}	   
        .block-schedule{height:200px;}	
-
+	   #appendFood > tbody > tr:nth-child(2n+1){background-color:whitesmoke;}
+	   #calculate > tbody > tr:nth-child(2n+1){background-color:whitesmoke;}
    	   #appendFood{
-   	   /* width: 800px; */
-   	   /* margin-left: 350px; */
+
    	   text-align: center;
    	   }
    	   #calculate{
    	   text-align: center;
    	   }
-   	   #dietDate{
-   	   width : 50px;
-   	   }
+
    	   .datepicker-here{
    	   align: right;
    	   }
@@ -48,10 +47,6 @@
    	   	color : white;
    	   }
 
-   		#scheduleIcon{
-   		weight:50px;
-   		height:50px;
-   		}
 
     </style>
     	
@@ -98,8 +93,9 @@
 				  }//end of success
 				  
 				}); // end of ajax
+	
 		});
-				
+		
 	}); 
 
 	
@@ -123,10 +119,10 @@
  			var amountFood = tr.children("td").eq(1).text();
         	var foodCalorie = tr.children("td").eq(2).text();
 
-			var display =  "<tr><th scope='row' name='number'>"+index+"</th>"+
-	  							 "<td name='foodName["+index+"]'>"+foodName+"</td>"+
-		 						 "<td name='amountFood["+index+"]'>"+amountFood+"</td>"+
-		 	 					 "<td name='foodCalorie["+index+"]'>"+foodCalorie+"</td>"+
+			var display =  "<tr><th scope='row' name='number' style='width:136px;'>"+index+"</th>"+
+	  							 "<td name='foodName["+index+"]' style='width:156px;'>"+foodName+"</td>"+
+		 						 "<td name='amountFood["+index+"]' style='width:485px;'>"+amountFood+"</td>"+
+		 	 					 "<td name='foodCalorie["+index+"]' style='width:173px;'>"+foodCalorie+"</td>"+
 					   			 "<td align='left'><button type='button' class='btn btn-default btn-sm'>삭제</a></td>"+
  					 	   "</tr>";
 					   	   
@@ -136,6 +132,8 @@
 		
 		     $("#amount").text(foodAmountCalorie);
         });
+	
+
      });   
      
      
@@ -166,7 +164,21 @@
 			var dietScDate =$("input[name='dietScDate']").val();
 			var mealTime = $("#mealTime").val();
 			var dietScCalorie = parseInt($("#amount").text());
-		
+	
+			if(${sessionScope.user.userId == null}){
+				swal("회원만 이용 가능합니다.", "회원가입을 먼저 진행해주세요", "error");
+				return false;
+			}
+			
+			if(dietScDate.length<1 || dietScDate ==null){
+				swal("스케줄 날짜를 입력해주세요", "ok버튼을 눌러주세요", "error");
+				return false;
+			}
+			if(dietScCalorie.length<1 || isNaN(dietScCalorie)){
+				swal("음식을 선택해주세요", "ok버튼을 눌러주세요", "error");
+				return false;
+			}
+			
 			var foodList = [];
 		
 			var foods = null;
@@ -180,8 +192,6 @@
 				foodList.push(foods)
 			 } 
 					
-
-			 if(${sessionScope.user.userId != null}){ 
 		
 			 $.ajax({
 			 	
@@ -206,14 +216,6 @@
 			
 			 swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
 	
-			
-	 		}else{ 
-				swal("회원만 이용 가능합니다.")
-			}	 
-				
-			 	
-			
-			    
 			
 		});
 	});
@@ -247,7 +249,7 @@ $(function(){
 <body>
 	
 	<div class="site-wrap">
-		<jsp:include page="/calculator/test.jsp" />
+		<jsp:include page="/calculator/test.jsp" /> 
 	</div>
 
    	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/calorie.jpg');">
@@ -277,34 +279,48 @@ $(function(){
 			<br/>
 		
 			<div class="form-inline">	
-				<div class="row">
-		       <div class="col-md-3" style="margin-left:2em; float:right;">
-		    	 <strong style="back-ground:##ddd">Total:</strong><span id="amount"></span>
-			   </div>			
+			  <div class="row">
+		      	 <div class="col-md-4">
+		    		 <strong >Total Calorie: </strong><span id="amount"></span>
+			   	 </div>			
 			
 
-	 		   <div class="col-md-3" >
-				<select class="form-control" name="mealTime" id="mealTime" >
-					<option value="0" >아침</option>
-					<option value="1" >점심</option>
-					<option value="2" >저녁</option>		
-				</select>  
-			  </div>
+	 		   	 <div class="col-md-2" style="left:125.5%;">
+					<select class="form-control" name="mealTime" id="mealTime" style="height:75%;margin-top:5%">
+						<option value="0" >아침</option>
+						<option value="1" >점심</option>
+						<option value="2" >저녁</option>		
+					</select>  
+			  	</div>
 		
-			   <div class="col-md-3" style="align:right">		
-			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" /> 		
+			   <div class="col-md-4" style="left:125%;">		
+			 	 <input type='text' id="dietScDate" data-language='en' name='dietScDate' placeholder="내스케줄담기" style="margin-top:2.5%;"/> 		
 		       </div>
 			  
-			  <div class="col-md-3" >	 			
-				 <a href="#" class="btn btn-primary pill px-4" id="button" >담기</a>
+			  <div class="col-md-2" style="left:123%;">	 					  
+				 <a href="#" class="btn btn-primary pill px-4" id="button" style="height:80%;padding-bottom:10%;margin-top:3%;">담기</a>
 		 	  </div>
-		 	  </div>
-		   </div>
-		    
-	   
-<%--  <form:form commandName="foodInfos" id="foodInfomation"> --%>
+		 	  
+		 	 </div>
+		  </div>
 
-	<!-- 크롤링 append -->
+	<br/>
+	
+	<div class="row form-group">	
+		<table class="table" id="calculate">
+  			<thead>
+    			<tr> 
+    			 <th scope="col" style="display:none;"></th>
+    			 <th scope="col" style="display:none;"></th>
+    			 <th scope="col" style="display:none;"></th>
+    			 <th scope="col" style="display:none;"></th>
+    			</tr>
+    		</thead>
+    			<tbody>
+    			</tbody>
+		</table>
+	</div>	
+
 	<div class="row form-group">
 	<table class="table" id="appendFood">
   		<thead>
@@ -313,6 +329,7 @@ $(function(){
       			<th scope="col">음식</th>
       			<th scope="col">1인분</th>
       			<th scope="col">칼로리</th>
+      			<th scope="col"></th>     			
     		</tr>
    		</thead>
    			<tbody>
@@ -321,22 +338,10 @@ $(function(){
 	
 	</div>
 
-	<div class="row form-group">	
-		<table class="table" id="calculate">
-  			<thead>
-    			<tr> 
-    			</tr>
-    			</thead>
-    			<tbody>
-    			</tbody>
-		</table>
-	</div>
-		
-<%-- </form:form> --%>
 
 </div>	
 		
-		</div>
+	
 </body>
 
 </html>

@@ -19,7 +19,7 @@ public class NutritionixAPI {
 	private JSONObject foodJSON = null; //food 모든 정보를 담은 json data
 	private JSONArray altMeasures = null; //1g, 1slice 등 1인분에 관한 JSON data
 	private double calories = 0;
-	private long serving_weight_grames = 0;
+	private double serving_weight_grames = 0;
 	
 	
 	//Constructor
@@ -48,21 +48,26 @@ public class NutritionixAPI {
 	}
 	
 	public void setJSONdata(JSONObject result) {
-		this.foodJSON = (JSONObject) ((JSONArray)result.get("foods")).get(0);
+		this.foodJSON = (JSONObject) ((JSONArray)result.get("foods")).get(0);		
 		this.altMeasures = (JSONArray)foodJSON.get("alt_measures");
+	
 	}
 	
 	public void setCalories(JSONArray altMeasures) {
 		  double nf_calories = Double.parseDouble(foodJSON.get("nf_calories").toString());
+		  System.out.println("nf_calories"+nf_calories);
           this.calories = Math.floor(nf_calories);
-          this.serving_weight_grames = Long.parseLong(foodJSON.get("serving_weight_grams").toString());
+          System.out.println("calories : "+calories);
+          this.serving_weight_grames = Double.parseDouble(foodJSON.get("serving_weight_grams").toString());
+         
+          System.out.println("serving_weight_grames : "+ serving_weight_grames);
 	}
 
 	public double getCalories() {
 		return calories;
 	}
 
-	public long getServing_weight_grames() {
+	public double getServing_weight_grames() {
 		return serving_weight_grames;
 	}
 
