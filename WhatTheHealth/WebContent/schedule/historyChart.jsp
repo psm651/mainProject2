@@ -43,29 +43,11 @@
 				</button>
 			</div>
 			
+			<div class="col-md-5">
+				 <div id="chartjs-tooltip"></div> 
 			
-		   <div class="col-md-5">
-				<div class="card">
-					<c:if test="${user.userImage != null and user.userImage != '' }">
-						<img class="card-img-user" src="/resources/images/userImage/${user.userImage}" alt="Card image cap">
-						
-					</c:if>			
-					<c:if test="${user.userImage == null or user.userImage == '' }">
-						<img class="card-img-user" src="/resources/images/userImage/defaultUser.png" alt="Card image cap">
-					</c:if>
-				<hr/>
- 			   <div class="card-body">
-    		    	<h5 class="card-title"><strong>${user.nickName}´ÔÀÇ History</strong></h5>
-				  <c:forEach var="list" items="${exList}">
-    				<p class="card-text">
-    				
-    				
-    				</p>
-    			  </c:forEach>	
-    			    <a href="#" class="btn btn-primary">Go somewhere</a>
-  			   </div>
-			   </div>
-		  </div>
+			</div>
+			
 
 		</div>
 		</div>
@@ -115,7 +97,8 @@
 	 console.log("dietCounts",dietCounts);
 	 console.log("c??",c);
 	 
-	
+	 console.log(document.getElementById('chartjs-tooltip'))
+	 
 		var MONTHS =woy;
 		console.log("MONTHS : " +MONTHS)
 		var color = Chart.helpers.color;
@@ -127,7 +110,7 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				borderWidth: 1,
-				 data: exCounts,
+				data: exCounts,
 			},{
 				type:'bar',
 				label: '½Ä´ÜÄ®·Î¸®',
@@ -137,7 +120,6 @@
 				data:dietCounts,
 			},{
 				type:'line',
-				fill: false,
 				borderWidth: 2,
 				label: 'Æò±Õ Ä®·Î¸®',
 				backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
@@ -147,7 +129,20 @@
 			}]
 
 		};
-
+    
+            
+		console.log("asdfgsdadgadsdgdsag"+barChartData.datasets[0].data)
+		var myDoughnutChart = {
+ 				 datasets: [{
+					 data: [barChartData.datasets[0].data, 20]
+				  }], 
+				 labels: [
+					  '¿îµ¿Ä®·Î¸®',
+					  '½Ä´ÜÄ®·Î¸®'
+				 ]
+		};
+		
+		
 		window.onload = function() {
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myBar = new Chart(ctx, {
@@ -162,7 +157,7 @@
 					},
 					tooltips: {
 						mode: 'index',
-						intersect: true
+						intersect: true						
 					}
 
 				}

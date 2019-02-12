@@ -232,14 +232,15 @@
 				 			'<input type="hidden" name="coordinate" value="'+coordinate+'" style="display:none;"/>'+
 				 			'</div>';
 					   
-				 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:4.6%; left:102%;">';
+				 		var markerImage = '<img src="/resources/images/map/marker-480.png" alt="Image" id="markerImage" style="width:60px;height:37px;position: absolute;top:-2%; left:93.3%;">';
 					        
 					 
 						}
 
-	    				$('#standard').after(locationName);
-	    				$('#location').append(markerImage);   				
+	    				$('#standard > div:nth-child(2)').after(locationName);
 	    				$('#location').append(formLocation);
+	    				$('#location').append(markerImage);   				
+	    				
 	    				
 	    				$("#mapModal").hide();
 						
@@ -267,11 +268,11 @@
        <h4 class="info-title margin-five no-margin-top">커뮤니티 게시글 수정하기</h4>
         <div class="row">
        
-          <div class="col-md-12 col-lg-8 mb-5">
+          <div class="col-md-12 col-lg-8 mb-5" id="standard">
               
               <div class="row form-group">
                 <div class="col-md-11 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname" id="standard">Title</label>
+                  <label class="font-weight-bold" for="fullname">Title</label>
                 </div>
                 
       	                  

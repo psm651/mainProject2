@@ -30,12 +30,12 @@
 
 	  <!-- SQL : INSERT -->
    	<insert    id="addDietSchedule"  parameterType="com.wthealth.domain.DietSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
-      	INSERT
-		INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , diet_sc_calorie, delete_status) 
-		VALUES	 (	seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , #{dietScDate}, #{mealTime}, #{dietScCalorie},'0' )
-      		<selectKey resultType="int" keyProperty ="dietScNo" order="AFTER">
-         		SELECT seq_diet_sc_diet_sc_no.currval FROM dual
-      		</selectKey>
+      INSERT
+      INTO diet_sc( diet_sc_no , user_id , diet_sc_date , meal_time , diet_sc_calorie, delete_status) 
+      VALUES    (   seq_diet_sc_diet_sc_no.NEXTVAL , #{userId} , #{dietScDate}, #{mealTime}, #{dietScCalorie},'0' )
+            <selectKey resultType="int" keyProperty ="dietScNo" order="AFTER">
+               SELECT seq_diet_sc_diet_sc_no.currval FROM dual
+            </selectKey>
       	</insert>
     
     

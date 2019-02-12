@@ -175,25 +175,23 @@ public class ScheduleController {
 		for (int j = 0; j < 53; j++) {
 			int exCal=0;
 			int dietCal=0;
-			System.out.println("큰FOR문 들어옴");
+
 			//exList
 			for (int i = 0; i < exList.size(); i++) {
-				System.out.println("111111FOR문 들어옴");
-				System.out.println("for문 안 주차"+now.get(now.WEEK_OF_YEAR ));
+			
 
 				now.setTime(sdf.parse(exList.get(i).getExScDate()));
-				System.out.println("히스토리차트 주차"+j);
+
 				if (j ==now.get(now.WEEK_OF_YEAR )) {
 					if (exList.get(i).getDeleteStatus().equals("0")) {
 						exCal+=exList.get(i).getExScCalorie();
-						System.out.println("히스토리차트 운동칼로리:::"+exCal);
+						
 					}
 				}
 			}
 			
 			//dietList
 			for (int i = 0; i < dietList.size(); i++) {
-				System.out.println("2222222222FOR문 들어옴");
 
 				now.setTime(sdf.parse(dietList.get(i).getDietScDate()));
 				if (j ==now.get(now.WEEK_OF_YEAR )) {
@@ -211,14 +209,11 @@ public class ScheduleController {
 			//System.out.println("dietCalList들어갔나55:::::"+dietCalList.get(5));
 			//System.out.println("dietCalList들어갔나66:::::"+dietCalList.get(6));
 			
-			System.out.println("exCal::::"+exCal+"dietCal"+dietCal);
 			
 			if (exCal>dietCal) {
 				averageCalList.add(j,-(exCal-dietCal));
-				System.out.println("if문 들어옴:::::"+exCal+"::::;"+dietCal);
 			}else {
 				averageCalList.add(j,dietCal-exCal);
-				System.out.println("else문 들어옴:::::"+exCal+"::::;"+dietCal);
 			}
 			
 			//System.out.println(j+"주차"+exCalList.get(j));

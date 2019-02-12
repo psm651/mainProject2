@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.domain.BMI;
@@ -91,7 +89,7 @@ public class CalculatorRestController {
         nutrition.setCalories(altMeasures);
         
         double weightGrames = nutrition.getServing_weight_grames();
-        
+        System.out.println(weightGrames);
         for(int i=0;i<altMeasures.size();i++){
         	Food food = new Food();
         	
@@ -99,10 +97,17 @@ public class CalculatorRestController {
         	String foodName = (String)nutrition.getFoodJSON().get("food_name"); 
         	
         	double serving_weight = Double.parseDouble(((JSONObject)altMeasures.get(i)).get("serving_weight").toString());
-        	String calorie =Double.toString(Math.floor((serving_weight/weightGrames)*nutrition.getCalories()));
-       
-	        food.setAmountFood(amountFood);
-	        food.setFoodName(foodName);
+        	String[] temp =(Double.toString(Math.floor((serving_weight/weightGrames)*nutrition.getCalories()))).split("\\.");
+        	String calorie = temp[0];
+        	
+/*        	param = "source=en&target=ko&text=" + URLEncoder.encode(amountFood,"UTF-8");
+    		translate = new PapaGo(param);*/
+    		food.setAmountFood(amountFood);
+        	param = "source=en&target=ko&text=" + URLEncoder.encode(foodName,"UTF-8");
+    		translate = new PapaGo(param);
+    		food.setFoodName(translate.getResultTranslate());
+	        
+	        
 	        food.setFoodCalorie(calorie);
 	        
 	        foodInfo.add(food);
