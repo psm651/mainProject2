@@ -190,14 +190,15 @@ public class ScheduleRestController {
 	}
 	
 	@RequestMapping(value="json/deleteDietSchedule/{dietScNo}", method=RequestMethod.GET)
-	public void deleteDietSchedule( @PathVariable("dietScNo") int dietScNo ) throws Exception{
+	public int deleteDietSchedule( @PathVariable("dietScNo") int dietScNo ) throws Exception{
 
 		System.out.println("/json/deleteDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		dietScheduleService.deleteDietSchedule(dietScNo);
 		// Model 占쏙옙 View 占쏙옙占쏙옙
+		int i = 1;
 		
-		
+		return i;
 	}
 	
 	@RequestMapping(value="json/deleteExSchedule/{exScNo}", method=RequestMethod.GET)

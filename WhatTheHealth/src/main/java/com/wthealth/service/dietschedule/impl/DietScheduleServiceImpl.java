@@ -65,7 +65,7 @@ public class DietScheduleServiceImpl implements DietScheduleService {
 
 	@Override
 	public void deleteDietSchedule(int dietScNo) throws Exception {
-		// TODO Auto-generated method stub
+		dietScheduleDao.deleteDietSchedule(dietScNo);
 		
 	}
 
