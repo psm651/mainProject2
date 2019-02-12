@@ -54,7 +54,7 @@
          alert("socketNo"+socketNo+"; biId ;"+bjId+"; userId ;"+ '${user.userId}');
   		 if( '${user.userId}'== bjId){
   			popWin 
-			= window.open("https://192.168.0.55:443/broadcast.html?nickName="+'${user.nickName}'+"&roomId="+socketNo,
+			= window.open("https://192.168.0.10:443/broadcast.html?nickName="+'${user.nickName}'+"&img="+'${user.userImage}'+"&roomId="+socketNo,
 										"popWin", 
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
@@ -62,7 +62,7 @@
   		//self.location = "https://192.168.0.55:443/broadcast.html?nickName="+'${user.nickName}'+"&roomId="+socketNo;
   		 }else{
   			popWin 
-			= window.open("https://192.168.0.55:443/index.html?nickName="+'${user.nickName}'+"&roomId="+socketNo,
+			= window.open("https://192.168.0.10:443/index.html?nickName="+'${user.nickName}'+"&img="+'${user.userImage}'+"&roomId="+socketNo,
 										"popWin", 
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");

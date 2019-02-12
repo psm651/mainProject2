@@ -376,7 +376,7 @@ public class UserController {
 			userService.updateUser(user);
 			System.out.println("°°À»¶§: "+user.getUserImage());
 		} else if(! uploadFile.getOriginalFilename().equals("")) {
-			String filePath = "C:\\Users\\Bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
+			String filePath = "C:\\Users\\bitcamp\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
 			File file = new File(filePath , uploadFile.getOriginalFilename());
 			uploadFile.transferTo(file); 
 			user.setUserImage(uploadFile.getOriginalFilename());
