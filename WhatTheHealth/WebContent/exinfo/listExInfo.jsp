@@ -6,9 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="ko">
-  <head>
-    <title>운동꿀팁 목록 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
@@ -18,8 +17,6 @@
     <link rel="stylesheet" href="/resources/css/jquery-ui.css">
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
@@ -35,21 +32,21 @@
     <script src="/resources/js/jquery.stellar.min.js"></script>
     <script src="/resources/js/jquery.countdown.min.js"></script>
     <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/bootstrap-datepicker.min.js"></script>
     <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>  
+    <script src="/resources/js/main.js"></script>
     
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     
-<!--   <link href="/css/animate.min.css" rel="stylesheet"> -->
-   <!-- <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
+    
   </head>
   
   <script type="text/javascript">
  
 
-   
-    function fncGetList(currentPage){
+  function fncGetList(currentPage){
 	   $("#currentPage").val(currentPage);
 	   $(".form-inline").attr("method", "POST").attr("action", "/exInfo/listExInfo").submit();
    } 
@@ -68,7 +65,7 @@
 
    //글쓰기
    $(function() {
-		$("a[href='#' ]").on("click" , function() {
+		$("#writeExinfo").on("click" , function() {
 			self.location = "/exinfo/addExInfo.jsp" 
 		});
 	});	
@@ -186,13 +183,14 @@
   <body>
 
    <div class="site-wrap">
+   
     <jsp:include page="/layout/toolbar.jsp" /> 
  
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
       </div>
       <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
+    </div>
     
 
     <div class="site-section">
@@ -202,7 +200,7 @@
    	  <hr/>
    	  
    	<c:if test="${sessionScope.user.role == 'admin'}">
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4" id="writeExinfo">글쓰기</a></p>
     </c:if>
     <form class="form-inline" name="detailForm">    
        	

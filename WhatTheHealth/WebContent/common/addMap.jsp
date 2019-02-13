@@ -466,12 +466,12 @@
 
   
       
-      if(${sessionScope.user.weight != null}){
+/*       if(${sessionScope.user.weight != null}){
     	  var userWeight = ${sessionScope.user.weight};
     	  var walkCalorie = (walkkTime/4)*0.9*userWeight;
     	  var runningCalorie = (runningTime/4)*2.0*userWeight;
     	  var bycicleCalorie =  (bycicleTime/4)*2.3*userWeight; 	    	  
-    	  
+    	   */
       // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
       content = '<ul class="dotOverlay distanceInfo">';
       content += '    <li>';
@@ -487,7 +487,7 @@
       content += '      자전거 칼로리 <span class="number">' + Math.round(bycicleCalorie) +'</span>Kcal'
       content += '    </li>';
       content += '</ul>'
-      }else if(${sessionScope.user.weight == null}){
+    /*  }else if(${sessionScope.user.weight == null}){
           content = '<ul class="dotOverlay distanceInfo">';
           content += '    <li>';
           content += '  	 총거리 <span class="number">' + distance + '</span>m';
@@ -496,7 +496,7 @@
           content += '  	<span> BMI 측정을 하셔야 칼로리 확인이 가능해요</span>';
           content += '    </li>';            
       }
-
+ */
 
       return content;
    }        

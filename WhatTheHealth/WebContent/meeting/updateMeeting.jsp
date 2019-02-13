@@ -353,7 +353,7 @@
 		   }
 		   
 		   function init() {
-		       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
+		       gapi.client.setApiKey("AIzaSyCoERlMwLDL5sRTSstqCCGPlhRL4ysGVQY");
 		       gapi.client.load("youtube", "v3", function() {
 		       });
 		   }

@@ -74,7 +74,7 @@
 					  }, // end of header
 				  
 					  success : function(data, status){
-						
+						alert(data)
 					 	var totalDisplay = "";
 						$("#appendFood").children("tbody").children("tr").remove();
 						
