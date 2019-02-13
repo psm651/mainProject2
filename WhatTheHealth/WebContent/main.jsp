@@ -376,8 +376,13 @@ body {
 		  		},
 		  		
 		  		success : function(data, status){
-		  			
+		  			console.log($(".weather-icon sun > h3" ).text())
+		  			console.log($(".weather-icon sun > span" ).text())
+		  			$("#temperature").text(data["weather"].temperature);
+		  			$("#currentWeather").text(data["weather"].currentWeather);
+		  			$("#cityName").text(data["weather"].cityName);
 		  		}
+		  		
 	  });//end of ajax
 	
   }
@@ -401,7 +406,7 @@ body {
 
             
              <div class="weather-card madrid" style="margin-left:10px;">
-				<div class="card-header" align="center" >${weather.cityName}
+				<div class="card-header" align="center" ><span id="cityName">${weather.cityName}</span>
 					<select name="cityID" class="cityID" onchange="cityChange(this)">
 						<option value="Busan,KR" 	style="font-size:20px;">부산</option>
 		  				<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
@@ -415,8 +420,8 @@ body {
 				</div> 
 			  
          		<div class="weather-icon sun"></div>
-       			 <strong><h3>${weather.temperature}℃</h3></strong>
-        		<span style="margin-left:10px;">${weather.currentWeather}</span>
+       			 <strong><h3 id="temperature">${weather.temperature}℃</h3></strong>
+        		<span id="currentWeather" style="margin-left:10px;">${weather.currentWeather}</span>
    			 </div>
    			 
    			 
