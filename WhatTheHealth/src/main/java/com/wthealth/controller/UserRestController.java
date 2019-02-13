@@ -259,7 +259,7 @@ public class UserRestController {
 		}
 	
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
-	public String login(@ModelAttribute("user") User user , HttpSession session, HttpServletResponse response ) throws Exception{
+	public String login(@RequestBody User user , HttpSession session, HttpServletResponse response ) throws Exception{
 		
 		System.out.println("/user/login : POST");
 		//Business Logic
@@ -299,10 +299,11 @@ public class UserRestController {
 			session.setAttribute("user", dbUser);
 			System.out.println("if문 들어왔나");
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			
+
 		}
 		
-		return "redirect:/";
+		//return "redirect:/";
+		return "555";
 	}
 	
 	

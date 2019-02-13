@@ -125,6 +125,7 @@
 			}
 				
 			//$("#loginForm").attr("method","POST").attr("action","/user/login").submit();
+			
 	
 				$.ajax( 
 						{
@@ -143,12 +144,26 @@
 								//alert(JSONData)
 								
 								if(JSONData == '111'){
-									alert("db에 없음");
+									alert("존재하지 않는 회원입니다.");
 								}
 								
 								if(JSONData == '222'){
-									alert("아이디 혹은 비밀번호 틀림")
+									alert("아이디 혹은 비밀번호가 틀렸습니다.")
 								}
+								
+								if(JSONData == '333'){
+									alert("탈퇴한 회원입니다.")
+								}
+								
+								if(JSONData == '444'){
+									alert("블랙리스트 처리된 회원입니다.")
+								}
+								
+								if(JSONData == '555'){
+									self.location = "/";
+								}
+								
+								
 							}	
 							
 							
