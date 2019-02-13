@@ -76,6 +76,24 @@
     	
     });
      
+    function imageClick(e){
+        //$("#user_image").on("click", function(){
+       	  
+       	  //var userId = $(this).data("paramid");
+       	 
+       	  var userId = e.getAttribute("paramid");			////잠깐 주석
+       	  //alert(userId);
+
+       	  popWin 
+    				= window.open("/user/getUserMeeting?userId="+userId,
+    											"popWin", 
+    											"left=300,top=200,width=1000%,height=700%,marginwidth=0,marginheight=0,"+
+    											"scrollbars=no,scrolling=no,menubar=no ");
+        // });
+        
+        } 
+    
+    
     //댓글 목록 
     function replyList(){
         $.ajax({
@@ -96,10 +114,10 @@
                 	a += '<div class="row" id="replyArea'+list.reReplyNo+'">';
                 	a += '<div  style="padding-left:0px; padding-right:0px; margin-top : 20px; ">';
                 	if(list.userImage != null && list.userImage != '' ){
-                	a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;" />';
+                		a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" paramid = "'+list.writerId+'" onclick = "imageClick(this);" style="border-radius: 100px;" />';
                 	}
                 	if(list.userImage == null ||list.userImage == '' ){
-                	a += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="45px" width="45px" id="user_image" style="border-radius: 100px;"/>';
+                		a += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="45px" width="45px" id="user_image" paramid = "'+list.writerId+'" onclick = "imageClick(this);" style="border-radius: 100px;"/>';
                 	}
                 	a += '</div>';
                 	a += '<div class="col-md-11" style="padding-right:0px">';
@@ -324,7 +342,7 @@
     <div class="container replyListHere">
         <div class="replyList"></div>
     </div>
-</div>
+<!-- </div> -->
 
 <!-- ////////////////////////////////////////////// 그냥 컨트롤러 //////////////////////////////////////////// -->
 <%--   <c:set var="i" value="0" />

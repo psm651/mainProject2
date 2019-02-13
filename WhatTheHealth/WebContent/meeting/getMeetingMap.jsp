@@ -31,6 +31,26 @@
 	   alert(${user.userId});
 	   alert(${meeting.post.userId});
    }); */
+   
+   $(document).ready(function() {
+       
+       // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+       var floatPosition = parseInt($("#floatMenu").css('top'));
+       // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+     
+       $(window).scroll(function() {
+          // 현재 스크롤 위치를 가져온다.
+          var scrollTop = $(window).scrollTop();
+          var newPosition = scrollTop + floatPosition + "px";
+     
+           
+          $("#floatMenu").stop().animate({
+             "top" : newPosition
+          }, 500);
+     
+       }).scroll();
+     
+    }); 
 
 
 
@@ -48,21 +68,21 @@
                         console.log(list.pressedStatus);
                         if(list.pressedStatus == '1'){
                            if(list.favoriteType == '0'){
-                              a += '<img src="../resources/images/fullHeart.png"  width="60px" class="likeImage" onclick="fullHeart()">';
+                              a += '<img src="../resources/images/fullHeart.png"  width="30px" class="likeImage" onclick="fullHeart()">';
                               $(".likeImage").remove();
                               
                            }else if(list.favoriteType == '1'){
                               $(".interestImage").remove();
-                              b += '<img src="../resources/images/fullStar.png" width="60px" class="interestImage" onclick="fullStar()" >';
+                              b += '<img src="../resources/images/fullStar.png" width="30px" class="interestImage" onclick="fullStar()" >';
                                
                            }
                         }
                    });
                     if(a != ''){
-                       $(".like").append(a); 
+                       $("#like").append(a); 
                     }
                     if(b != ''){
-                       $(".interest").append(b);
+                       $("#interest").append(b);
                     }
                }
            });
@@ -92,6 +112,8 @@
     
     } 
     
+    var likeCount = '${meeting.post.likeCount}';
+    
     function emptyHeart(){
       $.ajax({
             url : '/favorite/json/addLike/'+'${meeting.post.postNo}',
@@ -99,6 +121,9 @@
             success : function(data){
                 if(data == 1) {
                   favoriteList(); 
+                  likeCount++;
+                  //likeCount.attr('likeCount'); 
+                  $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                   }
                }            
             });
@@ -113,10 +138,14 @@
                   var a =''; 
                   
                    if(data == 1) {
-                      a += '<img src="../resources/images/emptyHeart.png"  width="60px" class="likeImage" onclick="emptyHeart()">';
+                      a += '<img src="../resources/images/emptyHeart.png"  width="30px" class="likeImage" onclick="emptyHeart()">';
                              $(".likeImage").remove();
-                     }
-                   $(".like").append(a); 
+                             likeCount--;
+                             //likeCount.attr('likeCount');
+                             
+                             $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
+                            }
+                          $("#like").append(a); 
                   }
                });
          }
@@ -142,10 +171,10 @@
                      var a =''; 
                      
                       if(data == 1) {
-                         a += '<img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">';
+                         a += '<img src="../resources/images/emptyStar.png"  width="30px" class="interestImage" onclick="emptyStar()">';
                                 $(".interestImage").remove();
                         }
-                      $(".interest").append(a); 
+                      $("#interest").append(a); 
                      }
                   });
             }
@@ -171,6 +200,9 @@
           $( "a[href='#' ]:contains('참여하기')").on("click", function(){
               self.location="/meeting/addJoin?meetNo=${meeting.meetNo}"
            });
+          $( "a[href='#' ]:contains('목록으로')").on("click", function(){
+                 self.location="/meeting/listMeeting"
+            });
           
          });
        
@@ -281,6 +313,137 @@
 }
 
 /* /////////////////////////////draggable///////////////////////// */
+/* 게시물 style */
+
+   #floatMenu {
+    border-radius : 15px;
+      position: absolute;
+      width: 15%;
+      height: 25.7vw;
+      /* height: 450px; */
+      /* right: 200px; */
+      right:20%; 
+      padding:1em;
+      margin:0;
+      bottom: 25px; 
+      text-align:center;
+      background-color: #DCDCDC;
+      font-size: 15px;
+      overflow: hidden;
+      background-image: url('/resources/images/wthLogo_white.png');
+      background-repeat: repeat;
+      background-size: 92px;
+  
+   }
+   
+   #innerMenu{
+   overflow: auto;
+   		background-color: rgba(255, 255, 255, 0.5);
+   		      padding:1em;
+   		    height: 18vw;
+   		    margin-bottom: 5px;
+   		     border-radius : 15px;
+   }
+   
+   #floatButton{
+   background-color: rgba(255, 255, 255, 0.7);
+   padding-top: 10px;
+   padding-bottom: 10px;
+    border-radius : 15px;
+   }
+   
+      .postHere{
+      /*    width: 63%; */
+         padding : 3em; 
+         border : 1px solid gray;
+         border-radius : 15px;
+         text-align : center;
+         margin-bottom : 5em;
+      }
+      
+      #map{
+         display : block;
+         float: center;
+      }
+      
+      .contents{
+         /* display : block; */
+         text-align : left;
+         font-size : 18px;
+      }
+      
+      .contents_meeting{
+         /* display : block; */
+         text-align : left;
+         font-size : 15px;
+         padding: 20px 20px 20px 20px;
+         border-top: 1.5px solid #DCDCDC;
+         border-bottom: 1.5px solid #DCDCDC;
+         margin-bottom: 15px;
+      }
+ 
+       .postHere li{
+         /* display : block; */
+         list-style-type : none;
+         float : left;
+      } 
+
+      .replyInclude{
+         text-align : left;
+      } 
+      
+      h4{
+         display: block;
+         font-size: 24px;
+       padding-bottom: 8px;
+       margin-bottom: 20px;
+       border-bottom: 2px solid #5d5d5d;
+       line-height: 1.3em;
+       color: #2e2e2e;
+       font-weight: 600;
+       text-align:left
+       
+      }       
+      
+    .likeandview{
+      border-bottom: 1px solid #DCDCDC; 
+      list-style-type: none; 
+      float: right; 
+      padding-left: 5px;  
+      color: gray; 
+      font-size: 15px; 
+    }
+          
+      .postImage{
+       width :110px;
+       height: 120px;
+     padding: 3px;
+       border : 1px solid gray;
+         
+      } 
+            
+      .imagelocation li{
+         width:230px;
+         hegiht:245px;
+         
+       padding-right: 0px;
+         padding-bottom: 0px;
+       padding-left: 0px;
+       list-style-type : none;
+
+      }
+      
+      .ytp-cued-thumbnail-overlay-image{
+         
+      }
+ 
+    .imagelocation{
+       margin-top:-104%;
+       margin-left:70%
+    }
+    .right{margin-left:37.7%;margin-top:-41%}      
+      
+
      </style> 
   
 </head>
@@ -299,25 +462,39 @@
        <div class="container"> 
      <div class="row"> 
         <!-- <div class="row align-items-center"> -->
-        <div class="col-md-12 col-lg-8 mb-5">
+        <div class="col-md-12 col-lg-9 mb-5">
           <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->
-          
-            <h4 class="mb-3"> 
-            <div class="row form-group">
-			 	<div class="col-md-10 mb-5 mb-md-0">
-             ${meeting.post.title}
-             </div>
-             <div class="col-md-2 mb-5 mb-md-0">
-            <a href="#" class="btn btn-primary pill px-4">참여하기</a>
-              </div>
-              </div>
-               </h4>
+          <div class="postHere"> 
+            <h4> 
+           <!--  <div class="row form-group">
+			 	<div class="col-md-10 mb-5 mb-md-0"> -->
+             <b>${meeting.post.title}</b>
+             <!-- </div>
+             <div class="col-md-2 mb-5 mb-md-0"> -->
             
-             <small>좋아요 수  : ${meeting.post.likeCount}</small> 
-             <small>조회 수 : ${meeting.post.clickCount}</small>       
+              <!-- </div>
+              </div> -->
+               </h4>
+    
+            <ul class="likeandview" >
+            <li><span>
+            <c:if test="${meeting.post.userImage != null and meeting.post.userImage != '' }">
+				<img src = "/resources/images/userImage/${meeting.post.userImage}" align="middle" height="30px"  width="30px"  id="user_image"  paramid ="${meeting.post.userId}" onclick = "imageClick(this);"/>
+			</c:if>
+			<c:if test="${meeting.post.userImage == null or meeting.post.userImage == '' }">
+			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image"   paramid ="${meeting.post.userId}"  onclick = "imageClick(this);"/>
+			</c:if>
+            <b>${meeting.post.nickName}</b>&nbsp;&nbsp; &nbsp;</span></li>
+                <li><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
+                <li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
+                <li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="23px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${meeting.post.clickCount}</b></span></li><!-- 조회수 이미지 -->
+             </ul>
+   			<br/><br/>
+   			
+   			<div class="contents_meeting">
              <div class="row form-group">
-			 	<div class="col-md-3 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">참가비</label>
+			 	<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname"><img src="/resources/images/fee.png"  width="17px;">&nbsp;참가비</label>
                   </div>
                   <div class="col-md-7 mb-5 mb-md-0">
                 	${meeting.entryfee}원
@@ -325,8 +502,8 @@
               </div> 
               
                   <div class="row form-group">
-                <div class="col-md-3 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">선금 </label>
+                <div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname"><img src="/resources/images/deposit.png"  width="17px;">&nbsp;선금 </label>
                    </div>         
                 <div class="col-md-7 mb-5 mb-md-0">
                 	${meeting.depoAmount}원
@@ -334,29 +511,29 @@
                 </div>    
                
                 <div class="row form-group">
-				<div class="col-md-3 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">선금계좌</label>
+				<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname"><img src="/resources/images/credit.png"  width="17px;">&nbsp;선금계좌</label>
                 </div>   
                 <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[은행명]</b>
+                	<b>[ 은행명 ]</b>
                 </div>    
                 <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.depoBank}
                 </div> 
                 <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[예금주]</b>
+                	<b>[ 예금주 ]</b>
                 </div>    
-                <div class="col-md-3 mb-5 mb-md-0">
+                <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.depoAccHolder}
                 </div> 
                   </div>
                   
                   <div class="row form-group">
-                  <div class="col-md-3 mb-5 mb-md-0">
+                  <div class="col-md-2 mb-5 mb-md-0">
                 
                 </div>   
                    <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[계좌번호]</b>
+                	<b>[ 계좌번호 ]</b>
                 </div> 
                 <div class="col-md-3 mb-5 mb-md-0">
                 	${meeting.depoAccount} 
@@ -364,119 +541,165 @@
                 </div>
                 
                 <div class="row form-group">
-				<div class="col-md-3 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">인원정원</label>
+				<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname"><img src="/resources/images/usergroup.png"  width="17px;">&nbsp;인원정원</label>
                 </div>   
                 <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[최소인원]</b>
+                	<b>[ 최소인원 ]</b>
                 </div>    
                 <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.minParty} 명
                 </div> 
                 <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[최대인원]</b>
+                	<b>[ 최대인원 ]</b>
                 </div>    
-                <div class="col-md-3 mb-5 mb-md-0">
+                <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.maxParty} 명
                 </div> 
                   </div>
                   
                   <div class="row form-group">
-				<div class="col-md-3 mb-5 mb-md-0">
-                  <label class="font-weight-bold" for="fullname">시간/장소</label>
+				<div class="col-md-2 mb-5 mb-md-0">
+                  <label class="font-weight-bold" for="fullname"><img src="/resources/images/promise.png"  width="17px;">&nbsp;시간/장소</label>
                 </div>   
                 <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[모임시간]</b>
+                	<b>[ 모임시간 ]</b>
+                </div>    
+                <div class="col-md-7 mb-5 mb-md-0">
+                	${meeting.meetTime}
+                </div>
+                </div>
+                
+                 <div class="row form-group">
+                <div class="col-md-2 mb-5 mb-md-0">  
+                
                 </div>    
                 <div class="col-md-2 mb-5 mb-md-0">
-                	${meeting.meetTime}
-                </div> 
-                <div class="col-md-2 mb-5 mb-md-0">
-                	<b>[모임장소]</b>
+                	<b>[ 모임장소 ]</b>
                 </div>    
                 <div class="col-md-3 mb-5 mb-md-0">
                 	${meeting.post.locationTagName}
                 </div> 
                   </div>
-                  
-                
-                 <p class="col-md-12 mb-4">${meeting.post.contents}</p>
-         
+                 </div> 
+                 
+                 <div class = "row"  >
+               	   <div class="col-md-12 mb-5"  align="center";> 
+              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "><b>참여하기</b></a>
+                   </div>
+               </div>
+                 
+                <div style="background-color:white; padding:2em;" > 
+            <div class="contents"  >
+                 <%-- <p class="col-md-12 mb-4">${meeting.post.contents}</p> --%>
+                 <p>${meeting.post.contents}</p>
+                 </div>
+          <!-- 다음맵지도 -->
                <c:if test="${meeting.post.coordinate!=null}">
+               <b style="font-size: 17px; float: left; border-bottom:2px solid #DCDCDC; padding-left: 10px; margin-top: 5px;"><img src="../resources/images/map/marker-480.png" width="25px"  style="opacity: 0.7">위치 &nbsp;</b>
+              <div style="float:center; background-color: #EDEDED; padding: 2em; padding-left:2.5em; border-radius:15px 50px;">
 	            	  <jsp:include page="/common/getMeetingMap.jsp" /> 
-               </c:if>
-            
-             <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite">
-                <div class="favoriteListHere">
-                   <div style="float: left; width: 33%;" class="like">
-                   <img src="../resources/images/emptyHeart.png" width="60px" class="likeImage" onclick="emptyHeart()">
-                   </div>
-                   <div style="float: left; width: 33%;" class="interest">
-                   <img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">
-                   </div>
-                   <div style="float: left; width: 33%;" class="claim">
-                   <img src="../resources/images/fullSiren.png"  width="60px" class="claimImage" onclick="fullSiren()">
-                   </div>
-                </div>
-                <c:if test = "${user.userId == meeting.post.userId}">
-
-            <p><a href="#" class="btn btn-primary pill px-4">수정</a>
-            <a href="#" class="btn btn-primary pill px-4">삭제</a></p>
-              </c:if >
+               </div>
+              </c:if>
               </div>
-        
-         
+              
+             
+              
+            
+            <div class = "row"  style="margin-top:20px; " >
+               	   <div class="col-md-8 mb-5" >
+               	    
+             <!--  <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:left;"><b>참여하기</b></a> -->
+      
+                   </div>
+               <c:if test = "${user.userId == meeting.post.userId}">
+             	  <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:left;"><b>수정</b></a>&nbsp;
+                    <a href="#" class="btn btn-primary pill px-4" style="font-size:13px; height: 30px; float:center;"><b>삭제</b></a>&nbsp;
+               </c:if> 
+                     <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:right;"><b>목록으로</b></a>
+               	
+               </div>
+            
+            <div class="row " >
+                <div class="col-md-3 mb-5" >
+                   </div>
+              
+                   <div  class="col-md-2 "  style="border: 3px solid #DCDCDC; border-radius : 15px;  padding: 7px;" id="like" >
+                   <img src="../resources/images/emptyHeart.png" width="30px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
+                   </div>
+                   <div class="col-md-2"   style="border: 3px solid #DCDCDC; border-radius : 15px;  padding: 7px;" id="interest">
+                   <img src="../resources/images/emptyStar.png"  width="30px" class="interestImage" onclick="emptyStar()">
+                   </div>
+                   <div  class="col-md-2"  style="border: 3px solid #DCDCDC; border-radius : 15px; padding: 7px;" id="claim">
+                   <img src="../resources/images/fullSiren.png"  width="30px" class="claimImage" onclick="fullSiren()">
+                   </div>
+                   <div class="col-md-3 mb-5" >
+                   </div>
+                  </div>
+ 
+         <!-- 댓글 추가추가  -->
+     
+          <div class="replyInclude">
+        	<!-- <div class="col-md-12 col-lg-9 mb-5"> -->
+         		 <jsp:include page="/reply/listReplyMeeting.jsp" />  
+           <!-- </div> -->
+          </div> 
+          <!-- 댓글 추가추가  끝 -->
               
            
-            
             </div>
-            <!-- 참여 리스트 추가추가  -->
-             <div class=" col-md-12 col-lg-4 mb-5" >
+            </div>
+            </div>
+             <div  id="floatMenu" >
+      <div id="innerMenu" style="font-weight: bold; text-align: center;">
+        <!-- 참여 리스트 추가추가  -->
+        
              <!-- <div class="row"> -->
-             <div class="col-md-12 mb-5" align="center"><h4>참여자 목록</h4></div>
+             <div style="background-color: #DCDCDC; margin-bottom: 10px; border-bottom: 2px solid #5d5d5d;"><b style="font-size:22px; ">참여자 목록</b></div>
             <!--  </div> -->
-             <div class="joinlist_container">
+             <div class="joinlist_container"  style="text-align:left;">
              <c:set var="i" value="0"/>
           <c:set var="i" value="${i+1}"/>
           <c:forEach var="join" items="${joinlist}"> 
             <div class="row">
-	  		
+	  		<div class="col-md-12" style="margin-bottom: 5px;">
 		
 	  		<c:if test="${join.partyImage != null and join.partyImage != '' }">
-			<div class="col-md-3"><img src = "/resources/images/userImage/${join.partyImage}" align="middle" height="60" id="user_image" paramid = "${join.partyId}" onclick = "imageClick(this);"/></div>
+			<img src = "/resources/images/userImage/${join.partyImage}"  height="45px"  width = "45px"   id="user_image" paramid = "${join.partyId}" onclick = "imageClick(this);"/>
 			</c:if>
 			
 			<c:if test="${join.partyImage == null or join.partyImage == '' }">
-			<div class="col-md-3"><img src = "/resources/images/userImage/defaultUser.png" align="middle" height="60" id="user_image" paramid = "${join.partyId}"  onclick = "imageClick(this);"/></div>
+			<img src = "/resources/images/userImage/defaultUser.png"  height="45px"  width = "45px"  id="user_image" paramid = "${join.partyId}"  onclick = "imageClick(this);"/>
 			</c:if>
-			
-			<div class="col-md-4 mb-5"><h4>${join.nickName}</h4></div>
-			
+			<span style="font-size:17px;">&nbsp;&nbsp; ${join.nickName}</span>
+			</div>
 			</div>
 			</c:forEach>
 			</div>
 			
 			<%-- <p align="center"><a onclick="javascript:location.href='https://192.168.0.55:6503/rtc_multi_me/index.html?nickName=${user.nickName}';"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p> --%>
-			<p align="center"><a onclick="videoChatting();"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p>
+			
+			 
+      </div>
+      <div id="floatButton">
+			<p align="center"><a onclick="videoChatting();"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:18px; height: 40px; "><b>화상채팅하기</b></a></p>
 			 
 			<!-- 채팅방 인클루드 -->
-			 <div class="row">
-			<div class="col-md-12"  >
-			<button type="button" class="btn btn-primary pill text-white px-4" id="getMeetingChat" data-param="${meeting.post.postNo}">채팅하기</button>
 			
-		   <%--  <%@ include file="/socket/groupChatting.jsp" %>  --%><!--  여기 댓글 수정하느라 주석-->
+			<div class="col-md-12"  >
+			<button type="button" class="btn btn-primary pill text-white px-4" id="getMeetingChat" data-param="${meeting.post.postNo}" style="font-size:18px; height: 40px; "><b>채팅하기</b></button>
+			
+		   <%--  <%@ include file="/socket/groupChatting.jsp" %>  --%>
 			</div> 
+			
 			</div> 
-			</div>
+	
+			<!-- 참여 리스트 추가추가  -->
+      </div>
+            
+			
             </div> 
-            <!-- 댓글 추가추가  -->
-     
-           <div class="row">
-        	<div class="col-md-12 col-lg-8 mb-5">
-         		 <jsp:include page="/reply/listReplyMeeting.jsp" />  
-           </div>
-          </div> 
-          <!-- 댓글 추가추가  끝 -->
+            
          
          </div> 
     

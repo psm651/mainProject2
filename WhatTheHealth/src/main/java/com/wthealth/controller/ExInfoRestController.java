@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,7 +54,7 @@ public class ExInfoRestController {
 	}
 	
 	@RequestMapping(value="json/listExInfoAd", method=RequestMethod.POST)
-	   public List<Post> listExInfoAd(@RequestBody Search search) throws Exception{
+	public List<Post> listExInfoAd(@RequestBody Search search) throws Exception{
 	      
 	      System.out.println("rest");
 	      if(search.getCurrentPage()==0) {
@@ -69,4 +70,11 @@ public class ExInfoRestController {
 	      return list;
 	   }
 	
+	@RequestMapping(value="json/getWeather/{cityName}", method=RequestMethod.GET)
+	public Map<String, Object> getWeather(@PathVariable String cityName) throws Exception{
+		
+		Map<String, Object> map = exInfoService.listWeatherRecom(cityName);
+		
+		return map;
+	}
 }

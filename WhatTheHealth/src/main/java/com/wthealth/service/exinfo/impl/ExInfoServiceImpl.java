@@ -104,7 +104,10 @@ public class ExInfoServiceImpl implements ExInfoService {
        
         //지역 출력
         String cityName = (String)jsonObj.get("name");
- 
+        cityName = cityName.replaceAll(" ", "");
+       
+
+
   
         //날씨 출력
         JSONArray weatherArray = (JSONArray) jsonObj.get("weather");

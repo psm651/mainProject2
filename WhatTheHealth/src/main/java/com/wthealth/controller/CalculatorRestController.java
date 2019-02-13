@@ -72,6 +72,7 @@ public class CalculatorRestController {
 	@RequestMapping(value = "json/getSearchFood/{searchFood}", method=RequestMethod.GET)
 	public List<Food> getSearchFood(@PathVariable String searchFood) throws Exception{
 
+		System.out.println(searchFood);
 		List<Food> foodInfo = new ArrayList<Food>();
 
 		//PapagoAPI Ko->En º¯È¯ 
@@ -111,12 +112,12 @@ public class CalculatorRestController {
 	        food.setFoodCalorie(calorie);
 	        
 	        foodInfo.add(food);
-	        System.out.println(foodInfo.get(i));
+	        
         }
+        System.out.println(foodInfo.size());
         
 		return foodInfo;
-	}
-	
+	}	
 	
 	@RequestMapping(value="json/addDietSchedule", method=RequestMethod.POST)
 	public void addDietSchedule(@RequestBody DietSchedule dietSchedule, HttpSession session) throws Exception{
