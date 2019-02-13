@@ -95,6 +95,28 @@
       
        });
     
+    
+   
+ 
+    $(function(){
+    	alert("여기");
+    	<c:set var="i" value="0"/>
+    		<c:forEach var = "join" items="${joinlist}">
+    		<c:set var="i" value="${i+1}"/>
+    	     console.log("여기여기여기");
+    	
+    		//for(let elem in item){
+    		//var partyId = item['partyId'];
+    		alert("${join.partyId}");
+			 if(${user.userId ==join.partyId}){
+				alert("여기");
+				$("#joinOrNot").remove();
+			} 
+    		//}
+    		</c:forEach>
+    	});
+  
+    
     function imageClick(e){
     //$("#user_image").on("click", function(){
    	  
@@ -477,15 +499,15 @@
                </h4>
     
             <ul class="likeandview" >
-            <li><span>
+            <li style="margin-bottom:5px;"><span >
             <c:if test="${meeting.post.userImage != null and meeting.post.userImage != '' }">
-				<img src = "/resources/images/userImage/${meeting.post.userImage}" align="middle" height="30px"  width="30px"  id="user_image"  paramid ="${meeting.post.userId}" onclick = "imageClick(this);"/>
+				<img src = "/resources/images/userImage/${meeting.post.userImage}" align="middle" height="30px"  width="30px"  id="user_image"   paramid ="${meeting.post.userId}" onclick = "imageClick(this);"/>
 			</c:if>
 			<c:if test="${meeting.post.userImage == null or meeting.post.userImage == '' }">
 			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image"   paramid ="${meeting.post.userId}"  onclick = "imageClick(this);"/>
 			</c:if>
             <b>${meeting.post.nickName}</b>&nbsp;&nbsp; &nbsp;</span></li>
-                <li><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
+                <li ><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
                 <li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
                 <li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="23px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${meeting.post.clickCount}</b></span></li><!-- 조회수 이미지 -->
              </ul>
@@ -583,9 +605,9 @@
                   </div>
                  </div> 
                  
-                 <div class = "row"  >
-               	   <div class="col-md-12 mb-5"  align="center";> 
-              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "><b>참여하기</b></a>
+                 <div class = "row"  id="joinOrNot" >
+               	   <div class="col-md-12 mb-5"  align="center"  > 
+              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "  ><b>참여하기</b></a>
                    </div>
                </div>
                  
@@ -665,7 +687,7 @@
 	  		<div class="col-md-12" style="margin-bottom: 5px;">
 		
 	  		<c:if test="${join.partyImage != null and join.partyImage != '' }">
-			<img src = "/resources/images/userImage/${join.partyImage}"  height="45px"  width = "45px"   id="user_image" paramid = "${join.partyId}" onclick = "imageClick(this);"/>
+			<img src = "/resources/images/userImage/${join.partyImage}"  height="45px"  width = "45px"  id="user_image"  paramid = "${join.partyId}" onclick = "imageClick(this);" />
 			</c:if>
 			
 			<c:if test="${join.partyImage == null or join.partyImage == '' }">
