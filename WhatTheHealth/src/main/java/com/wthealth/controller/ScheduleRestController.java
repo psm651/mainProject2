@@ -63,15 +63,15 @@ public class ScheduleRestController {
 	}
 	
 	@RequestMapping(value="json/addDietSchedule", method = RequestMethod.POST)
-	public DietSchedule addDietSchedule( @RequestBody DietSchedule dietSchedule ) throws Exception {
+	public DietSchedule addDietSchedule( @RequestBody DietSchedule dietSchedule, HttpSession session) throws Exception {
 
 		System.out.println("/schedule/json/dietSchedule : POST");
 		//Business Logic
-		DietSchedule dietSchedule1=new DietSchedule();
-		if (dietScheduleService.addDietSchedule(dietSchedule)==1) {
-			dietSchedule1=dietSchedule;
-		}
-	
+		dietSchedule.setUserId(((User)session.getAttribute("user")).getUserId());
+		DietSchedule dietSchedule1 = dietSchedule;
+		dietScheduleService.addDietSchedule(dietSchedule);
+
+		dietSchedule1=dietScheduleService.getDietSchedule(dietSchedule.getDietScNo());
 		
 		return dietSchedule1;
 		
@@ -102,7 +102,7 @@ public class ScheduleRestController {
 		System.out.println("나오나요~~~~~~~"+exSchedule.getExScNo());
 		
 		//exScheduleService.getExSchedule(exScNo);
-			exSchedule1=exScheduleService.getExSchedule(exSchedule.getExScNo());
+		exSchedule1=exScheduleService.getExSchedule(exSchedule.getExScNo());
 		
 		System.out.println("33333333333");
 

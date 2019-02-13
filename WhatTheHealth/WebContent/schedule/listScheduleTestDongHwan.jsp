@@ -8,6 +8,117 @@
 	<meta charset="UTF-8">
 
 <style>
+
+#delete{background-color: white}
+
+.selectTag{height:30px;margin-top:9px;}
+
+@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') 
+
+.funkyradio div {
+  clear: both;
+  overflow: hidden;
+}
+
+.funkyradio label {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.funkyradio input[type="radio"]:empty,
+.funkyradio input[type="checkbox"]:empty {
+  display: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label,
+.funkyradio input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label:before,
+.funkyradio input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #888;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked ~ label,
+.funkyradio input[type="checkbox"]:checked ~ label {
+  color: #777;
+}
+
+.funkyradio input[type="radio"]:checked ~ label:before,
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus ~ label:before,
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked ~ label:before,
+.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio-primary input[type="radio"]:checked ~ label:before,
+.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.funkyradio-success input[type="radio"]:checked ~ label:before,
+.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.funkyradio-danger input[type="radio"]:checked ~ label:before,
+.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.funkyradio-info input[type="radio"]:checked ~ label:before,
+.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5bc0de;
+}
+
+
 @import url(https://fonts.googleapis.com/css?family=Montserrat);	
   body {
     margin: 40px 10px;
@@ -231,22 +342,66 @@ html {
   
       			<form id="dietScheduleForm" class="form-horizontal">
           			<fieldset>
+          			
+          			<div class="form-group">
+          				<div class="col-md-12" id="showDietScDate"></div>
+          				<input type="hidden" id="dietScDate" value="">          			
+          			</div>
+          			
+          			
      				<div class="form-group">
      						<label class="control-label" for="dietScContents">	
-		                	<input type="text" class="form-control" id="searchFood" style="width:200%;height:37px;"placeholder="원하는 음식을 검색하세요"/>
+		                	<input type="text" class="form-control" id="searchFood" style="width:220%;height:37px;margin-left:-8%;"placeholder="원하는 음식을 검색하세요"/>
 		                	</label>
-		    				<button type="button" id="btn-searchFood" class="btn btn-danger" style="left:40%">
+		    				<button type="button" id="btn-searchFood" class="btn btn-danger" style="left:44%">
 		    				 <span class="icon-search mr-1" aria-hidden="true"></span> 
 		    				</button>
 		    		</div>
-		    		<div class="form-group">
-		    		  <label class="control-label" for="dietScContents">totalCalorie :</label>
-					  <strong><span id="dietCalorie"></span></strong>		    			
-		    		  
-		    		 </div>
-		        
-		        	
-					<button type="button" class="next action-button" id="nextSave" >Save</button> 
+		    		
+		    		
+		    		
+		    		<div class="form-group" id="standard">
+		    		  <div class="row" style="background:#ddd;">
+		    		  	<div class="col-md-9">
+		    		  		<label class="control-label" for="dietScContents" style="padding-top:7px;"><strong>TotalCalorie</strong></label>
+					  	</div>
+					  	<div class="col-md-3" style="padding-top:7px;">
+					  		<strong><span id="dietCalorie" style="color:#449d44"></span></strong>		
+					  	</div>	    			
+		    		  </div>
+		    		</div>
+		    		
+
+
+   
+    <div class="funkyradio">
+    
+     <div class="row">
+       <div class="col-md-4">
+        	<div class="funkyradio-danger">
+            	<input type="checkbox" name="checkbox" id="checkbox1" value="0"/>
+            	<label for="checkbox1">아침식단</label>
+        	</div>
+       </div>
+       
+       <div class="col-md-4"> 
+       		<div class="funkyradio-danger">
+        	    <input type="checkbox" name="checkbox" id="checkbox2" value="1"/>
+            	<label for="checkbox2">점심식단</label>
+        	</div>
+        </div>
+        
+        <div class="col-md-4"> 
+        	<div class="funkyradio-danger">
+            	<input type="checkbox" name="checkbox" id="checkbox3" value="2"/>
+            	<label for="checkbox3">저녁식단</label>
+        	</div>       
+		</div>
+		
+      </div>
+      </div>
+
+	     <button type="button" class="next action-button" id="dietScheduleSave" >Save</button> 
 					
 		         </fieldset>
   			</form>      	        	
@@ -344,6 +499,15 @@ html {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />  
 <!--  <script src='/resources/javascript/fullcalendar1.js'></script> --> 
 <script>
+
+$(document).ready(function(){
+	$('input[type="checkbox"][name="checkbox"]').click(function(){
+		if($(this).prop('checked')){
+			$('input[type="checkbox"][name="checkbox"]').prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	})
+})
 
 $('.action-button:contains("Save")').on('click', function(e){
 	  		$(".jquery-modal").hide();
@@ -574,7 +738,10 @@ var result = new Array();
 
 	});
 
+//food정보를 담을 map
 var foodMap = new Map();
+
+
 
 //칼로리 동적으로 처리를 위한 함수
 function changeCalorie(foodName){
@@ -583,6 +750,10 @@ function changeCalorie(foodName){
 	var temp = foodName+""
     var fn = temp.split("/")
 	var realFoodName = fn[1];
+	//totalcalorie
+	var totalCalorie = 0;
+
+	
 	
 	//amountFood
  	var servingSize = $('select[name="amountFood'+realFoodName+'"]').val();
@@ -601,11 +772,111 @@ function changeCalorie(foodName){
  		}
  	}
 	
-	$("span[name='foodCalorie"+realFoodName+"']").text(foodCalorie);
-	$("#dietCalorie").text(dietCalorie)
+ 	//음식 serving_size별 칼로리value 추가
+ 	$("span[name='foodCalorie"+realFoodName+"']").text(foodCalorie);
+ 	
+
+ 	//TotalCalorie value 추가
+ 	$('div[name="calStandard"]').find('span').each(function(i, e){
+     totalCalorie += parseInt($(this).text())
+	});
+
+ 	$("#dietCalorie").text(totalCalorie);
+	
+
+}
+
+
+function removeCalorie(foodName){
+
+	//realFoodName 생성
+	var temp = foodName+""
+    var fn = temp.split("/")
+	var realFoodName = fn[1];
+	
+	//removeFoodCalorie
+ 	var removeFoodCalorie = $("span[name='foodCalorie"+realFoodName+"']").text();
+	
+	var totalCalorie = parseInt($("#dietCalorie").text());
+		totalCalorie = totalCalorie-parseInt(removeFoodCalorie);
+		
+
+	$("#dietCalorie").text(totalCalorie); 
+	$("span[name='foodCalorie"+realFoodName+"']").parents("div[name='calStandard']").remove();
+	
+	removeMap(realFoodName)
+}
+
+//Map에 담긴 정보 삭제 
+function removeMap(realFoodName){
+ 	
+	for(var i=0;i<foodMap.size;i++){
+		foodMap.delete(realFoodName+""+i+"");				
+ 	}
+	console.log(foodMap)
+}
+
+//addDietSchedule 
+$(function(){
+	$('#dietScheduleSave').on('click', function(){
+		
+		var foodList = [];
+		
+		var foods = null;
+		
+		var mealTime = $('input[name="checkbox"]:checked').val();
+		var dietScCalorie = $('#dietCalorie').text();
+	
+		for(var i=0;i<=$('div[name="calStandard"]').length;i++){
+			foods = new Object(); 
+			var fn =$("strong[name='foodName']").eq(i).text();
+			foods.foodName =$("strong[name='foodName']").eq(i).text();
+			foods.amountFood = $("select[name='amountFood"+fn+"']").val();
+			foods.foodCalorie = $("span[name='foodCalorie"+fn+"']").text();
+			
+			foodList.push(foods)
+		 } 
 
 	
-}
+		
+		  	$.ajax(
+	    			{	url : '/schedule/json/addDietSchedule',
+	    				method : "POST",
+	    				dataType : "json",
+	    				headers : {
+	    					"Accept" : "application/json",
+	    					"Content-Type" : "application/json"
+	    				},
+	    				data: JSON.stringify({
+	   					 foodList : foodList, 
+						 dietScDate : $("#showDietScDate").text(), 
+						 mealTime : mealTime, 
+						 dietScCalorie : dietScCalorie	
+	    		          }),
+	    		          
+	    				success : function(JSONdata) {
+	    					console.log(JSONdata)
+	    				
+	    					var event={id:JSONdata.dietScNo , title: JSONdata.mealTime, start: JSONdata.dietScDate,  backgroundColor:'white', imageurl :"../resources/images/icons8-meal-48.png"};
+	        	   
+	    					$('#calendarr').fullCalendar( 'renderEvent', event, true); 
+	        	    		var s = new Date(JSONdata.dietScDate);
+	        				var d = s.getDay()+1;
+	          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONdata.dietScCalorie);
+	          				
+	          				$("#"+d).text('+'+addC+' kCal');
+	    				}
+	    			});
+
+		  	alert("등록완료")
+		});		
+		
+		
+	
+		
+		
+		
+	})
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -680,7 +951,9 @@ $(function() {
 		      displayEventTime: false, //시간안보이게
 		      
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
-
+		    	  var clickDate = date.format();
+		      	  $('#showDietScDate').text(clickDate);
+		      	  $('#dietScDate').val(clickDate);
 		    	  $("#dietSchedule").modal('show');
 		    	 
 		    	  $("#btn-searchFood").on("click", function(){
@@ -699,20 +972,27 @@ $(function() {
 		  					  }, // end of header
 		  				  
 		  					  success : function(data, status){
-		  						  alert(data)
+		  						  
 		  				
 		  						foodName = data[0].foodName;//api에서 가져온 음식명  
 					
 		  		
-		  						var foodNameTag = '<div class="form-group"><div class="row" style="height:15%;">';
-		  							foodNameTag += '<div class="col-md-4">';
-		  							foodNameTag	+= '<span><strong>'+foodName+'</strong></span>';
+		  						var foodNameTag = '<div class="row" name="calStandard" style="height:15%;">';
+		  							foodNameTag += '<div class="col-md-2">';
+		  							foodNameTag	+= '<div style="margin-top:12px;"><strong name="foodName">'+foodName+'</strong></div>';
 		  							foodNameTag += '</div>';
 		  							
-		  						var firstCalorieTag = '<div class="col-md-4">';		
+		  						var firstCalorieTag = '<div class="col-md-2" style="margin-top:12px;">';		
 		  							
-		  						var selectTag = '<div class="col-md-4">';
-		  							selectTag += '<select class="form-control" name="amountFood'+foodName+'" onchange="changeCalorie(/'+foodName+'/, this)">';
+		  						var selectTag = '<div class="col-md-5">';
+		  							selectTag += '<select class="form-control" id="selectTag" name="amountFood'+foodName+'" onchange="changeCalorie(/'+foodName+'/, this)">';
+		  						
+		  						var deleteTag = '<div class="col-md-2" style="margin-top:12px;">';		  					
+		  							deleteTag += '<a href="#" class="btn-delete-item" onclick="removeCalorie(/'+foodName+'/)">';
+		  							deleteTag += '<i class="icon-remove mr-3"></i>';	  							
+		  							deleteTag += '</a>';
+		  							deleteTag += '</div>';
+		  							
 		  						var display = ""
 		  						
 		  							
@@ -729,15 +1009,22 @@ $(function() {
 		  								display += '</select></div>';
 		  					  		}
 		  					  		if(index==0){
-		  					  			firstCalorieTag += '<strong><span name="foodCalorie'+foodName+'" style="color:#999">'+data[0].foodCalorie+'</span></strong></div></div></div>';
+		  					  			firstCalorieTag += '<strong><span class="foodCalorie" name="foodCalorie'+foodName+'" style="color:#999">'+data[0].foodCalorie+'</span> Cal</strong></div>';
 		  					  		}
 		  					  		
 		  						});
 		  						
-		  						var totalDisplay = foodNameTag + selectTag + display + firstCalorieTag + "<hr/>"
-		  						$('#nextSave').before(totalDisplay);
-		  					
-		  					
+		  						var totalDisplay = foodNameTag + selectTag + display + firstCalorieTag + deleteTag + "</div><hr/>"
+		  						$('#standard').before(totalDisplay);
+		  						
+		  						var totalCalorie = 0 ;  
+		  						if($('#dietCalorie').text()!=''){
+		  							var previousCal= $('#dietCalorie').text();
+		  							totalCalorie += parseInt(previousCal) + parseInt($('span[name="foodCalorie'+foodName+'"]').text()); 
+		  							$('#dietCalorie').text(totalCalorie);
+		  						}else{
+									$('#dietCalorie').text($('span[name="foodCalorie'+foodName+'"]').text())		  					
+		  						}
 		  				  }//end of success
 		  				
 		  				}); // end of ajax
