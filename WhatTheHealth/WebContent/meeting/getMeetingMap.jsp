@@ -24,6 +24,10 @@
     <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
+    
+    <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+    
    
    <script type="text/javascript">
    selfClose = 0;
@@ -90,10 +94,34 @@
     
    
     $(document).ready(function(){
+    	
        favoriteList(); 
        
       
        });
+    
+    
+   
+ 
+    $(function(){
+    	
+    	<c:set var="i" value="0"/>
+    		<c:forEach var = "join" items="${joinlist}">
+    		<c:set var="i" value="${i+1}"/>
+    	 
+    	
+    		//for(let elem in item){
+    		//var partyId = item['partyId'];
+    		
+			 if(${user.userId ==join.partyId}){
+			
+				$("#joinButton").remove();
+				$("#joinOrNot").append('<a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; " data-param="'+${join.joinNo}+'"><b>참여취소</b></a>');
+			} 
+    		//}
+    		</c:forEach>
+    	});
+  
     
     function imageClick(e){
     //$("#user_image").on("click", function(){
@@ -189,7 +217,8 @@
                                 "scrollbars=no,scrolling=no,menubar=no,resizable=no");
             }
        
-       
+       var joinNo = ''
+       var meetNo = ${meeting.meetNo};
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
                self.location="/meeting/updateMeeting?meetNo=${meeting.meetNo}"
@@ -198,11 +227,34 @@
                self.location="/meeting/deleteMeeting?meetNo=${meeting.meetNo}"
             });
           $( "a[href='#' ]:contains('참여하기')").on("click", function(){
+        	  swal(
+        				'참여 완료',
+        				'소모임 참여가 완료되었습니다.',
+        				'success'
+        				)
               self.location="/meeting/addJoin?meetNo=${meeting.meetNo}"
            });
           $( "a[href='#' ]:contains('목록으로')").on("click", function(){
                  self.location="/meeting/listMeeting"
             });
+          
+          $( "a[href='#' ]:contains('참여취소')").on("click", function(){
+        	  var joinNo = $(this).data("param");
+        	  //alert("소모임 참여가 취소되었습니다.");
+        	  swal(
+        				'취소 완료',
+        				'소모임 참여가 취소되었습니다.',
+        				'success'
+        				)
+              self.location="/meeting/deleteJoin?joinNo="+joinNo 
+              //$(".swal-button").attr('id', 'cancelConfirm');
+            		  
+         });
+          
+          /* $("#cancelConfirm").on("click", function(){
+        	  alert(joinNo);
+        	  self.location="/meeting/deleteJoin?joinNo="+joinNo 
+          }); */
           
          });
        
@@ -477,15 +529,15 @@
                </h4>
     
             <ul class="likeandview" >
-            <li><span>
+            <li style="margin-bottom:5px;"><span >
             <c:if test="${meeting.post.userImage != null and meeting.post.userImage != '' }">
-				<img src = "/resources/images/userImage/${meeting.post.userImage}" align="middle" height="30px"  width="30px"  id="user_image"  paramid ="${meeting.post.userId}" onclick = "imageClick(this);"/>
+				<img src = "/resources/images/userImage/${meeting.post.userImage}" align="middle" height="30px"  width="30px"  id="user_image"   paramid ="${meeting.post.userId}" onclick = "imageClick(this);"/>
 			</c:if>
 			<c:if test="${meeting.post.userImage == null or meeting.post.userImage == '' }">
 			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image"   paramid ="${meeting.post.userId}"  onclick = "imageClick(this);"/>
 			</c:if>
             <b>${meeting.post.nickName}</b>&nbsp;&nbsp; &nbsp;</span></li>
-                <li><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
+                <li ><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
                 <li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="25px"  style="opacity: 0.7">&nbsp;${meeting.post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
                 <li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="23px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${meeting.post.clickCount}</b></span></li><!-- 조회수 이미지 -->
              </ul>
@@ -584,8 +636,8 @@
                  </div> 
                  
                  <div class = "row"  >
-               	   <div class="col-md-12 mb-5"  align="center";> 
-              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "><b>참여하기</b></a>
+               	   <div class="col-md-12 mb-5"  align="center"   id="joinOrNot" > 
+              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "  id="joinButton"><b>참여하기</b></a>
                    </div>
                </div>
                  
@@ -665,7 +717,7 @@
 	  		<div class="col-md-12" style="margin-bottom: 5px;">
 		
 	  		<c:if test="${join.partyImage != null and join.partyImage != '' }">
-			<img src = "/resources/images/userImage/${join.partyImage}"  height="45px"  width = "45px"   id="user_image" paramid = "${join.partyId}" onclick = "imageClick(this);"/>
+			<img src = "/resources/images/userImage/${join.partyImage}"  height="45px"  width = "45px"  id="user_image"  paramid = "${join.partyId}" onclick = "imageClick(this);" />
 			</c:if>
 			
 			<c:if test="${join.partyImage == null or join.partyImage == '' }">
