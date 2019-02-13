@@ -83,18 +83,10 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/activity/listMyPost").submit();
+			$("form").attr("method" , "POST").attr("action" , "/meeting/listJoinedMeeting").submit();
 		}
 		
-		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
-		
+
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#pills-sunday-tab" ).on("click" , function() {
@@ -168,7 +160,9 @@
                
              </div>
              
+             <form class="form-inline" name="detailForm">
               <input type="hidden" id="currentPage" name="currentPage" value=""/>
+             </form>
    
         </div>
         
@@ -228,6 +222,9 @@
             </c:if>
             <c:if test="${meeting.depoStatus =='1'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">입금</div>
+            </c:if>
+            <c:if test="${meeting.depoStatus =='9'}">
+            <div class="col-sm-2 col-md-2 col-lg-2  text-center">선금없음</div>
             </c:if>
             
             

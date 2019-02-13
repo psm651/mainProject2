@@ -208,7 +208,9 @@
                
              </div>
              
+             <form class="form-inline" name="detailForm">
               <input type="hidden" id="currentPage" name="currentPage" value=""/>
+              </form>
    
         </div>
         

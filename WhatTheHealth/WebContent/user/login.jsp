@@ -124,11 +124,40 @@
 				return;
 			}
 				
-			$("#loginForm").attr("method","POST").attr("action","/user/login").submit();
-		}
-
-		
+			//$("#loginForm").attr("method","POST").attr("action","/user/login").submit();
+	
+				$.ajax( 
+						{
+							url : "/user/json/login" ,
+							method : "POST" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							data : JSON.stringify({
+								userId : id,
+								password: pw
+							}),
+							success : function(JSONData , status) {
+								//alert(JSONData)
+								
+								if(JSONData == '111'){
+									alert("db에 없음");
+								}
+								
+								if(JSONData == '222'){
+									alert("아이디 혹은 비밀번호 틀림")
+								}
+							}	
+							
+							
+				
+					});
+			}
 			
+		
+	
 			
 		$( function() {
 			

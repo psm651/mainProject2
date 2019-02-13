@@ -107,7 +107,7 @@ public class UserController {
 			out.println("<script>alert('존재하지 않는 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/";
+			return "../";
 			
 		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
 			System.out.println("일치하지않을때");
@@ -116,7 +116,7 @@ public class UserController {
 			out.println("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/";
+			return "../";
 			
 		}else if(dbUser.getUserStatus().equals("1")){
 			System.out.println("탈퇴회원");
@@ -125,7 +125,7 @@ public class UserController {
 			out.println("<script>alert('탈퇴한 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/";
+			return "../";
 			
 		}else if(dbUser.getUserStatus().equals("2")){
 			System.out.println("블랙리스트");
@@ -134,7 +134,7 @@ public class UserController {
 			out.println("<script>alert('블랙리스트 처리된 회원입니다.');</script>");
 			out.flush();
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
-			return "/";
+			return "../";
 			
 		}else if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
 			session.setAttribute("user", dbUser);
@@ -475,10 +475,10 @@ public class UserController {
 			PrintWriter out = response.getWriter();	 
 			out.println("<script>alert('회원님의 아이디는 "+dbUser.getUserId()+"입니다.');</script>");
 			out.flush();
-			return "/user/login.jsp";
+			return "/";
 			
 		}
-		return "/user/login.jsp";
+		return "/";
 	}
 	
 	
@@ -522,11 +522,11 @@ public class UserController {
 			PrintWriter out = response.getWriter();	 
 			out.println("<script>alert('임시 비밀번호가 이메일로 전송되었습니다.');</script>");
 			out.flush();
-			return "/user/login.jsp";
+			return "/";
 			
 		}
 		
-		return "/user/login.jsp";
+		return "/";
 	}
 	
 	public String RandomNum() {

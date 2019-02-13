@@ -83,17 +83,10 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/activity/listMyPost").submit();
+			$("form").attr("method" , "POST").attr("action" , "/reply/listMyReply").submit();
 		}
 		
-		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
+
 		
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -169,8 +162,10 @@
                
              </div>
              
+             <form class="form-inline" name="detailForm">
               <input type="hidden" id="currentPage" name="currentPage" value=""/>
-   
+   			</form>
+   			
         </div>
         
           <ul class="nav nav-pills tab-nav mb-4" id="pills-tab" role="tablist">

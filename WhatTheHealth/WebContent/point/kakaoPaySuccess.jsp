@@ -81,14 +81,14 @@
 			console.log("${ param.pg_token}");
 			console.log("${point}");
 				$("#success").on("click", function(){
-					self.location = "/point/kakaoPaySuccess?pg_token="+token
+					//self.location = "/point/kakaoPaySuccess?pg_token="+token
 					//self.location = "/point/listPoint"
-					/* popWin 
+					popWin 
 					= window.open("/point/kakaoPaySuccess?pg_token="+token,
 												"popWin", 
 												"left=300,top=200,width=600,height=600,marginwidth=0,marginheight=0,"+
-												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); */
-					///self.close();
+												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); 
+					self.close();
 				});
 			});
 		
