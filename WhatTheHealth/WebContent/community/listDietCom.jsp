@@ -9,32 +9,27 @@
     <title>식단 커뮤니티 목록 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <script src="/resources/js/jquery-3.3.1.min.js"></script>
+    
+    <link rel="stylesheet" href="/resources/css/style.css">
+   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+    
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
     
-    <script src="/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="/resources/js/jquery-ui.js"></script>
-    <script src="/resources/js/popper.min.js"></script>
-    <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/owl.carousel.min.js"></script>
-    <script src="/resources/js/jquery.stellar.min.js"></script>
-    <script src="/resources/js/jquery.countdown.min.js"></script>
-    <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>
-    
+       <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </head>
   
@@ -45,7 +40,8 @@
   		var postNo = $(this).data("param");
   		var blindStatus = $(this).data("blind");
   		if(blindStatus == '1'){
-  			alert('블라인드 처리된 게시물입니다.');
+  			//alert('블라인드 처리된 게시물입니다.');
+  			swal("블라인드 처리된 게시물입니다", "", "error");
   			return;
   		}
   		self.location = "/community/getCommunity?postNo="+postNo;
@@ -53,11 +49,13 @@
   });
   
    $(function() {
-		$("a[href='#' ]").on("click" , function() {
+		$("#addDietCom").on("click" , function() {
 			
 			if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
-				 alert("로그인이 필요한 서비스입니다.");
-				 self.location = "/" 
+				 //alert("로그인이 필요한 서비스입니다.");
+				  swal("회원만 이용 가능합니다", "로그인해주세요", "error");
+				  return;
+				 //self.location = "/" 
 			 } else if("${sessionScope.user}" != null){
 				self.location = "/community/addDietCom"	//UserId??????????
 			 }
@@ -101,21 +99,21 @@
                        
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
                   	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'">';
-                 	 appen += '<div class="image" style="width:400px; height:200px">';
+                 	 appen += '<div class="image" style="width:348px; height:200px">';
              
                   if(item["photo"]==null){
-              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;" >'; 	  
              	  }else if(item["photo"]!=null){
             	  	
              		 if(youtube!=-1){
-            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
             	  	 }else{
             	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
             	  }
               	}
              	  appen += '</div>';   
                   appen += '<div class="text col-md-8">';
-                  appen += '<h2 class="h3 text-black"><a href="#">'+item["title"]+'</a></h2>';
+                  appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
                   appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
                   appen += '<div class="userInfo">';
                  
@@ -176,7 +174,7 @@
       <div><h2>식단 커뮤니티 목록</h2></div> 
       <hr/>
  
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
+        <p align="right"><a href="#" align="right" id="addDietCom" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
         <br/>
         
         <!-- div : start -->
@@ -190,29 +188,30 @@
           		<!-- post-entry bg-white : start -->
             	<div class="post-entry bg-white box" data-param="${post.postNo}" data-blind="${post.blindStatus}">
             	<c:if test = "${post.blindStatus == '1'}">
-            		<img src = "/resources/images/blind.PNG" style="width:339px; height:320px">
+            		<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">
             	</c:if>
             	<c:if test = "${post.blindStatus == '0'}">
-              		<div class="image"  style="width:400px; height:200px">
+              		<div class="image"  style="width:348px; height:200px">
 	              		<c:if test="${empty post.photo}">
-	                    	<img  src="/resources/images/1111.jpg"  class="img-fluid">
+	                    	<img  src="/resources/images/1111.jpg"  class="img-fluid" width= "340;" height= "200;">
 	                	</c:if>
 	                	<c:set var="youtubeThumbnail" value="${post.photo}"/>
 	                 
 	                	<c:if test="${!empty post.photo}">
 		               		<c:choose>
 		               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-		               				<img src="${post.photo}" class="img-fluid" >
+		               				<img src="${post.photo}" class="img-fluid" width= "348px" height= "200;" >
 		               			</c:when>   
 		               			<c:otherwise>
-		               				<img src="/resources/images/upload/${post.photo}"  class="img-fluid">
+		               				<img src="/resources/images/upload/${post.photo}"  class="img-fluid" width= "348px" height= "200;">
 		               			</c:otherwise>            			
 		               		</c:choose>
 	                	</c:if>
               		</div>
               		
+              		<div class="row">
               		<div class="text col-md-8">
-                		<h2 class="h3"><a href="#">${post.title}</a></h2>
+                		<h5 class="h5"><a href="#">${post.title}</a></h5>
                 		<span class="text-uppercase date d-block mb-3">${post.postDate}</span>
                 		<div class="userInfo">
                 			<c:if test="${post.userImage != null and post.userImage != '' }">
@@ -233,6 +232,7 @@
  							<h5>${post.likeCount}</h5>
  						</div>
  					</div>
+ 					
  					</c:if>
               	</div>
               	<!-- post-entry bg-white : end -->

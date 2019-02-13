@@ -17,7 +17,9 @@
   <script src="/resources/js/jquery.countdown.min.js"></script>
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/aos.js"></script>
-   <script src="/resources/js/main2.js"></script>
+   <script src="/resources/js/main.js"></script>
+   
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 
   <!-- ---------- 모달 -------- -->
   
@@ -102,7 +104,8 @@
 		
 		 $(document).on("click", '#myschedule_toolbar', function() {
 			 if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
-				 alert("로그인이 필요한 서비스입니다.");
+				 //alert("로그인이 필요한 서비스입니다.");
+				 swal("회원만 이용 가능합니다.", "로그인해주세요", "error");
 				 /* self.location = "/" */
 			 } else if("${sessionScope.user}" != null){
 				self.location = "/schedule/listSchedule"	//UserId??????????

@@ -14,12 +14,15 @@
     padding: 0;
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
+    /* overflow-y:scroll; */
   }
 
   
 	* {margin: 0; padding: 0;}
 
 html {
+
+   overflow-y:scroll;
 	
 }
 
@@ -69,7 +72,7 @@ html {
 /*buttons*/
 #exScheduleForm .action-button, #exEventScheduleForm .action-button, #dietEventScheduleForm .action-button {
 	width: 100px;
-	background: #27AE60;
+	background: #f23a2e;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -78,8 +81,11 @@ html {
 	padding: 10px 5px;
 	margin: 10px 5px;
 }
+
+
+
 #exScheduleForm .action-button:hover, #exScheduleForm .action-button:focus, #exEventScheduleForm .action-button:hover, #exScheduleForm .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #f23a2e;
 }
 /*headings*/
 /* .fmodal-title {
@@ -275,8 +281,44 @@ html {
 
 
 <!---------------------- //dietModal ----------------------------->
-<div class="modal hide" id="dietEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel">
+
+
+<div class="modal hide" id="dietSchedule" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-80size" style="border:0px;">
+      <div class="modal-header" >식단 칼로리 등록</div>
       
+         <div class="modal-body">
+  
+               <form id="dietScheduleForm" class="form-horizontal">
+                   <fieldset>
+                 <div class="form-group">
+                       <label class="control-label" for="dietScContents">   
+                         <input type="text" class="form-control" id="searchFood" style="width:200%;height:37px;"placeholder="원하는 음식을 검색하세요"/>
+                         </label>
+                      <button type="button" id="btn-searchFood" class="btn btn-danger" style="left:40%">
+                       <span class="icon-search mr-1" aria-hidden="true"></span> 
+                      </button>
+                </div>
+                <div class="form-group">
+                   
+                
+                </div>
+              
+                 
+               <button type="button" class="next action-button" id="nextSave" >Save</button> 
+               
+               </fieldset>
+           </form>                    
+        
+      </div>
+    </div>
+  </div>
+</div>  
+
+
+<div class="modal hide" id="dietEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel">
+      <div class="container">
        <div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content modal-80size" style="border:0px;">
           
@@ -292,12 +334,19 @@ html {
 				</div>
 					 
 			<input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
-			</fieldset>	       
+			<div class="row">
+				<div class="col-md-4 text-center ">
+				</div>
+				<div class="col-md-4 text-center ">
  			<button type="button" class="next action-button" data-dismiss="modal" id="deleteDiet">Delete</button>
+ 			</div>
+ 			<div class="col-md-4 text-center ">
+ 			</div>
 <!--  			<button type="button" class="next action-button" >Update</button> 
- -->
-  
+ --></div>
+  </fieldset>	       
   </form>
+</div>
 </div>
 </div>
 </div>
@@ -664,11 +713,75 @@ $(function() {
 		      
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
 
+	               $("#dietSchedule").modal('show');
+	              
+	               $("#btn-searchFood").on("click", function(){
+	                  var searchFood = $("#searchFood").val();   
+	                 
+	                var foodName =""; 
+	                 $.ajax(
+	              
+	                       {
+	                         url : "/calculator/json/getSearchFood/"+searchFood ,
+	                         method : "GET" ,
+	                         header : {
+	                            "Accept" : "application/json",
+	                             "Content-Type" : "application/json"   
+	                      
+	                         }, // end of header
+	                      
+	                         success : function(data, status){
+	                            alert(data)
+	                    
+	                          foodName = data[0].foodName;//api에서 가져온 음식명  
+	               
+	              
+	                          var foodNameTag = '<div class="form-group"><div class="row" style="height:15%;">';
+	                             foodNameTag += '<div class="col-md-4">';
+	                             foodNameTag   += '<span><strong>'+foodName+'</strong></span>';
+	                             foodNameTag += '</div>';
+	                             
+	                          var firstCalorieTag = '<div class="col-md-4">';      
+	                             
+	                          var selectTag = '<div class="col-md-4">';
+	                             selectTag += '<select class="form-control" name="amountFood'+foodName+'" onchange="changeCalorie(/'+foodName+'/, this)">';
+	                          var display = ""
+	                          
+	                             
+	                          
+	                          $.each(data, function(index){
+	                           foods = new Object();
+	                           foods.amountFood = data[index].amountFood;
+	                           foods.foodCalorie = data[index].foodCalorie;
+	                    
+	                           foodMap.set(foodName+index, foods);
+	                           
+	                           display += '<option value="'+data[index].amountFood+'">'+data[index].amountFood+'</option>';
+	                               if(index==data.length-1){         
+	                                display += '</select></div>';
+	                               }
+	                               if(index==0){
+	                                  firstCalorieTag += '<strong><span name="foodCalorie'+foodName+'" style="color:#999">'+data[0].foodCalorie+'</span></strong></div></div></div>';
+	                               }
+	                               
+	                          });
+	                          
+	                          var totalDisplay = foodNameTag + selectTag + display + firstCalorieTag + "<hr/>"
+	                          $('#nextSave').before(totalDisplay);
+	                          
+	                       
+	                      }//end of success
+	                    
+	                    }); // end of ajax
+	               });
+		      
+		      /* dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
+
 		    	   	popWin 
 					= window.open("../calculator/scheduleCalorieCalculator.jsp",
 												"popWin", 
 												"left=100,top=200,width=1000,height=650,marginwidth=0,marginheight=0,"+
-												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); */
 		      
 
 		    	  /*  	var event={id:1 , title: 'New event', start:  date.format()};

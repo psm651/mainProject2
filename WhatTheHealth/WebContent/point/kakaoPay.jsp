@@ -28,8 +28,14 @@
 <script type="text/javascript" src="/js/v2/user_info.js?v=version"></script>
 <script type="text/javascript">
 	$(function(){
-		
+		/* popWin 
+		= window.open("${url}",
+									"popWin", 
+									"left=300,top=200,width=600,height=600,marginwidth=0,marginheight=0,"+
+									"scrollbars=no,scrolling=no,menubar=no,resizable=no"); */
 		self.location="${url}";
+		
+		//window.location.replace("${url}");
 		
 	});
 </script>

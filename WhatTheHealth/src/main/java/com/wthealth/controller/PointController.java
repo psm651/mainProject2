@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -206,7 +207,7 @@ public class PointController {
 		}
 	}
 	
-	@RequestMapping(value="kakaoPay")
+/*	@RequestMapping(value="kakaoPay")
 	public String kakaoPayReady(@RequestParam("userId") String userId,
 								@RequestParam("point") int point, Model model) throws Exception {
 		
@@ -215,11 +216,12 @@ public class PointController {
 		
 		String url = pointService.getPaymentReady(null, point);
 		model.addAttribute("point",point);
+		System.out.println("Ä«Ä«¿ÀÆäÀÌ url:::::::"+url);
 		
 		return "redirect:"+url;
-	}
+	}*/
 	
-	@RequestMapping(value="kakaoPaySuccess")
+	/*@RequestMapping(value="kakaoPaySuccess")
 	public String kakaoPayApprove(@RequestParam("pg_token") String pgToken, HttpSession session, Model model) throws Exception {
 		
 		System.out.println("Ä«Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
@@ -246,13 +248,53 @@ public class PointController {
 		// ï¿½ï¿½ï¿½ï¿½ quantity
 		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ approved_at
 		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ? created_at
-		/*
+		
 		 * approvedDate & point
-		 * */
+		 * 
 		//model.addAllAttributes(result);
 		model.addAttribute("result", result);
 		model.addAttribute("user", user);
 		model.addAttribute("point", pointService.getPoint(point.getPointNo()));
+		
+		return "redirect:/point/listPoint";
+		//return "forward:/point/kakaoPaySuccess?pg_token="+pgToken;
+	}*/
+	
+	
+	@RequestMapping(value="kakaoPay")
+	public String kakaoPayApprove(@RequestParam("point") int point, HttpSession session, Model model) throws Exception {
+		
+		System.out.println("Ä«Ä«¿À ÆäÀÌ °áÁ¦");
+		
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		
+		
+		//Map<String, Object> result = pointService.getPaymentApprove(null, pgToken);
+		System.out.println("111111111111111");
+		
+		Point addPoint = new Point();
+		addPoint.setUsingPoint(point);
+		addPoint.setSenderId(userId);
+		pointService.addPoint(addPoint);
+		System.out.println("222222222222222222");
+		System.out.println(point);
+		
+		User user = userService.getUser(userId);
+		user.setHavingPoint(point+user.getHavingPoint());
+		userService.updateHavingPoint(user);
+		session.setAttribute("user", user);
+		
+		// ï¿½ï¿½ï¿½ï¿½ amount.total && amout.vat (ï¿½Î°ï¿½ï¿½ï¿½)
+		// ï¿½ï¿½ï¿½ï¿½ quantity
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ approved_at
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ? created_at
+		/*
+		 * approvedDate & point
+		 * */
+		//model.addAllAttributes(result);
+		//model.addAttribute("result", result);
+		model.addAttribute("user", user);
+		model.addAttribute("point", pointService.getPoint(addPoint.getPointNo()));
 		
 		return "redirect:/point/listPoint";
 		//return "forward:/point/kakaoPaySuccess?pg_token="+pgToken;

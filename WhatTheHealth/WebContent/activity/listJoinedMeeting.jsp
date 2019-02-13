@@ -83,18 +83,10 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/activity/listMyPost").submit();
+			$("form").attr("method" , "POST").attr("action" , "/meeting/listJoinedMeeting").submit();
 		}
 		
-		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
-		
+
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#pills-sunday-tab" ).on("click" , function() {
@@ -133,20 +125,30 @@
 		 });
 		
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		 $(function() {
+		/*  $(function() {
 		
 			 $( "#title" ).on("click" , function() {
 				 
 					var meetNo = $(this).data("param1");
 					
-					 self.location ="/meeting/getMeeting?meetNo="+meetNo;
+					 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
 
 				});
 			
 		});	
+		 */
 		
-		
-		
+		 function getMeeting(e) {
+				
+				/* var category = $(this).data("param1");
+				var postNo = $(this).data("param2"); */
+				
+				var meetNo = e.getAttribute("param1");
+			
+				 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
+			
+			
+		};	
 	
 	</script>
 	
@@ -168,7 +170,9 @@
                
              </div>
              
+             <form class="form-inline" name="detailForm">
               <input type="hidden" id="currentPage" name="currentPage" value=""/>
+             </form>
    
         </div>
         
@@ -211,7 +215,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2" >${i}</div>
-            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" data-param1="${meeting.meetNo}" ><strong>${meeting.meetTitle}</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" param1="${meeting.meetNo}" onclick="getMeeting(this);" ><strong>${meeting.meetTitle}</strong></div>
             
             <c:if test="${meeting.joinStatus =='0'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">대기</div>
@@ -228,6 +232,9 @@
             </c:if>
             <c:if test="${meeting.depoStatus =='1'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">입금</div>
+            </c:if>
+            <c:if test="${meeting.depoStatus =='9'}">
+            <div class="col-sm-2 col-md-2 col-lg-2  text-center">선금없음</div>
             </c:if>
             
             

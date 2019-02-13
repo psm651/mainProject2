@@ -19,6 +19,7 @@
 		<result property="userImage" column="user_image" jdbcType="VARCHAR" />
 		<result property="likeCount" column="like_count" jdbcType="NUMERIC" />
 		<result property="pressedStatus" column="pressed_status" jdbcType="VARCHAR" />
+		<result property="postSubNo" column="post_sub_no" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<insert id="addLike" parameterType="com.wthealth.domain.Favorite">
@@ -62,14 +63,14 @@
 			AND f.favorite_type = #{favoriteType}
 	</select>
 	
- 	<select id="listMyInterest" resultMap="favoriteSelectMap" parameterType="com.wthealth.common.Search">
+ 	<select id="listMyInterest" resultMap="favoriteSelectMap" parameterType="map">
 		SELECT *
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-			FROM ( SELECT p.post_no, p.category, p.title, p.post_date
+			FROM ( SELECT p.post_no, p.category, p.title, p.post_date, p.post_sub_no, f.user_id, f.favorite_type
 				FROM favorite f, post p
 				WHERE f.post_no = p.post_no
 				AND f.favorite_type= '1'
-				AND f.user_id = #{userId} AND p.category != '4') inner_table 
+				AND f.user_id = #{userId} ) inner_table 
 		WHERE ROWNUM &lt;= #{search.endRowNum} )
 	</select> 
 	
@@ -86,11 +87,11 @@
 	
 	<select id="getTotalCountByUserId" parameterType="String" resultType="int">
 		SELECT COUNT(*)
-		FROM( SELECT p.post_no, p.category, p.title, p.post_date
+		FROM( SELECT p.post_no, p.category, p.title, p.post_date, p.post_sub_no, f.user_id, f.favorite_type
 				FROM favorite f, post p
 				WHERE f.post_no = p.post_no
 				AND f.favorite_type= '1'
-				AND f.user_id = #{userId} AND p.category != '4'
+				AND f.user_id = #{userId} 
 		) countTable
 	</select>
 	

@@ -175,7 +175,7 @@ public class MeetingController {
 			join.setJoinStatus("0");  //李몄뿬 ��湲곗긽�깭
 		}else {
 			join.setDepoStatus("9");  //�꽑湲덉뾾�쓬
-			join.setJoinStatus("0"); //李몄뿬�솗�젙�긽�깭
+			join.setJoinStatus("0");  //李몄뿬�솗�젙�긽�깭
 		};
 		
 		join.setMeetTime(meeting.getMeetTime());
@@ -199,7 +199,7 @@ public class MeetingController {
 		System.out.println("/deleteJoin: GET");
 		meetingService.deleteJoin(joinNo);
 		
-		return "forward:/joinNo/listJoin"; //forward..?
+		return "redirect:/meeting/listMeeting"; //forward..?
 	}
 	
 	@RequestMapping(value="listMeeting")
@@ -232,8 +232,9 @@ public class MeetingController {
 	      }
 	      search.setPageSize(pageSize);
 	      User user = (User)session.getAttribute("user");
+	      String userId = user.getUserId();
 	      
-	      Map<String , Object> map=meetingService.listJoinedMeeting(search, user.getUserId());
+	      Map<String , Object> map=meetingService.listJoinedMeeting(search, userId);
 	      
 	      Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 	      System.out.println(resultPage);

@@ -258,6 +258,50 @@ public class UserRestController {
 			return 1;
 		}
 	
+	@RequestMapping( value="json/login", method=RequestMethod.POST )
+	public String login(@RequestBody User user , HttpSession session, HttpServletResponse response ) throws Exception{
+		
+		System.out.println("/user/login : POST");
+		//Business Logic
+		System.out.println("아이디:"+user.getUserId());
+		User dbUser=userService.getUser(user.getUserId());
+		
+		System.out.println("로그인 왜안돼:"+dbUser);
+		System.out.println(user.getPassword());
+		/*System.out.println(dbUser.getPassword());
+		System.out.println(dbUser.getUserStatus());
+		*/
+		if(dbUser==null){	
+			System.out.println("db에 없을 때");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "111";
+			
+		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
+			System.out.println("일치하지않을때");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "222";
+			
+		}else if(dbUser.getUserStatus().equals("1")){
+			System.out.println("탈퇴회원");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "333";
+			
+		}else if(dbUser.getUserStatus().equals("2")){
+			System.out.println("블랙리스트");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+			return "444";
+			
+		}else if( user.getPassword().equals(dbUser.getPassword())&& dbUser.getUserStatus().equals("0")){
+			session.setAttribute("user", dbUser);
+			System.out.println("if문 들어왔나");
+			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
+
+		}
+		
+		//return "redirect:/";
+		return "555";
+	}
+	
 	
 	//////////////////////////안드로이드///////////////////////////////////////
 	@RequestMapping(value = "json/getUser/{userId}")

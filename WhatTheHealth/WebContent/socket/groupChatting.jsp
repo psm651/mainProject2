@@ -307,7 +307,7 @@ body{
 <!-- -----------------메뉴바----------------- -->
 
   
-<script src="http://192.168.0.43:3000/socket.io/socket.io.js"></script>
+<script src="http://192.168.0.37:3000/socket.io/socket.io.js"></script>
  <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 
   <script>
@@ -316,7 +316,7 @@ body{
   		var targetName = '';
   		var incomingid = '';
   		
-  		 var socket = io("http://192.168.0.43:3000");
+  		 var socket = io("http://192.168.0.37:3000");
   		
   		
   		
@@ -400,14 +400,14 @@ body{
         	//var socket = io("http://192.168.0.10:3000");
            
             
-            socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${postNo}"});
+            socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}"});
           	
             socket.emit("in_msg", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}"});
             
             socket.emit("out_msg", {id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}"});
             
            	//socket.emit("kickout", {targetName :targetName, roomId : "${roomId}"});
-            socket.emit("user_list",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId :"${postNo}"});
+            //socket.emit("user_list",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId :"${roomId}"});
  
             //msg에서 키를 누를떄
             $(".write_msg").keydown(function(key) {
@@ -447,7 +447,7 @@ body{
                     //$(".incoming_msg").empty();
              
                     
-            	    // $("#chatContext").remove();
+            	   // $(".msg_history").empty();
             	   
               		if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
                      	console.log("111111")
@@ -562,12 +562,13 @@ body{
             })
             
             socket.on('in_msg', function(msg) {
-            	
+            	$(".msg_history").empty();
             	//$(".outgoing_msg").empty();
                // $(".incoming_msg").empty();
             
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
+                
                 
             })
             

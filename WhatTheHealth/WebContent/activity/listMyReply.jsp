@@ -83,17 +83,10 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/activity/listMyPost").submit();
+			$("form").attr("method" , "POST").attr("action" , "/reply/listMyReply").submit();
 		}
 		
-		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
+
 		
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -125,7 +118,7 @@
 		 });
 		
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		 $(function() {
+		/*  $(function() {
 		
 			 $( "#title" ).on("click" , function() {
 					
@@ -144,9 +137,26 @@
 					
 				});
 			
-		});	
+		});	 */
 		
-		
+		 function getReplyPost(e) {
+				
+				/* var category = $(this).data("param1");
+				var postNo = $(this).data("param2"); */
+				
+				var category = e.getAttribute("param1");
+				var postNo = e.getAttribute("param2");
+				
+				if(category == '1'){
+				 self.location ="/exinfo/getExInfo?postNo="+postNo;
+				} else if(category == '2'){
+				 self.location ="/community/getCommunity?postNo="+postNo;
+				} else if(category == '3'){
+				 self.location ="/community/getCommunity?postNo="+postNo;
+				} 
+			
+			
+		};	
 		
 	
 	</script>
@@ -169,8 +179,10 @@
                
              </div>
              
+             <form class="form-inline" name="detailForm">
               <input type="hidden" id="currentPage" name="currentPage" value=""/>
-   
+   			</form>
+   			
         </div>
         
           <ul class="nav nav-pills tab-nav mb-4" id="pills-tab" role="tablist">
@@ -211,7 +223,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2">${i}</div>
-			<div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" data-param1="${reply.category }" data-param2="${reply.postNo }" id="title">${reply.postTitle}</div> 
+			<div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" param1="${reply.category }" param2="${reply.postNo }" id="title" onclick="getReplyPost(this);">${reply.postTitle}</div> 
             <div class="col-sm-2 col-md-2 col-lg-4 text-center"><strong>${reply.text }</strong></div>
             <div class="col-sm-2 col-md-2 col-lg-2">${reply.replyDate }</div>    
               </div>

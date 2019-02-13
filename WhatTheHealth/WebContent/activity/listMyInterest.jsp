@@ -83,17 +83,10 @@
 		//=============    검색 / page 두가지 경우 모두  Event  처리 =============	
 		function fncGetPageList(currentPage) {
 			$("#currentPage").val(currentPage)
-			$("form").attr("method" , "POST").attr("action" , "/activity/listMyPost").submit();
+			$("form").attr("method" , "POST").attr("action" , "/activity/listMyInterest").submit();
 		}
 		
 		
-		//============= "검색"  Event  처리 =============	
-		 $(function() {
-			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button.btn.btn-default" ).on("click" , function() {
-				fncGetPageList(1);
-			});
-		 });
 		
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -125,7 +118,7 @@
 		 });
 		
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		$(function() {
+		/* $(function() {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#title" ).on("click" , function() {
@@ -145,48 +138,29 @@
 			
 		});	
 		
-		//============= userId 에 회원정보보기  Event  처리 (double Click)=============
-		 $(function() {
-			 
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$(  "td:nth-child(5) > i" ).on("click" , function() {
-
-					var userId = $(this).next().val();
-				
-					$.ajax( 
-							{
-								url : "/user/json/getUser/"+userId ,
-								method : "GET" ,
-								dataType : "json" ,
-								headers : {
-									"Accept" : "application/json",
-									"Content-Type" : "application/json"
-								},
-								success : function(JSONData , status) {
-
-									var displayValue = "<h6>"
-																+"아이디 : "+JSONData.userId+"<br/>"
-																+"이  름 : "+JSONData.userName+"<br/>"
-																+"이메일 : "+JSONData.email+"<br/>"
-																+"ROLE : "+JSONData.role+"<br/>"
-																+"등록일 : "+JSONData.regDate+"<br/>"
-																+"</h6>";
-									$("h6").remove();
-									$( "#"+userId+"" ).html(displayValue);
-								}
-						});
-						////////////////////////////////////////////////////////////////////////////////////////////
-					
-			});
+		 */
+		function getInterest(e) {
 			
-			//==> userId LINK Event End User 에게 보일수 있도록 
-			$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-			$("h7").css("color" , "red");
+			/* var category = $(this).data("param1");
+			var postNo = $(this).data("param2"); */
 			
-			//==> 아래와 같이 정의한 이유는 ??
-			$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
-		});	
-	
+			var category = e.getAttribute("param1");
+			var postNo = e.getAttribute("param2");
+			var meetNo = e.getAttribute("param3").substring(2);
+			//alert(e.getAttribute("param3"));
+			
+			if(category == '1'){
+			 self.location ="/exInfo/getExInfo?postNo="+postNo;
+			} else if(category == '2'){
+			 self.location ="/community/getCommunity?postNo="+postNo;
+			} else if(category == '3'){
+			 self.location ="/community/getCommunity?postNo="+postNo;
+			}  else if(category == '4'){
+			 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
+			}  
+		
+	};	
+		
 	</script>
 	
 
@@ -207,7 +181,10 @@
                
              </div>
              
+             <form class="form-inline" name="detailForm">
               <input type="hidden" id="currentPage" name="currentPage" value=""/>
+             </form>
+   
    
         </div>
         
@@ -262,7 +239,7 @@
             <div class="col-sm-2 col-md-2 col-lg-2 text-center">소모임</div>
             </c:if>
 	
-            <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center" data-param1="${interest.category }" data-param2="${interest.postNo }" id="title"><strong>${interest.title }</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center" param1="${interest.category }" param2="${interest.postNo }" param3="${interest.postSubNo }" id="title" onclick="getInterest(this);"><strong>${interest.title }</strong></div>
             <div class="col-sm-2 col-md-2 col-lg-2">${interest.postDate }</div>    
               </div>
             </div>
