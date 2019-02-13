@@ -273,25 +273,21 @@ public class UserRestController {
 		*/
 		if(dbUser==null){	
 			System.out.println("db에 없을 때");
-		
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
 			return "111";
 			
 		}  else if( ! user.getPassword().equals(dbUser.getPassword())){
 			System.out.println("일치하지않을때");
-		
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
 			return "222";
 			
 		}else if(dbUser.getUserStatus().equals("1")){
 			System.out.println("탈퇴회원");
-			
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
 			return "333";
 			
 		}else if(dbUser.getUserStatus().equals("2")){
 			System.out.println("블랙리스트");
-			
 			System.out.println("세션에 들어갔나: "+session.getAttribute("user"));
 			return "444";
 			

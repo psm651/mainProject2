@@ -131,7 +131,7 @@
 				 
 					var meetNo = $(this).data("param1");
 					
-					 self.location ="/meeting/getMeeting?meetNo="+meetNo;
+					 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
 
 				});
 			

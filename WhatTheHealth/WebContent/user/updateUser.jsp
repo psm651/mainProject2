@@ -21,7 +21,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css">
     
-    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
     
 	<!-- include libraries(jQuery, bootstrap) -->
 <!-- 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -85,7 +85,8 @@
 				 var email=$("input[name='email']").val();
 			    
 				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
+			    	//alert("이메일 형식이 아닙니다.");
+			    	swal("이메일 형식이 아닙니다", "이메일을 확인해주세요", "error");
 			     }
 			});
 			 
@@ -142,12 +143,14 @@
 			var checkNickname = document.getElementById('checkNickname').style.color;
 			
 			if(nickName == null || nickName.length <1){
-				alert("닉네임은  반드시 입력하셔야 합니다.");
+				//alert("닉네임은  반드시 입력하셔야 합니다.");
+				swal("닉네임을 입력해주세요", "닉네임은 반드시 입력해야 합니다", "error");
 				return;
 			}
 			
 			if( pw != pw_confirm ) {				
-				alert("비밀번호 확인이 일치하지 않습니다.");
+				//alert("비밀번호 확인이 일치하지 않습니다.");
+				swal("비밀번호를 확인해주세요", "비밀번호 확인이 일치하지 않습니다", "error");
 				$("input:text[name='password2']").focus();
 				$("#checkPW").css("color","red")
 				return;
@@ -159,11 +162,12 @@
 			}
 			
 			if(checkNickname == 'red'){
-				alert("이미 존재하는 닉네임입니다.")
+				//alert("이미 존재하는 닉네임입니다.")
+				swal("이미 존재하는 닉네임입니다", "다른 닉네임을 입력해주세요", "error");
 				return;
 			}
 	
-				
+			swal("수정이 완료되었습니다", "", "success");	
 			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
 		}
 	

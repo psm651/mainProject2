@@ -11,6 +11,8 @@
 	
 <head>
 	<meta charset="UTF-8">
+	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 <!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -113,13 +115,15 @@
 			var pw=$("#modalPassword").val();
 				
 			if(id == null || id.length <1) {
-				alert('아이디를 입력하지 않으셨습니다.');
+				swal("아이디를 입력해주세요", "", "error");
+				//alert('아이디를 입력하지 않으셨습니다.');
 				$("#modalUserId").focus();
 				return;
 			}
 				
 			if(pw == null || pw.length <1) {
-				alert('패스워드를 입력하지 않으셨습니다.');
+				swal("비밀번호를 입력해주세요", "비밀번호를 입력하지 않으셨습니다", "error");
+				//alert('패스워드를 입력하지 않으셨습니다.');
 				$("#modalPassword").focus();
 				return;
 			}
@@ -144,19 +148,23 @@
 								//alert(JSONData)
 								
 								if(JSONData == '111'){
-									alert("존재하지 않는 회원입니다.");
+									//alert("존재하지 않는 회원입니다.");
+									swal("존재하지 않는 회원입니다", "회원가입을 먼저 진행해주세요", "error");
 								}
 								
 								if(JSONData == '222'){
-									alert("아이디 혹은 비밀번호가 틀렸습니다.")
+									swal("아이디 혹은 비밀번호가 틀렸습니다", "아이디 혹은 비밀번호를 다시 확인해주세요", "error");
+									//alert("아이디 혹은 비밀번호가 틀렸습니다.")
 								}
 								
 								if(JSONData == '333'){
-									alert("탈퇴한 회원입니다.")
+									swal("탈퇴한 회원입니다", "아이디 혹은 비밀번호를 다시 확인해주세요", "error");
+									//alert("탈퇴한 회원입니다.")
 								}
 								
 								if(JSONData == '444'){
-									alert("블랙리스트 처리된 회원입니다.")
+									swal("블랙리스트 처리된 회원입니다", "아이디 혹은 비밀번호를 다시 확인해주세요", "error");
+									//alert("블랙리스트 처리된 회원입니다.")
 								}
 								
 								if(JSONData == '555'){
@@ -165,9 +173,7 @@
 								
 								
 							}	
-							
-							
-				
+
 					});
 			}
 			

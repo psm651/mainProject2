@@ -47,7 +47,9 @@
 	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
 	  <script src="/resources/js/aos.js"></script>
 	
-	  <script src="/resources/js/main.js"></script>
+	  <script src="/resources/js/main.js"></script>\
+	  
+	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<!-- <style>
@@ -192,7 +194,7 @@
 			    var properJsonObj = jQFormSerializeArrToJson(params);
  
 			    alert(JSON.stringify(properJsonObj));
-		        $.ajax({
+		       	 $.ajax({
 		            url : "/user/json/addSNSUser",
 		            method : "POST" ,
 		            data : JSON.stringify(properJsonObj),
@@ -203,6 +205,7 @@
 		        				}, 
 		            success : function(data){
 		                if(data == 1) {
+		                	swal("가입이 완료되었습니다", "", "success");
 		                    self.close(); //댓글 작성 후 댓글 목록 reload
 		                    opener.location.replace("/");
 		                }
