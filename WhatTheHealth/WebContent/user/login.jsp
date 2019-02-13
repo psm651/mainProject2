@@ -13,6 +13,7 @@
 	<meta charset="UTF-8">
 	
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+	<script src="/resources/js/bootstrap.min.js"></script>
 
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 <!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />

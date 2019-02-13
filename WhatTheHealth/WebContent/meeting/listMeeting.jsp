@@ -9,36 +9,29 @@
     <title>소모임 목록 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <script src="/resources/js/jquery-3.3.1.min.js"></script>
+    
+    <link rel="stylesheet" href="/resources/css/style.css">
+   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+    
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
-    
-    <script src="/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="/resources/js/jquery-ui.js"></script>
-    <script src="/resources/js/popper.min.js"></script>
-    <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/owl.carousel.min.js"></script>
-    <script src="/resources/js/jquery.stellar.min.js"></script>
-    <script src="/resources/js/jquery.countdown.min.js"></script>
-    <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>
-    
+   
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+       <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
- 
   </head>
-  
   <script type="text/javascript">
  	
    $(function(){
@@ -50,7 +43,14 @@
   
    $(function() {
 		$("#addMeeting").on("click" , function() {
-			self.location = "/meeting/addMeeting";
+			if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
+				 //alert("로그인이 필요한 서비스입니다.");
+				 //self.location = "/" 
+				swal("회원만 이용 가능합니다", "로그인해주세요", "error");
+				 return;
+			 } else if("${sessionScope.user}" != null){
+				self.location = "/meeting/addMeeting"	//UserId??????????
+			 }
 		});
 	});	
    
@@ -94,21 +94,21 @@
 	                       
 	                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
 	                  	 appen += '<div class="post-entry bg-white" data-param="'+item.post["postNo"]+'">';
-	                 	 appen += '<div class="image" style="width:400px; height:200px">';
+	                 	 appen += '<div class="image" style="width:348px; height:200px">';
 	             
 	                  if(item.post["photo"]==null){
-	              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+	              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
 	             	  }else if(item.post["photo"]!=null){
 	            	  	
 	             		 if(youtube!=-1){
-	            	  	 appen += '<img src="'+item.post["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+	            	  	 appen += '<img src="'+item.post["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
 	            	  	 }else{
 	            	  	 appen += '<img src="/resources/images/upload/'+item.post["photo"]+'" class="img-fluid">';  
 	            	  	}
 	              	  }
 	             	  appen += '</div>';   
 	                  appen += '<div class="text col-md-8">';
-	                  appen += '<h2 class="h3 text-black"><a href="#">'+item.post["title"]+'</a></h2>';
+	                  appen += '<h5 class="h5 text-black"><a href="#">'+item.post["title"]+'</a></h5>';
 	                  appen += '<span class="text-uppercase date d-block mb-3"><small>'+item.post["postDate"]+'</small></span>';
 	                  appen += '<div class="userInfo">';
 	                 
@@ -190,25 +190,28 @@
           
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white box" data-param="${meeting.meetNo}">
-              <div class="image"  style="width:400px; height:200px">
+              <div class="image"  style="width:348px; height:200px">
               	<c:if test="${empty meeting.post.photo}">
-                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
+                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
                 </c:if>
                 <c:set var="youtubeThumbnail" value="${meeting.post.photo}"/>
                 <c:if test="${!empty meeting.post.photo}">
                 <c:choose>
 		               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-		               				<img src="${meeting.post.photo}" class="img-fluid" >
+		               				<img src="${meeting.post.photo}" class="img-fluid" width= "348;" height= "200;" >
 		               			</c:when>   
 		               			<c:otherwise>
-		               				<img src="/resources/images/upload/${meeting.post.photo}"  class="img-fluid">
+		               				<img src="/resources/images/upload/${meeting.post.photo}"  class="img-fluid" width= "348;" height= "200;" >
 		               			</c:otherwise>            			
 		               		</c:choose>
                 	<%-- <img src="/resources/images/upload/${meeting.post.photo}" class="img-fluid" alt=""> --%>
                 </c:if>
               </div>
+              
+              <br/>
+              <div class="row">
               <div class="text col-md-8">
-                <h2 class="h3" ><a href="#">${meeting.post.title}</a></h2>
+                <h5 class="h5" ><a href="#">${meeting.post.title}</a></h5>
                 <span class="text-uppercase date d-block mb-3">${meeting.post.postDate}</span>
  				<%-- <p class="mb-0">${meeting.post.likeCount}</p>
                 <span class="text-uppercase date d-block mb-3">
@@ -233,6 +236,7 @@
  							<h5>${meeting.post.likeCount}</h5>
  						</div>
  					</div>
+ 				</div>
 
             </div>
           </div>    

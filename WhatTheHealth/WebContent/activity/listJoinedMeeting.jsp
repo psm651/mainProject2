@@ -125,7 +125,7 @@
 		 });
 		
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		 $(function() {
+		/*  $(function() {
 		
 			 $( "#title" ).on("click" , function() {
 				 
@@ -136,9 +136,19 @@
 				});
 			
 		});	
+		 */
 		
-		
-		
+		 function getMeeting(e) {
+				
+				/* var category = $(this).data("param1");
+				var postNo = $(this).data("param2"); */
+				
+				var meetNo = e.getAttribute("param1");
+			
+				 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
+			
+			
+		};	
 	
 	</script>
 	
@@ -205,7 +215,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2" >${i}</div>
-            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" data-param1="${meeting.meetNo}" ><strong>${meeting.meetTitle}</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" id="title" param1="${meeting.meetNo}" onclick="getMeeting(this);" ><strong>${meeting.meetTitle}</strong></div>
             
             <c:if test="${meeting.joinStatus =='0'}">
             <div class="col-sm-2 col-md-2 col-lg-2  text-center">대기</div>

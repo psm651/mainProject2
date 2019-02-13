@@ -118,7 +118,7 @@
 		 });
 		
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		 $(function() {
+		/*  $(function() {
 		
 			 $( "#title" ).on("click" , function() {
 					
@@ -137,9 +137,26 @@
 					
 				});
 			
-		});	
+		});	 */
 		
-		
+		 function getReplyPost(e) {
+				
+				/* var category = $(this).data("param1");
+				var postNo = $(this).data("param2"); */
+				
+				var category = e.getAttribute("param1");
+				var postNo = e.getAttribute("param2");
+				
+				if(category == '1'){
+				 self.location ="/exinfo/getExInfo?postNo="+postNo;
+				} else if(category == '2'){
+				 self.location ="/community/getCommunity?postNo="+postNo;
+				} else if(category == '3'){
+				 self.location ="/community/getCommunity?postNo="+postNo;
+				} 
+			
+			
+		};	
 		
 	
 	</script>
@@ -206,7 +223,7 @@
             <div class="row-wrap">
             <div class="row bg-white p-4 align-items-center">
 			<div class="col-sm-2 col-md-2 col-lg-2">${i}</div>
-			<div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" data-param1="${reply.category }" data-param2="${reply.postNo }" id="title">${reply.postTitle}</div> 
+			<div class="col-sm-2 col-md-2 col-lg-4 text-center text-primary" param1="${reply.category }" param2="${reply.postNo }" id="title" onclick="getReplyPost(this);">${reply.postTitle}</div> 
             <div class="col-sm-2 col-md-2 col-lg-4 text-center"><strong>${reply.text }</strong></div>
             <div class="col-sm-2 col-md-2 col-lg-2">${reply.replyDate }</div>    
               </div>

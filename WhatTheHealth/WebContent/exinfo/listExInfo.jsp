@@ -8,23 +8,26 @@
 <html lang="ko">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <script src="/resources/js/jquery-3.3.1.min.js"></script>
+    
+    <link rel="stylesheet" href="/resources/css/style.css">
+   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+    
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
+   
     
-    <script src="/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
+<!--     <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
     <script src="/resources/js/jquery-ui.js"></script>
     <script src="/resources/js/popper.min.js"></script>
     <script src="/resources/js/bootstrap.min.js"></script>
@@ -40,7 +43,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
-    
+     -->
   </head>
   
   <script type="text/javascript">
@@ -137,7 +140,7 @@
               	}
              	  appen += '</div>';   
                   appen += '<div class="text col-md-8">';
-                  appen += '<h2 class="h3 text-black"><a href="#">'+item["title"]+'</a></h2>';
+                  appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
                   appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
                   appen += '<div class="userInfo">';
                  
@@ -265,9 +268,11 @@
                		</c:choose>
                 </c:if>
               </div>
+              <br/>
+              <div class="row">
               <div class="text col-md-8">
               <!-- <div class="text p-6"> -->
-                <h2 class="h3 text-black"><a href="#">${post.title}</a></h2>
+                <h5 class="h5 text-black"><a href="#">${post.title}</a></h5>
                 <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
  				  <div class="userInfo">
                 	<c:if test="${post.userImage != null and post.userImage != '' }">
@@ -279,7 +284,7 @@
                 		${post.nickName}
                   </div>
               </div>
- 				
+ 	
  				
  				<div class="col-md-4">
  					<div class="likeImage">
@@ -288,6 +293,7 @@
  					<div class="likeCount" style="margin-left:38px">
  						<h5>${post.likeCount}</h5>
  					</div>
+ 				</div>
  				</div>
           </div>      
           

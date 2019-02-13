@@ -7,43 +7,31 @@
 <html lang="ko">
   <head>
     <title>라이브방송 목록 페이지</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <script src="/resources/js/jquery-3.3.1.min.js"></script>
+    
+    <link rel="stylesheet" href="/resources/css/style.css">
+   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/css/style.css">
+    
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
+  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
     
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-    <link rel="stylesheet" href="/resources/css/style.css">
-    
-    <script src="/resources/js/jquery-3.3.1.min.js"></script>
-    <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="/resources/js/jquery-ui.js"></script>
-    <script src="/resources/js/popper.min.js"></script>
-    <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/owl.carousel.min.js"></script>
-    <script src="/resources/js/jquery.stellar.min.js"></script>
-    <script src="/resources/js/jquery.countdown.min.js"></script>
-    <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/bootstrap-datepicker.min.js"></script>
-    <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>
-    
-    
+   
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
        <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </head>
-  
   <script type="text/javascript">
  	
    $(function(){
@@ -75,7 +63,8 @@
 
    function addLiveRoom(){
 		    if( '${user.userId}'== null || '${user.userId}'=='' ){
-			  	alert("로그인 후 이용가능합니다.");
+			  	//alert("로그인 후 이용가능합니다.");
+			  	swal("회원만 이용 가능합니다", "로그인해주세요", "error");
 			  	return;
 		   } 
 			popWin 
@@ -126,11 +115,11 @@
 	            	 
 	                appen +='<div class="col-md-6 col-lg-4 mb-4">';
 	                appen +='<div class="post-entry bg-white box"  data-param="'+item["socketNo"]+'" data-param2="'+item["bjId"]+'">';
-	                appen +='<div class="image" style="width:400px; height:200px">';
+	                appen +='<div class="image" style="width= "340;" height= "200;">';
 	                appen +='<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">';
 	                appen +='</div>';
 	                appen +='<div class="text col-md-8">';
-	                appen +='<h2 class="h3" ><a href="#">'+item["liveTitle"]+'</a></h2>';
+	                appen +='<h5 class="h5" ><a href="#">'+item["liveTitle"]+'</a></h5>';
 	                appen +='<span class="text-uppercase date d-block mb-3">'+item["liveDate"]+'</span>';
 	                appen +='<div class="userInfo">';
 	                
@@ -181,7 +170,7 @@
       
        </div> 
       <hr/>
-      <p align="center"><a onclick="javascript:location.href='https://192.168.0.55:6503/webrtc-from-chat/index.html?nickName=${user.nickName}';"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">오픈채팅플랫폼 바로가기</a></p>
+
        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveRoom"  onclick="addLiveRoom();">방개설하기</a></p>
       <br/>
   
@@ -199,9 +188,9 @@
           
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white box"  data-param="${socket.socketNo}"   data-param2="${socket.bjId}">
-              <div class="image"  style="width:400px; height:200px">
+              <div class="image"  style="width:340px; height:200px">
               	<%-- <c:if test="${empty meeting.post.photo}"> --%>
-                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
+                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
                 <%-- </c:if> --%>
                 <%-- <c:set var="youtubeThumbnail" value="${meeting.post.photo}"/>
                 <c:if test="${!empty meeting.post.photo}">
@@ -217,7 +206,7 @@
                 </c:if> --%>
               </div>
               <div class="text col-md-8">
-                <h2 class="h3" ><a href="#">${socket.liveTitle}</a></h2>
+                <h5 class="h5" ><a href="#">${socket.liveTitle}</a></h5>
                 <span class="text-uppercase date d-block mb-3">${socket.liveDate}</span>
  				<%-- <p class="mb-0">${meeting.post.likeCount}</p>
                 <span class="text-uppercase date d-block mb-3">

@@ -16,6 +16,7 @@ public class Favorite {
 	private String nickName;
 	private int likeCount;
 	private String pressedStatus; //0: 누르지 않은 상태, 1: 눌러져있는 상태
+	private String postSubNo;
 	
 	public Favorite() {
 	}
@@ -116,12 +117,22 @@ public class Favorite {
 		this.pressedStatus = pressedStatus;
 	}
 
+	public String getPostSubNo() {
+		return postSubNo;
+	}
+
+	public void setPostSubNo(String postSubNo) {
+		this.postSubNo = postSubNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Favorite [favoriteNo=" + favoriteNo + ", userId=" + userId + ", postNo=" + postNo + ", favoriteType="
 				+ favoriteType + ", category=" + category + ", contents=" + contents + ", title=" + title
 				+ ", postDate=" + postDate + ", userImage=" + userImage + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + ", pressedStatus=" + pressedStatus + "]";
+				+ likeCount + ", pressedStatus=" + pressedStatus + ", postSubNo=" + postSubNo + "]";
 	}
+
+	
 
 }

@@ -118,7 +118,7 @@
 		 });
 		
 		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		$(function() {
+		/* $(function() {
 		
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "#title" ).on("click" , function() {
@@ -138,6 +138,28 @@
 			
 		});	
 		
+		 */
+		function getInterest(e) {
+			
+			/* var category = $(this).data("param1");
+			var postNo = $(this).data("param2"); */
+			
+			var category = e.getAttribute("param1");
+			var postNo = e.getAttribute("param2");
+			var meetNo = e.getAttribute("param3").substring(2);
+			//alert(e.getAttribute("param3"));
+			
+			if(category == '1'){
+			 self.location ="/exInfo/getExInfo?postNo="+postNo;
+			} else if(category == '2'){
+			 self.location ="/community/getCommunity?postNo="+postNo;
+			} else if(category == '3'){
+			 self.location ="/community/getCommunity?postNo="+postNo;
+			}  else if(category == '4'){
+			 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
+			}  
+		
+	};	
 		
 	</script>
 	
@@ -217,7 +239,7 @@
             <div class="col-sm-2 col-md-2 col-lg-2 text-center">소모임</div>
             </c:if>
 	
-            <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center" data-param1="${interest.category }" data-param2="${interest.postNo }" id="title"><strong>${interest.title }</strong></div>
+            <div class="col-sm-2 col-md-2 col-lg-6 text-primary text-center" param1="${interest.category }" param2="${interest.postNo }" param3="${interest.postSubNo }" id="title" onclick="getInterest(this);"><strong>${interest.title }</strong></div>
             <div class="col-sm-2 col-md-2 col-lg-2">${interest.postDate }</div>    
               </div>
             </div>
