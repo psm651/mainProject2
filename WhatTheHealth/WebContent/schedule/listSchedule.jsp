@@ -127,6 +127,9 @@ html {
 	.fc-content img{
 	display :none;
 	}
+	.giyong{
+	display :none;
+	}
 }
 .modal a.close-modal{
 	background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
@@ -290,8 +293,8 @@ html {
 					 
 			<input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
 			</fieldset>	       
-<!-- 			<button type="button" class="next action-button" data-dismiss="modal">Delete</button>
-			<button type="button" class="next action-button" >Update</button> 
+ 			<button type="button" class="next action-button" data-dismiss="modal" id="deleteDiet">Delete</button>
+<!--  			<button type="button" class="next action-button" >Update</button> 
  -->
   
   </form>
@@ -411,6 +414,32 @@ $('.action-button:contains("Save")').on('click', function(e){
 	  	} );
 	   } );
 
+	
+	
+	$( '#deleteDiet' ).on("click" , function(data) {
+		$(".jquery-modal").hide();
+	  	$('#dietEventSchedule').hide();
+		/* var exScName = $("#exScEventName").val();
+		var exScContents = $("#exScEventContents").val();
+		var exScCalorie = $("#exScEventCalorie").val(); */
+		var dietScNo =$("#dietScEventNo").val();
+		alert(dietScNo);
+		
+	        $.ajax( {
+	          url: "/schedule/json/deleteDietSchedule/"+dietScNo,
+	          dataType: "json",
+	          method : "GET",
+	          headers : {
+	  			"Accept" : "application/json",
+	  			"Content-Type" : "application/json"},
+	  	   success: function( data ) {
+	  		 $('#calendarr').fullCalendar(
+	  		        'removeEvents', dietScNo //or something like that
+	  		    );
+     		alert("삭제 완료");
+	  	 }
+	  	} );
+	   } );
 /////////
 		
 $(function() {
@@ -584,6 +613,7 @@ $(function() {
 			    				
 			    					//수정중
 			    					
+			    						$('#dietScEventNo').val(JSONData.dietScNo);
 			    					/* $('#dietScEventAmountFood').val(JSONData.amountFood);
 			    					$('#dietScEventFoodCalorie').val(JSONData.foodCalorie); */
 			    					$('#dietEventSchedule').modal('show');
@@ -674,7 +704,9 @@ $(function() {
 		    	  events: [//이벤트 db연동해서가져오기
 		    	
 		    		  <c:forEach items = "${dietList}" var = "asdf">
+		    		  <c:if test="${asdf.deleteStatus!='1'}">
 		    		  {
+		    			 
 		    		  title:<c:if test='${asdf.mealTime=="0"}'>'아침 식단'</c:if>
 		    		  <c:if test='${asdf.mealTime=="1"}'>'점심 식단'</c:if>
 		    		  <c:if test='${asdf.mealTime=="2"}'>'저녁 식단'</c:if>
@@ -684,7 +716,7 @@ $(function() {
 		    		  start:"${asdf.dietScDate}"
 		    			  , imageurl : "../resources/images/icons8-meal-48.png"
 		    		  },
-		    		
+		    		</c:if>
 		    		  </c:forEach>
 		   
 		    		  ],

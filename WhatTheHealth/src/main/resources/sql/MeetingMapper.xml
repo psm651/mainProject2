@@ -117,9 +117,9 @@
 		m.meet_no , m.depo_amount , m.depo_bank , m.depo_account, m.depo_deadline, m.depo_acc_holder, m.entryfee, 
 									m.min_party, m.max_party, m.chief_id, m.depo_condition, m.meet_time, m.deadline_time, p.post_no,
 									p.user_id, p.title, p.contents, p.photo, p.click_count, p.blind_status, p.delete_status, p.like_count, 
-									p.category, p.post_date, p.locationtag_name, p.coordinate, p.address
-		FROM meeting m, post p
-		WHERE  'ME'||m.meet_no = p.post_sub_no  and m.meet_no = #{value}
+									p.category, p.post_date, p.locationtag_name, p.coordinate, p.address, u.nickname, u.user_image, u.user_id
+		FROM meeting m, post p, users u
+		WHERE  'ME'||m.meet_no = p.post_sub_no  and m.meet_no = #{value} and p.user_id = u.user_id
 	 </select>
 	 
 	 <!-- SQL : SELECT ONE -->

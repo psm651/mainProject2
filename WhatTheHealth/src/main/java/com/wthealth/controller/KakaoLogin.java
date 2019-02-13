@@ -30,7 +30,7 @@ public class KakaoLogin {
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		postParams.add(new BasicNameValuePair("client_id", "11723e59094c12e0f6ad95a132887387")); // REST API KEY
-		postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.0.43:8080/user/kakaoLogin")); // 리다이렉트 URI
+		postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.0.37:8080/user/kakaoLogin")); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 
 		final HttpClient client = HttpClientBuilder.create().build();

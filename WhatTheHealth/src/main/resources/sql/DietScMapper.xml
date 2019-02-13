@@ -94,7 +94,7 @@
 	 <update	id="deleteDietSchedule"	parameterType="int"  >
 	   	UPDATE diet_sc
 	   	<set>
-			delete_status	=	#{deleteStatus:VARCHAR}
+			delete_status	=	'1'
 	   	</set>
 	   	WHERE diet_sc_no = #{dietScNo}
 	 </update>
