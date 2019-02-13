@@ -9,17 +9,42 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
- 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  
+	<!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>  -->
+	<script src="../resources/js/jquery-3.3.1.min.js"></script>
+	
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="../resources/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="../resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="../resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../resources/css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="../resources/css/animate.css">
+    
+    <link rel="stylesheet" href="../resources/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="../resources/css/aos.css">
+    <link rel="stylesheet" href="../resources/css/style.css">
+    
+	<!-- include libraries(jQuery, bootstrap) -->
+	<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  -->
+	
+	<!-- include summernote css/js-->
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+	
+	
+	
+	<!-- include datetimepicker css/js-->
+	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
+	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
+ 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
+	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
 
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
-
-	<!-- include datetimepicker css/js-->
- 	<script type="text/javascript" src="/resources/js/datepicker.js"></script> 
-	<link rel="stylesheet" href="/resources/css/datepicker.min.css" type="text/css"> 
-	<script type="text/javascript" src="/resources/js/datepicker.en.js"></script>
-
- 	<!-- sweetalert -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<style>
 
@@ -145,7 +170,7 @@
 	   }
 	   
 	   function init() {
-	       gapi.client.setApiKey("AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg");
+	       gapi.client.setApiKey("AIzaSyCoERlMwLDL5sRTSstqCCGPlhRL4ysGVQY");
 	       gapi.client.load("youtube", "v3", function() {
 	       });
 	   }
