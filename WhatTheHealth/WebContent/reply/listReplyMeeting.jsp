@@ -58,7 +58,9 @@
     	 #replyArea1{
     		margin-left : 50px;
     	} 
-    	
+    	#replyInsertHere{
+    		margin-top : 70px;
+    	}  
     </style>
     
     <script>
@@ -96,7 +98,7 @@
                 		list.text = "블라인드 처리된 댓글입니다.";
                 	}
                 	a += '<div class="row" id="replyArea'+list.reReplyNo+'">';
-                	a += '<div class="col-md-1" style="padding-left:0px; padding-right:0px; margin-left : 15px">';
+                	a += '<div  style="padding-left:0px; padding-right:0px;  margin-top: 20px;"">';
                 	if(list.userImage != null && list.userImage != '' ){
                     	a += '<img src = "/resources/images/userImage/'+list.userImage+'" align="middle" height="45px" width="45px" id="user_image" paramid = "'+list.writerId+'" onclick = "imageClick(this);" style="border-radius: 100px;" />';
                     	}
@@ -104,8 +106,8 @@
                     	a += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="45px" width="45px" id="user_image" paramid = "'+list.writerId+'" onclick = "imageClick(this);" style="border-radius: 100px;"/>';
                     	}
                 	a += '</div>';
-                	a += '<div class="col-md-10" style="padding-right:0px">';
-                    a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                	a += '<div class="col-md-11" style="padding-right:0px">';
+                    a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-top: 15px;">';
                     a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.nickname+'</b>';
                     a += '<div style="float: right">';
                     //a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
@@ -120,7 +122,7 @@
                     a += '<a onclick="fullSirenReply('+list.replyNo+');" id="addClaim'+list.replyNo+'"> <img src="/resources/images/fullSiren.png" height="25px"></a>';
                     }
                     a += '</div></div>';
-                    a += '<div class="replyContent" style="word-break:break-all; padding-left: 4px; margin-bottom: -10px;"  name="'+list.replyNo+'"> <p>'+list.text+'</p>';
+                    a += '<div class="replyContent" style="word-break:break-all; padding-left: 3px; margin-bottom: -10px;"  name="'+list.replyNo+'"> <p>'+list.text+'</p>';
                     a += '</div></div>';
                     a += '</div></div>';
                 });
@@ -326,7 +328,7 @@
 <!-- ///////////////////////////////////////////////// AJAX ///////////////////////////////////////////////// -->
 <!-- <div class="container"> -->
        <!--  <label for="content">reply</label> -->
-        <form name="replyInsertForm"  >
+        <form name="replyInsertForm"  id="replyInsertHere">
             <div class="input-group">
                <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요."  onkeypress="if(window.event.keyCode=='13'){replyInsert()}">
                <span class="input-group-btn">
@@ -336,10 +338,10 @@
         </form>
    <!--  </div> -->
     
-   <!--  <div class="container"> -->
+    <div class="container replyListHere">
         <div class="replyList"></div>
-   <!--  </div> -->
-</div>
+     </div>
+<!-- </div> -->
 
 <!-- ////////////////////////////////////////////// 그냥 컨트롤러 //////////////////////////////////////////// -->
 <%--   <c:set var="i" value="0" />

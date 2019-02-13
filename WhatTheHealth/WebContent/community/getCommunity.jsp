@@ -34,7 +34,8 @@
    #floatMenu {
       position: absolute;
       width: 10%;
-      height: 450px;
+      height: 30vw;
+      /* height: 450px; */
       /* right: 200px; */
       right:20%; 
       padding:0;
@@ -45,6 +46,7 @@
       color: #000000;
       border:1px solid;
       font-size: 15px;
+      overflow: hidden;
    }
    
       .postHere{
@@ -64,6 +66,7 @@
       .contents{
          /* display : block; */
          text-align : left;
+         font-size : 18px;
       }
  
        .postHere li{
@@ -328,12 +331,21 @@
           
              <h4 ><b>${post.title}</b></h4>
              <ul class="likeandview" >
-                <li><span><b> <img src="../resources/images/dateImage.png" width="17px"  style="opacity: 0.7">&nbsp;${post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
-                <li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="17px"  style="opacity: 0.7">&nbsp;${post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
-                <li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="19px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${post.clickCount}</b></span></li><!-- 조회수 이미지 -->
+                <li><span>
+            <c:if test="${post.userImage != null and post.userImage != '' }">
+				<img src = "/resources/images/userImage/${post.userImage}" align="middle" height="30px" id="user_image" paramid = "${post.userId}" onclick = "imageClick(this);"/>
+			</c:if>
+			<c:if test="${post.userImage == null or post.userImage == '' }">
+			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image" paramid = "${post.userId}"  onclick = "imageClick(this);"/>
+			</c:if>
+            <b>${post.nickName}</b>&nbsp;&nbsp; &nbsp;</span></li>
+                <li><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
+                <li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="25px"  style="opacity: 0.7">&nbsp;${post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
+                <li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="23px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${post.clickCount}</b></span></li><!-- 조회수 이미지 -->
              </ul>
+             
            <div style="margin-top:40px;  background-color:white; padding:2em;" > 
-            <div class="contents"  style="font-size : 18px;">
+            <div class="contents"  >
  <p>${post.contents}</p> 
                   <%-- <p class="mb-4">${post.contents}</p> --%>
               </div>
@@ -398,9 +410,10 @@
        <!-- <div class="col-md-12 col-lg-2 mb-5" > -->
       
       <div  id="floatMenu" >
-   
       <div id="innerMenu" style="font-weight: bold; text-align: center;">
-      최근 본 게시물<br/><br/></div></div>
+      최근 본 게시물<br/><br/>
+      </div>
+      </div>
       <%-- <c:forEach var = "product" items="${cookieList }" end="4">
       <img src = "/images/uploadFiles/${product.fileName}" align="absmiddle" style="width: 50px;" style="height: 100px;"/><br/>
       ${product.prodName }<br/>
