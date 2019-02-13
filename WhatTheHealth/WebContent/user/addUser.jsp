@@ -48,6 +48,8 @@
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
+  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<!-- <style>
@@ -91,7 +93,7 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#cancle").on("click" , function() {
-				self.location = "/main.jsp"
+				self.location = "/"
 			});
 		});	
 		
@@ -103,7 +105,8 @@
 				console.log(phone);
 				
 				if(phone == "" || phone.length <1 ){
-				    alert("휴대전화 번호를 입력해주세요.");
+					swal("휴대전화 번호를 입력해주세요", "휴대전화 번호를 입력하지 않으셨습니다", "error");
+				   // alert("휴대전화 번호를 입력해주세요.");
 				    return;
 				  }
 				
@@ -135,12 +138,14 @@
 				var email = $("input[name='email']").val().split('.');
 				console.log(email);
 				 if(email == "" || email.length <1 ){
-				    alert("이메일을 입력해주세요.");
+				    //alert("이메일을 입력해주세요.");
+				    swal("이메일을 입력해주세요", "이메일을 입력하지 않으셨습니다", "error");
 				    return;
 				  }
 				
 				//self.location = "/user/mailSender?email="+email;
-				alert("메일이 전송되었습니다.")
+				swal("메일이 전송되었습니다", "인증번호를 입력해주세요", "success");
+				//alert("메일이 전송되었습니다.")
 				$("#checkAuth").css("color","red")
 				
 				
@@ -185,29 +190,35 @@
 			
 			
 			if(id == null || id.length <1){
-				alert("아이디는 반드시 입력하셔야 합니다.");
+				//alert("아이디는 반드시 입력하셔야 합니다.");
+				swal("아이디를 입력해주세요", "아이디는 반드시 입력해야 합니다", "error");
 				return;
 			}
 			if(pw == null || pw.length <1){
-				alert("패스워드는  반드시 입력하셔야 합니다.");
+				//alert("패스워드는  반드시 입력하셔야 합니다.");
+				swal("비밀번호를 입력해주세요", "비밀번호는 반드시 입력해야 합니다", "error");
 				return;
 			}
 			if(pw_confirm == null || pw_confirm.length <1){
-				alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+				//alert("패스워드 확인은  반드시 입력하셔야 합니다.");
+				swal("비밀번호 확인을 진행해주세요", "비밀번호 확인은 반드시 입력해야 합니다", "error");
 				return;
 			}
 			if(nickName == null || nickName.length <1){
-				alert("닉네임은  반드시 입력하셔야 합니다.");
+				//alert("닉네임은  반드시 입력하셔야 합니다.");
+				swal("닉네임을 입력해주세요", "닉네임은 반드시 입력해야 합니다", "error");
 				return;
 			}
 			
 			if(authNum == null || authNum.length <1){
-				alert("메일인증 또는 문자 인증을 진행해주세요.");
+				//alert("메일인증 또는 문자 인증을 진행해주세요.");
+				swal("메일인증 또는 문자 인증을 진행해주세요", "인증은 반드시 진행해야 합니다", "error");
 				return;
 			}
 			
 			if( pw != pw_confirm ) {				
-				alert("비밀번호 확인이 일치하지 않습니다.");
+				//alert("비밀번호 확인이 일치하지 않습니다.");
+				swal("비밀번호를 확인해주세요", "비밀번호 확인이 일치하지 않습니다", "error");
 				$("input:text[name='password2']").focus();
 				$("#checkPW").css("color","red")
 				return;
@@ -219,12 +230,14 @@
 			}
 			
 			if(checkId == 'red'){
-				alert("이미 존재하는 아이디입니다.")
+				//alert("이미 존재하는 아이디입니다.")
+				swal("이미 존재하는 아이디입니다", "다른 아이디를 입력해주세요", "error");
 				return;
 			}
 			
 			if(checkNickname == 'red'){
-				alert("이미 존재하는 닉네임입니다.")
+				//alert("이미 존재하는 닉네임입니다.")
+				swal("이미 존재하는 닉네임입니다", "다른 닉네임을 입력해주세요", "error");
 				return;
 			}
 			
@@ -235,12 +248,14 @@
 			} */
 			
 			if(checkAuth == 'red'){
-				alert("인증번호가 일치하지 않습니다.")
+				//alert("인증번호가 일치하지 않습니다.")
+				swal("인증번호가 일치하지 않습니다", "인증번호를 확인해주세요", "error");
 				return;
 			}
 			
 			
-			alert("가입이 완료되었습니다.");
+			//alert("가입이 완료되었습니다.");
+			swal("가입이 완료되었습니다", "", "success");
 			$("#addForm").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 			
 		}
@@ -254,7 +269,8 @@
 				 var email=$("input[name='email']").val();
 			    
 				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
+			    	//alert("이메일 형식이 아닙니다.");
+					 swal("이메일 형식이 아닙니다", "이메일을 확인해주세요", "error");
 			     }
 			});
 			 
@@ -404,7 +420,7 @@
 
    	<!-- ToolBar End /////////////////////////////////////-->
    	
-   	  <div class="site-blocks-cover inner-page overlay" style="background-image: url(/resources/images/1111.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+ <!--   	  <div class="site-blocks-cover inner-page overlay" style="background-image: url(/resources/images/1111.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 text-center">
@@ -412,7 +428,7 @@
           </div>
         </div>
       </div>
-    </div>  
+    </div>   -->
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	 <div class="site-section">

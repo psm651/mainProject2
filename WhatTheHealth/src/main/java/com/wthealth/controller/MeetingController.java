@@ -232,8 +232,9 @@ public class MeetingController {
 	      }
 	      search.setPageSize(pageSize);
 	      User user = (User)session.getAttribute("user");
+	      String userId = user.getUserId();
 	      
-	      Map<String , Object> map=meetingService.listJoinedMeeting(search, user.getUserId());
+	      Map<String , Object> map=meetingService.listJoinedMeeting(search, userId);
 	      
 	      Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 	      System.out.println(resultPage);

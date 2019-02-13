@@ -54,6 +54,7 @@
   <script src="/resources/js/aos.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script src="/resources/js/main.js"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 <!-- 	<style>
@@ -101,7 +102,8 @@
 			var userId = $("input[name='userId']").val();
 			
 			if(point == null || point.length <1){
-				alert("충전할 포인트는  반드시 입력하셔야 합니다.");
+				//alert("충전할 포인트는  반드시 입력하셔야 합니다.");
+				swal("충전할 포인트를 입력해주세요", "충전할 포인트는  반드시 입력해야 합니다", "error");
 				return;
 			}
 			
@@ -153,7 +155,7 @@
 			    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 			    		}
 			    	}); */
-			    	
+			    	swal("충전이 완료되었습니다", "", "success");
 			    	var point = rsp.paid_amount;
 			    	
 			    	$("form").attr("method" , "POST").attr("action" , "/point/kakaoPay").submit();
@@ -161,7 +163,8 @@
 			        var msg = '결제에 실패하였습니다.';
 			        msg += '에러내용 : ' + rsp.error_msg;
 			        
-			        alert(msg);
+			       // alert(msg);
+			        swal(msg, "", "error");
 			    }
 			});
 		} 

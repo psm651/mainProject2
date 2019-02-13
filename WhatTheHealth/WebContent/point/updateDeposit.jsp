@@ -81,9 +81,12 @@
 			var point=$("input[name='point']").val();
 			
 			if(point == null || point.length <1){
-				alert("전송할 포인트는  반드시 입력하셔야 합니다.");
+				//alert("전송할 포인트는  반드시 입력하셔야 합니다.");
+				swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
 				return;
 			}
+			
+			swal("선금전송이 완료되었습니다", "", "success");
 			$("form").attr("method" , "POST").attr("action" , "/point/updateDeposit").submit();
 		}
 		
