@@ -24,6 +24,10 @@
     <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
+    
+    <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+    
    
    <script type="text/javascript">
    selfClose = 0;
@@ -90,6 +94,7 @@
     
    
     $(document).ready(function(){
+    	
        favoriteList(); 
        
       
@@ -99,18 +104,19 @@
    
  
     $(function(){
-    	alert("여기");
+    	
     	<c:set var="i" value="0"/>
     		<c:forEach var = "join" items="${joinlist}">
     		<c:set var="i" value="${i+1}"/>
-    	     console.log("여기여기여기");
+    	 
     	
     		//for(let elem in item){
     		//var partyId = item['partyId'];
-    		alert("${join.partyId}");
+    		
 			 if(${user.userId ==join.partyId}){
-				alert("여기");
-				$("#joinOrNot").remove();
+			
+				$("#joinButton").remove();
+				$("#joinOrNot").append('<a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; " data-param="'+${join.joinNo}+'"><b>참여취소</b></a>');
 			} 
     		//}
     		</c:forEach>
@@ -211,7 +217,8 @@
                                 "scrollbars=no,scrolling=no,menubar=no,resizable=no");
             }
        
-       
+       var joinNo = ''
+       var meetNo = ${meeting.meetNo};
        $( function (){
           $( "a[href='#' ]:contains('수정')").on("click", function(){
                self.location="/meeting/updateMeeting?meetNo=${meeting.meetNo}"
@@ -220,11 +227,34 @@
                self.location="/meeting/deleteMeeting?meetNo=${meeting.meetNo}"
             });
           $( "a[href='#' ]:contains('참여하기')").on("click", function(){
+        	  swal(
+        				'참여 완료',
+        				'소모임 참여가 완료되었습니다.',
+        				'success'
+        				)
               self.location="/meeting/addJoin?meetNo=${meeting.meetNo}"
            });
           $( "a[href='#' ]:contains('목록으로')").on("click", function(){
                  self.location="/meeting/listMeeting"
             });
+          
+          $( "a[href='#' ]:contains('참여취소')").on("click", function(){
+        	  var joinNo = $(this).data("param");
+        	  //alert("소모임 참여가 취소되었습니다.");
+        	  swal(
+        				'취소 완료',
+        				'소모임 참여가 취소되었습니다.',
+        				'success'
+        				)
+              self.location="/meeting/deleteJoin?joinNo="+joinNo 
+              //$(".swal-button").attr('id', 'cancelConfirm');
+            		  
+         });
+          
+          /* $("#cancelConfirm").on("click", function(){
+        	  alert(joinNo);
+        	  self.location="/meeting/deleteJoin?joinNo="+joinNo 
+          }); */
           
          });
        
@@ -605,9 +635,9 @@
                   </div>
                  </div> 
                  
-                 <div class = "row"  id="joinOrNot" >
-               	   <div class="col-md-12 mb-5"  align="center"  > 
-              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "  ><b>참여하기</b></a>
+                 <div class = "row"  >
+               	   <div class="col-md-12 mb-5"  align="center"   id="joinOrNot" > 
+              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "  id="joinButton"><b>참여하기</b></a>
                    </div>
                </div>
                  
