@@ -18,9 +18,12 @@
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
-   
- 
-   
+  
+  <!-- ////////////////////날씨 아이콘 ////////////////// -->
+   <link rel='stylesheet' href='/resources/css/weather-icons.css' />
+   <link rel="stylesheet" href="/resources/font/weathericons-regular-webfont.woff">
+   <link rel="stylesheet" href="/resources/font/weathericons-regular-webfont.woff2">
+   <!-- ////////////////////날씨 아이콘 ////////////////// -->
    
     <title>What The Health</title>
     
@@ -121,7 +124,7 @@ body {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
   font-size: 40px;
-  margin-left: 11px;
+  margin-left: 20px;
   margin-top: 15px;
   color: #B8B8B8;
   bottom: 0;
@@ -145,13 +148,14 @@ body {
           animation: title-appear 1s ease-out 500ms forwards;
 }
 
-.weather-icon {
+#weatherIcon {
   position: relative;
   width: 50px;
   height: 50px;
   top: 0;
   float: right;
   margin: 40px 40px 0 0;
+  font-size: 50px;
   -webkit-animation: weather-icon-move 5s ease-in-out infinite;
           animation: weather-icon-move 5s ease-in-out infinite;
 }
@@ -376,11 +380,41 @@ body {
 		  		},
 		  		
 		  		success : function(data, status){
-		  			console.log($(".weather-icon sun > h3" ).text())
-		  			console.log($(".weather-icon sun > span" ).text())
-		  			$("#temperature").text(data["weather"].temperature);
+		  			
+		  			$("#temperature").text(data["weather"].temperature+"℃");
 		  			$("#currentWeather").text(data["weather"].currentWeather);
 		  			$("#cityName").text(data["weather"].cityName);
+		  		
+		  			//alert("::::"+data.weatherCode);
+		  			
+		  			if(data.weatherCode==2){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-thunderstorm" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
+		  			if(data.weatherCode==3){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-showers" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
+		  			if(data.weatherCode==5){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-rain" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
+		  			if(data.weatherCode==6){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-snow" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
+		  			if(data.weatherCode==7){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-fog" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
+		  			if(data.weatherCode==8){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-day-sunny" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
+		  			if(data.weatherCode==9){
+		  				$("#weatherImage").empty();
+		  				$('<i class="wi wi-day-cloudy" id="weatherIcon"></i>').appendTo("#weatherImage");
+		  			}
 		  		}
 		  		
 	  });//end of ajax
@@ -405,9 +439,11 @@ body {
       <div class="site-blocks-cover" style="background-image: url(/resources/video/original.gif); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
 
             
-             <div class="weather-card madrid" style="margin-left:10px;">
-				<div class="card-header" align="center" ><span id="cityName">${weather.cityName}</span>
+             <div class="weather-card madrid" style="margin-right:10px; float: right; top: 100px;">
+				<div class="card-header" align="center" >
+				<%-- <span id="cityName">${weather.cityName}</span> --%>
 					<select name="cityID" class="cityID" onchange="cityChange(this)">
+						<option value="Seoul,KR" 	style="font-size:20px;" selected>서울</option>
 						<option value="Busan,KR" 	style="font-size:20px;">부산</option>
 		  				<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
 						<option value="Incheon,KR" 	style="font-size:20px;">인천</option>
@@ -418,10 +454,37 @@ body {
 						<option value="Jeju,KR" 	style="font-size:20px;">제주특별자치도</option>
 					</select>
 				</div> 
-			  
-         		<div class="weather-icon sun"></div>
+					<div id="weatherImage">
+				<c:if test="${!empty weatherCode }">
+					<c:if test="${weatherCode == '2' }"> 
+				  		<i class="wi wi-thunderstorm" id="weatherIcon"></i>
+				  	</c:if>
+				  	<c:if test="${weatherCode == '3' }"> 
+				  		<i class="wi wi-showers" id="weatherIcon"></i>
+				  	</c:if>
+				  	<c:if test="${weatherCode == '5' }"> 
+				  		<i class="wi wi-rain" id="weatherIcon"></i>
+				  	</c:if>
+				  	<c:if test="${weatherCode == '6' }"> 
+				  		<i class="wi wi-snow" id="weatherIcon"></i>
+				  	</c:if>
+				  	<c:if test="${weatherCode == '7' }"> 
+				  		<i class="wi wi-fog" id="weatherIcon"></i>
+				  	</c:if>
+				  	<c:if test="${weatherCode == '8' }"> 
+				  		<i class="wi wi-day-sunny" id="weatherIcon"></i>
+				  	</c:if>
+				  	<c:if test="${weatherCode == '9' }"> 
+				  		<i class="wi wi-day-cloudy" id="weatherIcon"></i>
+				  	</c:if>
+				</c:if>
+			</div>
+				
+		
+			   <!-- <div class="weather-icon sun"></div> -->
+			   
        			 <strong><h3 id="temperature">${weather.temperature}℃</h3></strong>
-        		<span id="currentWeather" style="margin-left:10px;">${weather.currentWeather}</span>
+        		<span id="currentWeather" style="margin-left:20px;">${weather.currentWeather}</span>
    			 </div>
    			 
    			 

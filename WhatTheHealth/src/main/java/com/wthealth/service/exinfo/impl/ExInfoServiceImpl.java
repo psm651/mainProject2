@@ -114,6 +114,8 @@ public class ExInfoServiceImpl implements ExInfoService {
         JSONObject obj = (JSONObject) weatherArray.get(0);
 
         String weatherCode= (String) obj.get("id").toString();
+        String subWeatherCode = weatherCode.substring(0, 1);
+        System.out.println(weatherCode+":::::::코드자르기::::::"+subWeatherCode);
         
         InputStream  inputStream = null;
         String currentWeather = null;
@@ -161,6 +163,7 @@ public class ExInfoServiceImpl implements ExInfoService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("weather", weather);
         map.put("weatherRecom", weatherRecom);
+        map.put("weatherCode",subWeatherCode);
         
 		return map;
 	}
