@@ -113,10 +113,15 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 
 	@Override
+	public Join getJoinMeeting(Join join)  throws Exception {
+		return meetingDao.getJoinMeeting(join);
+	}
+
+	@Override
 	public Join getJoin(int joinNo)  throws Exception {
 		return meetingDao.getJoin(joinNo);
 	}
-
+	
 	@Override
 	public void updateDeposit(int joinNo) throws Exception {
 		meetingDao.updateDeposit(joinNo);
@@ -129,6 +134,12 @@ public class MeetingServiceImpl implements MeetingService {
 		map.put("joinlist", meetingDao.listJoin(meetNo));
 		
 		return map;
+	}
+
+	@Override
+	public void updateJoinDeleteStatus(int joinNo) throws Exception {
+		meetingDao.updateJoinDeleteStatus(joinNo);
+		
 	}
 	
 	

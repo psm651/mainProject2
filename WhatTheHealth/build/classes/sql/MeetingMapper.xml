@@ -202,11 +202,11 @@
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getJoin"	parameterType="int"	resultMap="joinSelectMap">
+	 <select 	id="getJoinMeeting"	parameterType="com.wthealth.domain.Join" 	resultMap="joinSelectMap">
 		SELECT
 		join_no , join_date , join_status , depo_status, meet_no, party_id, delete_status 
 		FROM join
-		WHERE join_no = #{value} 
+		WHERE meet_no = #{meetNo} And party_id=#{partyId}
 	 </select>
 	 
 	 <!-- SQL : SELECT ONE -->
@@ -222,6 +222,15 @@
 	   	UPDATE join
 	   	<set>
 	   		delete_status = '1'
+	   	</set>
+	   	WHERE join_no = #{value}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateJoinDeleteStatus"		parameterType="String" >
+	   	UPDATE join
+	   	<set>
+	   		delete_status = '0'
 	   	</set>
 	   	WHERE join_no = #{value}
 	 </update>
@@ -317,6 +326,14 @@
 												 ORDER BY p.post_date
 											</if>
 					 ) countTable						
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getJoin"	parameterType="int"	resultMap="joinSelectMap">
+		SELECT
+		join_no , join_date , join_status , depo_status, meet_no, party_id, delete_status 
+		FROM join
+		WHERE join_no = #{value} 
 	 </select>
 	 
 	 

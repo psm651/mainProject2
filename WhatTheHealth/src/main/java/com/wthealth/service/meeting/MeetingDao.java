@@ -37,6 +37,10 @@ public interface MeetingDao {
 	//DELETE �Ҹ�������
 	public void deleteJoin(int joinNo) throws Exception;
 	
+	public void updateJoinDeleteStatus(int joinNo) throws Exception;
+	
+	public Join getJoin(int joinNo) throws Exception;
+	
 	//SELECT LIST
 	public List<Join> listJoinedMeeting(Search search, String partyId) throws Exception;
 	
@@ -47,7 +51,7 @@ public interface MeetingDao {
 	public int getTotalCountJoin(String partyId) throws Exception;
 	
 	//SELECT ONE �Ҹ�������(�Ҹ��� �˸�)
-	public Join getJoin(int joinNo) throws Exception;
+	public Join getJoinMeeting(Join join) throws Exception;
 	
 	//SELECT LIST
 	public List<Join> listJoin(int meetNo) throws Exception;
