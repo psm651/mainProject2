@@ -39,10 +39,11 @@
   		var socketNo = $(this).data("param");
   		//var bjId = "horan";
   		var bjId = $(this).data("param2");
-         alert("socketNo"+socketNo+"; biId ;"+bjId+"; userId ;"+ '${user.userId}');
+  		var liveTitle=$(this).data("param3");
+         //alert("socketNo"+socketNo+"; biId ;"+bjId+"; userId ;"+ '${user.userId}');
   		 if( '${user.userId}'== bjId){
   			popWin 
-			= window.open("https://192.168.0.43:443/broadcast.html?nickName="+'${user.nickName}'+"&img="+'${user.userImage}'+"&roomId="+socketNo,
+			= window.open("https://192.168.0.43:443/broadcast.html?nickName="+'${user.nickName}'+"&liveTitle="+liveTitle+"&img="+'${user.userImage}'+"&roomId="+socketNo,
 										"popWin", 
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
@@ -187,7 +188,7 @@
           <c:forEach var="socket" items="${list}"> 
           
           <div class="col-md-6 col-lg-4 mb-4">
-            <div class="post-entry bg-white box"  data-param="${socket.socketNo}"   data-param2="${socket.bjId}">
+            <div class="post-entry bg-white box"  data-param="${socket.socketNo}"   data-param2="${socket.bjId}"   data-param3="${socket.liveTitle}" >
               <div class="image"  style="width:340px; height:200px">
               	<%-- <c:if test="${empty meeting.post.photo}"> --%>
                     <img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">

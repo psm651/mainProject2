@@ -119,8 +119,8 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 
 	@Override
-	public Join getJoin(int joinNo)  throws Exception {
-		return sqlSession.selectOne("MeetingMapper.getJoin", joinNo);
+	public Join getJoinMeeting(Join join)  throws Exception {
+		return sqlSession.selectOne("MeetingMapper.getJoinMeeting", join);
 	}
 
 	@Override
@@ -130,8 +130,19 @@ public class MeetingDaoImpl implements MeetingDao {
 	}
 
 	@Override
+	public Join getJoin(int joinNo)  throws Exception {
+		return sqlSession.selectOne("MeetingMapper.getJoin", joinNo);
+	}
+	
+	@Override
 	public List<Join> listJoin(int meetNo) throws Exception {
 		return sqlSession.selectList("MeetingMapper.listJoin", meetNo);
+	}
+
+	@Override
+	public void updateJoinDeleteStatus(int joinNo) throws Exception {
+		sqlSession.update("MeetingMapper.updateJoinDeleteStatus", joinNo);
+		
 	}
 	
 	
