@@ -273,7 +273,7 @@ body{
 <!-- -----------------메뉴바----------------- -->
 
   
-  <script src="http://192.168.0.37:3000/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.39:3000/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   <script>
@@ -291,7 +291,7 @@ body{
   		
         $(document).ready(function() {
             
-        	var socket = io("http://192.168.0.37:3000");
+        	var socket = io("http://192.168.0.39:3000");
            
             
             socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}"});
@@ -368,7 +368,7 @@ body{
             	//var outcomingid = $(".incoming_id").data("param");
             	if(outcomingid == msg.name){
             		alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
-                 	self.location = "http://192.168.0.37:8080";
+                 	self.location = "http://192.168.0.39:8080";
             	};
             	 console.log(msg.name+' 강퇴');
        	       $('<div class="incoming_msg"><div class="received_id"><p>'+msg.name+'님이 강제퇴장되었습니다.</p></div></div>').appendTo(".msg_history");
@@ -491,7 +491,7 @@ body{
                       if (msg.substring(msg.length-3)=='mp4') {
                          setTimeout(function() {
                             while(true){
-                               var path = 'http://192.168.0.37:8080/resources/images/chatImage/'+msg;
+                               var path = 'http://192.168.0.39:8080/resources/images/chatImage/'+msg;
                                var re = doesFileExist(path);
                                if (re) {
                                   //socket.emit("send_msg",msg);
@@ -503,7 +503,7 @@ body{
                    }else{
                       setTimeout(function() {
                             while(true){
-                               var path = 'http://192.168.0.37:8080/resources/images/chatImage/'+msg;
+                               var path = 'http://192.168.0.39:8080/resources/images/chatImage/'+msg;
                                var re = doesFileExist(path);
                                if (re) {
                                   //socket.emit("send_msg",msg);

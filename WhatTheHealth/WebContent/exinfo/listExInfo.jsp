@@ -77,12 +77,12 @@
    $(function(){
 	  $(document).on("click", ".post-entry", function(){
 		var postNo=$(this).data("param");
-		self.location = "/exInfo/getExInfo?postNo="+posetNo;
+		self.location = "/exInfo/getExInfo?postNo="+postNo;
 	  });
    });
    
    $(function(){
-	  $("button:contains('검색')").on("click", function(){
+	  $("#searchButton").on("click", function(){
 		  fncGetList('1');
 		 
 	  }); 
@@ -121,7 +121,7 @@
          
              list.forEach(function(item, index, array){     
             
-            	  var youtube = item["photo"].indexOf("https");
+            	  
             	  var appen = ""; 
                        
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
@@ -131,7 +131,7 @@
                   if(item["photo"]==null){
               	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
              	  }else if(item["photo"]!=null){
-            	  	
+             		 var youtube = item["photo"].indexOf("https");
              		 if(youtube!=-1){
             	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
             	  	 }else{
@@ -199,16 +199,17 @@
     <div class="site-section">
       
       <div class="container">
-      <div><h2>운동꿀팁 목록</h2></div>
-   	  <hr/>
-   	  
-   	<c:if test="${sessionScope.user.role == 'admin'}">
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4" id="writeExinfo">글쓰기</a></p>
-    </c:if>
-    <form class="form-inline" name="detailForm">    
+      <div class="row">
+       <div class="col-lg-6" >
+      <h2>운동꿀팁 목록</h2>
+      </div>
+      
+
+      <form class="form-inline" name="detailForm">    
        	
+       	<div class="col-lg-3" style="padding-left: 30px;">
 		<div class="form-group">  
-			<select class="form-control" id="searchFilter" name="searchFilter" onchange="fncGetList('1');" >
+			<select class="form-control" id="searchFilter" name="searchFilter" onchange="fncGetList('1');"  style="height:75%;" >
 				<option value=''>카테고리</option>
 				<option value="0" ${!empty search.searchFilter && search.searchFilter =='0' ? "selected" : "" }>전신</option>
 				<option value="1" ${!empty search.searchFilter && search.searchFilter =='1' ? "selected" : "" }>복부</option>
@@ -217,24 +218,40 @@
 				<option value="4" ${!empty search.searchFilter && search.searchFilter =='4' ? "selected" : "" }>스트레칭</option>		
 			</select>   			
 		 </div> 
-		 
+		</div>
+		
+		<div class="col-lg-2" > 
 		<div class="form-group">
-			<select class="form-control" id="searchCondition"name="searchCondition" >		
+			<select class="form-control" id="searchCondition"name="searchCondition"  style="height:75%;">		
 				<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
 				<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
 			</select>
        </div>
-					  
-	   <div class="form-group" style="align:right">
-	     	<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
+		</div>
+		
+		<div class="col-lg-6" >			  
+	   <div class="form-group" style="align:right;">
+	     	<input type="text" class="form-control" style="height:90%; width:120%" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
 					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 	   </div>
-        
-           <button type="button" class="btn btn-info">검색</button>
-        		
+	   </div>
+        <div class="col-lg-1" >	
+           <button type="button" class="btn btn-danger" id="searchButton">
+		     <span class="icon-search mr-1" aria-hidden="true"></span> 
+		    </button>
+		    
            <input type="hidden" id="currentPage" name="currentPage" value=""/>		 
-		       
+		  </div>     
+		  
 	  </form> 	      
+
+      </div>
+   	  <hr/>
+   	  
+   	<c:if test="${sessionScope.user.role == 'admin'}">
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4" id="writeExinfo">글쓰기</a></p>
+    </c:if>
+    
       <br/>
       
        

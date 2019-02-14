@@ -83,7 +83,7 @@ public class MainController {
 	  
 	  model.addAttribute("weather", weatherRecom.get("weather"));
 	  model.addAttribute("weatherList", weatherRecom.get("weatherRecom"));
-	  
+	  model.addAttribute("weatherCode", weatherRecom.get("weatherCode"));
 	  
 	  model.addAttribute("exComList", exCom.get("exComList"));
 	  model.addAttribute("dietComList", dietCom.get("dietComList"));
