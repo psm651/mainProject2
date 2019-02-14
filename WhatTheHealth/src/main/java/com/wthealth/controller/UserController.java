@@ -310,7 +310,7 @@ public class UserController {
 	
 		//model.addAttribute("user", user);
 		//return new ModelAndView("/user/callBack.jsp", "result", user);
-		return "forward:/main.jsp";
+		return "forward:/";
 	}
 	
 	@RequestMapping( value="getUser", method=RequestMethod.GET )
