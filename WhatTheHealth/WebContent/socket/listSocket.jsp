@@ -117,7 +117,7 @@
 	                appen +='<div class="col-md-6 col-lg-4 mb-4">';
 	                appen +='<div class="post-entry bg-white box"  data-param="'+item["socketNo"]+'" data-param2="'+item["bjId"]+'">';
 	                appen +='<div class="image" style="width= "340;" height= "200;">';
-	                appen +='<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">';
+	                appen +='<img  src="/resources/images/liveListDefault.jpg" class="img-fluid" alt="">';
 	                appen +='</div>';
 	                appen +='<div class="text col-md-8">';
 	                appen +='<h5 class="h5" ><a href="#">'+item["liveTitle"]+'</a></h5>';
@@ -191,7 +191,7 @@
             <div class="post-entry bg-white box"  data-param="${socket.socketNo}"   data-param2="${socket.bjId}"   data-param3="${socket.liveTitle}" >
               <div class="image"  style="width:340px; height:200px">
               	<%-- <c:if test="${empty meeting.post.photo}"> --%>
-                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
+                    <img  src="/resources/images/liveListDefault.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
                 <%-- </c:if> --%>
                 <%-- <c:set var="youtubeThumbnail" value="${meeting.post.photo}"/>
                 <c:if test="${!empty meeting.post.photo}">
