@@ -89,6 +89,12 @@ public class MeetingController {
 	public String getMeeting(@RequestParam("meetNo") int meetNo, Model model) throws Exception{
 		System.out.println("/getMeeting: GET");
 		Meeting meeting = meetingService.getMeeting(meetNo);
+		Post post = meeting.getPost();
+		String contents = post.getContents();
+		post.setContents(contents.substring(0));
+		System.out.println(contents);
+		
+		meeting.setPost(post);
 		model.addAttribute("meeting", meeting);
 		
 		return "forward:/meeting/getMeetingMap.jsp"; 
@@ -102,6 +108,10 @@ public class MeetingController {
 		Meeting meeting = (Meeting)map.get("meeting");
 		Post post = meeting.getPost();
 		
+		String contents = post.getContents();
+		post.setContents(contents.substring(1));
+		System.out.println(contents);
+		
 		int clickCount = post.getClickCount();
 		clickCount++;
 		post.setClickCount(clickCount);
@@ -110,6 +120,8 @@ public class MeetingController {
 		int totalLikeCount = favoriteService.getTotalLikeCount(post.getPostNo());
 		post.setLikeCount(totalLikeCount);
 		meetingService.updateLikeCount(post);
+		
+		meeting.setPost(post);
 		
 		model.addAttribute("meeting", map.get("meeting"));
 		model.addAttribute("joinlist", map.get("joinlist"));

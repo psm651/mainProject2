@@ -169,7 +169,7 @@
    <script type="text/javascript">
 //////////////////////////////////////달력////////////////////////////////
 // Initialization
-
+/* 
    $(document).ready(function() {
        
          // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
@@ -189,7 +189,7 @@
        
          }).scroll();
        
-      });
+      }); */
 
 
 
@@ -392,7 +392,7 @@ function favoriteList(){
       <div class="container">
       
          <div class="row">
-         <div class="col-md-12 col-lg-10 mb-5">
+         <div class="col-md-12 col-lg-12 mb-5">
          <div class="container">
          <div class="postHere"> 
          
@@ -439,9 +439,17 @@ function favoriteList(){
              </ul>
  			
  			<div style="margin-top:40px;  background-color:white; padding:2em;" > 
-       	    	 <div class="contents">
-       	    	 <p>${post.contents}</p> 
- 			</div>	
+       	    	  <div class="contents"  >
+            <div class="row">
+            <div class="col-md-2 mb-5" ></div>
+            <div class="col-md-8 mb-5" >
+                   
+ 		<p>${post.contents}</p> 
+                  <%-- <p class="mb-4">${post.contents}</p> --%>
+              </div>
+               <div class="col-md-2 mb-5" ></div>
+              </div>
+              </div>
               <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
               <b style="font-size: 17px; float: left; border-bottom:2px solid #DCDCDC; padding-left: 10px; margin-top: 5px;"><img src="../resources/images/map/marker-480.png" width="25px"  style="opacity: 0.7">위치 &nbsp;</b>
@@ -521,11 +529,11 @@ function favoriteList(){
       
  </div>
  
-     <div  id="floatMenu" style="top:0%;left:110%;">
+    <!--  <div  id="floatMenu" style="top:0%;left:110%;">
       <div id="innerMenu" style="font-weight: bold; text-align: center;">
    		   최근 본 게시물<br/><br/>
       </div>
-     </div>	
+     </div>	 -->
 	
 	</div>
 	

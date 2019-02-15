@@ -114,6 +114,11 @@ public class CommunityController {
 			System.out.println("/getCommunity :GET");
 			
 			Post post = communityService.getCommunity(postNo);
+			////////////////////for SummerNote//////////////////////
+			String contents = post.getContents();
+			post.setContents(contents.substring(1));
+			System.out.println(contents);
+			////////////////////for SummerNote//////////////////////
 			
 			int clickCount = post.getClickCount();
 			clickCount++;

@@ -26,7 +26,7 @@
 
 <body>
  	<!-- 이미지 지도를 표시할 div 입니다 -->
-	<div id="map" style="width:600px; height:350px; float:center;"></div>
+	<div id="map" style="width:780px; height:350px; float:center;"></div>
 </body>
 
 <script>
