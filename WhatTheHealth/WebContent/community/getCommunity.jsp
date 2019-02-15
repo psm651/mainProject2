@@ -129,11 +129,33 @@
        margin-left:70%
     }
     .right{margin-left:37.7%;margin-top:-41%}      
+    
+ 	#user_image{ 
+		max-width:120%;
+    	border-radius: 100px;
+	}
       
    </style>
    <script type="text/javascript">
    $(document).ready(function() {
-       
+	   function imageClick(e){
+		    //$("#user_image").on("click", function(){
+		   	  
+		   	  //var userId = $(this).data("paramid");
+		   	 
+		   	  var userId = e.getAttribute("paramid");			////잠깐 주석
+		   	  //alert(userId);
+
+		   	  popWin 
+						= window.open("/user/getUserMeeting?userId="+userId,
+													"popWin", 
+													"left=300,top=200,width=1000%,height=700%,marginwidth=0,marginheight=0,"+
+													"scrollbars=no,scrolling=no,menubar=no ");
+		    // });
+		    
+		    } 
+	   
+	   
          // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
          var floatPosition = parseInt($("#floatMenu").css('top'));
          // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
@@ -333,7 +355,7 @@
              <ul class="likeandview" >
                 <li><span>
             <c:if test="${post.userImage != null and post.userImage != '' }">
-				<img src = "/resources/images/userImage/${post.userImage}" align="middle" height="30px" id="user_image" paramid = "${post.userId}" onclick = "imageClick(this);"/>
+				<img src = "/resources/images/userImage/${post.userImage}" align="middle" height="30px"  width="30px" id="user_image" paramid = "${post.userId}" onclick = "imageClick(this);"/>
 			</c:if>
 			<c:if test="${post.userImage == null or post.userImage == '' }">
 			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image" paramid = "${post.userId}"  onclick = "imageClick(this);"/>

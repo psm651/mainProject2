@@ -109,6 +109,7 @@ public class MainServiceImpl implements MainService {
 		String back = "/mqdefault.jpg";
 		
 		post.setPhoto(front +photoName+ back);
+		post.setYoutube(photoName);
 		
 		mainDao.updateThumbnail(post);
 		

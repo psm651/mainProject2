@@ -119,7 +119,7 @@
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "#deposit" ).on("click" , function() {
-				var joinNo = $(this).data("param");
+				var joinNo = $(this).data("param2");
 				self.location = "/point/updateDeposit?joinNo="+joinNo
 			});
 		 });

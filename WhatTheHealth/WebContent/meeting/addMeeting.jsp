@@ -132,7 +132,7 @@
 				"					&nbsp;\r\n" + 
 				"				</div>\r\n" + 
 				"				<div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
-				"                	선금금액 <input type=\"text\" class=\"form-control\" id=\"refundMoney\" name=\"refundMoney\"  placeholder=\"선금금액을 입력해주세요.\">\r\n" + 
+				"                	선금금액 <input type=\"text\" class=\"form-control\" id=\"depoAmount\" name=\"depoAmount\"  placeholder=\"선금금액을 입력해주세요.\">\r\n" + 
 				"                </div>\r\n" + 
 				"				<div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
 				"                	<a href=\"#\" class=\"btn btn-danger pill px-4\" id=\"accountAuth\" >계좌등록하기</a>" + 
@@ -147,19 +147,19 @@
 				"					&nbsp;\r\n" + 
 				"				</div>\r\n" + 
 				"				<div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
-				"                	은행명 <input type=\"text\" class=\"form-control\" id=\"bankName\" name=\"bankName\"  placeholder=\"은행명\">\r\n" + 
+				"                	은행명 <input type=\"text\" class=\"form-control\" id=\"depoBank\" name=\"depoBank\"  placeholder=\"은행명\">\r\n" + 
 				"                </div>\r\n" + 
 				"               <!--  <div class=\"col-md-0.5 mb-5 mb-md-0\">\r\n" + 
 				"					&nbsp;\r\n" + 
 				"				</div> -->\r\n" + 
 				"                <div class=\"col-md-2 mb-5 mb-md-0\">\r\n" + 
-				"                	예금주 <input type=\"text\" class=\"form-control\" id=\"holder\" name=\"holder\"  placeholder=\"예금주\">\r\n" + 
+				"                	예금주 <input type=\"text\" class=\"form-control\" id=\"depoAccHolder\" name=\"depoAccHolder\"  placeholder=\"예금주\">\r\n" + 
 				"                </div>\r\n" + 
 				"                <div class=\"col-md-1 mb-5 mb-md-0\">\r\n" + 
 				"					&nbsp;\r\n" + 
 				"				</div>\r\n" + 
 				"                <div class=\"col-md-5 mb-5 mb-md-0\">\r\n" + 
-				"                	계좌번호 <input type=\"text\" class=\"form-control\" id=\"accountNum\" name=\"accountNum\"  placeholder=\"계좌번호를 입력해주세요.\">\r\n" + 
+				"                	계좌번호 <input type=\"text\" class=\"form-control\" id=\"depoAccount\" name=\"depoAccount\"  placeholder=\"계좌번호를 입력해주세요.\">\r\n" + 
 				"                </div>\r\n" + 
 				"			</div></div>");
 		

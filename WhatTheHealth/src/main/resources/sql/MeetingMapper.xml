@@ -270,7 +270,7 @@
 												 ORDER BY p.like_count
 											</if>
 											<if test="searchFilter == 1">
-												 ORDER BY p.post_date
+												 ORDER BY p.post_no, p.post_date
 											</if>
 											) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
