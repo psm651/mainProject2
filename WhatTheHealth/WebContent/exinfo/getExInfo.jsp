@@ -350,15 +350,7 @@ function favoriteList(){
 	   $(".btn:contains('담기')").on("click", function(){
 		   
 		   var postTitle = $("#postTitle").text()
-		   console.log(postTitle)
-		   
-		   alert($("input[name='postNo']").val())
-		   alert($("#postTitle").text())
-		   alert(parseInt($("#exScCalorie").text()))
-		   alert($("#exScTime").text())
-		   alert($(".contents > p").text())
-		   alert($("#exScDate").val())
-		   
+		  
 		   $.ajax({
 				 url:"/schedule/json/addPostExSchedule" ,
 				 method: "POST",
