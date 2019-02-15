@@ -183,12 +183,8 @@
               <div class="row bg-white p-2 align-items-center">
               
 					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
-					<c:if test="${claim.claimSortNo == '0'}">
-                    	<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimNo}</div>
-                	</c:if>
-                	<c:if test="${claim.claimSortNo == '1'}">
-                		<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
-                	</c:if>
+					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
+                
                 	<div class="col-sm-2 col-md-2 col-lg-2">
                 		 <c:if test="${claim.claimReasonNo =='0'}">모욕/욕설/비방</c:if>
 						 <c:if test="${claim.claimReasonNo =='1'}">음란/폭력</c:if>	
