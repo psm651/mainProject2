@@ -57,17 +57,19 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  					FROM		(	SELECT s.socket_no, s.bj_id, s.live_title, s.total_viewer, s.live_type, s.live_status, u.nickname, u.user_image, s.live_date
 											FROM socket s, users u
-											WHERE  live_status = '1' AND s.bj_id = u.user_id		
-											<!-- <where>
-											  live_status = '1' AND s.bj_id == u.user_id									
-												<if test = "searchCondition == 0 and searchKeyword !='' ">	게시자 검색
+											WHERE  live_status = '1' AND s.bj_id = u.user_id	 
+											<if test="searchCondition != null">
+											 <where>
+											  <!-- live_status = '1' AND s.bj_id == u.user_id		 -->							
+												<!--<if test = "searchCondition == 0 and searchKeyword !='' ">	게시자 검색
 													and s.bj_id LIKE '%'||#{searchKeyword}||'%'
-												</if>			
-												<if test = "searchCondition == 1 and searchKeyword !='' ">	제목 검색
+												</if>		 -->	
+												<if test = "searchCondition == '0' and searchKeyword !='' ">	
 													and s.live_title LIKE '%'||#{searchKeyword}||'%'
 												</if>		
-											</where>	 -->
-											ORDER BY s.live_date, s.socket_no
+											</where>	
+											</if>
+											ORDER BY s.socket_no
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
@@ -88,16 +90,18 @@
 	  	SELECT COUNT(*)
 	  	FROM( SELECT s.socket_no, s.bj_id, s.live_title, s.total_viewer, s.live_type, s.live_status, u.nickname, u.user_image, s.live_date
 											FROM socket s, users u
-											WHERE  live_status = '1' AND s.bj_id = u.user_id		
-											<!-- <where>
-											 live_status = '1' AND s.bj_id == u.user_id									
-												<if test = "searchCondition == 0 and searchKeyword !='' ">	게시자 검색
+											 WHERE  live_status = '1' AND s.bj_id = u.user_id		
+											<if test="searchCondition != null">
+											 <where>
+											  <!-- live_status = '1' AND s.bj_id == u.user_id		 -->							
+												<!--<if test = "searchCondition == 0 and searchKeyword !='' ">	게시자 검색
 													and s.bj_id LIKE '%'||#{searchKeyword}||'%'
-												</if>			
-												<if test = "searchCondition == 1 and searchKeyword !='' ">	제목 검색
-													and s.live_title LIKE '%'||#{searchKeyword}||'%'
+												</if>		 -->	
+												<if test = "searchCondition == '0' and searchKeyword !='' ">	
+													AND s.live_title LIKE '%'||#{searchKeyword}||'%'
 												</if>		
-											</where>	 -->
+											</where>	
+											</if>
 					 ) countTable						
 	 </select>
 	 

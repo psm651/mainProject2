@@ -94,7 +94,7 @@ public class SocketRestController {
 	@RequestMapping(value="json/listLiveStream", method=RequestMethod.POST)
 	public Map<String, Object> listLiveStream(@RequestBody Search search) throws Exception{
 		
-	
+		System.out.println("json/listLiveStream"+search.getSearchKeyword());
 		if(search.getCurrentPage()==0) {
 		search.setCurrentPage(1);
 		}
