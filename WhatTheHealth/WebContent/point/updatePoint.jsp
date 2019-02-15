@@ -54,6 +54,8 @@
 	  <script src="/resources/js/aos.js"></script>
 	
 	  <script src="/resources/js/main.js"></script>
+	  
+	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
@@ -70,38 +72,63 @@
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
-				fncupdatePoint();
-			});
-		});	
-		
-		
-		//=============이메일" 유효성Check  Event 처리 =============
-		 $(function() {
-			 
-			 $("input[name='email']").on("change" , function() {
+				var usingPoint = ($("input[name='point']").val());
+				var pointStatus = $("#pointStatus").val();
+				var senderId = $("#senderId").val();
+				var receiverId = $("#receiverId").val();
+				
+				//alert(usingPoint+"::::"+typeof usingPoint);
+				//alert(pointStatus+"::::"+typeof pointStatus);
+				//alert(senderId);
+				//alert(receiverId);
+				
+				if(usingPoint == null || usingPoint.length <1){
+					//alert("전송할 포인트는  반드시 입력하셔야 합니다.");
+					swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
+					return;
+				} else {
 					
-				 var email=$("input[name='email']").val();
-			    
-				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
-			     }
+					usingPoint = parseInt(usingPoint);
+				
+					$.ajax( 
+							{
+								url : "/point/json/updatePoint/"+usingPoint ,
+								method : "POST" ,
+								dataType : "json" ,
+								headers : {
+									"Accept" : "application/json",
+									"Content-Type" : "application/json"
+								},
+								data : JSON.stringify({
+									pointStatus : pointStatus,
+									senderId: senderId,
+									receiverId: receiverId
+								}),
+								success : function(JSONData , status) {
+									alert(JSONData)
+									
+									if(JSONData == '111'){
+										swal("전송실패", "보유한 포인트를 초과해서 전송할 수 없습니다", "error");
+									}
+									
+									if(JSONData == '222'){
+										swal("포인트 전송이 완료되었습니다", "", "success")
+										.then((value) => {
+											self.location = "/point/listPoint";
+										});
+										
+										//swal("포인트 전송이 완료되었습니다", "", "success");
+										//self.location = "/point/listPoint";
+									}
+								}
+						});
+				}
 			});
-			 
 		});	
+
+	
 		
 		///////////////////////////////////////////////////////////////////////
-		function fncupdatePoint() {
-			var point=$("input[name='point']").val();
-			
-			if(point == null || point.length <1){
-				//alert("전송할 포인트는  반드시 입력하셔야 합니다.");
-				swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
-				return;
-			}
-			
-			swal("선금전송이 완료되었습니다", "", "success");
-			$("form").attr("method" , "POST").attr("action" , "/point/updatePoint").submit();
-		}
 		
 		
 	</script>
@@ -127,9 +154,9 @@
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
 		
-		<input type="hidden" name=pointStatus value="${point.pointStatus }"/>
-		<input type="hidden" name=senderId value="${point.senderId }"/>
-		<input type="hidden" name=receiverId value="${point.receiverId }"/>
+		<input type="hidden" name=pointStatus id="pointStatus" value="${point.pointStatus }"/>
+		<input type="hidden" name=senderId id="senderId" value="${point.senderId }"/>
+		<input type="hidden" name=receiverId id="receiverId" value="${point.receiverId }"/>
 		
 		  <div class="form-group">
 		    <label for="receiverId"  class="col-sm-4 control-label">받는 회원</label>

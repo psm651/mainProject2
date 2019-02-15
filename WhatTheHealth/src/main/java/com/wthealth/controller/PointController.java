@@ -216,6 +216,9 @@ public class PointController {
 		String senderId = ((User)session.getAttribute("user")).getUserId();
 		int meetingPostNo = meetingService.getJoin(joinNo).getMeetNo();
 		String receiveMeeting = meetingService.getMeeting(meetingPostNo).getPost().getTitle();
+		int depoAmount = meetingService.getMeeting(meetingPostNo).getDepoAmount();
+		
+		System.out.println("¼±±Ý::::"+depoAmount);
 		
 		Point point = new Point();
 		point.setPointStatus("1");
@@ -224,6 +227,7 @@ public class PointController {
 		
 		model.addAttribute("point", point);
 		model.addAttribute("joinNo", joinNo);
+		model.addAttribute("depo", depoAmount);
 		
 		return "forward:/point/updateDeposit.jsp";
 	}

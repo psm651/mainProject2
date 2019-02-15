@@ -239,7 +239,8 @@
 	 <update	id="updateDeposit"		parameterType="int" >
 	   	UPDATE join
 	   	<set>
-	   		depo_status = '1'
+	   		depo_status = '1',
+	   		join_status = '1'
 	   	</set>
 	   	WHERE join_no = #{value}
 	 </update>

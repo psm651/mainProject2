@@ -307,7 +307,7 @@ body{
 <!-- -----------------메뉴바----------------- -->
 
   
-<script src="http://192.168.0.39:3000/socket.io/socket.io.js"></script>
+<script src="http://192.168.0.15:3000/socket.io/socket.io.js"></script>
  <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 
   <script>
@@ -316,7 +316,7 @@ body{
   		var targetName = '';
   		var incomingid = '';
   		
-  		 var socket = io("http://192.168.0.39:3000");
+  		 var socket = io("http://192.168.0.15:3000");
   		
   		
   		
@@ -625,7 +625,7 @@ body{
                       if (msg.substring(msg.length-3)=='mp4') {
                          setTimeout(function() {
                             while(true){
-                               var path = 'http://192.168.0.43:8080/resources/images/chatImage/'+msg;
+                               var path = 'http://192.168.0.15:8080/resources/images/chatImage/'+msg;
                                var re = doesFileExist(path);
                                if (re) {
                                   //socket.emit("send_msg",msg);
@@ -637,7 +637,7 @@ body{
                    }else{
                       setTimeout(function() {
                             while(true){
-                               var path = 'http://192.168.0.43:8080/resources/images/chatImage/'+msg;
+                               var path = 'http://192.168.0.15:8080/resources/images/chatImage/'+msg;
                                var re = doesFileExist(path);
                                if (re) {
                                   //socket.emit("send_msg",msg);
