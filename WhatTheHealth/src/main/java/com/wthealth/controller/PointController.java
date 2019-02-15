@@ -124,10 +124,10 @@ public class PointController {
 	      
 	      if(usingPoint > sendUser.getHavingPoint()) {
 	         
-	         System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½");
+	         System.out.println("º¸À¯ÇÑ Æ÷ÀÎÆ®º¸´Ù ¸¹ÀÌÀü¼ÛÇÒ¶§");
 	         response.setContentType("text/html; charset=UTF-8"); 
 	         PrintWriter out = response.getWriter();    
-	         out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
+	         out.println("<script>alert('º¸À¯ÇÑ Æ÷ÀÎÆ®¸¦ ÃÊ°úÇØ¼­ Àü¼ÛÇÒ ¼ö ¾ø½À´Ï´Ù.');</script>");
 	         out.flush();
 	         return "/point/updatePoint.jsp";
 	         
@@ -138,7 +138,7 @@ public class PointController {
 	         
 	         response.setContentType("text/html; charset=UTF-8"); 
 	         PrintWriter out = response.getWriter();    
-	         out.println("<script>alert('ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
+	         out.println("<script>alert('Æ÷ÀÎÆ® Àü¼ÛÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.');</script>");
 	         out.flush();
 	   
 	         int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
@@ -172,10 +172,10 @@ public class PointController {
 		
 		if(usingPoint > sendUser.getHavingPoint()) {
 			
-			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½");
+			System.out.println("º¸À¯ÇÑ Æ÷ÀÎÆ®¸¦ ÃÊ°ú");
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
+			out.println("<script>alert('º¸À¯ÇÑ Æ÷ÀÎÆ®¸¦ ÃÊ°úÇØ¼­ Àü¼ÛÇÒ ¼ö ¾ø½À´Ï´Ù.');</script>");
 			out.flush();
 			return ;
 			
@@ -186,7 +186,7 @@ public class PointController {
 			
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.');</script>");
+			out.println("<script>alert('Æ÷ÀÎÆ® Àü¼ÛÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.');</script>");
 			out.flush();
 	
 			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
