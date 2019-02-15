@@ -62,7 +62,7 @@ public class ClaimRestController {
 		if (claimService.claimCount(claim.getClaimedUserId())>=3) {
 			User user = userService.getUser(claim.getClaimedUserId());
 			user.setUserStatus("2");
-			userService.updateUser(user);
+			userService.deleteUser(user);
 			
 		}
 		
