@@ -62,9 +62,9 @@
 	</insert>
 
 	<select id="getCommunity" resultMap="postSelectMap" parameterType="int">
-		SELECT *
-		FROM post
-		WHERE post_no = #{value}
+		SELECT p.*, u.nickname, u.user_image, u.user_id
+		FROM post p, users u
+		WHERE p.post_no = #{value} and p.user_id = u.user_id
 	</select>
 
 	<update id="updateCommunity" parameterType="com.wthealth.domain.Post">
