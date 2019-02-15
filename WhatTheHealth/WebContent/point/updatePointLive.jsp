@@ -69,38 +69,58 @@
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		//============= "수정"  Event 연결 =============
-		 $(function() {
-	
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
-				/* alert("여기"); */
-				var point=$("input[name='point']").val();
-				if(point == null || point.length <1){
-					//alert("전송할 포인트는  반드시 입력하셔야 합니다.");
-					swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
-					return;
-				}
-				
-				//swal("선금전송이 완료되었습니다", "", "success");
-				$("form").attr("method" , "POST").attr("action" , "/point/updatePointLive").submit();
-				
-			});
-		});	
-		
-		///////////////////////////////////////////////////////////////////////
-		function fncupdatePoint() {
-			var point=$("input[name='point']").val();
+	$(function() {
+		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+		$( "button.btn.btn-primary" ).on("click" , function() {
+			var usingPoint = ($("input[name='point']").val());
+			var pointStatus = $("#pointStatus").val();
+			var senderId = $("#senderId").val();
+			var receiverId = $("#receiverId").val();
 			
-			if(point == null || point.length <1){
+			
+			if(usingPoint == null || usingPoint.length <1){
 				//alert("전송할 포인트는  반드시 입력하셔야 합니다.");
 				swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
 				return;
-			}
+			} else {
+				
+				usingPoint = parseInt(usingPoint);
 			
-			swal("선금전송이 완료되었습니다", "", "success");
-			$("form").attr("method" , "POST").attr("action" , "/point/updatePoint").submit();
-		}
+				$.ajax( 
+						{
+							url : "/point/json/updatePointLive/"+usingPoint ,
+							method : "POST" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							data : JSON.stringify({
+								pointStatus : pointStatus,
+								senderId: senderId,
+								receiverId: receiverId
+							}),
+							success : function(JSONData , status) {
+								alert(JSONData)
+								
+								if(JSONData == '111'){
+									swal("전송실패", "보유한 포인트를 초과해서 전송할 수 없습니다", "error");
+								}
+								
+								if(JSONData == '222'){
+									swal("포인트 전송이 완료되었습니다", "", "success")
+									.then((value) => {
+										self.close();
+									});
+									
+									//swal("포인트 전송이 완료되었습니다", "", "success");
+									//self.location = "/point/listPoint";
+								}
+							}
+					});
+			}
+		});
+	});	
 		
 		
 	</script>
@@ -124,9 +144,9 @@
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
 		
-		<input type="hidden" name=pointStatus value="${point.pointStatus }"/>
-		<input type="hidden" name=senderId value="${point.senderId }"/>
-		<input type="hidden" name=receiverId value="${point.receiverId }"/>
+		<input type="hidden" name=pointStatus id="pointStatus" value="${point.pointStatus }"/>
+		<input type="hidden" name=senderId id="senderId" value="${point.senderId }"/>
+		<input type="hidden" name=receiverId id="receiverId" value="${point.receiverId }"/>
 		
 		  <div class="form-group">
 		  <label for="liveSteam" class="col-sm-4 control-label"  align="center" style="font-size : 18px;"><b>알통 쏘기</b></label>

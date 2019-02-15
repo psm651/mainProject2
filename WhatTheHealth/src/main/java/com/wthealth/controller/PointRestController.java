@@ -120,5 +120,46 @@ public class PointRestController {
 			return "222";
 		}
 	}
+	
+	@RequestMapping(value="json/updatePointLive/{usingPoint}", method=RequestMethod.POST)
+	public String updatePointLive(@PathVariable("usingPoint") int usingPoint, @RequestBody Point point, HttpSession session) throws Exception{
+
+		System.out.println("json/point/updatePoint : POST");
+		//Business Logic
+
+		//User sendUser = userService.getUser(point.getSenderId());
+		User sendUser = userService.findId(point.getSenderId());
+		point.setSenderId(sendUser.getUserId());
+		
+		if(usingPoint > sendUser.getHavingPoint()) {
+			
+			System.out.println("º¸À¯ÇÑ Æ÷ÀÎÆ®¸¦ ÃÊ°ú");
+			
+			return "111";
+			
+		} else {
+			
+			point.setUsingPoint(usingPoint);
+			pointService.updatePoint(point);
+	
+			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
+			sendUser.setHavingPoint(sendPoint);
+			userService.updateHavingPoint(sendUser);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+sendPoint);
+			session.setAttribute("user", sendUser);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ù²ï¿½ï¿½ï¿½ "+session.getAttribute("user"));
+			
+			//User receiveUser = userService.getUser(point.getReceiverId());
+			User receiveUser = userService.findId(point.getReceiverId());
+			point.setReceiverId(receiveUser.getUserId());
+			int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
+			receiveUser.setHavingPoint(receivePoint);
+			userService.updateHavingPoint(receiveUser);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+receivePoint);
+			
+			return "222";
+			
+		}
+	}
 
 }
