@@ -435,10 +435,10 @@ function favoriteList(){
             <ul class="likeandview" >
                 <li><span>
             <c:if test="${post.userImage != null and post.userImage != '' }">
-				<img src = "/resources/images/userImage/${post.userImage}" align="middle" height="30px" id="user_image" paramid = "${post.userId}" onclick = "imageClick(this);"/>
+				<img src = "/resources/images/userImage/${post.userImage}" align="middle" height="30px" id="user_image" paramid = "${post.userId}" onclick = "imageClick(this);"/>			
 			</c:if>
 			<c:if test="${post.userImage == null or post.userImage == '' }">
-			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image" paramid = "${post.userId}"  onclick = "imageClick(this);"/>
+				<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image" paramid = "${post.userId}"  onclick = "imageClick(this);"/>
 			</c:if>
             <b>${post.nickName}</b>&nbsp;&nbsp; &nbsp;</span></li>
                 <li><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
