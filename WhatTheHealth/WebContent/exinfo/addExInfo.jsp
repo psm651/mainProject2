@@ -393,7 +393,7 @@
             
              
               </div>
-             <input type="submit" value="등록" onclick = "fncAddExInfo()" class="form-control btn btn-danger">
+             <input type="submit" value="등록" onclick = "return fncAddExInfo()" class="form-control btn btn-danger">
 			 <input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           <!-- </div> -->
           </form>

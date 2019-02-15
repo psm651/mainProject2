@@ -3,6 +3,7 @@ package com.wthealth.service.exschedule;
 import java.util.List;
 
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Post;
 
 public interface ExScheduleService {
 	
@@ -18,4 +19,5 @@ public interface ExScheduleService {
 	
 	public int deleteExSchedule(int exScNo) throws Exception; 
 
+	public void addPostExSchedule(ExSchedule exSchedule) throws Exception;
 }

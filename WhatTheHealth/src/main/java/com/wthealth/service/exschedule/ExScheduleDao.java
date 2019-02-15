@@ -3,6 +3,7 @@ package com.wthealth.service.exschedule;
 import java.util.List;
 
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Post;
 
 public interface ExScheduleDao {
 
@@ -17,4 +18,6 @@ public interface ExScheduleDao {
 	public List<ExSchedule> getExHistoryChart(String userId) throws Exception;
 	
 	public int deleteExSchedule(int exScNo) throws Exception; 
+
+	public void addPostExSchedule(ExSchedule exschedule) throws Exception;
 }

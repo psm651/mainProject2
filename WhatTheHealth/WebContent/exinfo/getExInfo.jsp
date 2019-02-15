@@ -24,49 +24,117 @@
    
    <style>
    
+   #floatMenu {
+      position: absolute;
+      width: 20%;
+      height: 30vw;
+      /* height: 450px; */
+      /* right: 200px; */
+      right:20%; 
+      padding:0;
+      margin:0;
+      bottom: 25px; 
+      text-align:center;
+      background-color: #FFFFFF;
+      color: #000000;
+      border:1px solid;
+      font-size: 15px;
+      overflow: hidden;
+   }
+   
+      .postHere{
+      /*    width: 63%; */
+         padding : 3em; 
+         border : 1px solid gray;
+         border-radius : 15px;
+         text-align : center;
+         margin-bottom : 5em;
+      }
+      
+      #map{
+         display : block;
+         float: center;
+      }
+      
+      .contents{
+         /* display : block; */
+         text-align : left;
+         font-size : 18px;
+      }
+ 
+       .postHere li{
+         /* display : block; */
+         list-style-type : none;
+         float : left;
+      } 
+
+      .replyInclude{
+         text-align : left;
+      } 
+      
+      h4{
+       display: block;
+       font-size: 24px;
+       padding-bottom: 8px;
+       margin-bottom: 20px;
+       border-bottom: 2px solid #5d5d5d;
+       line-height: 1.3em;
+       color: #2e2e2e;
+       font-weight: 600;
+       text-align:left
+       
+      }       
+      
+      h5{
+      position:absolute;
+      top:46px;
+      left:170px;}
+      
+      
+    .likeandview{
+      border-bottom: 1px solid #DCDCDC; 
+      list-style-type: none; 
+      float: right; 
+      padding-left: 5px;  
+      color: gray; 
+      font-size: 15px; 
+    }
+          
+      .postImage{
+       width :110px;
+       height: 120px;
+     padding: 3px;
+       border : 1px solid gray;
+         
+      } 
+            
+      .imagelocation li{
+         width:230px;
+         hegiht:245px;
+         
+       padding-right: 0px;
+         padding-bottom: 0px;
+       padding-left: 0px;
+       list-style-type : none;
+
+      }
+      
+      .ytp-cued-thumbnail-overlay-image{
+         
+      }
+ 
+    .imagelocation{
+       margin-top:-104%;
+       margin-left:70%
+    }
+    .right{margin-left:37.7%;margin-top:-41%}     
+   
+   
    .img-fluid{
    	 width : 30px;
    	 height: 30px;
    	 }
 
-   	.giyong{
-   		margin-top : 5em;
-   		padding : 3em;
-   		border : 1px solid gray;
-   		border-radius : 15px;
-   		text-align : center;
-   		margin-bottom : 5em;
-   	}
-   	
-   	.contents{
-   		display : block;
-   		text-align : left;
-   	}
-   	
-   	.giyong ul{
-   		display : block;
-   		height : 60px;
-   		overflow : hidden;
-   		padding-inline-start : 0;
-   		margin : 0 auto;
-   		text-align : center;
-   		padding-left : 30em;
-   	}
-   	
-   	.giyong li{
-   		display : block;
-   		list-style-type : none;
-   		float : left;
-   	}
-   	
-   	.Kimgiyong{
-   		display : block;
-   		height : 60px;
-   	}
-   	
-   	.giyongInput{
-   		margin-top : 50px;
-   		text-align : left;
    	}  
    	.exinfo-class{
    		display: block;
@@ -90,34 +158,9 @@
     	font-weight: 300;
     	text-align:left
    	}
-   	.like and view{text-align:right;}
    	
    	.infoClass li{li-style:none;}
    	
-   	.postImage{
-   	 width :110px;
-   	 height: 120px;
-
- 	 padding: 3px;
-   	 border : 1px solid gray;
-   		
-   	}
-   	.imagelocation li{
-   		width:230px;
-   		hegiht:245px;
-   		
-    	padding-right: 0px;
-   		padding-bottom: 0px;
-    	padding-left: 0px;
-    	list-style-type : none;
-
-   	}
- 
- 	.imagelocation{
- 		margin-top:-104%;
- 		margin-left:70%
- 	}
- 	.right{margin-left:37.7%;margin-top:-41%}
    </style>
 
 
@@ -127,134 +170,145 @@
 //////////////////////////////////////달력////////////////////////////////
 // Initialization
 
+   $(document).ready(function() {
+       
+         // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+         var floatPosition = parseInt($("#floatMenu").css('top'));
+         // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+      
+         
+         $(window).scroll(function() {
+            // 현재 스크롤 위치를 가져온다.
+            var scrollTop = $(window).scrollTop();
+            var newPosition = scrollTop + floatPosition + "px";
+       
+             
+            $("#floatMenu").stop().animate({
+               "top" : newPosition
+            }, 500);
+       
+         }).scroll();
+       
+      });
 
-$(function(){
-$('#exInfoSc').datepicker({
-	autoClose: false,
-	position:  "right top",
-	 autoClose: true,
-	todayButton : true
-/* 	onSelect: function onSelect(fd){			
-	} */
-})
-// Select initial date from `eventDates`
 
-$('#exInfoSc').data('datepicker');
-//Access instance of plugin
-/* $('#exInfoSc').data('datepicker')    
 
-}); */
    
-});
-   
-    function favoriteList(){
-           $.ajax({
-               url : '/favorite/json/listFavorite/'+'${post.postNo}',
-               type : 'GET',
-               success : function(JSONData){
-                    var a =''; 
-                    var b ='';
-                    $.each(JSONData, function(i){
-                       console.log(JSONData);
-                        var list = JSONData[i];
-                        console.log(JSONData[i]);
-                        console.log(list.pressedStatus);
-                        if(list.pressedStatus == '1'){
-                           if(list.favoriteType == '0'){
-                              a += '<img src="../resources/images/fullHeart.png"  width="60px" class="likeImage" onclick="fullHeart()">';
-                              $(".likeImage").remove();
-                              
-                           }else if(list.favoriteType == '1'){
-                              $(".interestImage").remove();
-                              b += '<img src="../resources/images/fullStar.png" width="60px" class="interestImage" onclick="fullStar()" >';
-                               
-                           }
-                        }
-                   });
-                    if(a != ''){
-                       $(".like").append(a); 
+function favoriteList(){
+    $.ajax({
+        url : '/favorite/json/listFavorite/'+'${post.postNo}',
+        type : 'GET',
+        success : function(JSONData){
+             var a =''; 
+             var b ='';
+             $.each(JSONData, function(i){
+                console.log(JSONData);
+                 var list = JSONData[i];
+                 console.log(JSONData[i]);
+                 console.log(list.pressedStatus);
+                 if(list.pressedStatus == '1'){
+                    if(list.favoriteType == '0'){
+                       $(".likeImage").remove();
+                       a += '<img src="../resources/images/fullHeart.png"  width="30px" class="likeImage" onclick="fullHeart()">';
+                       
+                    }else if(list.favoriteType == '1'){
+                       $(".interestImage").remove();
+                       b += '<img src="../resources/images/fullStar.png" width="30px" class="interestImage" onclick="fullStar()" >';
+                        
                     }
-                    if(b != ''){
-                       $(".interest").append(b);
-                    }
-               }
-           });
-       } 
-    
-   
+                 }
+            });
+             if(a != ''){
+                $("#like").append(a); 
+             }
+             if(b != ''){
+                $("#interest").append(b);
+             }
+        }
+    });
+} 
+
+
     $(document).ready(function(){
        favoriteList(); 
        });
    
+    var likeCount = '${post.likeCount}';
     
     function emptyHeart(){
-      $.ajax({
-            url : '/favorite/json/addLike/'+'${post.postNo}',
-            type : "GET",
-            success : function(data){
-            	
-                if(data == 1) {
-                  favoriteList(); 
-                  }
-               }            
-            });
-      }
+        $.ajax({
+              url : '/favorite/json/addLike/'+'${post.postNo}',
+              type : "GET",
+              success : function(data){
+                  if(data == 1) {
+                    favoriteList(); 
+                    likeCount++;
+                    //likeCount.attr('likeCount'); 
+                    $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
+                    }
+                 }            
+              });
+        }
     
     function fullHeart(){
-       
-         $.ajax({
-               url : '/favorite/json/deleteLike/'+'${post.postNo}',
-               type : "GET",
-               success : function(data){
-                  var a =''; 
-                  
-                   if(data == 1) {
-                      a += '<img src="../resources/images/emptyHeart.png"  width="60px" class="likeImage" onclick="emptyHeart()">';
-                             $(".likeImage").remove();
-                     }
-                   $(".like").append(a); 
-                  }
-               });
-         }
+        
+        $.ajax({
+              url : '/favorite/json/deleteLike/'+'${post.postNo}',
+              type : "GET",
+              success : function(data){
+                 var a =''; 
+                 
+                  if(data == 1) {
+                     a += '<img src="../resources/images/emptyHeart.png"  width="30px" class="likeImage" onclick="emptyHeart()">';
+                            $(".likeImage").remove();
+                     likeCount--;
+                     //likeCount.attr('likeCount');
+                     
+                     $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
+                    }
+                  $("#like").append(a); 
+                 }
+              });
+        }
     
     function emptyStar(){
-         $.ajax({
-               url : '/favorite/json/addInterest/'+'${post.postNo}',
-               type : "GET",
-               success : function(data){
-                   if(data == 1) {
-                     favoriteList(); 
-                     }
-                  }            
-               });
-         }
-       
-       function fullStar(){
-          
-            $.ajax({
-                  url : '/favorite/json/deleteInterest/'+'${post.postNo}',
-                  type : "GET",
-                  success : function(data){
-                     var a =''; 
-                     
-                      if(data == 1) {
-                         a += '<img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">';
-                                $(".interestImage").remove();
-                        }
-                      $(".interest").append(a); 
-                     }
-                  });
-            }
-       
-       function fullSiren(){
-          
-            $.ajax({
-                  url : '/claim/json/addClaim/'+'${post.postNo}',
-                  type : "GET",
-                  success : function(data){
-                     }
-                  });
-            }
+        $.ajax({
+              url : '/favorite/json/addInterest/'+'${post.postNo}',
+              type : "GET",
+              success : function(data){
+                  if(data == 1) {
+                    favoriteList(); 
+                    }
+                 }            
+              });
+        }
+      
+      function fullStar(){
+         
+           $.ajax({
+                 url : '/favorite/json/deleteInterest/'+'${post.postNo}',
+                 type : "GET",
+                 success : function(data){
+                    var a =''; 
+                    
+                     if(data == 1) {
+                        a += '<img src="/resources/images/emptyStar.png"  width="30px" class="interestImage" onclick="emptyStar()">';
+                               $(".interestImage").remove();
+                       }
+                     $("#interest").append(a); 
+                    }
+                 });
+           }
+      
+      function fullSiren(){
+         
+         popWin 
+          = window.open("/claim/addClaim?targetNo="+${post.postNo}+"&menu=post",
+                  "popWin", 
+                  "left=100,top=200,width=580,height=500,marginwidth=0,marginheight=0,"+
+                  "scrollbars=no,scrolling=no,menubar=no,resizable=no");
+	}
+
           
        
        $( function (){
@@ -270,26 +324,66 @@ $('#exInfoSc').data('datepicker');
  	        	self.location="/exInfo/updateDeleteStatus?postNo=${post.postNo}"
  	      }); 
  	 });
-     
-     $(function(){
-    	$(".postImage").css("cursor","pointer");
-    	
-    	$("#bmiLocation").on("click", function(){
-    		self.location = "/calculator/bmiCalculator.jsp"
-    	})
-    	
-    	$("#calorieLocation").on("click", function(){
-    		self.location = "/calculator/calorieCalculator.jsp"
-    	})
-    	
-    	$("#scheduleLocation").on("click", function(){
-    	 	self.location = "/schedule/listSchedule"
-    	})
-    	
-    	$("#historyChartLocation").on("click", function(){
-    	 	self.location = "/schedule/getHistoryChart"
-    	})    	
-     });
+ 
+       $(function(){
+    		
+
+   		$('#exScDate').datepicker({
+   			dateFormat : "yyyy-mm-dd",
+   			autoClose: false,
+   			position:  "right top",
+   			autoClose: true,
+   			todayButton : true,
+   	 		onSelect: function onSelect(){			
+   	
+   	 		} 
+   		});
+
+
+   		$('#exScDate').data('datepicker');
+
+
+   });       
+       
+   $(function(){
+	 
+	   $(".btn:contains('담기')").on("click", function(){
+		   
+		   var postTitle = $("#postTitle").text()
+		   console.log(postTitle)
+		   
+		   alert($("input[name='postNo']").val())
+		   alert($("#postTitle").text())
+		   alert(parseInt($("#exScCalorie").text()))
+		   alert($("#exScTime").text())
+		   alert($(".contents > p").text())
+		   alert($("#exScDate").val())
+		   
+		   $.ajax({
+				 url:"/schedule/json/addPostExSchedule" ,
+				 method: "POST",
+				 data : JSON.stringify({
+					 postNo : $("input[name='postNo']").val(),
+					 exScName : $("#postTitle").text(), 
+					 exScCalorie : parseInt($("#exScCalorie").text()), 
+					 exScTime : $("#exScTime").text(), 
+					 exScContents :$(".contents > p").text(),
+					 exScDate : $("#exScDate").val()
+				 }),
+				 dataType : "json",
+				 headers : {
+						 "Accept" : "application/json",
+						"Content-Type" : "application/json"
+					},
+				 success : function(JSONdata, status){
+						alert(JSONdata)
+				 }
+			
+			 })//end of ajax  
+			 swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
+	   });
+	   
+   })    
        
    </script>
 </head>
@@ -297,142 +391,157 @@ $('#exInfoSc').data('datepicker');
    
    <div class="site-wrap">
    <!-- ToolBar Start /////////////////////////////////////-->
-     <jsp:include page="/layout/toolbar.jsp" />
-    
-      <!-- ToolBar End /////////////////////////////////////-->
+     <jsp:include page="/layout/toolbarSecond.jsp" />
+  <!-- ToolBar End /////////////////////////////////////-->
    <!-- 툴바 인클루드 시작! -->
    
    </div>
- <div class="container">
-	
-
-    	
-    <div class="row">
-       <div class="col-lg-8">
-       	
-      	<input type="hidden" name="postNo" value="${post.postNo }"/>
-        <div class="giyong">
-        	<div class="exinfo-class" >
-        		<c:if test="${post.exPart == '0'}">
-        		 운동꿀팁 > 전신 
+ <div class="site-section bg-light">
+      <div class="container">
+      
+         <div class="row">
+         <div class="col-md-12 col-lg-10 mb-5">
+         <div class="container">
+         <div class="postHere"> 
+         
+             
+          
+            <input type="hidden" name="postNo" value="${post.postNo }"/>
+     	
+             <h4 id="postTitle"><b>${post.title}</b></h4>
+ <%--                <c:if test="${post.exPart == '0'}">
+        		<strong>>전신 </strong>
         		</c:if>
         		<c:if test="${post.exPart == '1'}">
-        		 운동꿀팁 > 복부 
+        		<strong>>복부</strong>
         		</c:if>
         		<c:if test="${post.exPart == '2'}">
-        		 운동꿀팁 > 상체 
+        		<strong>>상체</strong> 
         		</c:if>
         		<c:if test="${post.exPart == '3'}">
-        		 운동꿀팁 > 하체 
+        		<strong>>하체</strong>
         		</c:if>
         		<c:if test="${post.exPart == '4'}">
-        		 운동꿀팁 > 스트레칭 
-        		</c:if>        	        	        	        	
-          	</div>
-          
-          	
- 			<h4 style="text-align:left;margin-top:3%">${post.title}</h4> 
- 			          	
-          	<ul class="like and view">
-          		<li><span class="likeCount">좋아요 수  : ${post.likeCount}</span></li>
-          		<li><span>&nbsp; 조회 수 : ${post.clickCount}</span></li>
-          	</ul>
- 
-
+        		<strong>>스트레칭</strong>
+        		</c:if>
+        		 --%>
+        		
+    
+             
+            
+            <h7><input type='text' id="exScDate" data-language='en' name='exScDate' placeholder="내스케줄담기" style="width:150px;position: absolute;top:40px;left:69%;"/></h7> 		 
+             <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height:30px;position:absolute; float:right;top:40px;left:85%;"><b>담기</b></a>
+             
+            <ul class="likeandview" >
+                <li><span>
+            <c:if test="${post.userImage != null and post.userImage != '' }">
+				<img src = "/resources/images/userImage/${post.userImage}" align="middle" height="30px" id="user_image" paramid = "${post.userId}" onclick = "imageClick(this);"/>
+			</c:if>
+			<c:if test="${post.userImage == null or post.userImage == '' }">
+			<img src = "/resources/images/userImage/defaultUser.png" align="middle" height="30px" id="user_image" paramid = "${post.userId}"  onclick = "imageClick(this);"/>
+			</c:if>
+            <b>${post.nickName}</b>&nbsp;&nbsp; &nbsp;</span></li>
+                <li><span><b> <img src="../resources/images/dateImage.png" width="25px"  style="opacity: 0.7">&nbsp;${post.postDate}</b>&nbsp;&nbsp; &nbsp;</span></li><!-- 등록일자 이미지 -->
+                <li><span class="likeCount"  ><b><img src="../resources/images/emptyHeart.png" width="25px"  style="opacity: 0.7">&nbsp;${post.likeCount}</b></span></li><!-- 좋아요수 이미지 -->
+                <li><span>&nbsp;&nbsp;&nbsp;<b><img src="/resources/images/eyeImage.png" height="23px"  style="margin-bottom: 2px; opacity: 0.7">&nbsp;${post.clickCount}</b></span></li><!-- 조회수 이미지 -->
+             </ul>
  			
-            <div class="contents" style="margin-top:-12%;">
-				<p>${post.contents}</p>
-           	</div>
+ 			<div style="margin-top:40px;  background-color:white; padding:2em;" > 
+       	    	 <div class="contents">
+       	    	 <p>${post.contents}</p> 
+ 			</div>	
               <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
-			  	  
-	              <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->  
-	            	  <jsp:include page="/common/getMap.jsp" /> 
-	              
-               </c:if>
-
+              <b style="font-size: 17px; float: left; border-bottom:2px solid #DCDCDC; padding-left: 10px; margin-top: 5px;"><img src="../resources/images/map/marker-480.png" width="25px"  style="opacity: 0.7">위치 &nbsp;</b>
+              <div style="float:center; background-color: #EDEDED; padding: 2em; padding-left:2.5em; border-radius:15px 50px;">			  	  
+	              <jsp:include page="/common/getMap.jsp" /> 
+	          </div>
+              </c:if>
+			  </div>
+			  
 			<br/>
 			
-		 	<span><h6 class="introClass">간략정보</h6></span>   
+			
+		 	<span><h4 class="introClass"><strong>프로그램 간략정보</strong></h4></span>   
  				
-			<ul class="infoClass">
-			  <li style="margin-left:-200%;">
-                <img src="/resources/images/upload/clock.png" alt="Image" class="img-fluid">
-                <span>${post.exVideoTime}</span >
-           	  </li>
-  			  <li style="margin-left:-80%;">
-                <img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
-                <span>${post.exCalorie} kcal</span>
-           	  </li>
-         	  <li style="margin-left:50%">
+			<div class="infoClass">
+			  
+			  <div class="row">
+			    <div class="col-md-4">
+                	<img src="/resources/images/upload/clock.png" alt="Image" class="img-fluid">
+               		<span id="exScTime">${post.exVideoTime}</span >
+           	    </div>
+  			    <div class="col-md-4">
+                	<img src="/resources/images/upload/run.png" alt="Image" class="img-fluid">
+                	<span id="exScCalorie">${post.exCalorie} kcal</span>
+           	    </div>
+         	  <div class="col-md-4">
                 <img src="/resources/images/upload/exPart.png" alt="Image" class="img-fluid">
  					<c:if test="${post.exPart=='0'}">전신</c:if>
                 	<c:if test="${post.exPart=='1'}">복부</c:if>
                		<c:if test="${post.exPart=='2'}">상체  </c:if>
                 	<c:if test="${post.exPart=='3'}">하체</c:if>
                 	<c:if test="${post.exPart=='4'}">스트레칭</c:if>                 
- 			   </li>
- 			</ul>	
-
-		<div class="Kimgiyong">                        
+ 			   </div>
+ 			</div>	
                        
-                <div class="favoriteListHere" >
-                   <div style="float: left; width: 43%;" class="like" >
-                   <img src="../resources/images/emptyHeart.png" width="60px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
-                   </div>
-                   <div style="float: left; width: -5%;" class="interest">
-                   <img src="../resources/images/emptyStar.png"  width="60px" class="interestImage" onclick="emptyStar()">
-                   </div>
-                   <div style="float: left; width: 43%;" class="claim">
-                   <img src="../resources/images/fullSiren.png"  width="60px" class="claimImage" onclick="fullSiren()">
-                   </div>
-                </div>
+                       
+
             
             <c:if test = "${sessionScope.user.role == 'admin'}">  
              <br/>
-            	<div style="margin-top : 3.5em;margin-left:-5%;">
-	            	<p>
-	            		<a href="#" class="btn btn-primary pill px-4">수정</a>&nbsp;
-	            		<a href="#" class="btn btn-primary pill px-4">목록으로</a>&nbsp;
-	            		<a href="#" class="btn btn-primary pill px-4">삭제</a>
-	            	</p>
-	            </div>
+            	<div class = "row"  style="margin-top:20px; " >
+               	   <div class="col-md-8 mb-5" >
+                   </div>
+                   <div class="col-md-4 mb-5"    >
+                   		<a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:right;"><b>목록으로</b></a>
+                   		<a href="#" class="btn btn-primary pill px-4" style="font-size:13px; height: 30px; float:center;"><b>삭제</b></a>
+                   		<a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:left;"><b>수정</b></a>
+               	  </div>
+               </div>
             </c:if> 
- 			<br/><br/>
-          </div>
+ 		
+             <div class="row " >
+                <div class="col-md-3 mb-5" >
+                   </div>
+              
+                   <div  class="col-md-2 "  style="border: 3px solid #DCDCDC; border-radius : 15px;  padding: 7px;" id="like" >
+                   <img src="../resources/images/emptyHeart.png" width="30px" id = "likeImage" class="likeImage" alt="하뚜" onclick="emptyHeart()">
+                   </div>
+                   <div class="col-md-2"   style="border: 3px solid #DCDCDC; border-radius : 15px;  padding: 7px;" id="interest">
+                   <img src="../resources/images/emptyStar.png"  width="30px" class="interestImage" onclick="emptyStar()">
+                   </div>
+                   <div  class="col-md-2"  style="border: 3px solid #DCDCDC; border-radius : 15px; padding: 7px;" id="claim">
+                   <img src="../resources/images/fullSiren.png"  width="30px" class="claimImage" onclick="fullSiren()">
+                   </div>
+                   <div class="col-md-3 mb-5" >
+                   </div>
+              </div>  
           
-          <br/>
           
-          <div class="giyongInput">
+          
+          <div class="replyInclude">
            <jsp:include page="/reply/listReply.jsp" />
-          </div>
+           </div>
            
         
       </div>
       
  </div>
  
- 	<!-- <div class="col-lg-4" style="margin-left:100%;margin-top:-103%%;margin-left:72%"> -->
-	 <ul class="imagelocation">
-	   <li>
-	 		<img src="/resources/images/post/post_BMI.png" alt="Image" class="postImage" id="bmiLocation">
-	   </li>
-	   <li class="right">
-	 		<img src="/resources/images/post/post_Calorie.jpg" alt="Image" class="postImage" id="calorieLocation" >
-	   </li>
-	   <li>
-	 		<img src="/resources/images/post/post_HistroyChart.png" alt="Image" class="postImage" id="historyChartLocation">
-	   </li>
-	   <li class="right">
-	 		<img src="/resources/images/post/post_Schedule.png" alt="Image" class="postImage" id="scheduleLocation" >
-	   </li>
-	</ul>
+     <div  id="floatMenu" style="top:0%;left:110%;">
+      <div id="innerMenu" style="font-weight: bold; text-align: center;">
+   		   최근 본 게시물<br/><br/>
+      </div>
+     </div>	
 	
 	</div>
 	
-
-
-</div>
+	
+	 </div>
+	</div>
+  </div>
+ 
 
 </body>
 </html>

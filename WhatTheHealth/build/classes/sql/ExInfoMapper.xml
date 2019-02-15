@@ -25,6 +25,7 @@
 		<result property="locationTagName"  column="locationtag_name"	jdbcType="VARCHAR" />
 		<result property="coordinate" 		column="coordinate" 		jdbcType="VARCHAR" />
 		<result property="address" 			column="address" 			jdbcType="VARCHAR" />
+	 	<result property="youtube"          column="youtube"             jdbcType="VARCHAR" /> 
 		
 		<result property="favoriteNo"		column="favorite_no" 		jdbcType="NUMERIC" />
 		<result property="favoriteType" 	column="favorite_type" 		jdbcType="VARCHAR" />
@@ -44,11 +45,11 @@
 	
 	    	INSERT INTO
 	    		post(post_no, post_sub_no, title, contents, user_id, post_date, like_count, category, 
-	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime, delete_status, locationtag_name, coordinate, address )
+	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime, delete_status, locationtag_name, coordinate, address, youtube )
 	   		VALUES
 	    		(seq_post_post_no.nextval, 'EI'||seq_ex_info_ex_info_no.currval, #{title}, #{contents}, #{userId}, sysdate,
 	    		 #{likeCount:NUMERIC}, 1, seq_ex_info_ex_info_no.nextval, #{exCalorie:NUMERIC}, #{exPlace:VARCHAR},
-	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR}, 0, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR} )
+	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR}, 0, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR}, #{youtube:VARCHAR})
 	    		 
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
         	 SELECT seq_post_post_no.currval FROM dual
@@ -70,7 +71,8 @@
   			ex_videotime = #{exVideoTime:VARCHAR},
   			address = #{address:VARCHAR},
   			coordinate = #{coordinate:VARCHAR},
-  			locationtag_name = #{locationTagName:VARCHAR}
+  			locationtag_name = #{locationTagName:VARCHAR},
+  			youtube = #{youtube:VARCHAR}
          </set>
        WHERE post_no = #{postNo}
     </update>
@@ -87,7 +89,7 @@
 	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
 	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
 		SELECT 
-  			title, contents, photo, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address, ex_place
+  			title, contents, photo, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address, ex_place, post_date, like_count
 	    FROM 
   			post
 		WHERE
