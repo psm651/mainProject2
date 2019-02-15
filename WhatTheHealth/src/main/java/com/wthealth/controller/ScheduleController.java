@@ -90,7 +90,7 @@ public class ScheduleController {
 		//return "forward:/schedule/addEx.jsp";
 	}
 	
-	   //칼로리계산기 스케줄 저장
+/*	   //칼로리계산기 스케줄 저장
 	   @RequestMapping(value="addDietSchedule", method=RequestMethod.POST)
 	   public void addDietSchedule( @ModelAttribute("food") Food food, @RequestParam String dietScDate, String mealTime, HttpSession session)throws Exception{
 	   
@@ -117,7 +117,7 @@ public class ScheduleController {
 	    	  food.getFoodInfos().get(i).setDietScNo(dietSchedule.getDietScNo());
 	    	  dietScheduleService.addMeal(food.getFoodInfos().get(i));
 		}
-	   }
+	   }*/
 	
 	
 	@RequestMapping(value="getExSchedule", method = RequestMethod.GET)

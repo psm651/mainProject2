@@ -177,10 +177,10 @@ public class MeetingController {
 		join.setPartyId(((User)(session.getAttribute("user"))).getUserId());
 		
 		Meeting meeting = meetingService.getMeeting(meetNo);
-		if(meeting.getDepoCondition() == "1") {
+		if((meeting.getDepoCondition()).equals("1") ) {
 			join.setDepoStatus("0");	//�꽑湲� 誘몄엯湲�
 			join.setJoinStatus("0");  //李몄뿬 ��湲곗긽�깭
-		}else if(meeting.getDepoCondition() == "0") {
+		}else if((meeting.getDepoCondition()).equals("0")) {
 			join.setDepoStatus("9");  //�꽑湲덉뾾�쓬
 			join.setJoinStatus("1");  //李몄뿬�솗�젙�긽�깭
 		};

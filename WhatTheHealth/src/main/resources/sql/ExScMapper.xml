@@ -9,15 +9,15 @@
  	
 	<resultMap id="exScSelectMap" type="com.wthealth.domain.ExSchedule">
 		<result property="exScNo" 			column="ex_sc_no" 				jdbcType="VARCHAR"/>
-		<result property="userId"				column="user_id" 				jdbcType="VARCHAR" />
-		<result property="exScName" 		column="ex_sc_title"	 			jdbcType="VARCHAR" />
+		<result property="userId"			column="user_id" 				jdbcType="VARCHAR" />
+		<result property="exScName" 		column="ex_sc_title"	 		jdbcType="VARCHAR" />
 		<result property="exScCalorie" 		column="ex_sc_calorie"			jdbcType="NUMERIC" />
-		<result property="exScTime" 		column="ex_sc_time" 			jdbcType="VARCHAR" />
+		<result property="exScTime" 		column="ex_sc_time" 			jdbcType="DATE" />
 		<result property="exScContents" 	column="ex_sc_contents" 		jdbcType="VARCHAR" />	
-		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="VARCHAR" />
+		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="DATE" />
 		<result property="postNo" 			column="post_no"	 			jdbcType="NUMERIC" />
 		<result property="exScPhoto" 		column="ex_sc_photo"	 		jdbcType="VARCHAR" />
-		<result property="deleteStatus" 		column="delete_status"	 		jdbcType="VARCHAR" />
+		<result property="deleteStatus" 	column="delete_status"	 	jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT DIET_SC -->
@@ -30,7 +30,13 @@
          		SELECT seq_ex_sc_ex_sc_no.currval FROM dual
       		</selectKey>
 	 </insert>
-	 <!-- SQL : INSERT MEAL-->
+	<!-- SQL : INSERT DIET_SC -->
+	<insert 	id="addPostExSchedule"	parameterType="com.wthealth.domain.ExSchedule" >
+	 	INSERT
+		INTO ex_sc(ex_sc_no, user_id, ex_sc_title, ex_sc_contents, ex_sc_calorie, ex_sc_date, ex_sc_time, post_no, ex_sc_photo, delete_status) 
+		VALUES	 (seq_ex_sc_ex_sc_no.NEXTVAL , #{userId}, #{exScName}, #{exScContents}, #{exScCalorie} , #{exScDate}, 
+				TO_DATE(#{exScTime:VARCHAR},'hh:mi:ss'), #{postNo}, #{exScPhoto:VARCHAR}, '0')	
+	</insert>
 	
 	 
 	 <!-- SQL : SELECT  -->

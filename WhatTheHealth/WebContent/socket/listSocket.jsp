@@ -43,7 +43,7 @@
          //alert("socketNo"+socketNo+"; biId ;"+bjId+"; userId ;"+ '${user.userId}');
   		 if( '${user.userId}'== bjId){
   			popWin 
-			= window.open("https://192.168.0.43:443/broadcast.html?nickName="+'${user.nickName}'+"&liveTitle="+liveTitle+"&img="+'${user.userImage}'+"&roomId="+socketNo,
+			= window.open("https://192.168.0.9:443/broadcast.html?nickName="+'${user.nickName}'+"&liveTitle="+liveTitle+"&img="+'${user.userImage}'+"&roomId="+socketNo,
 										"popWin", 
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
@@ -51,7 +51,7 @@
   		//self.location = "https://192.168.0.55:443/broadcast.html?nickName="+'${user.nickName}'+"&roomId="+socketNo;
   		 }else{
   			popWin 
-			= window.open("https://192.168.0.43:443/index.html?nickName="+'${user.nickName}'+"&img="+'${user.userImage}'+"&roomId="+socketNo,
+			= window.open("https://192.168.0.9:443/index.html?nickName="+'${user.nickName}'+"&liveTitle="+liveTitle+"&img="+'${user.userImage}'+"&roomId="+socketNo,
 										"popWin", 
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
@@ -85,7 +85,7 @@
 	
 	   var currentPage=1;	
 	
-	   $(window).scroll(function(){
+/* 	   $(window).scroll(function(){
 			  
 	       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 	      
@@ -143,7 +143,77 @@
 	      
 	      
 	      }
-	   });  	
+	   });  	 */
+	   
+	   $(function(){
+			$("#searchTitle").on("click", function(){
+				
+				$("#scroll").empty();
+				currentPage = 1;
+				var searchKeyword = $("#searchKeyword").val();	
+				var searchCondition= 0;
+				
+				//currentPage++;
+				
+				$.ajax({
+			         
+			         url: "/socket/json/listLiveStream",
+			         method: "POST",
+			         data: JSON.stringify({
+			            currentPage: 1,            
+			            searchCondition: searchCondition,
+			            searchKeyword: $("#searchKeyword").val(),
+			            
+			         }),
+			         dataType: "json",
+			         headers : {
+			            "Accept" : "application/json",
+			            "Content-Type" : "application/json"
+			         },
+			         success : function(data , status){
+			  	
+			                  var list = data["list"];
+			                  
+			         
+			             list.forEach(function(item, index, array){     
+			            
+			            	  
+			            	  var appen = ""; 
+			                       
+			                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+			                  	 appen += '<div class="post-entry bg-white" data-param="'+item["socketNo"]+'"  data-param2="'+item["bjId"]+'"data-param3="'+item["liveTitle"]+'">';
+			                  	appen +='<div class="image" style="width= "340;" height= "200;">';
+				                appen +='<img  src="/resources/images/liveListDefault.jpg" class="img-fluid" alt="" width= "340;" height= "200;">';
+				                appen +='</div>';
+				                appen +='<div class="text col-md-8">';
+			                  appen += '<h5 class="h5" ><a href="#">'+item["liveTitle"]+'</a></h5>';
+			                  appen += '<span class="text-uppercase date d-block mb-3">'+item["liveDate"]+'</span>';
+			                  appen += '<div class="userInfo">';
+			                  if(item["userImage"] != null && item["userImage"] != ''){	
+				                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+				                  }else{
+				                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+				                  } 	  
+				 				  appen += item["nickname"];
+				                  ;
+				                  appen += '</div>';
+				                  appen += '</div>';
+				                  appen += '</div>';
+				                  appen += '</div>';                
+
+				                  $("#scroll").append(appen);              
+				                     
+			                  
+			              
+			      
+			             });
+			                  
+			                  
+			         }        
+			      })
+			      
+			});
+	  }); 
 	
   </script>
   
@@ -167,9 +237,20 @@
 
     <div class="site-section">
       <div class="container">
-      <div><h2>라이브방송 목록</h2>
+      <div class="row">
+       <div class="col-lg-4" >
+     <h2>라이브방송 목록</h2>
       
        </div> 
+       <div class="col-lg-7" >
+		    	<input type="text" class="form-control" id="searchKeyword" placeholder="제목을 입력하세요" style="height:75%;width:50%;margin-left:5%; float:right"> 
+		     </div>
+		     <div class="col-lg-1" style="text-align:left;">
+		    	<button type="button" id="searchTitle" class="btn btn-danger" style="">
+		    		 <span class="icon-search mr-1" aria-hidden="true"></span> 
+		    	</button>
+		    	</div>
+		    </div>
       <hr/>
 
        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveRoom"  onclick="addLiveRoom();">방개설하기</a></p>

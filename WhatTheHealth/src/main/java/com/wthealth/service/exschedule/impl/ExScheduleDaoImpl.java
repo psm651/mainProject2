@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Post;
 import com.wthealth.service.exschedule.ExScheduleDao;
+
 @Repository("exScheduleDaoImpl")
 public class ExScheduleDaoImpl implements ExScheduleDao {
 	
@@ -57,6 +59,12 @@ public class ExScheduleDaoImpl implements ExScheduleDao {
 	@Override
 	public int deleteExSchedule(int exScNo) throws Exception {
 		return sqlSession.update("ExScMapper.deleteExSchedule", exScNo);		
+	}
+
+	@Override
+	public void addPostExSchedule(ExSchedule exSchedule) throws Exception {
+		sqlSession.insert("ExScMapper.addPostExSchedule", exSchedule);
+		
 	}
 
 }

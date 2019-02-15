@@ -18,12 +18,18 @@
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services,clusterer,drawing"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493"></script>
+   
+   <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
    	<!-- sweetalert -->
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    
    
    
    <style>
+   .windowzz:hover{
+   	border-color:#d43f3a;
+   	border-top-width:medium; 	 
+   }
 	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 	.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 	.map_wrap {position:relative;width:100%;height:500px;}
@@ -60,17 +66,29 @@
 	#pagination {margin:10px auto;text-align: center;}
 	#pagination a {display:inline-block;margin-right:10px;}
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
-	.item:hover{background-color : 	#F0E68C;}
-	
+
+   .item:hover{background-color : 	#F0E68C;}
    .dot {overflow:hidden;float:left;width:12px;height:12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
    .dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
    .dotOverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
    .number {font-weight:bold;color:#ee6152;}
-   .dotOverlay:after {content:'';position:absolute;margin-left:-6px;left:50%;bottom:-8px;width:11px;height:8px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white_small.png')}
+   .dotOverlay:after {content:'';position:absolute;margin-left:-6px;left:50%;bottom:-8px;width:11px;height:8px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
    .distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
    .distanceInfo .label {display:inline-block;width:50px;}
    .distanceInfo:after {content:none;}
    #line{position:relative; margin-top:-500px; z-index:1; margin-left:750px;}
+
+   button[name="addMapInfo"]{
+		width:40px;
+   		height:30px;
+		background: #27AE60;
+		font-weight: bold;
+		color: white;
+		border: 0 none;
+		border-radius: 1px;
+		cursor: pointer;
+		display:block;
+	}
 </style>
    
    
@@ -248,7 +266,7 @@
        el = document.createElement('li'),
        itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                    '<div class="info">' + 
-                   '   <h5>' + places.place_name + '</h5>' ;
+                   '  <h5 style="font-weight:900;">' + places.place_name + '</h5>' ;
 
        if (places.road_address_name) {
            itemStr += '    <span>' + places.road_address_name + '</span>' +
@@ -336,7 +354,7 @@
    // 인포윈도우에 장소명을 표시합니다
    function displayInfowindow(marker, title) {
 	  
-       var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+       var content = '<div class="windowzz" style="padding:5px;z-index:1;">' + title + '</div>';
 	   
        infowindow.setContent(content);
        infowindow.open(map, marker);
@@ -666,14 +684,35 @@
     //등록버튼 생성 이벤트
  	$(function(){
 	
-		var button = "<button type='button' class='btn btn-primary'>등록</button>";
+		var button = "<button type='button' style='position:absolute;display:inline-block;top:20%;left:80%;' class='btn btn-primary' name='addMapInfo'>등록</button>";
 	
 		 $(document).on("mouseenter",".item",function(){
 			$(this).append(button);
+			var addressOverFlow = $(this).children('.info').children('span').eq(0)
+				addressOverFlow.css('overflow','hidden')
+							.css('text-overflow', 'ellipsis')
+  							.css('white-space', 'nowrap')
+  							.css('width', '120px');
+			var titleOverFlow = $(this).children('.info').children('h5').eq(0)
+				titleOverFlow.css('overflow','hidden')
+							 .css('text-overflow', 'ellipsis')
+						     .css('white-space', 'nowrap')
+						     .css('width', '120px');
+	
 	 	});
 	 
 		 $(document).on("mouseleave",".item",function(){
 			$(this).children('button').remove();
+			var addressOverFlow = $(this).children('.info').children('span').eq(0)
+				addressOverFlow.css('overflow','')
+							.css('text-overflow', '')
+							.css('white-space', '')
+							.css('width', '');
+			var titleOverFlow = $(this).children('.info').children('h5').eq(0)
+			titleOverFlow.css('overflow','hidden')
+						 .css('text-overflow', 'ellipsis')
+					     .css('white-space', 'nowrap')
+					     .css('width', '120px');			
 	 	});
 	}); 
 	
@@ -683,7 +722,7 @@
  	$(function(){
  		
 	 		$(document).on("click", "button:contains('등록')", function(){
-	 			alert("확인")
+	 			
  	 		 	var validation = $("#infoMap").val();
 
 	 			if(validation!=null){
@@ -742,8 +781,16 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
+                  <div class="row">
+                  <div class="col-md-10">
+                     <input type="text" id="keyword" class="form-control" size="15" style="margin-left:5%;"> 
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" class="btn btn-danger" style="height:100%;width:100%;">
+                   	  <span class="icon-search mr-5" aria-hidden="true" style="padding-left:35%;"></span>
+                    </button> 
+                  </div>  
+                  </div>  
                 </form>
             </div>
            

@@ -249,7 +249,7 @@ $(function(){
 <body>
 	
 	<div class="site-wrap">
-		<jsp:include page="/calculator/test.jsp" /> 
+		<jsp:include page="/layout/toolbarSecond.jsp" /> 
 	</div>
 
    	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/calorie.jpg');">
