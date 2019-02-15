@@ -436,7 +436,7 @@ body {
 
  <!--    <div class="slide-one-item home-slider owl-carousel"> -->
      
-      <div class="site-blocks-cover" style="background-image: url(/resources/video/original.gif); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover" style="background-image: url(/resources/images/main.jpg); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
 
             
              <div class="weather-card madrid" style="margin-right:10px; float: right; top: 100px;">
