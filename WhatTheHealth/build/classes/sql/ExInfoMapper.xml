@@ -55,7 +55,8 @@
         	 SELECT seq_post_post_no.currval FROM dual
      	</selectKey>	
      	
-	  </insert>	    
+	  </insert>	  
+	    
 	  
  	<!-- SQL : UPDATE :: 게시물 수정  -->
 	 <update 	id="updateExInfo"	parameterType="com.wthealth.domain.Post">
@@ -89,15 +90,13 @@
 	<!-- SQL : SELECT ONE :: 운동정보게시물 조회 -->
 	 <select 	id="getExInfo"	parameterType="int" resultMap="exInfoSelectMap">
 		SELECT 
-  			title, contents, photo, ex_part, ex_videoTime, ex_calorie, ex_info_no, post_no, coordinate, locationtag_name, address, ex_place, post_date, like_count
+  			p.*, u.nickname, u.user_image, u.user_id
 	    FROM 
-  			post
+  			post p, users u 
 		WHERE
-  			post_no = #{value}             
+  			post_no = #{value} and p.user_id = u.user_id            
 	 </select>
-  
-
-		 
+ 		 
 	<select  id="listExInfoPost"  parameterType="com.wthealth.common.Search"	resultMap="exInfoSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.*, ROWNUM AS row_seq
