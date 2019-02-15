@@ -54,6 +54,9 @@
 	  <script src="/resources/js/aos.js"></script>
 	
 	  <script src="/resources/js/main.js"></script>
+	  
+	   <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
    
 	<!--  ///////////////////////// CSS ////////////////////////// -->
@@ -71,11 +74,11 @@
 	
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$( "button.btn.btn-primary" ).on("click" , function() {
-				alert("여기");
+				/* alert("여기"); */
 				var point=$("input[name='point']").val();
 				if(point == null || point.length <1){
-					alert("전송할 포인트는  반드시 입력하셔야 합니다.");
-					//swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
+					//alert("전송할 포인트는  반드시 입력하셔야 합니다.");
+					swal("전송할 포인트를 입력해주세요", "전송할 포인트는  반드시 입력해야 합니다", "error");
 					return;
 				}
 				
