@@ -77,12 +77,12 @@
    $(function(){
 	  $(document).on("click", ".post-entry", function(){
 		var postNo=$(this).data("param");
-		self.location = "/exInfo/getExInfo?postNo="+posetNo;
+		self.location = "/exInfo/getExInfo?postNo="+postNo;
 	  });
    });
    
    $(function(){
-	  $("button:contains('검색')").on("click", function(){
+	  $("#searchButton").on("click", function(){
 		  fncGetList('1');
 		 
 	  }); 
@@ -97,7 +97,7 @@
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
-     	alert(currentPage)
+     	//alert(currentPage)
       $.ajax({
          
          url: "/exinfo/json/listExInfo",
@@ -121,24 +121,24 @@
          
              list.forEach(function(item, index, array){     
             
-            	  var youtube = item["photo"].indexOf("https");
+            	  
             	  var appen = ""; 
                        
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
                   	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
-                 	 appen += '<div class="image" style="width:400px; height:200px">';
+                 	 appen += '<div class="image" style="width:348px; height:200px">';
              
                   if(item["photo"]==null){
-              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" style="width:340px; height:200px">'; 	  
              	  }else if(item["photo"]!=null){
-            	  	
+             		 var youtube = item["photo"].indexOf("https");
              		 if(youtube!=-1){
-            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" style="width:348px; height:200px">';
             	  	 }else{
-            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
+            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid" style="width:348px; height:200px">';  
             	  }
               	}
-             	  appen += '</div>';   
+             	  appen += '</div><br/><div class="row">';   
                   appen += '<div class="text col-md-8">';
                   appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
                   appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
@@ -147,7 +147,7 @@
                   
                   if(item["userImage"] != null && item["userImage"] != ''){	
                   	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
-                  }else if(item["userImage"] == null && item["userImage"] == ""){
+                  }else {
                 	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
                   } 	  
  				  appen += item["nickName"];
@@ -199,16 +199,17 @@
     <div class="site-section">
       
       <div class="container">
-      <div><h2>운동꿀팁 목록</h2></div>
-   	  <hr/>
-   	  
-   	<c:if test="${sessionScope.user.role == 'admin'}">
-        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4" id="writeExinfo">글쓰기</a></p>
-    </c:if>
-    <form class="form-inline" name="detailForm">    
+      <div class="row">
+       <div class="col-lg-6" >
+      <h2>운동꿀팁 목록</h2>
+      </div>
+      
+
+      <form class="form-inline" name="detailForm">    
        	
+       	<div class="col-lg-3" style="padding-left: 30px;">
 		<div class="form-group">  
-			<select class="form-control" id="searchFilter" name="searchFilter" onchange="fncGetList('1');" >
+			<select class="form-control" id="searchFilter" name="searchFilter" onchange="fncGetList('1');"  style="height:75%;" >
 				<option value=''>카테고리</option>
 				<option value="0" ${!empty search.searchFilter && search.searchFilter =='0' ? "selected" : "" }>전신</option>
 				<option value="1" ${!empty search.searchFilter && search.searchFilter =='1' ? "selected" : "" }>복부</option>
@@ -217,24 +218,40 @@
 				<option value="4" ${!empty search.searchFilter && search.searchFilter =='4' ? "selected" : "" }>스트레칭</option>		
 			</select>   			
 		 </div> 
-		 
+		</div>
+		
+		<div class="col-lg-2" > 
 		<div class="form-group">
-			<select class="form-control" id="searchCondition"name="searchCondition" >		
+			<select class="form-control" id="searchCondition"name="searchCondition"  style="height:75%;">		
 				<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>제목</option>
 				<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>내용</option>
 			</select>
        </div>
-					  
-	   <div class="form-group" style="align:right">
-	     	<input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
+		</div>
+		
+		<div class="col-lg-6" >			  
+	   <div class="form-group" style="align:right;">
+	     	<input type="text" class="form-control" style="height:90%; width:120%" id="searchKeyword" name="searchKeyword"  placeholder="검색어" 
 					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 	   </div>
-        
-           <button type="button" class="btn btn-info">검색</button>
-        		
+	   </div>
+        <div class="col-lg-1" >	
+           <button type="button" class="btn btn-danger" id="searchButton">
+		     <span class="icon-search mr-1" aria-hidden="true"></span> 
+		    </button>
+		    
            <input type="hidden" id="currentPage" name="currentPage" value=""/>		 
-		       
+		  </div>     
+		  
 	  </form> 	      
+
+      </div>
+   	  <hr/>
+   	  
+   	<c:if test="${sessionScope.user.role == 'admin'}">
+        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4" id="writeExinfo">글쓰기</a></p>
+    </c:if>
+    
       <br/>
       
        
@@ -251,19 +268,19 @@
           <div class="col-md-6 col-lg-4 mb-4">
           
             <div class="post-entry bg-white" data-param="${post.postNo}" data-blind="${post.blindStatus}">
-              <div class="image" style="width:400px; height:200px">
+              <div class="image" style="width:348px; height:200px">
               	<c:if test="${empty post.photo}">
-                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
+                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
                 </c:if>
                 <c:set var="youtubeThumbnail" value="${post.photo}"/>
                  
                 <c:if test="${!empty post.photo}">
                		<c:choose>
                			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-               				<img src="${post.photo}" class="img-fluid" width= "400;" height= "200;">
+               				<img src="${post.photo}" class="img-fluid" style="width:348px; height:200px">
                			</c:when>   
                			<c:otherwise>
-               				<img src="/resources/images/upload/${post.photo}" class="img-fluid">
+               				<img src="/resources/images/upload/${post.photo}" class="img-fluid" style="width:348px; height:200px">
                			</c:otherwise>            			
                		</c:choose>
                 </c:if>

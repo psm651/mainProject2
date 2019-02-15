@@ -164,8 +164,15 @@ public class MeetingController {
 	
 	@RequestMapping(value="addJoin", method=RequestMethod.GET)
 	public String addJoin(@RequestParam("meetNo") int meetNo, HttpSession session) throws Exception{
-		System.out.println("/addJoin: POST");
 		Join join = new Join();
+		join.setPartyId(((User)(session.getAttribute("user"))).getUserId());
+		join.setMeetNo(meetNo);
+		System.out.println("여기는 컨트롤러 안 ::: "+join);
+		if(meetingService.getJoinMeeting(join)!=null) {
+			meetingService.updateJoinDeleteStatus((meetingService.getJoinMeeting(join)).getJoinNo());
+		}else {
+		System.out.println("/addJoin: GET");
+		//Join join = new Join();
 		join.setMeetNo(meetNo);
 		join.setPartyId(((User)(session.getAttribute("user"))).getUserId());
 		
@@ -173,15 +180,16 @@ public class MeetingController {
 		if(meeting.getDepoCondition() == "1") {
 			join.setDepoStatus("0");	//�꽑湲� 誘몄엯湲�
 			join.setJoinStatus("0");  //李몄뿬 ��湲곗긽�깭
-		}else {
+		}else if(meeting.getDepoCondition() == "0") {
 			join.setDepoStatus("9");  //�꽑湲덉뾾�쓬
-			join.setJoinStatus("0");  //李몄뿬�솗�젙�긽�깭
+			join.setJoinStatus("1");  //李몄뿬�솗�젙�긽�깭
 		};
 		
 		join.setMeetTime(meeting.getMeetTime());
 		
 		
 		meetingService.addJoin(join);
+	}
 		return "redirect:/meeting/getMeetingMap?meetNo="+meetNo;
 	}
 	

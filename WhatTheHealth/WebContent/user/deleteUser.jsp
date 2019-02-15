@@ -76,29 +76,15 @@
 		
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-				$("a[href='#' ]").on("click" , function() {
-					self.location = "/main.jsp"
+				$("#cancle").on("click" , function() {
+					self.location = "/"
 				});
 			});	
 		
-		
-		//=============이메일" 유효성Check  Event 처리 =============
-		 $(function() {
-			 
-			 $("input[name='email']").on("change" , function() {
-					
-				 var email=$("input[name='email']").val();
-			    
-				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
-			     }
-			});
-			 
-		});	
-		
+
 		///////////////////////////////////////////////////////////////////////
 		function fncdeleteUser() {
-			var userId=$("input[name='userId']").val();
+			var userId=$("#userId").val();
 			
 			if(userId == null || userId.length <1){
 				alert("아이디는  반드시 입력하셔야 합니다.");
@@ -151,7 +137,7 @@
 		  <div class="form-group">
 		    <div class="col-md-10 mb-3 mb-md-2 text-center">
 		      <button type="button" class="btn btn-primary"  >탈 &nbsp;퇴</button>
-		      <a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
+		      <a class="btn btn-primary btn" href="#" role="button" id="cancle">취&nbsp;소</a>
 		    </div>
 		  </div>
 		</form>
