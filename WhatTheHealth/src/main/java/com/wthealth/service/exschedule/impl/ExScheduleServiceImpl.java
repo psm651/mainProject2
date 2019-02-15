@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Post;
 import com.wthealth.service.exschedule.ExScheduleDao;
 import com.wthealth.service.exschedule.ExScheduleService;
 
@@ -31,9 +32,9 @@ public class ExScheduleServiceImpl implements ExScheduleService {
 	///Method
 	@Override
 	public void addExSchedule(ExSchedule exSchedule) throws Exception {
-		System.out.println("����Դ�!!!");
+		
 		 exScheduleDao.addExSchedule(exSchedule);
-		 System.out.println("���⵵�;Ҵ�!!!!");
+	
 	}
 
 	@Override
@@ -62,6 +63,12 @@ public class ExScheduleServiceImpl implements ExScheduleService {
 	@Override
 	public int deleteExSchedule(int exScNo) throws Exception {
 		return exScheduleDao.deleteExSchedule(exScNo);
+		
+	}
+
+	@Override
+	public void addPostExSchedule(ExSchedule exSchedule) throws Exception {
+		exScheduleDao.addPostExSchedule(exSchedule);
 		
 	}
 

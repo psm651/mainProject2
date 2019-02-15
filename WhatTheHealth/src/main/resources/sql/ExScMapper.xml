@@ -30,7 +30,12 @@
          		SELECT seq_ex_sc_ex_sc_no.currval FROM dual
       		</selectKey>
 	 </insert>
-	 <!-- SQL : INSERT MEAL-->
+	<!-- SQL : INSERT DIET_SC -->
+	<insert 	id="addPostExSchedule"	parameterType="com.wthealth.domain.ExSchedule" >
+	 	INSERT
+		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, ex_sc_photo, delete_status) 
+		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId:VARCHAR} , #{exScName:VARCHAR}, #{exScContents:VARCHAR}, #{exScCalorie:NUMERIC} , #{exScDate}, #{exScTime:VARCHAR}, #{postNo}, #{exScPhoto:VARCHAR}, '0')	
+	</insert>
 	
 	 
 	 <!-- SQL : SELECT  -->

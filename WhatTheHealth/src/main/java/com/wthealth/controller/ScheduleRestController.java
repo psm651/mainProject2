@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.domain.DietSchedule;
 import com.wthealth.domain.ExSchedule;
+import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
 import com.wthealth.service.dietschedule.DietScheduleService;
 import com.wthealth.service.exschedule.ExScheduleService;
@@ -53,24 +54,23 @@ public class ScheduleRestController {
 	int pageSize;
 	
 	
-	@RequestMapping(value="json/addDietSchedule", method = RequestMethod.GET)
-	public String addDietSchedule() throws Exception {
-
-		System.out.println("/schedule/json/addDietSchedule : GET");
-	
-		
-		return "redirect:/calculation/calorieCalculation.jsp";
-	}
 	
 	@RequestMapping(value="json/addDietSchedule", method = RequestMethod.POST)
 	public DietSchedule addDietSchedule( @RequestBody DietSchedule dietSchedule, HttpSession session) throws Exception {
 
-		System.out.println("/schedule/json/dietSchedule : POST");
-		//Business Logic
+		System.out.println(dietSchedule.getFoodList());
+		System.out.println(dietSchedule.getFoodList().size());
+		
+		
 		dietSchedule.setUserId(((User)session.getAttribute("user")).getUserId());
-		DietSchedule dietSchedule1 = dietSchedule;
 		dietScheduleService.addDietSchedule(dietSchedule);
-
+		
+	    for (int i = 0; i < dietSchedule.getFoodList().size(); i++) {
+	    	dietSchedule.getFoodList().get(i).setDietScNo(dietSchedule.getDietScNo());
+	        dietScheduleService.addMeal(dietSchedule.getFoodList().get(i));
+	     }
+		DietSchedule dietSchedule1 = dietSchedule;
+		
 		dietSchedule1=dietScheduleService.getDietSchedule(dietSchedule.getDietScNo());
 		
 		return dietSchedule1;
@@ -78,13 +78,17 @@ public class ScheduleRestController {
 	}
 	
 	
-	@RequestMapping(value="json/addExSchedule/{exScDate}", method = RequestMethod.GET)
-	public String addExSchedule(@PathVariable String exScDate) throws Exception {
+	@RequestMapping(value="json/addPostExSchedule", method = RequestMethod.POST)
+	public void addPostExSchedule(@RequestBody ExSchedule exSchedule, HttpSession session) throws Exception {
+		
 
-		System.out.println("/schedule/json/addExSchedule : GET");
+		
+		exSchedule.setUserId(((User)session.getAttribute("user")).getUserId());
+		ExSchedule exSchedule1=exSchedule;
+		
+		
+		exScheduleService.addPostExSchedule(exSchedule1);
 	
-		System.out.println("123123dddd"+exScDate);
-		return exScDate;
 	}
 	
 	

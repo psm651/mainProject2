@@ -8,6 +8,11 @@
 	<meta charset="UTF-8">
 
 <style>
+html {
+
+   overflow-y:scroll;
+   
+}
 
 #delete{background-color: white}
 
@@ -137,18 +142,14 @@ html {
 /*form styles*/
 #exScheduleForm , #exEventScheduleForm {
 	width: 400px;
-	/* margin: 50px auto; */
 	text-align: center;
 	position: relative;
 	height: 100%;
 	margin-top: -10px;
-	/*Image only BG fallback*/
-	
-	/*background = gradient + image pattern combo*/
-	/* background: 
-		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6)); */
 }
-#exScheduleForm fieldset , #exEventScheduleForm fieldset {
+
+
+#exScheduleForm fieldset , #exEventScheduleForm fieldset{
 	background: white;
 	border: 0 none;
 	border-radius: 3px;
@@ -179,6 +180,19 @@ html {
 }
 /*buttons*/
 #exScheduleForm .action-button, #exEventScheduleForm .action-button, #dietEventScheduleForm .action-button {
+	width: 50px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#dietScheduleSave{
+	margin-top: 15px;
+	margin-left: 150px;
 	width: 100px;
 	background: #27AE60;
 	font-weight: bold;
@@ -189,6 +203,8 @@ html {
 	padding: 10px 5px;
 	margin: 10px 5px;
 }
+
+
 #exScheduleForm .action-button:hover, #exScheduleForm .action-button:focus, #exEventScheduleForm .action-button:hover, #exScheduleForm .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
@@ -332,8 +348,60 @@ html {
   </div>
 </div>  
 
-  <!----------- 등록 Modal ---------------->
-  <div class="modal hide" id="dietSchedule" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
+  
+  <!-- 운동 event modal -->
+
+          
+
+<div class="modal hide" id="exEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel"  >
+     
+     <div class="modal-dialog modal-lg" role="document">
+    	<div class="modal-content modal-80size" style="border:0px;">
+    	
+    		<div class="modal-header" >운동스케줄 조회</div>
+    		
+          	 <div class="modal-body" >
+          		<form id="exEventScheduleForm" class="form-horizontal">
+          		<fieldset>
+
+		       		<div class="control-group">
+		            	<label class="control-label" for="inputPatient"  >운동명</label>
+		                <input type="text" name="exScName" id="exScEventName"  value=""  style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
+		       		</div>
+
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScContents"> 운동내용</label>
+		            		<input type="text" name="exScContents" id="exScEventContents" value=""/>
+		              	</div>
+
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScCalorie">소모칼로리</label>
+		            		<input type="text" name="exScCalorie" id="exScEventCalorie" value=""/>
+		              	</div>
+
+		        	<div class="control-group">
+		            	<label class="control-label" for="exScDate">날짜</label>
+		            	<input type="text" name="exScDate" id="exScEventDate"value=""/>
+		            		
+		        	</div>  
+		        	      	        	
+					    <input type="hidden" id="exScEventNo"  name=exScNo value="" />
+				       
+					    <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
+						<button type="button" class="next action-button" >Update</button> 
+						</fieldset>
+ 						 </form>
+				    </div>
+	  		</div>
+		</div>
+  
+</div>
+
+
+<!---------------------- //dietModal ----------------------------->
+
+
+ <div class="modal hide" id="dietSchedule" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content modal-80size" style="border:0px;">
       <div class="modal-header" >식단 칼로리 등록</div>
@@ -401,7 +469,7 @@ html {
       </div>
       </div>
 
-	     <button type="button" class="next action-button" id="dietScheduleSave" >Save</button> 
+	     <button type="button" id="dietScheduleSave" >Save</button> 
 					
 		         </fieldset>
   			</form>      	        	
@@ -410,59 +478,10 @@ html {
     </div>
   </div>
 </div>  
-  
-  <!-- 운동 event modal -->
-
-          
-
-<div class="modal hide" id="exEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel"  >
-     
-     <div class="modal-dialog modal-lg" role="document">
-    	<div class="modal-content modal-80size" style="border:0px;">
-    	
-    		<div class="modal-header" >운동스케줄 조회</div>
-    		
-          	 <div class="modal-body" >
-          		<form id="exEventScheduleForm" class="form-horizontal">
-          		<fieldset>
-
-		       		<div class="control-group">
-		            	<label class="control-label" for="inputPatient"  >운동명</label>
-		                <input type="text" name="exScName" id="exScEventName"  value=""  style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
-		       		</div>
-
-		        	<div class="control-group">
-		            	<label class="control-label" for="exScContents"> 운동내용</label>
-		            		<input type="text" name="exScContents" id="exScEventContents" value=""/>
-		              	</div>
-
-		        	<div class="control-group">
-		            	<label class="control-label" for="exScCalorie">소모칼로리</label>
-		            		<input type="text" name="exScCalorie" id="exScEventCalorie" value=""/>
-		              	</div>
-
-		        	<div class="control-group">
-		            	<label class="control-label" for="exScDate">날짜</label>
-		            	<input type="text" name="exScDate" id="exScEventDate"value=""/>
-		            		
-		        	</div>  
-		        	      	        	
-					    <input type="hidden" id="exScEventNo"  name=exScNo value="" />
-				       
-					    <button type="button" class="next action-button" data-dismiss="modal">Delete</button>
-						<button type="button" class="next action-button" >Update</button> 
-						</fieldset>
- 						 </form>
-				    </div>
-	  		</div>
-		</div>
-  
-</div>
 
 
-<!---------------------- //dietModal ----------------------------->
 <div class="modal hide" id="dietEventSchedule"  tabindex="-1" role="dialog"  aria-labelledby="my80sizeCenterModalLabel">
-      
+      <div class="container">
        <div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content modal-80size" style="border:0px;">
           
@@ -471,29 +490,38 @@ html {
     
    
       		<!-- Modal content-->
-	        	<div class="modal-header">맛있게 먹으면 0칼로리 </div>
+	        	<div class="modal-header">맛있게 먹으면 0칼로리 	</div>
 	          
 	       		 <div class="modal-body row"  id ="dietScModal">
 				
 				</div>
 					 
 			<input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
-			</fieldset>	       
-<!-- 			<button type="button" class="next action-button" data-dismiss="modal">Delete</button>
-			<button type="button" class="next action-button" >Update</button> 
- -->
-  
+			<div class="row">
+				<div class="col-md-4 text-center ">
+				</div>
+				<div class="col-md-4 text-center ">
+ 			<button type="button" class="next action-button" data-dismiss="modal" id="deleteDiet">Delete</button>
+ 			</div>
+ 			<div class="col-md-4 text-center ">
+ 			</div>
+<!--  			<button type="button" class="next action-button" >Update</button> 
+ --></div>
+  </fieldset>	       
   </form>
+</div>
 </div>
 </div>
 </div>
 </body>
 
 
-<link rel='stylesheet' href='/resources/css/fullcalendar1.css' />
+<link rel='stylesheet' href='/resources/css/fullcalendarTestDongHwan.css' />
 <script src='/resources/javascript/jquery.min.js'></script>
 <script src='/resources/javascript/moment.min.js'></script>
- <script src='/resources/javascript/fullcalendar.js'></script> 
+ <script src='/resources/javascript/fullcalendar.js'></script>
+ 
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	 
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />  
@@ -534,7 +562,7 @@ $('.action-button:contains("Save")').on('click', function(e){
 	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'white', imageurl :JSONData.exScPhoto};
 	        	    $('#calendar').fullCalendar( 'renderEvent', event, true); 
 	        	    var s=new Date(JSONData.exScDate);
-	        var d = s.getDay()+1;
+	      			  var d = s.getDay()+1;
 	          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONData.exScCalorie);
 	          				//console.log('addC',addC);
 	          				//console.log('인덱스1번',$("#"+d).text().substring($("#"+d).text().indexOf('+')+1));
@@ -609,6 +637,32 @@ $('.action-button:contains("Save")').on('click', function(e){
 	  	} );
 	   } );
 
+	
+	
+	$( '#deleteDiet' ).on("click" , function(data) {
+		$(".jquery-modal").hide();
+	  	$('#dietEventSchedule').hide();
+		/* var exScName = $("#exScEventName").val();
+		var exScContents = $("#exScEventContents").val();
+		var exScCalorie = $("#exScEventCalorie").val(); */
+		var dietScNo =$("#dietScEventNo").val();
+		alert(dietScNo);
+		
+	        $.ajax( {
+	          url: "/schedule/json/deleteDietSchedule/"+dietScNo,
+	          dataType: "json",
+	          method : "GET",
+	          headers : {
+	  			"Accept" : "application/json",
+	  			"Content-Type" : "application/json"},
+	  	   success: function( data ) {
+	  		 $('#calendarr').fullCalendar(
+	  		        'removeEvents', dietScNo //or something like that
+	  		    );
+     		alert("삭제 완료");
+	  	 }
+	  	} );
+	   } );
 /////////
 		
 $(function() {
@@ -738,6 +792,8 @@ var result = new Array();
 
 	});
 
+
+
 //food정보를 담을 map
 var foodMap = new Map();
 
@@ -748,7 +804,7 @@ function changeCalorie(foodName){
 	
 	//realFoodName 생성
 	var temp = foodName+""
-    var fn = temp.split("/")
+  var fn = temp.split("/")
 	var realFoodName = fn[1];
 	//totalcalorie
 	var totalCalorie = 0;
@@ -756,32 +812,32 @@ function changeCalorie(foodName){
 	
 	
 	//amountFood
- 	var servingSize = $('select[name="amountFood'+realFoodName+'"]').val();
+	var servingSize = $('select[name="amountFood'+realFoodName+'"]').val();
 	
 	//foodCalorie
 	var foodCalorie = "";
- 	
-
- 	for(var i=0;i<foodMap.size;i++){
- 		if(foodMap.get(realFoodName+i)){
- 			var map = foodMap.get(realFoodName+""+i+"")
- 			if(map.amountFood == servingSize){
- 			 foodCalorie = map.foodCalorie;
- 				break;
- 			}
- 		}
- 	}
 	
- 	//음식 serving_size별 칼로리value 추가
- 	$("span[name='foodCalorie"+realFoodName+"']").text(foodCalorie);
- 	
 
- 	//TotalCalorie value 추가
- 	$('div[name="calStandard"]').find('span').each(function(i, e){
-     totalCalorie += parseInt($(this).text())
+	for(var i=0;i<foodMap.size;i++){
+		if(foodMap.get(realFoodName+i)){
+			var map = foodMap.get(realFoodName+""+i+"")
+			if(map.amountFood == servingSize){
+			 foodCalorie = map.foodCalorie;
+				break;
+			}
+		}
+	}
+	
+	//음식 serving_size별 칼로리value 추가
+	$("span[name='foodCalorie"+realFoodName+"']").text(foodCalorie);
+	
+
+	//TotalCalorie value 추가
+	$('div[name="calStandard"]').find('span').each(function(i, e){
+   totalCalorie += parseInt($(this).text())
 	});
 
- 	$("#dietCalorie").text(totalCalorie);
+	$("#dietCalorie").text(totalCalorie);
 	
 
 }
@@ -791,11 +847,11 @@ function removeCalorie(foodName){
 
 	//realFoodName 생성
 	var temp = foodName+""
-    var fn = temp.split("/")
+ 	var fn = temp.split("/")
 	var realFoodName = fn[1];
 	
 	//removeFoodCalorie
- 	var removeFoodCalorie = $("span[name='foodCalorie"+realFoodName+"']").text();
+	var removeFoodCalorie = $("span[name='foodCalorie"+realFoodName+"']").text();
 	
 	var totalCalorie = parseInt($("#dietCalorie").text());
 		totalCalorie = totalCalorie-parseInt(removeFoodCalorie);
@@ -809,10 +865,10 @@ function removeCalorie(foodName){
 
 //Map에 담긴 정보 삭제 
 function removeMap(realFoodName){
- 	
+	
 	for(var i=0;i<foodMap.size;i++){
 		foodMap.delete(realFoodName+""+i+"");				
- 	}
+	}
 	console.log(foodMap)
 }
 
@@ -820,6 +876,9 @@ function removeMap(realFoodName){
 $(function(){
 	$('#dietScheduleSave').on('click', function(){
 		
+  		$(".jquery-modal").hide();
+	  	$('#dietSchedule').hide();
+	  	
 		var foodList = [];
 		
 		var foods = null;
@@ -827,17 +886,16 @@ $(function(){
 		var mealTime = $('input[name="checkbox"]:checked').val();
 		var dietScCalorie = $('#dietCalorie').text();
 	
-		for(var i=0;i<=$('div[name="calStandard"]').length;i++){
+		for(var i=0;i<$('div[name="calStandard"]').length;i++){
 			foods = new Object(); 
 			var fn =$("strong[name='foodName']").eq(i).text();
+			
 			foods.foodName =$("strong[name='foodName']").eq(i).text();
 			foods.amountFood = $("select[name='amountFood"+fn+"']").val();
 			foods.foodCalorie = $("span[name='foodCalorie"+fn+"']").text();
-			
 			foodList.push(foods)
 		 } 
 
-	
 		
 		  	$.ajax(
 	    			{	url : '/schedule/json/addDietSchedule',
@@ -855,20 +913,33 @@ $(function(){
 	    		          }),
 	    		          
 	    				success : function(JSONdata) {
-	    					console.log(JSONdata)
-	    				
-	    					var event={id:JSONdata.dietScNo , title: JSONdata.mealTime, start: JSONdata.dietScDate,  backgroundColor:'white', imageurl :"../resources/images/icons8-meal-48.png"};
+	    					var backgroundColor ="";
+	    					var mealTime = "";
+	    					if(JSONdata.mealTime =='0'){
+	    						mealTime ="BreakFast";
+	    					}else if(JSONdata.mealTime =='1'){
+	    						mealTime="Lunch";
+	    					}else if(JSONdata.mealTime =='2'){
+	    						mealTime="Dinner";
+	    					}
+
+	    					
+	    					var event={id:JSONdata.dietScNo , title: mealTime, start: JSONdata.dietScDate,  backgroundColor:backgroundColor, imageurl :"../resources/images/schedule_breakFast.png"};
 	        	   
 	    					$('#calendarr').fullCalendar( 'renderEvent', event, true); 
 	        	    		var s = new Date(JSONdata.dietScDate);
 	        				var d = s.getDay()+1;
 	          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONdata.dietScCalorie);
-	          				
-	          				$("#"+d).text('+'+addC+' kCal');
+	                 
+	          				$("#d"+d).text('+'+addC+' kCal');
 	    				}
 	    			});
-
-		  	alert("등록완료")
+		  			//모달에 남아있는 데이터 삭제
+		  			$('div[name="calStandard"]').remove();
+		  			$('#searchFood').val('');
+		  			$('#dietCalorie').text('');
+		  			
+		    		swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
 		});		
 		
 		
@@ -877,6 +948,7 @@ $(function(){
 		
 		
 	})
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -923,6 +995,7 @@ $(function() {
 			    				
 			    					//수정중
 			    					
+			    						$('#dietScEventNo').val(JSONData.dietScNo);
 			    					/* $('#dietScEventAmountFood').val(JSONData.amountFood);
 			    					$('#dietScEventFoodCalorie').val(JSONData.foodCalorie); */
 			    					$('#dietEventSchedule').modal('show');
@@ -943,14 +1016,15 @@ $(function() {
 		      editable: false,//드래그앤드랍 가능하게
 		      selectable:false,//드래그해서 여러칸선택
 		      
-		      eventTextColor:'black',//이벤트 글씨색
+		      eventTextColor:'white',//이벤트 글씨색
 		      //eventBorderColor:'#ff7a96',//이벤트 주변 테두리색
-		      eventBorderColor:'#FB4441;',
-		      eventBackgroundColor:'white',
+//		      eventBorderColor:'#FB4441;',
+//		      eventBackgroundColor:'white',
 		      //eventBackgroundColor:'#ffe0e6',//이벤트 속 색
 		      displayEventTime: false, //시간안보이게
 		      
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
+
 		    	  var clickDate = date.format();
 		      	  $('#showDietScDate').text(clickDate);
 		      	  $('#dietScDate').val(clickDate);
@@ -1032,7 +1106,7 @@ $(function() {
 		    	  
 
 		    	  }, 
-		 
+		
 		    	  resources: {// 이거뭔지모름/////////////////////////////////////////////
 		    		    url: '/schedule/listSchedule',
 		    		    type: 'POST'
@@ -1040,7 +1114,9 @@ $(function() {
 		    	  events: [//이벤트 db연동해서가져오기
 		    	
 		    		  <c:forEach items = "${dietList}" var = "asdf">
+		    		  <c:if test="${asdf.deleteStatus!='1'}">
 		    		  {
+		    			 
 		    		  title:<c:if test='${asdf.mealTime=="0"}'>'아침 식단'</c:if>
 		    		  <c:if test='${asdf.mealTime=="1"}'>'점심 식단'</c:if>
 		    		  <c:if test='${asdf.mealTime=="2"}'>'저녁 식단'</c:if>
@@ -1050,7 +1126,7 @@ $(function() {
 		    		  start:"${asdf.dietScDate}"
 		    			  , imageurl : "../resources/images/icons8-meal-48.png"
 		    		  },
-		    		
+		    		</c:if>
 		    		  </c:forEach>
 		   
 		    		  ],
@@ -1093,9 +1169,9 @@ $(function() {
 		    		        }
 		    		      }
 		    		  },eventRender:function(event, eventElement) {
-		                  if(event.imageurl) {
+		                 /*  if(event.imageurl) {
 		                      eventElement.find("span.fc-title").before("<img src='" + event.imageurl + "'>");
-		                  }
+		                  } */
 		              },
 		    		 /*  select: function(startDate, endDate) {
 		    		      alert('selected ' + startDate.format() + ' to ' + endDate.format());
