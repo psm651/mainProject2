@@ -35,7 +35,7 @@
   <script type="text/javascript">
  	
    $(function(){
-  	$(".post-entry").on("click", function(){
+	   $(document).on("click", ".post-entry", function(){
   		var socketNo = $(this).data("param");
   		//var bjId = "horan";
   		var bjId = $(this).data("param2");
@@ -85,7 +85,7 @@
 	
 	   var currentPage=1;	
 	
-/* 	   $(window).scroll(function(){
+	   $(window).scroll(function(){
 			  
 	       if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 	      
@@ -96,7 +96,9 @@
 	         url: "/socket/json/listLiveStream",
 	         method: "POST",
 	         data: JSON.stringify({
-	            currentPage: currentPage
+	        	 currentPage: currentPage ,            
+	             searchCondition: 0,
+	             searchKeyword: $("#searchKeyword").val(),
 	         }),
 	         dataType: "json",
 	         headers : {
@@ -114,26 +116,27 @@
 
 	            	var appen = ""; 
 	            	 
-	                appen +='<div class="col-md-6 col-lg-4 mb-4">';
-	                appen +='<div class="post-entry bg-white box"  data-param="'+item["socketNo"]+'" data-param2="'+item["bjId"]+'">';
-	                appen +='<div class="image" style="width= "340;" height= "200;">';
-	                appen +='<img  src="/resources/images/liveListDefault.jpg" class="img-fluid" alt="">';
+	            	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+                  	 appen += '<div class="post-entry bg-white" data-param="'+item["socketNo"]+'"  data-param2="'+item["bjId"]+'"data-param3="'+item["liveTitle"]+'">';
+                  	appen +='<div class="image" style="width= "340;" height= "200;">';
+	                appen +='<img  src="/resources/images/liveListDefault.jpg" class="img-fluid" alt="" width= "340;" height= "200;">';
 	                appen +='</div>';
 	                appen +='<div class="text col-md-8">';
-	                appen +='<h5 class="h5" ><a href="#">'+item["liveTitle"]+'</a></h5>';
-	                appen +='<span class="text-uppercase date d-block mb-3">'+item["liveDate"]+'</span>';
-	                appen +='<div class="userInfo">';
-	                
-	                	if(item["userImage"] != null && item["userImage"] != ''){
-	                appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';	
-	               		}
-	                	else if(item["userImage"] == null && item["userImage"] == ''){
-	                appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>'; 		
-	                	}
-	                appen += item["nickname"];
-	  				appen += '</div></div></div></div>';
-	      		
-	  				 $("#scroll").append(appen);  
+                  appen += '<h5 class="h5" ><a href="#">'+item["liveTitle"]+'</a></h5>';
+                  appen += '<span class="text-uppercase date d-block mb-3">'+item["liveDate"]+'</span>';
+                  appen += '<div class="userInfo">';
+                  if(item["userImage"] != null && item["userImage"] != ''){	
+	                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+	                  }else{
+	                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+	                  } 	  
+	 				  appen += item["nickname"];
+	                  ;
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '</div>';        
+	                  $("#scroll").append(appen);           
 	           
 	             });
 	                  
@@ -143,7 +146,7 @@
 	      
 	      
 	      }
-	   });  	 */
+	   });  	 
 	   
 	   $(function(){
 			$("#searchTitle").on("click", function(){

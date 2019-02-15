@@ -206,5 +206,17 @@ public class SocketController {
          
           return "forward:/socket/groupChatting.jsp";
          }
+      //"http://192.168.0.9:8080/socket/deleteSocket"+data.roomId)
+      @RequestMapping(value = "deleteSocket",  method=RequestMethod.GET)
+      public String deleteSocket(@RequestParam("socketNo") int socketNo) throws Exception{
+         
+         System.out.println("/socket/deleteSocket : GET");
+         
+         //String roomId = userId + "+"+((User)session.getAttribute("user")).getUserId();
+         socketService.deleteLiveStream(socketNo);
+         //model.addAttribute("roomId", roomId);
+         
+          return "redirect:/socket/listSocket";
+         }
 }
 

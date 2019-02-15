@@ -83,17 +83,27 @@
  	        					"Content-Type": "application/json"
  	        				},
  	            success : function(data){
- 	                if(data == 1) {
+ 	              
  	                   // replyList(); //댓글 작성 후 댓글 목록 reload
- 	                    self.close();
- 	                   opener.location.reload();
- 	                }
+ 	                    //self.close();
+ 	                   self.close();
+ 	                   window.opener.location.reload(); 
+ 	               //    alert(data.liveTitle);
+ 	                 
+	 
+ 	                  getLiveStream(data);
  	            }
  	        });
  	    }
 
 		
-		
+		function getLiveStream(data){
+			 popWin 
+   			=  window.open("https://192.168.0.9:443/broadcast.html?nickName="+'${user.nickName}'+"&liveTitle="+data.liveTitle+"&img="+'${user.userImage}'+"&roomId="+data.socketNo,
+							"popWin2", 
+							"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
+							"scrollbars=no,scrolling=no,menubar=no,resizable=no");
+		}
 		
 	</script>
 	
