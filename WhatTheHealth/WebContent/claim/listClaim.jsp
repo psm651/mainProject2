@@ -166,7 +166,7 @@
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center">
 				<div class="col-sm-2 col-md-2 col-lg-2"><strong>신고한 유저</strong></div>
-                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고당한 유저/게시물</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고당한 유저</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고사유</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고확인</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고날짜</strong></div>

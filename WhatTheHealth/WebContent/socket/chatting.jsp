@@ -435,6 +435,8 @@ body{
             })
             
             socket.on('in_msg', function(msg) {
+            	$(".msg_history").empty();
+            
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
                 $('<div class="incoming_msg"><div class="received_id"><p>'+msg+'</p></div></div>').appendTo(".msg_history");
             })
