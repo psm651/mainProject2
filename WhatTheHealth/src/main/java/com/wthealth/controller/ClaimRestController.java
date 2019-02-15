@@ -74,21 +74,16 @@ public class ClaimRestController {
 	
 	@RequestMapping(value="json/addClaim", method = RequestMethod.POST)
 	public String addClaim( @RequestBody Claim claim,  HttpSession session ) throws Exception {
+		System.out.println(claim);
+		System.out.println("/claim/json/addClaim : POST");
 
 		//Business Logic
 		claim.setUserId(((User)session.getAttribute("user")).getUserId());
 
-		Claim check = new Claim();
-		check = claimService.reduplication(claim);
-/*		if (claimService.reduplication(claim)!=null) {
+		if (claimService.reduplication(claim)!=null) {
 			return "0";
-		}*/
-		if(check.toString() != null) {
-			if(check.toString() == claim.toString()) {
-				return "0";
-			}
 		}
-	
+		
 		claimService.addClaim(claim);
 		
 		return "1";
