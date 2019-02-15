@@ -165,11 +165,11 @@
                   
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center">
-<div class="col-sm-2 col-md-2 col-lg-2"><strong>신고당한 유저</strong></div>
-                                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고한 유저</strong></div>
+				<div class="col-sm-2 col-md-2 col-lg-2"><strong>신고한 유저</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고당한 유저/게시물</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고사유</strong></div>
-                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고된 글</strong></div>
-                                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고날짜</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고확인</strong></div>
+                <div class="col-sm-2 col-md-2 col-lg-2"><strong>신고날짜</strong></div>
                 <div class="col-sm-2 col-md-2 col-lg-2 text-md-center"><strong>신고처리</strong></div>     
               </div>
             </div>
@@ -181,17 +181,23 @@
 
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center">
-<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
-                                <div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
-                <div class="col-sm-2 col-md-2 col-lg-2"><c:choose>
-				<c:when test = "${claim.claimReasonNo =='0'}">모욕/욕설/비방</c:when>
-				<c:when test = "${claim.claimReasonNo =='1'}">음란/폭력</c:when>
-				<c:when test = "${claim.claimReasonNo =='2'}">기타</c:when>
-				<c:otherwise> 뾰로롱</c:otherwise>
-			</c:choose>		</div>
-                <div class="col-sm-2 col-md-2 col-lg-2">${claim.targetNo}<span class="icon-search mr-2"></span></div>
-                                <div class="col-sm-2 col-md-2 col-lg-2">${claim.claimDate}</div>
-                <div class="col-sm-2 col-md-2 col-lg-2 text-md-right">
+              
+					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
+					<c:if test="${claim.claimSortNo == '0'}">
+                    	<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimNo}</div>
+                	</c:if>
+                	<c:if test="${claim.claimSortNo == '1'}">
+                		<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
+                	</c:if>
+                	<div class="col-sm-2 col-md-2 col-lg-2">
+                		 <c:if test="${claim.claimReasonNo =='0'}">모욕/욕설/비방</c:if>
+						 <c:if test="${claim.claimReasonNo =='1'}">음란/폭력</c:if>	
+						 <c:if test="${claim.claimReasonNo =='2'}">기타</c:if>
+					</div>
+					
+                	<div class="col-sm-2 col-md-2 col-lg-2">${claim.targetNo}<span class="icon-search mr-2"></span></div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">${claim.claimDate}</div>
+               		<div class="col-sm-2 col-md-2 col-lg-2 text-md-right">
               
 		                 <c:if test="${claim.claimStatus=='0'}"> 
 		    	<button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">승인</button>

@@ -924,7 +924,7 @@ $(function(){
 	    					}
 
 	    					
-	    					var event={id:JSONdata.dietScNo , title: mealTime, start: JSONdata.dietScDate,  backgroundColor:backgroundColor, imageurl :"../resources/images/schedule_breakFast.png"};
+	    					var event={id:JSONdata.dietScNo , title: mealTime, start: JSONdata.dietScDate,  backgroundColor:backgroundColor, imageurl :"../resources/images/icons8-meal-48.png"};
 	        	   
 	    					$('#calendarr').fullCalendar( 'renderEvent', event, true); 
 	        	    		var s = new Date(JSONdata.dietScDate);

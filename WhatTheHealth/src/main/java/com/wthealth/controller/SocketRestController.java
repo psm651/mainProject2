@@ -45,14 +45,15 @@ public class SocketRestController {
 	
 	@RequestMapping(value="json/addLiveStream", method=RequestMethod.POST)
 	//public Map<String, Object> addReply(@RequestBody Reply reply, @PathVariable String postNo) throws Exception {
-	public int addLiveStream(@RequestBody Socket socket, HttpSession session) throws Exception {
+	public Socket addLiveStream(@RequestBody Socket socket, HttpSession session) throws Exception {
 		System.out.println("json/addLiveStream : POST");
 		User user = (User)session.getAttribute("user");
 		socket.setBjId(user.getUserId());
 		socketService.addLiveStream(socket);
+		Socket socketAfter =  socketService.getLiveStream(socket.getSocketNo());
 		
 		//return socket.getSocketNo();
-		return 1;
+		return socketAfter;
 	}
 	
 	
