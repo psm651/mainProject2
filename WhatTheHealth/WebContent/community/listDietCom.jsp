@@ -47,6 +47,13 @@
   		self.location = "/community/getCommunity?postNo="+postNo;
   	});
   });
+   
+   $(function(){
+		  $(document).on("click", ".post-entry", function(){
+			var postNo=$(this).data("param");
+			self.location = "/community/getCommunity?postNo="+postNo;
+		  });
+	   });
   
    $(function() {
 		$("#addDietCom").on("click" , function() {
@@ -73,11 +80,11 @@
      
       $.ajax({
          
-         url: "/meeting/json/listMeeting",
+         url: "/community/json/dietCommunitylist",
          method: "POST",
          data: JSON.stringify({
             currentPage: currentPage ,            
-            searchCondition: $("#searchCondition").val(),
+            searchCondition: 0,
             searchKeyword: $("#searchKeyword").val(),
         	searchFilter : $("#exPart").val()
             
@@ -94,24 +101,24 @@
          
              list.forEach(function(item, index, array){     
             
-            	  var youtube = item["photo"].indexOf("https");
+            	  
             	  var appen = ""; 
                        
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
-                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'">';
+                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
                  	 appen += '<div class="image" style="width:348px; height:200px">';
              
                   if(item["photo"]==null){
               	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;" >'; 	  
              	  }else if(item["photo"]!=null){
-            	  	
+             		 var youtube = item["photo"].indexOf("https");
              		 if(youtube!=-1){
             	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
             	  	 }else{
             	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
             	  }
               	}
-             	  appen += '</div>';   
+             	  appen += '</div><br/><div class="row">';   
                   appen += '<div class="text col-md-8">';
                   appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
                   appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
@@ -150,6 +157,95 @@
       }
    });  
    
+   
+   $(function(){
+		$("#searchTitle").on("click", function(){
+			
+			$("#scroll").empty();
+			currentPage = 1;
+			var searchKeyword = $("#searchKeyword").val();	
+			var searchCondition= 0;
+			
+			//currentPage++;
+			
+			$.ajax({
+		         
+		         url: "/community/json/dietCommunitylist",
+		         method: "POST",
+		         data: JSON.stringify({
+		            currentPage: 1,            
+		            searchCondition: searchCondition,
+		            searchKeyword: $("#searchKeyword").val(),
+		        	searchFilter : $("#exPart").val()
+		            
+		         }),
+		         dataType: "json",
+		         headers : {
+		            "Accept" : "application/json",
+		            "Content-Type" : "application/json"
+		         },
+		         success : function(data , status){
+		  	
+		                  var list = data["list"];
+		                  
+		         
+		             list.forEach(function(item, index, array){     
+		            
+		            	  
+		            	  var appen = ""; 
+		                       
+		                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+		                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'"  data-blind="'+item["blindStatus"]+'">';
+		                 	 appen += '<div class="image" style="width:348px; height:200px">';
+		             
+		                  if(item["photo"]==null){
+		              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
+		             	  }else if(item["photo"]!=null){
+		             		 var youtube = item["photo"].indexOf("https");
+		             		 if(youtube!=-1){
+		            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
+		            	  	 }else{
+		            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
+		            	  }
+		              	}
+		             	  appen += '</div><br/><div class="row">';   
+		                  appen += '<div class="text col-md-8">';
+		                  appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
+		                  appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
+		                  appen += '<div class="userInfo">';
+		                 
+		                  if(item["userImage"] != null && item["userImage"] != ''){	
+		                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+		                  }else{
+		                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+		                  } 	  
+		 				  appen += item["nickName"];
+		                  appen += '</div>';
+		                  appen += '</div>';
+		                  appen += '<div class="col-md-4">';
+		                  appen += '<div class="likeImage">';
+		                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
+		                  appen += '</div>';
+		                  appen += '<div class="likeCount" style="margin-left:38px">';
+		                  appen += '<h5>'+item["likeCount"]+'</h5>';
+		                  appen += '</div>';
+		                  appen += '</div>';
+		                  appen += '</div>';
+		                  appen += '</div>';                
+
+		                  $("#scroll").append(appen);              
+		                  
+		              
+		      
+		             });
+		                  
+		                  
+		         }        
+		      })
+		      
+		});
+  }); 
+   
   </script>
   
  
@@ -171,8 +267,22 @@
     <div class="site-section">
     	
       <div class="container">
-      <div><h2>식단 커뮤니티 목록</h2></div> 
-      <hr/>
+      <div class="row">
+       <div class="col-lg-4" >
+      <h2>식단 커뮤니티 목록</h2>
+      </div>
+      
+		     <div class="col-lg-7" >
+		    	<input type="text" class="form-control" id="searchKeyword" placeholder="제목을 입력하세요" style="height:75%;width:50%;margin-left:5%; float:right"> 
+		     </div>
+		     <div class="col-lg-1" style="text-align:left;">
+		    	<button type="button" id="searchTitle" class="btn btn-danger" style="">
+		    		 <span class="icon-search mr-1" aria-hidden="true"></span> 
+		    	</button>
+		    	</div>
+		    </div>
+		    
+		    <hr/>
  
         <p align="right"><a href="#" align="right" id="addDietCom" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
         <br/>
@@ -208,7 +318,7 @@
 		               		</c:choose>
 	                	</c:if>
               		</div>
-              		
+              		<br/>
               		<div class="row">
               		<div class="text col-md-8">
                 		<h5 class="h5"><a href="#">${post.title}</a></h5>
@@ -234,6 +344,7 @@
  					</div>
  					
  					</c:if>
+ 					</div>
               	</div>
               	<!-- post-entry bg-white : end -->
               	

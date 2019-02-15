@@ -97,13 +97,78 @@ public class PointController {
 		return "forward:/point/updatePoint.jsp";
 	}
 	
+	@RequestMapping(value="updatePointLive", method=RequestMethod.GET)
+	public String updatePointLive(@RequestParam("receiverId") String receiverId, Model model, @RequestParam("senderId") String senderId) throws Exception{
+
+		System.out.println("/point/updatePointLive : GET");
+		//Business Logic
+		//String senderId = ((User)session.getAttribute("user")).getUserId();
+		
+		Point point = new Point();
+		point.setPointStatus("2");
+		point.setSenderId(senderId);
+		point.setReceiverId(receiverId);
+		
+		model.addAttribute("point", point);
+		
+		return "forward:/point/updatePointLive.jsp";
+	}
+	
 	@RequestMapping(value="updatePoint", method=RequestMethod.POST)
-	public String updatePoint(@RequestParam("point") int usingPoint, @ModelAttribute("point") Point point, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
+	   public String updatePoint(@RequestParam("point") int usingPoint, @ModelAttribute("point") Point point, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
+
+	      System.out.println("/point/updatePoint : POST");
+	      //Business Logic
+
+	      User sendUser = userService.getUser(point.getSenderId());
+	      
+	      if(usingPoint > sendUser.getHavingPoint()) {
+	         
+	         System.out.println("���� ����Ʈ���� �� ���� ���������Ҷ�");
+	         response.setContentType("text/html; charset=UTF-8"); 
+	         PrintWriter out = response.getWriter();    
+	         out.println("<script>alert('���� ����Ʈ�� �ʰ��ؼ� �� �� �����ϴ�.');</script>");
+	         out.flush();
+	         return "/point/updatePoint.jsp";
+	         
+	      } else {
+	         
+	         point.setUsingPoint(usingPoint);
+	         pointService.updatePoint(point);
+	         
+	         response.setContentType("text/html; charset=UTF-8"); 
+	         PrintWriter out = response.getWriter();    
+	         out.println("<script>alert('���۵Ǿ����ϴ�.');</script>");
+	         out.flush();
+	   
+	         int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
+	         sendUser.setHavingPoint(sendPoint);
+	         userService.updateHavingPoint(sendUser);
+	         System.out.println("������ ����Ʈ: "+sendPoint);
+	         session.setAttribute("user", sendUser);
+	         System.out.println("����Ʈ �ٲ��� "+session.getAttribute("user"));
+	         
+	         User receiveUser = userService.getUser(point.getReceiverId());
+	         int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
+	         receiveUser.setHavingPoint(receivePoint);
+	         userService.updateHavingPoint(receiveUser);
+	         System.out.println("���� ����Ʈ: "+receivePoint);
+	         
+	         return "forward:/point/listPoint";
+	      }
+	   }
+	
+	
+	
+	@RequestMapping(value="updatePointLive", method=RequestMethod.POST)
+	public void updatePointLive(@RequestParam("point") int usingPoint, @ModelAttribute("point") Point point, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
 
 		System.out.println("/point/updatePoint : POST");
 		//Business Logic
 
-		User sendUser = userService.getUser(point.getSenderId());
+		//User sendUser = userService.getUser(point.getSenderId());
+		User sendUser = userService.findId(point.getSenderId());
+		point.setSenderId(sendUser.getUserId());
 		
 		if(usingPoint > sendUser.getHavingPoint()) {
 			
@@ -112,7 +177,7 @@ public class PointController {
 			PrintWriter out = response.getWriter();	 
 			out.println("<script>alert('���� ����Ʈ�� �ʰ��ؼ� �� �� �����ϴ�.');</script>");
 			out.flush();
-			return "/point/updatePoint.jsp";
+			return ;
 			
 		} else {
 			
@@ -131,13 +196,15 @@ public class PointController {
 			session.setAttribute("user", sendUser);
 			System.out.println("����Ʈ �ٲ��� "+session.getAttribute("user"));
 			
-			User receiveUser = userService.getUser(point.getReceiverId());
+			//User receiveUser = userService.getUser(point.getReceiverId());
+			User receiveUser = userService.findId(point.getReceiverId());
+			point.setReceiverId(receiveUser.getUserId());
 			int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
 			receiveUser.setHavingPoint(receivePoint);
 			userService.updateHavingPoint(receiveUser);
 			System.out.println("���� ����Ʈ: "+receivePoint);
 			
-			return "forward:/point/listPoint";
+			
 		}
 	}
 	
