@@ -157,7 +157,7 @@
 	   
 	   
          // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
-         var floatPosition = parseInt($("#floatMenu").css('top'));
+        /*  var floatPosition = parseInt($("#floatMenu").css('top'));
          // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
        
          $(window).scroll(function() {
@@ -170,7 +170,7 @@
                "top" : newPosition
             }, 500);
        
-         }).scroll();
+         }).scroll(); */
        
       }); 
    
@@ -340,7 +340,7 @@
       <div class="container">
       
          <div class="row">
-         <div class="col-md-12 col-lg-10 mb-5">
+         <div class="col-md-12 col-lg-12 mb-5">
           <div class="container">
          <div class="postHere"> 
          
@@ -368,8 +368,15 @@
              
            <div style="margin-top:40px;  background-color:white; padding:2em;" > 
             <div class="contents"  >
- <p>${post.contents}</p> 
+            <div class="row">
+            <div class="col-md-2 mb-5" ></div>
+            <div class="col-md-8 mb-5" >
+                   
+ 		<p>${post.contents}</p> 
                   <%-- <p class="mb-4">${post.contents}</p> --%>
+              </div>
+               <div class="col-md-2 mb-5" ></div>
+              </div>
               </div>
                <!-- 다음맵지도 -->
               <c:if test="${post.coordinate!=null}">
@@ -431,11 +438,11 @@
       여기추가예정 -->
        <!-- <div class="col-md-12 col-lg-2 mb-5" > -->
       
-      <div  id="floatMenu" >
+      <!-- <div  id="floatMenu" >
       <div id="innerMenu" style="font-weight: bold; text-align: center;">
       최근 본 게시물<br/><br/>
       </div>
-      </div>
+      </div> -->
       <%-- <c:forEach var = "product" items="${cookieList }" end="4">
       <img src = "/images/uploadFiles/${product.fileName}" align="absmiddle" style="width: 50px;" style="height: 100px;"/><br/>
       ${product.prodName }<br/>
