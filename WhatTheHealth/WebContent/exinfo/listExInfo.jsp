@@ -97,7 +97,7 @@
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
-     	alert(currentPage)
+     	//alert(currentPage)
       $.ajax({
          
          url: "/exinfo/json/listExInfo",
@@ -126,19 +126,19 @@
                        
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
                   	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
-                 	 appen += '<div class="image" style="width:400px; height:200px">';
+                 	 appen += '<div class="image" style="width:348px; height:200px">';
              
                   if(item["photo"]==null){
-              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="">'; 	  
+              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" style="width:340px; height:200px">'; 	  
              	  }else if(item["photo"]!=null){
              		 var youtube = item["photo"].indexOf("https");
              		 if(youtube!=-1){
-            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "400;" height= "200;">';
+            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" style="width:348px; height:200px">';
             	  	 }else{
-            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
+            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid" style="width:348px; height:200px">';  
             	  }
               	}
-             	  appen += '</div>';   
+             	  appen += '</div><br/><div class="row">';   
                   appen += '<div class="text col-md-8">';
                   appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
                   appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
@@ -147,7 +147,7 @@
                   
                   if(item["userImage"] != null && item["userImage"] != ''){	
                   	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
-                  }else if(item["userImage"] == null && item["userImage"] == ""){
+                  }else {
                 	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
                   } 	  
  				  appen += item["nickName"];
@@ -268,19 +268,19 @@
           <div class="col-md-6 col-lg-4 mb-4">
           
             <div class="post-entry bg-white" data-param="${post.postNo}" data-blind="${post.blindStatus}">
-              <div class="image" style="width:400px; height:200px">
+              <div class="image" style="width:348px; height:200px">
               	<c:if test="${empty post.photo}">
-                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="">
+                    <img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
                 </c:if>
                 <c:set var="youtubeThumbnail" value="${post.photo}"/>
                  
                 <c:if test="${!empty post.photo}">
                		<c:choose>
                			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-               				<img src="${post.photo}" class="img-fluid" width= "400;" height= "200;">
+               				<img src="${post.photo}" class="img-fluid" style="width:348px; height:200px">
                			</c:when>   
                			<c:otherwise>
-               				<img src="/resources/images/upload/${post.photo}" class="img-fluid">
+               				<img src="/resources/images/upload/${post.photo}" class="img-fluid" style="width:348px; height:200px">
                			</c:otherwise>            			
                		</c:choose>
                 </c:if>

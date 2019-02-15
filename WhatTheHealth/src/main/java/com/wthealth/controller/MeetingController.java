@@ -180,7 +180,7 @@ public class MeetingController {
 		if(meeting.getDepoCondition() == "1") {
 			join.setDepoStatus("0");	//�꽑湲� 誘몄엯湲�
 			join.setJoinStatus("0");  //李몄뿬 ��湲곗긽�깭
-		}else {
+		}else if(meeting.getDepoCondition() == "0") {
 			join.setDepoStatus("9");  //�꽑湲덉뾾�쓬
 			join.setJoinStatus("1");  //李몄뿬�솗�젙�긽�깭
 		};
