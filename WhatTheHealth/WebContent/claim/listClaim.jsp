@@ -48,6 +48,11 @@
     <link rel="stylesheet" href="/resources/css/aos.css">
 
     <link rel="stylesheet" href="/resources/css/style.css">
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
     
   </head>
   
@@ -185,7 +190,7 @@
 					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
 					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
                 
-                	<div class="col-sm-2 col-md-2 col-lg-2">
+                	<div class="col-sm-2 col-md-2 col-lg-2" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
                 		 <c:if test="${claim.claimReasonNo =='0'}">모욕/욕설/비방</c:if>
 						 <c:if test="${claim.claimReasonNo =='1'}">음란/폭력</c:if>	
 						 <c:if test="${claim.claimReasonNo =='2'}">기타</c:if>
@@ -196,18 +201,18 @@
                		<div class="col-sm-2 col-md-2 col-lg-2 text-md-right">
               
 		                 <c:if test="${claim.claimStatus=='0'}"> 
-		    	<button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">승인</button>
-				<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} ">거부</button>
+		    	<button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo}" data-param="${claim.claimNo} ">승인</button>
+				<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo}" data-param1="${claim.claimNo} ">거부</button>
 		                 </c:if>
 		                 
 		                <c:if test="${claim.claimStatus=='1'}">
-		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} " style="display:none;">승인</button>
-		                <button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} ">거부</button>
+		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo}" data-param="${claim.claimNo} " style="display:none;">승인</button>
+		                <button type="button"  class="btn btn-default pill " id="bb${claim.claimNo}" data-param1="${claim.claimNo} ">거부</button>
 		                </c:if>
 		                
 		                <c:if test="${claim.claimStatus=='2'}">
 		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">승인</button>
-		<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} " style="display:none;">거부</button>
+						<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} " style="display:none;">거부</button>
 		                                
 		                </c:if> 
 		                </div>     
