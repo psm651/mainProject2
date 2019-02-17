@@ -90,5 +90,10 @@ public class ClaimServiceImpl implements ClaimService {
 		claimDao.updatePostBlind(userId);
 		
 	}
+	@Override
+	public Post getReplyPostLocation(int targetNo) throws Exception {
+		return claimDao.getReplyPostLocation(targetNo);
+	}
+
 
 }

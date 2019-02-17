@@ -105,6 +105,13 @@
 		SELECT *
 		FROM reply 
 		WHERE reply_no= #{targetNo}
+	 </select>	 
+	 
+	    <!-- SQL : SELECT  -->
+	 <select 	id="getReplyPostLocation"	parameterType="int"   resultType="int">
+		SELECT post_no
+		FROM reply 
+		WHERE reply_no= #{targetNo}
 	 </select>
 	 
 	 <update id = "updateClaim"  parameterType = "com.wthealth.domain.Claim" >

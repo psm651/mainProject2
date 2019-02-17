@@ -29,4 +29,6 @@ public interface ClaimService {
 	public void updateBlackUser(User user) throws Exception;
 	
 	public void updatePostBlind(String userId) throws Exception;
+
+	public Post getReplyPostLocation(int targetNo) throws Exception;
 }
