@@ -131,7 +131,7 @@
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 					 $( "#getChatting${chatting2.user2}${i}" ).on("click" , function() {
 						var roomId = $(this).data("param");
-						 alert(roomId);
+						// alert(roomId);
 					
 						self.location = "/socket/getChatting?roomId="+roomId
 						//$("#mydiv").empty();	 

@@ -199,7 +199,7 @@
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 					 $( "#getChatting${chatting1.user1}${i}" ).on("click" , function() {
 						 var roomId = $(this).data("param");
-						 alert(roomId);
+						 //alert(roomId);
 							//self.location = "/socket/getChatting?roomId="+roomId
 							//$("#mydiv").empty();
 							 $("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getChatting?roomId='+roomId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
@@ -215,7 +215,7 @@
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 					 $( "#getChatting${chatting2.user2}${i}" ).on("click" , function() {
 						var roomId = $(this).data("param");
-						 alert(roomId);
+						// alert(roomId);
 								//self.location = "/socket/getChatting?roomId="+roomId
 							//$("#mydiv").empty();	 
 							$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getChatting?roomId='+roomId+'" align="middle" style="height:100%; width: 100%;" frameborder="0" scrolling="no"></iframe>');
