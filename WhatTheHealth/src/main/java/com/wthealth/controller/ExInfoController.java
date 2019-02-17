@@ -66,8 +66,13 @@ public class ExInfoController {
 	@RequestMapping(value="getExInfo", method=RequestMethod.GET)
 	public String getExInfo(@RequestParam("postNo") int postNo, Model model) throws Exception {
 		
-		Post post = exInfoService.getExInfo(postNo);
+   
+
 		
+		Post post = exInfoService.getExInfo(postNo);
+        String contents = post.getContents();
+        post.setContents(contents.substring(1));
+        
 		model.addAttribute("post", post);
 				
 		return "forward:/exinfo/getExInfo.jsp"; 

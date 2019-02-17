@@ -20,4 +20,7 @@ public interface ExInfoService {
 	public Map<String, Object> listWeatherRecom(String cityName) throws Exception;
 	
 	public void deleteStatus(String postNo) throws Exception;
+	
+    public Map<String, Object> listExInfoRecom(Search search) throws Exception;
+	
 }

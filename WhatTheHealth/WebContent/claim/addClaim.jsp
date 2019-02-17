@@ -24,12 +24,15 @@ String strDate= simpleDate.format(date);%>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
-	<!-- Bootstrap Dropdown Hover CSS -->
+<!-- 	 Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> 
    
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+<!--     Bootstrap Dropdown Hover JS
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+	
+   	<!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -66,15 +69,67 @@ String strDate= simpleDate.format(date);%>
 						}
 					});
 			});
+
+	
+		$( function() {
+			$( ".btn.btn-primary" ).on("click" , function() {
+				var test = $("textarea").val();
+				var claimedUserId = $("input[name=claimedUserId]").val();
+				var targetNo1= $("input[name=targetNo]").val();
+				
+			        $.ajax( {
+			          url: "/claim/json/addClaim",
+			          dataType: "json",
+			          method : "POST",
+			          data: JSON.stringify({
+			       		claimedUserId:claimedUserId,
+			       		targetNo:$("input[name=targetNo]").val(),
+			       		claimReasonNo:$("#selectBox").val(),
+			       		<c:if test="${param.menu== 'post'}">
+							claimSortNo:"0"
+						</c:if>
+						<c:if test="${param.menu== 'reply'}">
+						claimSortNo:"1"
+					</c:if>
+			       		,claimContents:test
+			          }),
+			          headers : {
+			  			"Accept" : "application/json",
+			  			"Content-Type" : "application/json"},
+			  	 	  success: function( data ) {
+	  
+			  	 		swal({
+			  	 		 	title: '해당 회원을 신고하시겠습니까?',
+			  	 		 	text : '취소는 Cancle 버튼을, 신고신청은 OK 버튼을 클릭해주세요', 
+			  	 		    icon: "warning",
+			  	 			buttons: true,
+			  	 		 	dangerMode: true,
+			  	 	   }).then((willDelete) => {
+			  	 		 if(willDelete){
+			  	 		 	  if(data=="0"){
+			  	 				 return swal("이미 신고된 회원입니다.", "", "error");  	  	
+			  	 		   	  }else if(data="1"){
+			  	 			 	return swal("신고가 완료되었습니다.", "", "success");
+			  	 		   	  }
+			  	         }else{
+			  	        	 self.close()
+			  	         }
+			  	 		   
+			  	 		 });
+			  	 	  }//end of success 
+			        });//end of ajax
+			    });
+			
+		});		
 		
 		
-		
-		 $( function() {
+
+/*  		 $( function() {
 				$( ".btn.btn-primary" ).on("click" , function() {
-					alert("123");
 					var test = $("textarea").val();
 					var claimedUserId = $("input[name=claimedUserId]").val();
 					var targetNo1= $("input[name=targetNo]").val();
+					
 				        $.ajax( {
 				          url: "/claim/json/addClaim",
 				          dataType: "json",
@@ -97,19 +152,20 @@ String strDate= simpleDate.format(date);%>
 				  	   success: function( data ) {
 
 				  		   if (data=="0") {
-							alert("이미 신고처리 된 게시물 입니다.");
+							alert("이미 신고처리되었습니다.")
 							self.close();
 						}
 				  		 if (data=="1") {
-								alert("신고완료!.");
-								self.close();
+				  			 
+				  			alert("신고처리가 완료되었습니다.")		  			 
+							self.close();
 							}
 			      		  } 
 				        });
 				        
 				    });
 				
-			});
+			});  원본*/
 		 
 		 ////////////////////
 		

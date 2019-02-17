@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,4 +79,28 @@ public class ExInfoRestController {
 		
 		return map;
 	}
+	
+   @RequestMapping(value="json/listExInfoRecom")
+   public List<Post> listExInfoRecom(@ModelAttribute("search")Search search, Model model) throws Exception{
+      System.out.println("/listExInfoRecom");
+      
+      if(search.getCurrentPage() == 0) {
+         search.setCurrentPage(1);
+      }
+      search.setPageSize(pageSize);
+      
+      Map<String, Object> map = exInfoService.listExInfoRecom(search);
+       List<Post> list = (List<Post>) map.get("exInfoList");
+      
+      Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(),pageUnit, pageSize); 
+      System.out.println(resultPage);
+      
+      model.addAttribute("list", map.get("list"));
+      model.addAttribute("resultPage", resultPage);
+      model.addAttribute("search", search);
+      
+      return list;
+   }
+	
+	
 }

@@ -25,7 +25,7 @@
 		<result property="locationTagName"  column="locationtag_name"	jdbcType="VARCHAR" />
 		<result property="coordinate" 		column="coordinate" 		jdbcType="VARCHAR" />
 		<result property="address" 			column="address" 			jdbcType="VARCHAR" />
-<!-- 	 	<result property="youtube"          column="youtube"             jdbcType="VARCHAR" />  -->
+	 	<result property="youtube"          column="youtube"             jdbcType="VARCHAR" /> 
 		
 		<result property="favoriteNo"		column="favorite_no" 		jdbcType="NUMERIC" />
 		<result property="favoriteType" 	column="favorite_type" 		jdbcType="VARCHAR" />
@@ -45,11 +45,11 @@
 	
 	    	INSERT INTO
 	    		post(post_no, post_sub_no, title, contents, user_id, post_date, like_count, category, 
-	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime, delete_status, locationtag_name, coordinate, address<!-- , youtube --> )
+	    		     ex_info_no, ex_calorie, ex_place, ex_part, ex_videotime, delete_status, locationtag_name, coordinate, address, youtube )
 	   		VALUES
 	    		(seq_post_post_no.nextval, 'EI'||seq_ex_info_ex_info_no.currval, #{title}, #{contents}, #{userId}, sysdate,
 	    		 #{likeCount:NUMERIC}, 1, seq_ex_info_ex_info_no.nextval, #{exCalorie:NUMERIC}, #{exPlace:VARCHAR},
-	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR}, 0, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR}<!-- , #{youtube:VARCHAR} -->)
+	    		 #{exPart:VARCHAR}, #{exVideoTime:VARCHAR}, 0, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR}, #{youtube:VARCHAR})
 	    		 
 		 <selectKey resultType="int" keyProperty = "postNo" order="AFTER">
         	 SELECT seq_post_post_no.currval FROM dual
@@ -73,7 +73,7 @@
   			address = #{address:VARCHAR},
   			coordinate = #{coordinate:VARCHAR},
   			locationtag_name = #{locationTagName:VARCHAR},
-  			<!-- youtube = #{youtube:VARCHAR} -->
+  			youtube = #{youtube:VARCHAR}
          </set>
        WHERE post_no = #{postNo}
     </update>
@@ -232,6 +232,21 @@
 					    	) inner_table                                
 	   			WHERE ROWNUM &lt;= 5)
 	   WHERE row_seq BETWEEN 1 AND 5
-	 </select>	  
+	 </select>
+	 
+	 	   <!-- SQL : SELECT LIST --> 
+   <select id="listExInfoRecom" resultMap="exInfoSelectMap" parameterType="com.wthealth.common.Search">
+      SELECT *
+      FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+      FROM ( SELECT  p.*, u.nickname, u.user_image 
+            FROM post p, users u
+            WHERE p.user_id = u.user_id 
+            AND p.post_sub_no LIKE 'EI%'
+      AND p.delete_status = '0'
+      AND   ROWNUM &lt;= 10
+      ORDER BY p.like_count) inner_table
+      WHERE ROWNUM &lt;= #{endRowNum} )
+      WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+   </select> 
 	  
 </mapper>

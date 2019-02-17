@@ -173,5 +173,17 @@ public class ExInfoServiceImpl implements ExInfoService {
 		exInfoDao.deleteStatus(postNo);
 		
 	}
+	
+   @Override
+   public Map<String, Object> listExInfoRecom(Search search) throws Exception {
+      List<Post> exInfoList = exInfoDao.listExInfoRecom(search);
+      int totalCount = exInfoDao.getTotalCount(search);
+      
+      Map<String,Object> map = new HashMap<String,Object>();
+      map.put("exInfoList", exInfoList);
+      map.put("totalCount", new Integer(totalCount));
+      return map;
+   }
+	   
 
 }

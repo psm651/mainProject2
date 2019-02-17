@@ -11,6 +11,7 @@ import com.wthealth.common.Search;
 import com.wthealth.domain.Claim;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.Reply;
+import com.wthealth.domain.User;
 import com.wthealth.service.claim.ClaimDao;
 
 @Repository("claimDaoImpl")
@@ -81,5 +82,16 @@ public class ClaimDaoImpl implements ClaimDao {
 	public int claimCount(String userId) throws Exception {
 		return sqlSession.selectOne("ClaimMapper.claimCount",userId);
 	}
+
+	@Override
+	public void updateBlackUser(User user) throws Exception {
+		sqlSession.update("ClaimMapper.updateBlackUser", user);
+	}
+	
+	@Override
+	public void updatePostBlind(String userId) throws Exception {
+		sqlSession.update("ClaimMapper.updatePostBlind", userId);
+	}	
+	
 
 }

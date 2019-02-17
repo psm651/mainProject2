@@ -12,6 +12,7 @@ import com.wthealth.common.Search;
 import com.wthealth.domain.Claim;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.Reply;
+import com.wthealth.domain.User;
 import com.wthealth.service.claim.ClaimDao;
 import com.wthealth.service.claim.ClaimService;
 
@@ -78,6 +79,16 @@ public class ClaimServiceImpl implements ClaimService {
 	@Override
 	public int claimCount(String userId) throws Exception {
 		return claimDao.claimCount(userId);
+	}
+	@Override
+	public void updateBlackUser(User user) throws Exception {
+		claimDao.updateBlackUser(user);
+		
+	}
+	@Override
+	public void updatePostBlind(String userId) throws Exception {
+		claimDao.updatePostBlind(userId);
+		
 	}
 
 }

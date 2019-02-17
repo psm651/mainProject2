@@ -28,23 +28,27 @@
     <link rel="stylesheet" href="/resources/css/aos.css">
    
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
-       <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+     <!-- sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
   </head>
   
   <script type="text/javascript">
  	
    $(function(){
   	$(".post-entry").on("click", function(){
-  		//alert("클릭됨:::"+postNo);
+ 
   		var postNo = $(this).data("param");
   		var blindStatus = $(this).data("blind");
   		
   		if(blindStatus == '1'){
-  			//alert('블라인드 처리된 게시물입니다.');
+
   			swal("블라인드 처리된 게시물입니다", "", "error");
-  			return;
+  			return false;
   		}
   		self.location = "/community/getCommunity?postNo="+postNo;
   	});

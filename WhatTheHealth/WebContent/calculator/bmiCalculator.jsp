@@ -228,7 +228,7 @@ $(function(){
 	   		<div class="row" style="align:right">
 	   			<div>내 스케줄 담기</div>
 	   			<input type='text' data-language='en'  id='bmiDatepicker'  name='dietScDate'/> 
-	   			<button type="button" id="save" class="btn btn-primary btn-sm" style="margin-left:1.2%"> 저장</button>
+	   			<button type="button" id="save" class="btn btn-primary btn-sm" style="position:absolute;top:40%;left:46%;"> 저장</button>
 		      	
 	   		</div>
 	   </div>

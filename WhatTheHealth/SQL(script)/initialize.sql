@@ -116,6 +116,7 @@ CREATE TABLE post (
 	ex_part		VARCHAR2(3),
 	ex_videotime	VARCHAR2(20),	
 	post_sub_no		VARCHAR2(20),
+	youtube         VARCHAR2(40),
 	PRIMARY KEY(post_no)
 );
 

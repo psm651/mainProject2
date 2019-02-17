@@ -16,65 +16,70 @@ import com.wthealth.service.exinfo.ExInfoDao;
 @Repository("exInfoDaoImpl")
 public class ExInfoDaoImpl implements ExInfoDao{
 
-	//Field
-	@Autowired
-	@Qualifier("sqlSessionTemplate")
-	private SqlSession sqlSession;
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession=sqlSession;
-	}
-	
-	//Constructor
-	public ExInfoDaoImpl() {
-		System.out.println(this.getClass());
-	}
-	@Override
-	public void addExInfo(Post post) throws Exception {		
-		 sqlSession.insert("ExInfoMapper.addExInfo", post);
-	}
+   //Field
+   @Autowired
+   @Qualifier("sqlSessionTemplate")
+   private SqlSession sqlSession;
+   public void setSqlSession(SqlSession sqlSession) {
+      this.sqlSession=sqlSession;
+   }
+   
+   //Constructor
+   public ExInfoDaoImpl() {
+      System.out.println(this.getClass());
+   }
+   @Override
+   public void addExInfo(Post post) throws Exception {      
+       sqlSession.insert("ExInfoMapper.addExInfo", post);
+   }
 
 
-	
-	@Override
-	public Post getExInfo(int postNo) throws Exception {
-		return sqlSession.selectOne("ExInfoMapper.getExInfo", postNo);
-	}
+   
+   @Override
+   public Post getExInfo(int postNo) throws Exception {
+      return sqlSession.selectOne("ExInfoMapper.getExInfo", postNo);
+   }
 
-	@Override
-	public void updateExInfo(Post post) throws Exception {
-		sqlSession.update("ExInfoMapper.updateExInfo", post);
-	}
+   @Override
+   public void updateExInfo(Post post) throws Exception {
+      sqlSession.update("ExInfoMapper.updateExInfo", post);
+   }
 
-	@Override
-	public List<Post> listExInfo(Search search) throws Exception {
-		return sqlSession.selectList("ExInfoMapper.listExInfoPost", search);
-	}
+   @Override
+   public List<Post> listExInfo(Search search) throws Exception {
+      return sqlSession.selectList("ExInfoMapper.listExInfoPost", search);
+   }
 
-	//@Override
-	public List<Post> listExInfo(String Weather) throws Exception {
-		return sqlSession.selectList("ExInfoMapper.listExInfoPost", Weather);
-	}
-	@Override
-	public int getTotalCount(Search search) throws Exception{
-		return sqlSession.selectOne("ExInfoMapper.getTotalCount", search);
-	}
+   //@Override
+   public List<Post> listExInfo(String Weather) throws Exception {
+      return sqlSession.selectList("ExInfoMapper.listExInfoPost", Weather);
+   }
+   @Override
+   public int getTotalCount(Search search) throws Exception{
+      return sqlSession.selectOne("ExInfoMapper.getTotalCount", search);
+   }
 
-	@Override
-	public void deleteStatus(String postNo) throws Exception {
-		sqlSession.update("ExInfoMapper.updateDeleteStatus", postNo);
-		
-	}
+   @Override
+   public void deleteStatus(String postNo) throws Exception {
+      sqlSession.update("ExInfoMapper.updateDeleteStatus", postNo);
+      
+   }
 
-	@Override
-	public List<Post> listWeatherRecom(Weather weather) throws Exception {		
-		return sqlSession.selectList("ExInfoMapper.listWeatherRecom", weather);
-	}
-	
+   @Override
+   public List<Post> listWeatherRecom(Weather weather) throws Exception {      
+      return sqlSession.selectList("ExInfoMapper.listWeatherRecom", weather);
+   }
+
+   @Override
+   public List<Post> listExInfoRecom(Search search) throws Exception {
+      return sqlSession.selectList("ExInfoMapper.listExInfoRecom", search);
+   }
+   
+   
 
 
 
-
-	
-	
+   
+   
 
 }

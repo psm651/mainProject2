@@ -6,6 +6,7 @@ import com.wthealth.common.Search;
 import com.wthealth.domain.Claim;
 import com.wthealth.domain.Post;
 import com.wthealth.domain.Reply;
+import com.wthealth.domain.User;
 
 public interface ClaimDao {
 
@@ -27,4 +28,7 @@ public interface ClaimDao {
 	
 	public int claimCount(String userId) throws Exception;
 	
+	public void updateBlackUser(User user) throws Exception;	
+	
+	public void updatePostBlind(String userId) throws Exception;
 }
