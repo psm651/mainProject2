@@ -438,20 +438,21 @@ body {
      
       <div class="site-blocks-cover" style="background-image: url(/resources/images/main.jpg); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
 
+		
             
              <div class="weather-card madrid" style="margin-right:10px; float: right; top: 100px;">
 				<div class="card-header" align="center" >
 				<%-- <span id="cityName">${weather.cityName}</span> --%>
 					<select name="cityID" class="cityID" onchange="cityChange(this)">
-						<option value="Seoul,KR" 	style="font-size:20px;" selected>서울</option>
-						<option value="Busan,KR" 	style="font-size:20px;">부산</option>
-		  				<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
-						<option value="Incheon,KR" 	style="font-size:20px;">인천</option>
-						<option value="Gwangju,KR" 	style="font-size:20px;">광주</option>
-						<option value="Daejeon,KR" 	style="font-size:20px;">대전</option>
-						<option value="Ulsan,KR" 	style="font-size:20px;">울산</option>
-						<option value="Sejong,KR" 	style="font-size:20px;">세종특별자치시</option>
-						<option value="Jeju,KR" 	style="font-size:20px;">제주특별자치도</option>
+						<option value="Seoul,KR" 	style="font-size:15px;" selected>서울</option>
+						<option value="Busan,KR" 	style="font-size:15px;">부산</option>
+		  				<option value="Daegu,KR" 	style="font-size:15px;">대구</option>
+						<option value="Incheon,KR" 	style="font-size:15px;">인천</option>
+						<option value="Gwangju,KR" 	style="font-size:15px;">광주</option>
+						<option value="Daejeon,KR" 	style="font-size:15px;">대전</option>
+						<option value="Ulsan,KR" 	style="font-size:15px;">울산</option>
+						<option value="Sejong,KR" 	style="font-size:15px;">세종특별자치시</option>
+						<option value="Jeju,KR" 	style="font-size:15px;">제주특별자치도</option>
 					</select>
 				</div> 
 					<div id="weatherImage">
