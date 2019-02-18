@@ -87,20 +87,91 @@
 	
 <script type="text/javascript">
   var meetNo = ${meeting.meetNo};
+  var locationTagName = '';
 	function fncUpdateMeeting(){
 		var title = $("input[name='post.title']").val();
 		var contents = $("textarea[name='post.contents']").val();
+////////////////////////조건체크//////////////////////////
+		 var depoAmount = $("input[name='depoAmount']").val();
+		  var depoBank = $("input[name='depoBank']").val();
+		 var depoAccHolder = $("input[name='depoAccHolder']").val();
+		 var depoAccount = $("input[name='depoAccount']").val();
+		 var entryfee = $("input[name='entryfee']").val();
+		 var minParty = $("input[name='minParty']").val();
+		 var maxParty = $("input[name='maxParty']").val();  
+		 var meetTime = $("input[name='meetTime']").val();  
 		
-		console.log(contents.length);
+		///////////////////////////////////////////////////////////
 
 		if(title == null || title.length<1){
-			alert("제목은 반드시 입력하여야 합니다.");
-			return;
+			swal("제목은 반드시 입력하여야 합니다.", "", "error");
+			return false;
 		}
 		if(contents == null || contents.length<1){
-			alert("글 내용은 반드시 입력하셔야 합니다.");
-			return;
+			swal("글 내용은 반드시 입력하여야 합니다.", "", "error");
+			return false;
 		}
+		 if(($("input[name='depoAmount']").html()) != null  ){
+				 if (depoAmount == null || depoAmount.length<1) {
+					swal("선금금액을 입력해주세요.", "", "error");
+					return false;
+				} 
+				 
+				 if (depoBank == null || depoBank.length<1) {
+					swal("은행명을 입력해주세요.", "", "error");
+					return false;
+				}
+				 
+				 if (depoAccHolder == null || depoAccHolder.length<1) {
+					swal("예금주명을 입력해주세요.", "", "error");
+					return false;
+				}
+				  if (depoAccount == null || depoAccount.length<1) {
+					swal("계좌번호를 입력해주세요.", "", "error");
+					return false;
+				}      
+		}  
+		 
+		 if(($("input[name='entryfee']").html()) != null){
+			  if(entryfee == null || entryfee.length<1){
+				swal("참가비 금액을 입력해주세요.", "", "error");
+				return false;
+			}
+	 } 
+		 
+		  if(($("input[name='minParty']").html()) != null){
+				 if(minParty == null || minParty.length<1){
+					swal("최소참여인원을 입력해주세요.", "", "error");
+					return false;
+				}
+				 if(minParty != null && minParty<1){
+						swal("최소참여인원 수 확인 필요", "최소인원은 1명 이상 입력해야 합니다.", "error");
+						return false;
+					}
+				 
+				if(maxParty == null || maxParty.length<1){
+					swal("최대참여인원을 입력해주세요.", "", "error");
+					return false;
+				}  
+				 if(maxParty != null && maxParty<1){
+						swal("최대참여인원 수 확인 필요", "최대인원은 1명 이상 입력해야 합니다.", "error");
+						return false;
+				}
+				 if(maxParty != null && minParty>maxParty){
+						swal("참여인원 수 확인 필요", "최소인원이 최대인원보다 많습니다.", "error");
+						return false;
+				}
+		 } 
+		 
+		  if(meetTime == null || meetTime.length<1){
+				swal("모임시간 미입력", "모임시간은 반드시 입력하여야 합니다.", "error");
+				return false;
+			}
+
+		  if(locationTagName == null || locationTagName.length<1){
+				swal("모임장소 미입력", "모임장소는 반드시 입력하여야 합니다.", "error");
+				return false;
+			}
 
 		$("form[name=communityPost]").attr("method","POST").attr("action","/meeting/updateMeeting?meetNo="+meetNo).submit();	
 	}
@@ -632,7 +703,7 @@
                 </div>
               </div>
               
-              <input type="submit" value="수정" onclick = "fncUpdateMeeting()" class="form-control btn btn-danger">
+              <input type="submit" value="수정" onclick = "return fncUpdateMeeting()" class="form-control btn btn-danger">
 		<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
           </div>
        </form>
@@ -669,7 +740,7 @@
       </div>
       <div class="modal-body">
       
-    	<jsp:include page="/common/addMap.jsp" /> 
+    	<jsp:include page="/common/addMapMeeting.jsp" /> 
         
       </div>
       
