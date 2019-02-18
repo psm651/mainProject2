@@ -46,16 +46,9 @@ public class CalculatorRestController {
 	@RequestMapping(value="json/updateScheduleBMI", method=RequestMethod.POST)
 	public String updateScheduleBMI(@RequestBody BMI bmi, HttpSession session) throws Exception{
 		
-		System.out.println(bmi);
 		
-		User user = (User)session.getAttribute("user");
-		String userId = user.getUserId();
-		user.setWeight(bmi.getWeight())	;
-		bmi.setUserId(userId);
 		dietScheduleService.addBmi(bmi);
-		
-		userService.updateUser(user);
-	
+			
 		String successMessage = "스케줄에 저장이 완료되었습니다.";
 		return successMessage;
 	}

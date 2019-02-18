@@ -9,25 +9,23 @@
  	
 	<resultMap id="socketSelectMap" type="com.wthealth.domain.Socket">
 		<result property="socketNo" 			column="socket_no" 			jdbcType="NUMERIC"/>
-		<result property="bjId"			column="bj_id" 		jdbcType="VARCHAR" />
-		<result property="liveDate"		column="live_date" 		jdbcType="DATE" />
-		<result property="liveTitle" 				column="live_title" 					jdbcType="VARCHAR" />
-		<result property="totalViewer" 				column="total_viewer" 					jdbcType="NUMERIC" />
-		<result property="liveType" 			column="live_Type" 		jdbcType="VARCHAR" />
-		<result property="firPlayerId" 				column="fir_player_id" 					jdbcType="VARCHAR" />
-		<result property="secPlayerId" 			column="sec_player_id" 				jdbcType="VARCHAR"  />
-		<result property="liveStatus" 			column="live_status" 				jdbcType="VARCHAR"  />
-		<result property="nickname" 			column="nickname" 				jdbcType="VARCHAR"  />
-		<result property="userImage" 			column="user_image" 				jdbcType="VARCHAR"  />
+		<result property="bjId"					column="bj_id" 				jdbcType="VARCHAR" />
+		<result property="liveDate"				column="live_date" 			jdbcType="DATE" />
+		<result property="liveTitle" 			column="live_title" 		jdbcType="VARCHAR" />
+		<result property="totalViewer" 			column="total_viewer" 		jdbcType="NUMERIC" />
+		<result property="liveType" 			column="live_Type" 			jdbcType="VARCHAR" />
+		<result property="liveStatus" 			column="live_status" 		jdbcType="VARCHAR"  />
+		<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR"  />
+		<result property="userImage" 			column="user_image" 		jdbcType="VARCHAR"  />
 		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addLiveStream"		parameterType="com.wthealth.domain.Socket"  useGeneratedKeys="true" keyProperty="socketNo">
 	 	INSERT
-		INTO socket ( socket_no, bj_id, live_date, live_title, total_viewer, live_type, fir_player_id , sec_player_id, live_status) 
+		INTO socket ( socket_no, bj_id, live_date, live_title, total_viewer, live_type, live_status) 
 		VALUES (seq_socket_socket_no.nextval, #{bjId}, SYSDATE, #{liveTitle}, 
-							#{totalViewer:NUMERIC}, '0', #{firPlayerId:VARCHAR}, #{secPlayerId:VARCHAR}, '1')
+							#{totalViewer:NUMERIC}, '0','1')
 	 	<selectKey resultType="int" keyProperty = "socketNo" order="AFTER">
 			SELECT seq_socket_socket_no.currval FROM dual
 		</selectKey>
@@ -37,7 +35,7 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getLiveStream"	parameterType="int"	resultMap="socketSelectMap">
 		SELECT
-		socket_no , bj_id , live_date , live_title, total_viewer, live_Type, fir_player_id , sec_player_id, live_status
+		socket_no , bj_id , live_date , live_title, total_viewer, live_Type, live_status
 		FROM socket 
 		WHERE socket_no = #{value}
 	 </select>

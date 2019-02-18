@@ -19,6 +19,7 @@ public class Meeting {
 	private String depoCondition;
 	private String meetTime;
 	private Date deadlineTime;
+	
 	private Join join;
 	
 	///Constructor
@@ -130,13 +131,6 @@ public class Meeting {
 		this.meetTime = meetTime;
 	}
 
-	public Date getDeadlineTime() {
-		return deadlineTime;
-	}
-
-	public void setDeadlineTime(Date deadlineTime) {
-		this.deadlineTime = deadlineTime;
-	}
 
 	public Join getJoin() {
 		return join;
@@ -154,6 +148,8 @@ public class Meeting {
 				+ cheifId + ", depoCondition=" + depoCondition + ", meetTime=" + meetTime + ", deadlineTime="
 				+ deadlineTime + ", join=" + join + "]";
 	}
+
+
 
 
 }

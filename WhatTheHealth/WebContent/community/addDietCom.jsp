@@ -37,12 +37,6 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	
 	
-	
-	<!-- include datetimepicker css/js-->
-	<script type="text/javascript" src="../resources/js/datepicker.js"></script>
-	<link rel="stylesheet" href="../resources/css/datepicker.min.css" type="text/css">
- 	<!-- <script type="text/javascript" src="../resources/js/datepicker.min.js"></script>  --> 
-	<script type="text/javascript" src="../resources/js/datepicker.en.js"></script>
 
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 
@@ -255,72 +249,8 @@
     		});  
         	
 /////////////////////////지도 끝//////////////////////////////////////
-       
-////////////////////////////////////달력달력///////////////////////////////////	
-    	function datetime(){
-    		//$(".datepicker datepicker-inline").remove();
-    		$('div').remove('.datepicker datepicker-inline');
-    	};
-    	
-    	$(document).ready(function(){
-    		datetime(); 
-    	       });
-    	//////////////////////////////////////달력////////////////////////////////
-    	 // Initialization
-    $('#timepicker-actions-exmpl').datepicker({inline : false})
-    // Access instance of plugin
-    $('#timepicker-actions-exmpl').data('datepicker') 
-
-    	////////////////////////////////////달력달력///////////////////////////////////
-    	 // Create start date
-         var start = new Date(),
-            prevDay,
-            startHours = 9;
-
-        // 09:00 AM
-        start.setHours(9);
-        start.setMinutes(0);
-
-        // If today is Saturday or Sunday set 10:00 AM
-        if ([6, 0].indexOf(start.getDay()) != -1) {
-            start.setHours(10);
-            startHours = 10
-        }
-
-        $('#timepicker-actions-exmpl').datepicker({
-            timepicker: true,
-            language: 'en',
-            startDate: start,
-            minHours: startHours,
-            maxHours: 18,
-            
-            onSelect: function (fd, d, picker) {
-                // Do nothing if selection was cleared
-                if (!d) return;
-
-                var day = d.getDay();
-
-                // Trigger only if date is changed
-                if (prevDay != undefined && prevDay == day) return;
-                prevDay = day;
-
-                // If chosen day is Saturday or Sunday when set
-                // hour value for weekends, else restore defaults
-                if (day == 6 || day == 0) {
-                    picker.update({
-                        minHours: 10,
-                        maxHours: 16
-                    })
-                } else {
-                    picker.update({
-                        minHours: 9,
-                        maxHours: 18
-                    })
-                }
-            }
-        }) 
+  
     
-        	
 </script>
 
 </head>
@@ -355,11 +285,6 @@
      			 </div>
               </div>
               
-             <span class="forSchedule">
-				<img src="../resources/images/calendar.png"  style="width:30px;">
-				<input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
-              	data-language="en" id="timepicker-actions-exmpl" name="dietSchedule"/> 
-            </span>  	
 
               <div class="row form-group">
                 <div class="col-md-12" >

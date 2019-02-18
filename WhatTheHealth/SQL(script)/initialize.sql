@@ -40,7 +40,6 @@ DROP SEQUENCE seq_chatting_chatting_no;
 
 
 CREATE SEQUENCE seq_point_point_no	INCREMENT BY 1 START WITH 10000;
-CREATE SEQUENCE seq_hashtag_hashtag_no		INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_claim_claim_no		INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_diet_sc_diet_sc_no		INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_meal_meal_no		INCREMENT BY 1 START WITH 10000;
@@ -79,7 +78,6 @@ CREATE TABLE users (
 	id_token		VARCHAR2(300),
 	access_token	VARCHAR2(300),
 	refresh_token	VARCHAR2(300),
-	weight                NUMBER,
 	PRIMARY KEY(user_id)
 );
 
@@ -120,12 +118,6 @@ CREATE TABLE post (
 	PRIMARY KEY(post_no)
 );
 
-CREATE TABLE hashtag ( 
-	hashtag_no NUMBER NOT NULL,
-	hashtag 	VARCHAR2(50) NOT NULL,
-	post_no		NUMBER	NOT NULL 	REFERENCES POST(post_no),
-	PRIMARY KEY(hashtag_no)
-);
 
 CREATE TABLE claim ( 
 	claim_no NUMBER NOT NULL,
@@ -229,7 +221,6 @@ CREATE TABLE meeting (
 	chief_id	VARCHAR2(20)	NOT NULL	REFERENCES users(user_id),
 	depo_condition	VARCHAR2(3)	NOT NULL,
 	meet_time	VARCHAR2(50)	NOT NULL,
-	deadline_time	DATE,
 	PRIMARY KEY(meet_no)
 );
 
@@ -252,8 +243,6 @@ CREATE TABLE socket (
 	live_title	VARCHAR2(100)	NOT NULL,
 	total_viewer	NUMBER(10),
 	live_type	VARCHAR2(3)	NOT NULL,
-	fir_player_id	VARCHAR2(20)	REFERENCES users(user_id),
-	sec_player_id	VARCHAR2(20)	REFERENCES users(user_id),
 	live_status		VARCHAR2(3),
 	PRIMARY KEY(socket_no)
 );	
@@ -263,8 +252,6 @@ CREATE TABLE chatting (
    room_id      VARCHAR2(100)      NOT NULL,
    user1_id       VARCHAR2(20)   NOT NULL   REFERENCES users(user_id),
    user2_id      VARCHAR2(20)   NOT NULL   REFERENCES users(user_id),
-   user1_status   VARCHAR2(3)   ,
-   user2_status   VARCHAR2(3)   ,
    PRIMARY KEY(chatting_no)
 );
 

@@ -79,8 +79,7 @@
 
 		var title = $("input[name='title']").val();
 		var contents = $("textarea[name=contents]").val();
-		var exSchedule = $("input[name='exSchedule']").val();
-
+	
 		if(title == null || title.length<1){
 			swal("제목은 반드시 입력하여야 합니다.", "ok버튼을 눌러주세요", "error");
 			return false;
@@ -300,21 +299,7 @@
             }
         }) 
        
-       /*  function forSchedule(){
-        	var exSchedule = $("#exSchedule").val();
-        	
-        	$.ajax({
-        		url : 'schedule/json/',
-        		type : '',
-        		success: function(JSONData){
-        			
-        			
-        		}
-        		
-        	})
-        	
-        } */
-        
+
 </script>
 
 </head>
@@ -348,12 +333,7 @@
      			 </div>
               </div>
 				
-			<span class="forSchedule">
-				<img src="../resources/images/calendar.png"  style="width:30px;">
-				<input type="text" data-range="true"  class="datepicker-here" data-timepicker="false" data-multiple-dates-separator=" - " 
-              	data-language="en" id="timepicker-actions-exmpl" name="exSchedule"/> 
-            </span>  	
-            
+
            
               <div class="row form-group">
                 <div class="col-md-12" >

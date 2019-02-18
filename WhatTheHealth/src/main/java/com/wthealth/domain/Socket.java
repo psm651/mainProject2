@@ -11,8 +11,6 @@ public class Socket {
 	private String liveTitle;
 	private int totalViewer;
 	private String liveType;
-	private String firPlayerId;
-	private String secPlayerId;
 	private String liveStatus;
 	private String userImage;
 	private String nickname;
@@ -70,21 +68,6 @@ public class Socket {
 		this.liveType = liveType;
 	}
 
-	public String getFirPlayerId() {
-		return firPlayerId;
-	}
-
-	public void setFirPlayerId(String firPlayerId) {
-		this.firPlayerId = firPlayerId;
-	}
-
-	public String getSecPlayerId() {
-		return secPlayerId;
-	}
-
-	public void setSecPlayerId(String secPlayerId) {
-		this.secPlayerId = secPlayerId;
-	}
 
 	public String getLiveStatus() {
 		return liveStatus;
@@ -113,9 +96,10 @@ public class Socket {
 	@Override
 	public String toString() {
 		return "Socket [socketNo=" + socketNo + ", bjId=" + bjId + ", liveDate=" + liveDate + ", liveTitle=" + liveTitle
-				+ ", totalViewer=" + totalViewer + ", liveType=" + liveType + ", firPlayerId=" + firPlayerId
-				+ ", secPlayerId=" + secPlayerId + ", liveStatus=" + liveStatus + ", userImage=" + userImage
-				+ ", nickname=" + nickname + "]";
+				+ ", totalViewer=" + totalViewer + ", liveType=" + liveType + ", liveStatus=" + liveStatus
+				+ ", userImage=" + userImage + ", nickname=" + nickname + "]";
 	}
+
+
 
 }
