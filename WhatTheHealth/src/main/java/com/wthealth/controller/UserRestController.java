@@ -6,10 +6,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.annotation.Resource;
+import javax.mail.BodyPart;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
 import javax.mail.internet.AddressException;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,6 +39,7 @@ import org.codehaus.jackson.JsonNode;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -119,7 +128,8 @@ public class UserRestController {
 		
 		String authNum = "";
 		authNum = RandomNum();
-		config.setContent("인증번호 ["+authNum+"]를 입력해주세요.");
+		config.setContent("What The Health 인증번호 ["+authNum+"]를 입력해주세요.");
+		
 		
 		session.setAttribute("authNum", authNum);
 		
@@ -176,7 +186,7 @@ public class UserRestController {
 	public void sendMail(@PathVariable String email1, @PathVariable String email2, HttpSession session) throws AddressException, MessagingException {
 		
 		System.out.println("/user/json/sendMail");
-		System.out.println("/user/json/sendMail:"+email1+email2);
+		System.out.println("/user/json/sendMail:"+email1+"."+email2);
 
 		String authNum = "";
 		authNum = RandomNum();
@@ -207,10 +217,24 @@ public class UserRestController {
 
 	            mimeMessageHelper.setTo(email); // 받는사람
 	            mimeMessageHelper.setFrom("sh8532k@naver.com"); // 보내는사람
-	            mimeMessageHelper.setSubject("인증 메일"); // 메일 제목
-	            mimeMessageHelper.setText("인증번호 [ "+authNum+" ]", true); // 메일 내용
+	            mimeMessageHelper.setSubject("What The Health 이메일 인증을 진행해주세요."); // 메일 제목
+	          //  mimeMessageHelper.setText("인증번호 [ "+authNum+" ]", true); // 메일 내용
 	            
-	            
+	         // 포함된 텍스트가 HTML이라는 의미로 true 플래그를 사용한다
+	            mimeMessageHelper.setText("<html> <link href='https://fonts.googleapis.com/css?family=Noto+Sans+KR' rel='stylesheet'> <body>"
+	            		+ "<div style='margin: 0 auto; width:50%; font-family:Noto Sans KR, sans-serif; font-size:15px; border: 2px solid #ddd'><br/>"
+	                    + "<div style='text-align:center; margin-top:30px;'><br/>"
+	                    + "<img src='cid:identifier1234' width='300px' height='auto' align='middle'/><br/>"
+	                    +"</div><br/><br/><p style='padding:50px'><br/><br/>"
+	                    +"What The Health 로부터 인증번호가 전송되었습니다.<br/><br>"
+	                    + "회원님의 <strong>인증번호</strong>는 &nbsp;&nbsp;"
+	                    + "<strong style='font-size:20px; color:#fd5d7c;'>"+authNum+"</strong> 입니다.<br><br/>"
+	                    + "<br><br/>*인증번호 칸에 입력해 주시길 바랍니다.<br><br/><br/></p><br/><br/></div></body></html>", true);
+
+	            // 악명높은 윈도우의 Sample 파일을 첨부하자 (여기서는 c:/ 에서 복사한다)
+	            FileSystemResource res = new FileSystemResource(new File("C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\logo.png"));
+	            mimeMessageHelper.addInline("identifier1234", res);
+
 	        };
 	    }; 
 	            
