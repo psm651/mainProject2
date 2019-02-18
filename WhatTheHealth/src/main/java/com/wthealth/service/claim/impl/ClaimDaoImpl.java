@@ -53,7 +53,6 @@ public class ClaimDaoImpl implements ClaimDao {
 
 	@Override
 	public Claim getClaim(int claimNo) throws Exception {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("ClaimMapper.getClaim", claimNo);
 	}
 
@@ -91,7 +90,15 @@ public class ClaimDaoImpl implements ClaimDao {
 	@Override
 	public void updatePostBlind(String userId) throws Exception {
 		sqlSession.update("ClaimMapper.updatePostBlind", userId);
-	}	
+	}
+
+	@Override
+	public Post getReplyPostLocation(int targetNo) throws Exception {
+		int postNo = sqlSession.selectOne("ClaimMapper.getReplyPostLocation", targetNo);
+		return sqlSession.selectOne("ClaimMapper.getClaimedPost",postNo);
+	}
+
+
 	
 
 }

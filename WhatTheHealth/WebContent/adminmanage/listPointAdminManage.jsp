@@ -76,7 +76,7 @@
    	<!-- ToolBar End /////////////////////////////////////-->
 	<body>
 	
-	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/singo3.jpg');">
+	<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/adminManage/point_manageMent.jpg');">
     
     <div class="container mb-3">
 
@@ -103,7 +103,7 @@
 					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 		    </div>		 	      	        
         	
-           <button type="button" class="btn btn-info">검색</button>
+           <button type="button" class="btn btn-info" style="height:48px">검색</button>
         		
            <input type="hidden" id="currentPage" name="currentPage" value=""/>        	
         	
@@ -111,6 +111,8 @@
            
        </div>
        </div>    	
+       
+       <br/>
 
         <div class="tab-content" id="pills-tabContent">
 

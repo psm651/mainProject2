@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wthealth.domain.Claim;
+import com.wthealth.domain.Post;
 import com.wthealth.domain.User;
 import com.wthealth.service.claim.ClaimService;
 import com.wthealth.service.user.UserService;
@@ -89,4 +90,32 @@ public class ClaimRestController {
 		return "1";
 		
 	}
+	
+	@RequestMapping(value="json/getClaim/{targetNo}", method = RequestMethod.GET)
+	public Claim getClaim(@PathVariable("targetNo") int claimNo) throws Exception {
+		
+		System.out.println(claimNo);
+		//Business Logic
+		Claim claim = claimService.getClaim(claimNo);
+		
+		return claim;
+		
+	}	
+	
+	@RequestMapping(value="json/getPost/{targetNo}", method = RequestMethod.GET)
+	public Post getPost(@PathVariable("targetNo") int postNo) throws Exception {
+		
+		//Business Logic
+		Post post = claimService.getClaimedPost(postNo);
+		
+		return post;
+		
+	}		
+	
+	@RequestMapping(value="json/getReply/{targetNo}", method = RequestMethod.GET)
+	public Post getReply(@PathVariable("targetNo") int postNo) throws Exception {
+			
+		return claimService.getReplyPostLocation(postNo);
+		
+	}	
 }

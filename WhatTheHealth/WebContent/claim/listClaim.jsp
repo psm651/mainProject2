@@ -48,11 +48,31 @@
     <link rel="stylesheet" href="/resources/css/aos.css">
 
     <link rel="stylesheet" href="/resources/css/style.css">
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
     
   </head>
   
     <style>
 
+ #searchCondition{
+    height: 37px;
+    width: 100%;
+    margin-left: 5%;
+    float: right;
+ 
+ }
+ 
+ #searchKeyword{
+ 	height:37px;
+    width: 100%;
+    margin-left: 5%;
+    float: right;
+ }
+    
   div.container.mb-3   {
   		margin-top:-50px;
 		}
@@ -118,7 +138,69 @@
 			});
 		
 		});	
+
+		 $(function(){
+			 $('#contents').tooltip();
+			 $('div[name="claimTarget"]').css('cursor','pointer');
+			 
+			 $('div[name="claimTarget"]').on('click', function(){
+				
+				 var targetNo = $(this).data("param3");
+				 var type = $(this).data("param4");
+				 
+		
+				 
+				 //해당 게시물로 이동
+				 if(type=="0"){
+			
+					  $.ajax({
+						  url : "/claim/json/getPost/"+targetNo ,
+						  method: "GET",  
+						  dataType : "json" ,
+						  headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+						 },
+					  	 success : function(data){
+
+					  		if(data.category =='1'){
+					  			self.location ="/exinfo/getExInfo?postNo="+data.postNo;
+					  		}else if(data.category=='2'){
+					  			self.location ="/community/getCommunity?postNo="+data.postNo;
+					  		}else if(data.category=='3'){
+					  			self.location ="/community/getCommunity?postNo="+data.postNo;
+					  		}
+
+					  	 }//end of succeess	  
+					  })//end of ajax
+					  
+				 }else if(type=="1"){
+				
+					  $.ajax({
+						  url : "/claim/json/getReply/"+targetNo ,
+						  method: "GET",  
+						  dataType : "json" ,
+						  headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+						 },
+					  	 success : function(data){
+						  
+					  		if(data.category =='1'){
+					  			self.location ="/exinfo/getExInfo?postNo="+data.postNo;
+					  		}else if(data.category=='2'){
+					  			self.location ="/community/getCommunity?postNo="+data.postNo;
+					  		}else if(data.category=='3'){
+					  			self.location ="/community/getCommunity?postNo="+data.postNo;
+					  		}
+
+					  	 }//end of succeess	  
+					  })//end of ajax
+				 }
 	
+			 });
+		 })
+		 
 	</script>
 	
 
@@ -152,7 +234,7 @@
 						    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어" value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 					  </div>
         
-        	<button type="button" class="btn btn-info">검색</button>
+        	<button type="button" class="btn btn-info" style="margin-left:1%;height:75%;">검색</button>
         	
         	  <input type="hidden" id="currentPage" name="currentPage" value=""/>
         </form>
@@ -185,29 +267,33 @@
 					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.userId}</div>
 					<div class="col-sm-2 col-md-2 col-lg-2"><span class="icon-person mr-2"></span>${claim.claimedUserId}</div>
                 
-                	<div class="col-sm-2 col-md-2 col-lg-2">
-                		 <c:if test="${claim.claimReasonNo =='0'}">모욕/욕설/비방</c:if>
-						 <c:if test="${claim.claimReasonNo =='1'}">음란/폭력</c:if>	
-						 <c:if test="${claim.claimReasonNo =='2'}">기타</c:if>
+                	<div class="col-sm-2 col-md-2 col-lg-2" >
+                		 <c:if test="${claim.claimReasonNo =='0'}"><span>모욕/욕설/비방</span></c:if>
+						 <c:if test="${claim.claimReasonNo =='1'}"><span>음란/폭력</span></c:if>	
+						 <c:if test="${claim.claimReasonNo =='2'}"><span id="contents" data-toggle="tooltip" data-placement="top" title="${claim.claimContents}">기타</span></c:if>
 					</div>
-					
-                	<div class="col-sm-2 col-md-2 col-lg-2">${claim.targetNo}<span class="icon-search mr-2"></span></div>
+					 
+                	<div class="col-sm-2 col-md-2 col-lg-2" name="claimTarget" data-param4="${claim.claimSortNo}" data-param3="${claim.targetNo}">${claim.targetNo}
+                		<span class="icon-search mr-2"></span>
+                	</div>
                     <div class="col-sm-2 col-md-2 col-lg-2">${claim.claimDate}</div>
                		<div class="col-sm-2 col-md-2 col-lg-2 text-md-right">
               
-		                 <c:if test="${claim.claimStatus=='0'}"> 
-		    	<button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">승인</button>
-				<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} ">거부</button>
-		                 </c:if>
+		            <c:if test="${claim.claimStatus=='0'}"> 
+		    			<button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo}" data-param="${claim.claimNo} ">승인</button>
+						<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo}" data-param1="${claim.claimNo} ">거부</button>
+		            </c:if>
+		                 
+		               
 		                 
 		                <c:if test="${claim.claimStatus=='1'}">
-		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} " style="display:none;">승인</button>
-		                <button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} ">거부</button>
+		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo}" data-param="${claim.claimNo} " style="display:none;">승인</button>
+		                <button type="button"  class="btn btn-default pill " id="bb${claim.claimNo}" data-param1="${claim.claimNo} ">거부</button>
 		                </c:if>
 		                
 		                <c:if test="${claim.claimStatus=='2'}">
 		                <button type="button"  class="btn btn-primary pill" id="aa${claim.claimNo }" data-param="${claim.claimNo} ">승인</button>
-		<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} " style="display:none;">거부</button>
+						<button type="button"  class="btn btn-default pill " id="bb${claim.claimNo }" data-param1="${claim.claimNo} " style="display:none;">거부</button>
 		                                
 		                </c:if> 
 		                </div>     
