@@ -42,7 +42,7 @@
 			 $(self.location).attr("href", "/exInfo/listExInfo")
 		 });
 
-		 
+	/* 	 
 		 $( "a[href='#' ]:contains('상체')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=0"
 			 });
@@ -61,7 +61,7 @@
 		 
 		 $( "a[href='#' ]:contains('전신')").on("click", function(){
 				self.location = "/exInfo/listExInfo?exPart=4"
-			 });
+			 }); */
 
 		 /////////////////////////////////////// 스케줄 메뉴바 ///////////////////////////////////////
 		

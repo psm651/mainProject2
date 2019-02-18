@@ -305,7 +305,7 @@
 </head>
 <body>
 	<div class="site-wrap">
-		 <!-- ToolBar Start /////////////////////////////////////-->
+    <!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" /> 
    	<!-- ToolBar End /////////////////////////////////////-->
 	<!-- 툴바 인클루드 시작! -->
