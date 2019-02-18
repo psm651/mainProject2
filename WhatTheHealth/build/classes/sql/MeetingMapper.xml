@@ -157,7 +157,6 @@
 			contents = #{contents},
 			photo = #{photo:VARCHAR},
 			category = #{category:VARCHAR},
-			post_date = #{postDate:DATE},
 			locationtag_name = #{locationTagName:VARCHAR},
 			coordinate = #{coordinate:VARCHAR},
 			address = #{address:VARCHAR}
@@ -267,12 +266,7 @@
 												 and p.user_id LIKE '%'||#{searchKeyword}||'%'
 												 </if>
 											</where>
-											<if test="searchFilter == 0">
-												 ORDER BY p.like_count
-											</if>
-											<if test="searchFilter == 1">
-												 ORDER BY p.post_no, p.post_date
-											</if>
+											ORDER BY p.post_no
 											) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 

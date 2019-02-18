@@ -54,6 +54,12 @@
   </head>
   
   <style>
+  
+  .cityID{
+    border-width: 0px;
+    background: black;
+    color: white;
+  }
   div p {
         overflow: hidden; 
         text-overflow: ellipsis;
@@ -115,10 +121,9 @@ body {
   opacity: 0.8;
   width: 270px;
   height: 180px;
-  background-color: white;
+  background-color: black;
   box-shadow: 0px 0px 25px 1px rgba(50, 50, 50, 0.1);
   -webkit-animation: appear 500ms ease-out forwards;
-          animation: appear 500ms ease-out forwards;
 }
 .weather-card h3 {
   font-family: 'Lato', sans-serif;
@@ -126,7 +131,7 @@ body {
   font-size: 40px;
   margin-left: 20px;
   margin-top: 15px;
-  color: #B8B8B8;
+  color: white;
   bottom: 0;
   left: 35px;
   opacity: 0;
@@ -149,6 +154,7 @@ body {
 }
 
 #weatherIcon {
+  color:white;
   position: relative;
   width: 50px;
   height: 50px;
@@ -440,9 +446,8 @@ body {
 
 		
             
-             <div class="weather-card madrid" style="margin-right:10px; float: right; top: 100px;">
+             <div class="weather-card madrid" style="margin-right:1%;position:relative;float:right;top:72%;">
 				<div class="card-header" align="center" >
-				<%-- <span id="cityName">${weather.cityName}</span> --%>
 					<select name="cityID" class="cityID" onchange="cityChange(this)">
 						<option value="Seoul,KR" 	style="font-size:15px;" selected>서울</option>
 						<option value="Busan,KR" 	style="font-size:15px;">부산</option>
@@ -485,44 +490,11 @@ body {
 			   <!-- <div class="weather-icon sun"></div> -->
 			   
        			 <strong><h3 id="temperature">${weather.temperature}℃</h3></strong>
-        		<span id="currentWeather" style="margin-left:20px;">${weather.currentWeather}</span>
+        		<span id="currentWeather" style="margin-left:20px;color:white;">${weather.currentWeather}</span>
    			 </div>
    			 
    			 
-   			 
-
-   	
-       <!--   <video autoplay muted loop>
-             <source src="/resources/video/run.mp4" type="video/mp4">
-         </video> --> 
-     
-<!--       <div id="openweathermap-widget-15"></div>
-     <div class="row">
-  		<div class="col-xs-6 col-sm-3">
-  		<select name="state" class="ct_input_g" style="width: 200px; height: 40px" onchange="fncGetState(this)">
-			<option value="Seoul,KR" 	style="font-size:20px;" selected="">서울</option>
-			<option value="Busan,KR" 	style="font-size:20px;">부산</option>
-		  	<option value="Daegu,KR" 	style="font-size:20px;">대구</option>
-			<option value="Incheon,KR" 	style="font-size:20px;">인천</option>
-			<option value="Gwangju,KR" 	style="font-size:20px;">광주</option>
-			<option value="Daejeon,KR" 	style="font-size:20px;">대전</option>
-			<option value="Ulsan,KR" 	style="font-size:20px;">울산</option>
-			<option value="Sejong,KR" 	style="font-size:20px;">세종특별자치시</option>
-			<option value="Jeju,KR" 	style="font-size:20px;">제주특별자치도</option>
-		</select>
-		</div>
-     </div> -->
-     
-  <!--    <div class="weather-wrapper" style="margin-left:50px;"> -->
-<%--      <div class="weather-card madrid" style="z-index:1;">
-		 <div class="card-header" align="center">${weather.cityName}</div> 
-		  
-        <div class="weather-icon sun"></div>
-        
-        <strong><h3>${weather.temperature}℃</h3></strong>
-        <span>${weather.currentWeather}</span>
-    </div>  --%>
-<!-- </div> -->
+   		
 
          
         <div class="container">

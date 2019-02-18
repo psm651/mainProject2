@@ -424,7 +424,7 @@ html {
      						<label class="control-label" for="dietScContents">	
 		                	<input type="text" class="form-control" id="searchFood" style="width:220%;height:37px;margin-left:-8%;"placeholder="원하는 음식을 검색하세요"/>
 		                	</label>
-		    				<button type="button" id="btn-searchFood" class="btn btn-danger" style="left:44%">
+		    				 <button type="button" id="btn-searchFood" class="btn btn-danger" style="left:44%">
 		    				 <span class="icon-search mr-1" aria-hidden="true"></span> 
 		    				</button>
 		    		</div>
@@ -502,12 +502,12 @@ html {
 			<input type="hidden" id="dietScEventNo"  name=dietScNo value="" />
 			<div class="row">
 				<div class="col-md-4 text-center ">
-				</div>
+			</div>
 				<div class="col-md-4 text-center ">
- 			<button type="button" class="next action-button" data-dismiss="modal" id="deleteDiet">Delete</button>
- 			</div>
- 			<div class="col-md-4 text-center ">
- 			</div>
+ 					<button type="button" class="next action-button" data-dismiss="modal" id="deleteDiet">Delete</button>
+ 				</div>
+ 				<div class="col-md-4 text-center ">
+ 				</div>
 <!--  			<button type="button" class="next action-button" >Update</button> 
  --></div>
   </fieldset>	       
@@ -966,8 +966,7 @@ $(function() {
 		        right: 'basicWeek,basicDay'//오른쪽상단버튼
 		        },
 			  eventClick: function(event) {
-				 // alert(event.id)
-				  
+			
 			    	$.ajax(
 			    			{	url : '/schedule/json/getDietSchedule/'+event.id,
 			    				method : "GET",
@@ -978,7 +977,7 @@ $(function() {
 			    				},
 			    				success : function(JSONData) {	
 			    					var total="";
-			    				    for(var i=0; i<JSONData.foodList.length ; i++){
+			    				    for(var i=0; i<JSONData.foodList.length; i++){
 			    						
 			    						var a='<div class="col-xs-4 col-sm-4" style="max-width:150px; height:150px; margin-bottom : 2.5em;">'+
 	    								 '<div class="card" >'+
@@ -998,7 +997,7 @@ $(function() {
 			    				
 			    					//수정중
 			    					
-			    						$('#dietScEventNo').val(JSONData.dietScNo);
+			    					$('#dietScEventNo').val(JSONData.dietScNo);
 			    					/* $('#dietScEventAmountFood').val(JSONData.amountFood);
 			    					$('#dietScEventFoodCalorie').val(JSONData.foodCalorie); */
 			    					$('#dietEventSchedule').modal('show');
@@ -1158,7 +1157,7 @@ $(function() {
 		    			      return false;
 		    			    }
 		    			  }, */
-		    	  customButtons: {
+		    	    customButtons: {
 		    		    myCustomButton: {
 		    		      text: 'custom!',
 		    		      click: function() {

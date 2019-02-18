@@ -149,20 +149,22 @@ public class MeetingController {
 		meeting.setMeetNo(meetNo);
 		Post post = meeting.getPost();
 		post.setPostSubNo("ME"+meetNo);
+		
+		if(post.getContents().indexOf("upload/") != -1) {
+			mainService.updateThumbnail(post);
+		}else if(post.getContents().indexOf("embed/") != -1){
+			mainService.updateYoutubeThumbnail(post);
+		}
 		meeting.setPost(post);
+		
 		meetingService.updateMeeting(meeting);
 		
 
 		/*if(meeting.getPost().getContents().indexOf("upload/") != -1) {
 			mainService.updateThumbnail(meeting.getPost());
 		};*/
-		if(meeting.getPost().getContents().indexOf("upload/") != -1) {
-			mainService.updateThumbnail(post);
-		}else if(meeting.getPost().getContents().indexOf("embed/") != -1){
-			mainService.updateYoutubeThumbnail(post);
-		}
 		
-		return "redirect:/meeting/getMeeting?meetNo="+meeting.getMeetNo();
+		return "redirect:/meeting/getMeetingMap?meetNo="+meeting.getMeetNo();
 	}
 	
 	

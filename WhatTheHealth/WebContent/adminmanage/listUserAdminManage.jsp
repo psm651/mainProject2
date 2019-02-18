@@ -49,6 +49,30 @@
     
   </head>
   
+  <style>
+  select[name="searchFilter"]{
+   height: 37px;
+    width: 100%;
+    margin-left: 5%;
+    float: right;
+  }
+  
+   #searchCondition{
+   
+    height: 37px;
+    width: 100px;
+    margin-left: 5%;
+    float: right;
+ 
+ }
+ 
+ #searchKeyword{
+ 	height: 37px;
+    width: 100%;
+    float: right;
+ }
+  
+  </style>
 
   
 	<script type="text/javascript">
@@ -111,7 +135,7 @@
 				</select>   			
 		 	</div>        	
         	
-        	<div class="form-group">
+        	<div class="form-group" style="margin-left:16px;">
 				<select class="form-control" id="searchCondition"name="searchCondition" >		
 						<option value="0" ${! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>아이디</option>
 						<option value="1" ${! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>닉네임</option>
@@ -123,7 +147,7 @@
 					value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 		   </div>
         
-           <button type="button" class="btn btn-info">검색</button>
+           <button type="button" class="btn btn-info" style="position:absolute;left:86%;top:-3%;">검색</button>
         		
            <input type="hidden" id="currentPage" name="currentPage" value=""/>
         	    

@@ -36,6 +36,8 @@
 	   alert(${meeting.post.userId});
    }); */
    
+   
+   
    $(document).ready(function() {
        
        // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
@@ -217,6 +219,34 @@
                                 "scrollbars=no,scrolling=no,menubar=no,resizable=no");
             }
        
+       function addJoinfunc(){
+    	   $.ajax({
+               url : '/meeting/json/addJoin/'+'${meeting.meetNo}',
+               type : 'get',
+               success : function(data){
+               	if(data == 1) {
+               		swal(
+             				'참여 완료',
+             				'소모임 참여가 완료되었습니다.',
+             				'success'
+             				) 
+             				setTimeout(function (){
+             				 	   window.location.reload();
+             				 	  return;
+             				    }, 1000);
+               			
+             				
+                   }
+               	
+               	
+               }
+           });
+       }
+       
+    
+    
+       
+       
        var joinNo = ''
        var meetNo = ${meeting.meetNo};
        $( function (){
@@ -226,27 +256,46 @@
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
                self.location="/meeting/deleteMeeting?meetNo=${meeting.meetNo}"
             });
-          $( "a[href='#' ]:contains('참여하기')").on("click", function(){
-        	  swal(
+        /*   $( "a[href='#' ]:contains('참여하기')").on("click", function(){
+        	swal(
         				'참여 완료',
         				'소모임 참여가 완료되었습니다.',
         				'success'
-        				)
-              self.location="/meeting/addJoin?meetNo=${meeting.meetNo}"
-           });
+        				) 
+              self.location="/meeting/json/addJoin?meetNo=${meeting.meetNo}" 
+            		  
+           //  addJoinfunc();
+           }); */
           $( "a[href='#' ]:contains('목록으로')").on("click", function(){
                  self.location="/meeting/listMeeting"
             });
           
           $( "a[href='#' ]:contains('참여취소')").on("click", function(){
         	  var joinNo = $(this).data("param");
+        	  
         	  //alert("소모임 참여가 취소되었습니다.");
+        	  if(${user.userId == meeting.cheifId}){
+        		  swal(
+          				'모임장은 참여 취소할 수 없습니다.',
+          				'',
+          				'error'
+          				)
+          				return;
+        	  }
+        	  if(${user.userId != meeting.cheifId}){
+        		 
         	  swal(
         				'취소 완료',
-        				'소모임 참여가 취소되었습니다.',
+        				'취소 완료',
         				'success'
         				)
-              self.location="/meeting/deleteJoin?joinNo="+joinNo 
+        			
+        				setTimeout(function (){
+        					self.location="/meeting/deleteJoin?joinNo="+joinNo; 
+      				 	  
+      				    }, 1000);
+        	  }
+        	 
               //$(".swal-button").attr('id', 'cancelConfirm');
             		  
          });
@@ -291,6 +340,7 @@
    				/* otherwise, move the DIV from anywhere inside the DIV:*/
    				elmnt.onmousedown = dragMouseDown;
    			}
+   	    }
    	
    		function dragMouseDown(e) {
    			e = e || window.event;
@@ -321,15 +371,16 @@
    			document.onmouseup = null;
    			document.onmousemove = null;
    			}
-   		}
-   	 })
+   		
+   	 
    	 
    	 function exit(){
    				$("#mydiv").css("display","none"); 
    				$("#mydiv").empty();
    				//$(this).hide();
    				//$("#exit").show();
-   	}
+		   	}
+       });
    </script>
    
    <!--  ///////////////////////// CSS ////////////////////////// -->
@@ -562,6 +613,7 @@
                 </div>    
                 </div>    
                
+                <c:if test="${meeting.depoAmount != null and meeting.depoAmount != '' and meeting.depoAmount != 0 }">
                 <div class="row form-group">
 				<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname"><img src="/resources/images/credit.png"  width="17px;">&nbsp;선금계좌</label>
@@ -591,11 +643,15 @@
                 	${meeting.depoAccount} 
                 </div> 
                 </div>
+                </c:if>
+                
                 
                 <div class="row form-group">
 				<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname"><img src="/resources/images/usergroup.png"  width="17px;">&nbsp;인원정원</label>
-                </div>   
+                </div>  
+                
+                 <c:if test="${meeting.minParty != null and meeting.minParty != '' and meeting.minParty != 0 }">
                 <div class="col-md-2 mb-5 mb-md-0">
                 	<b>[ 최소인원 ]</b>
                 </div>    
@@ -608,7 +664,14 @@
                 <div class="col-md-2 mb-5 mb-md-0">
                 	${meeting.maxParty} 명
                 </div> 
-                  </div>
+                </c:if>
+                <c:if test="${meeting.minParty == null || meeting.minParty == '' || meeting.minParty == 0 }">
+                <div class="col-md-10 mb-5 mb-md-0">
+                제한없음
+                </div>
+                </c:if>
+                 </div>
+                  
                   
                   <div class="row form-group">
 				<div class="col-md-2 mb-5 mb-md-0">
@@ -637,7 +700,7 @@
                  
                  <div class = "row"  >
                	   <div class="col-md-12 mb-5"  align="center"   id="joinOrNot" > 
-              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; "  id="joinButton"><b>참여하기</b></a>
+              <a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; " onclick="addJoinfunc();" id="joinButton"><b>참여하기</b></a>
                    </div>
                </div>
                  
