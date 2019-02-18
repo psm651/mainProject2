@@ -66,6 +66,11 @@
   
 	<script type="text/javascript">
 	
+	function fncGetPageList(currentPage) {
+		$("#currentPage").val(currentPage)
+		$("form").attr("method" , "POST").attr("action" , "/refund/listRefund").submit();
+	}
+	
 	 $( function (){
          /* $( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
               self.location="/refund/authorizeAccount.jsp";
@@ -147,7 +152,7 @@
     	 	<c:forEach var="refund" items="${list}">
 			<c:set var ="i" value="${i+1}"/>   
       
-			
+			<input type="hidden" id="currentPage" name="currentPage" value=""/>
             <div class="row-wrap">
               <div class="row bg-white p-2 align-items-center text-center">
               
