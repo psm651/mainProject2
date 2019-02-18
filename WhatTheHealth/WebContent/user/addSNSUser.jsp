@@ -47,7 +47,7 @@
 	  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
 	  <script src="/resources/js/aos.js"></script>
 	
-	  <script src="/resources/js/main.js"></script>\
+	  <script src="/resources/js/main.js"></script>
 	  
 	  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	
