@@ -167,7 +167,7 @@
 				return;
 			}
 	
-			swal("수정이 완료되었습니다", "", "success");	
+			//swal("수정이 완료되었습니다", "", "success");	
 			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
 		}
 	
