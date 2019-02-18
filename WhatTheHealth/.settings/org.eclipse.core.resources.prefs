@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//WebContent/main.jsp=UTF-8
 encoding//src/main/java/com/wthealth/controller/AdminManageController.java=UTF-8
 encoding//src/main/java/com/wthealth/controller/MeetingController.java=UTF-8
+encoding//src/main/java/com/wthealth/controller/MeetingRestController.java=UTF-8
 encoding//src/main/java/com/wthealth/controller/RefundController.java=UTF-8
 encoding//src/main/java/com/wthealth/controller/ScheduleController.java=UTF-8
 encoding//src/main/java/com/wthealth/controller/ScheduleRestController.java=UTF-8
