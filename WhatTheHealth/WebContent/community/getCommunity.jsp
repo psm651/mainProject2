@@ -298,9 +298,12 @@
             });
           
           $( "a[href='#' ]:contains('목록으로')").on("click", function(){
+        	
              if("${post.category}" == '2'){
+            
                    self.location="/community/listExCom"
              }else if("${post.category}" == '3'){
+          
                 self.location="/community/listDietCom"
              }
            });

@@ -76,11 +76,14 @@
    var currentPage=1;
 
    $(window).scroll(function(){
-	  
+
+	   
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
      
+		
+		
       $.ajax({
          
          url: "/community/json/dietCommunitylist",
@@ -98,7 +101,7 @@
             "Content-Type" : "application/json"
          },
          success : function(data , status){
-  	
+  				
                   var list = data["list"];
                   
          

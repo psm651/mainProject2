@@ -73,18 +73,12 @@
 			title = #{title},
 			contents = #{contents},
 			photo = #{photo:VARCHAR},
-			click_count = #{clickCount:NUMERIC},
-			blind_status =
-			#{blindStatus:VARCHAR},
-			delete_status = #{deleteStatus:VARCHAR},
+			blind_status = '0',
+			delete_status = '0',
 			like_count = #{likeCount:NUMERIC},
-			category = #{category:VARCHAR},
-			post_date = #{postDate:DATE},
-			diet_sc_no = #{dietScNo:NUMERIC},
-			ex_sc_no = #{exScNo:NUMERIC},
 			locationtag_name = #{locationTagName:VARCHAR},
 			coordinate = #{coordinate:VARCHAR},
-			address = #{address:VARCHAR}
+			address = #{address:VARCHAR},
 		</set>
 		WHERE post_no = #{postNo}
 	</update>
