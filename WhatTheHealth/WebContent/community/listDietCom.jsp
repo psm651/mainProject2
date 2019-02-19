@@ -54,6 +54,11 @@
    $(function(){
 		  $(document).on("click", ".post-entry", function(){
 			var postNo=$(this).data("param");
+			var blindStatus = $(this).data("blind");
+	  		if(blindStatus == '1'){
+	  			swal("블라인드 처리된 게시물입니다", "", "error");
+	  			return false;
+	  		}
 			self.location = "/community/getCommunity?postNo="+postNo;
 		  });
 	   });
@@ -116,7 +121,8 @@
              
                   if(item["photo"]==null){
               	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;" >'; 	  
-             	  }else if(item["photo"]!=null){
+             	 
+                  }else if(item["photo"]!=null){
              		 var youtube = item["photo"].indexOf("https");
              		 if(youtube!=-1){
             	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
@@ -201,7 +207,7 @@
 		            	  var appen = ""; 
 		                       
 		                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
-		                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'"  data-blind="'+item["blindStatus"]+'">';
+		                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
 		                 	 appen += '<div class="image" style="width:348px; height:200px">';
 		             
 		                  if(item["photo"]==null){
@@ -324,6 +330,7 @@
 		               		</c:choose>
 	                	</c:if>
               		</div>
+              		
               		<br/>
               		<div class="row">
               		<div class="text col-md-8">

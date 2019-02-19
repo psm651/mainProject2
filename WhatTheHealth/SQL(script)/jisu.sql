@@ -1,3 +1,4 @@
+//////회원 추가
 INSERT
 INTO users( user_id , password , nickname , gender, reg_date , claim_count, role, user_status_code, having_point, sns_type_code) 
 VALUES    ('user1' , 1234, '아무거나' , 0, SYSDATE, 0, 'user' , 0, 0, 0);
@@ -41,3 +42,12 @@ VALUES    ('user10' , 1234, '호란나비' , 0, SYSDATE, 0, 'user' , 0, 0, 0);
 INSERT
 INTO users( user_id , password , nickname , gender, reg_date , claim_count, role, user_status_code, having_point, sns_type_code) 
 VALUES    ('admin' , 1234, '관리자' , 0, SYSDATE, 0, 'admin' , 0, 0, 0);
+
+
+
+////게시판 추가
+INSERT
+INTO post(post_no,  post_sub_no, user_id, title, contents, photo, click_count, blind_status, delete_status, like_count,
+			category, post_date, diet_sc_no, locationtag_name, coordinate, address)
+VALUES (seq_post_post_no.nextval, 'DC'||seq_dietcom_dietcom_no.nextval, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, 0, '0', '0', 0, '3', SYSDATE, 
+			#{dietScNo:NUMERIC}, #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})

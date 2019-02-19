@@ -340,7 +340,7 @@
    				/* otherwise, move the DIV from anywhere inside the DIV:*/
    				elmnt.onmousedown = dragMouseDown;
    			}
-   	    }
+   	    
    	
    		function dragMouseDown(e) {
    			e = e || window.event;
@@ -372,7 +372,8 @@
    			document.onmousemove = null;
    			}
    		
-   	 
+   	 		}
+       })
    	 
    	 function exit(){
    				$("#mydiv").css("display","none"); 
@@ -380,7 +381,7 @@
    				//$(this).hide();
    				//$("#exit").show();
 		   	}
-       });
+      
    </script>
    
    <!--  ///////////////////////// CSS ////////////////////////// -->

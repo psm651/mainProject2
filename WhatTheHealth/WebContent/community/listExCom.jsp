@@ -57,6 +57,11 @@
    $(function(){
 		  $(document).on("click", ".post-entry", function(){
 			var postNo=$(this).data("param");
+			var blindStatus = $(this).data("blind");
+	  		if(blindStatus == '1'){
+	  			swal("블라인드 처리된 게시물입니다", "", "error");
+	  			return false;
+	  		}
 			self.location = "/community/getCommunity?postNo="+postNo;
 		  });
 	   });
@@ -107,12 +112,18 @@
          
              list.forEach(function(item, index, array){     
             
-            	  
+            	  //alert(item["blindStatus"])
             	  var appen = ""; 
-                       
+            	  
+            	  
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
                   	 appen += '<div class="post-entry bg-white box" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'" >';
-                 	 appen += '<div class="image" style="width:348px; height:200px">';
+                 
+                  	 if(item["blindStatus"]=='1'){	
+                  	 	appen += '<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">';
+                  	}else if(item["blindStatus"]=='0'){
+                    	appen += '<div class="image" style="width:348px; height:200px">';
+                  
              
                   if(item["photo"]==null){
               	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
@@ -148,7 +159,11 @@
                   appen += '</div>';
                   appen += '</div>';
                   appen += '</div>';
-                  appen += '</div>';                
+                  
+                  }
+                  appen += '</div>';     
+                  appen += '</div>'; 
+            
 
                   $("#scroll").append(appen);              
                   
@@ -348,23 +363,21 @@
  							<h5>${post.likeCount}</h5>
  						</div>
  					</div>
- 					
+ 					</div>
  					</c:if>
  					</div>
               	</div>
               	<!-- post-entry bg-white : end -->
               	
-            </div>
+            
             </c:forEach> 
          </div>    
-         <!-- div : end -->
-          
-   <%-- </c:forEach>  --%>
+ 
                           
       </div>
-      <!-- container : end -->
+    
     </div>
-<!--   </div> -->
 
+	</div>
    </body>
 </html>
