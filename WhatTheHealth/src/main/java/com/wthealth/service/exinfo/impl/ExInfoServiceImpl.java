@@ -122,7 +122,7 @@ public class ExInfoServiceImpl implements ExInfoService {
         
         try {
         Properties prop = new Properties();
-        String fileName = "com/wthealth/resources/weatherTranslation.properties";
+        String fileName = "config/weatherTranslation.properties";
         
         inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
         	if(inputStream != null) {

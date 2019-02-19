@@ -7,37 +7,55 @@
 <mapper namespace="ExScMapper">
  	
  	
-	<resultMap id="exScSelectMap" type="com.wthealth.domain.ExSchedule">
-		<result property="exScNo" 			column="ex_sc_no" 				jdbcType="VARCHAR"/>
-		<result property="userId"			column="user_id" 				jdbcType="VARCHAR" />
-		<result property="exScName" 		column="ex_sc_title"	 		jdbcType="VARCHAR" />
-		<result property="exScCalorie" 		column="ex_sc_calorie"			jdbcType="NUMERIC" />
-		<result property="exScTime" 		column="ex_sc_time" 			jdbcType="DATE" />
-		<result property="exScContents" 	column="ex_sc_contents" 		jdbcType="VARCHAR" />	
-		<result property="exScDate" 		column="ex_sc_date" 			jdbcType="DATE" />
-		<result property="postNo" 			column="post_no"	 			jdbcType="NUMERIC" />
-		<result property="exScPhoto" 		column="ex_sc_photo"	 		jdbcType="VARCHAR" />
-		<result property="deleteStatus" 	column="delete_status"	 	jdbcType="VARCHAR" />
-	</resultMap>
-	
-	<!-- SQL : INSERT DIET_SC -->
-	<insert 	id="addExSchedule"		parameterType="com.wthealth.domain.ExSchedule" useGeneratedKeys="true" keyProperty="dietScNo">
-	 	INSERT
-		INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie,ex_sc_date, ex_sc_time, post_no, ex_sc_photo, delete_status) 
-		VALUES	 (	seq_ex_sc_ex_sc_no.NEXTVAL , #{userId:VARCHAR} , #{exScName:VARCHAR}, #{exScContents:VARCHAR}, #{exScCalorie:NUMERIC} , #{exScDate}, TO_CHAR(#{exScTime:VARCHAR},'hh:mi:ss'),
-		<if test="postNo==0">null</if><if test="postNo!=0">#{postNo}</if>,#{exScPhoto:VARCHAR},'0' )
-		<selectKey resultType="int" keyProperty ="exScNo" order="AFTER">
-         		SELECT seq_ex_sc_ex_sc_no.currval FROM dual
-      		</selectKey>
-	 </insert>
-	<!-- SQL : INSERT DIET_SC -->
+	<resultMap type="com.wthealth.domain.ExSchedule" id="exScSelectMap">
+
+		<result jdbcType="VARCHAR" column="ex_sc_no" property="exScNo"/>
+		<result jdbcType="VARCHAR" column="user_id" property="userId"/>
+		<result jdbcType="VARCHAR" column="ex_sc_title" property="exScName"/>
+		<result jdbcType="NUMERIC" column="ex_sc_calorie" property="exScCalorie"/>
+		<result jdbcType="DATE" column="ex_sc_time" property="exScTime"/>
+		<result jdbcType="VARCHAR" column="ex_sc_contents" property="exScContents"/>
+		<result jdbcType="DATE" column="ex_sc_date" property="exScDate"/>
+		<result jdbcType="NUMERIC" column="post_no" property="postNo"/>
+
+<result jdbcType="VARCHAR" column="ex_sc_photo" property="exScPhoto"/>
+
+<result jdbcType="VARCHAR" column="delete_status" property="deleteStatus"/>
+
+</resultMap>
+
+<!-- SQL : INSERT DIET_SC -->
+
+
+
+<insert id="addExSchedule" keyProperty="exScNo" useGeneratedKeys="true" parameterType="com.wthealth.domain.ExSchedule">
+INSERT INTO ex_sc( ex_sc_no , user_id , ex_sc_title ,ex_sc_contents, ex_sc_calorie, ex_sc_date, ex_sc_time, post_no, ex_sc_photo, delete_status)VALUES ( seq_ex_sc_ex_sc_no.NEXTVAL , #{userId:VARCHAR} , #{exScName:VARCHAR}, #{exScContents:VARCHAR}, #{exScCalorie:NUMERIC} , 
+		       TO_DATE(#{exScDate}, 'YY-MM-DD'), TO_DATE(#{exScTime:VARCHAR},'hh:mi:ss'), 
+<if test="postNo==0">null</if>
+
+<if test="postNo!=0">#{postNo}</if>
+,#{exScPhoto:VARCHAR},'0' ) 
+<selectKey keyProperty="exScNo" order="AFTER" resultType="int">SELECT seq_ex_sc_ex_sc_no.currval FROM dual </selectKey>
+
+</insert>
+
+<!-- SQL : INSERT DIET_SC -->
+
+
+<insert id="addPostExSchedule" parameterType="com.wthealth.domain.ExSchedule">
+INSERT 
+INTO ex_sc(ex_sc_no, user_id, ex_sc_title, ex_sc_contents, ex_sc_calorie, ex_sc_date, ex_sc_time, 
+		  post_no, ex_sc_photo, delete_status)
+VALUES (seq_ex_sc_ex_sc_no.NEXTVAL , #{userId}, #{exScName}, #{exScContents:VARCHAR}, 
+		#{exScCalorie}, TO_DATE(#{exScDate}, 'YY-MM-DD'), TO_DATE(#{exScTime:VARCHAR},'hh:mi:ss'), #{postNo}, #{exScPhoto:VARCHAR}, '0') </insert>
+<!-- 	SQL : INSERT DIET_SC 
 	<insert 	id="addPostExSchedule"	parameterType="com.wthealth.domain.ExSchedule" >
 	 	INSERT
 		INTO ex_sc(ex_sc_no, user_id, ex_sc_title, ex_sc_contents, ex_sc_calorie, ex_sc_date, ex_sc_time, post_no, ex_sc_photo, delete_status) 
 		VALUES	 (seq_ex_sc_ex_sc_no.NEXTVAL , #{userId}, #{exScName}, #{exScContents}, #{exScCalorie} , #{exScDate}, 
-				TO_DATE(#{exScTime:VARCHAR},'hh:mi:ss'), #{postNo}, #{exScPhoto:VARCHAR}, '0')	
+				#{exScTime:VARCHAR}, #{postNo}, #{exScPhoto:VARCHAR}, '0')	
 	</insert>
-	
+	 -->
 	 
 	 <!-- SQL : SELECT  -->
 	 <select 	id="getExSchedule"	 parameterType="int"	 resultMap="exScSelectMap">

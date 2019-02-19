@@ -30,7 +30,7 @@
 		<result property="bankName" 				column="bank_name" 					jdbcType="VARCHAR" />
 		<result property="bankCode" 				column="bank_code" 					jdbcType="VARCHAR" />
 		<result property="accountNum" 				column="account_num" 				jdbcType="VARCHAR" />
-		<result property="dateOfBirth" 				column="date_of_birth" 				jdbcType="NUMERIC" />
+		<result property="dateOfBirth" 				column="date_of_birth" 				jdbcType="VARCHAR" />
 	
 	</resultMap>
 	
@@ -109,8 +109,8 @@
 			user_phone  = #{phone:VARCHAR},
 			holder 		= #{holder:VARCHAR},
 			bank_name 	= #{bankName:VARCHAR},
-			account_num	= #{accountNum:VARCHAR}
-
+			account_num	= #{accountNum:VARCHAR},
+			date_of_birth = #{dateOfBirth:VARCHAR}
 	   	</set>
 	   	WHERE user_id = #{userId}
 	 </update>
@@ -128,7 +128,7 @@
 			holder 		= #{holder:VARCHAR},
 			bank_name 	= #{bankName:VARCHAR},
 			account_num	= #{accountNum:VARCHAR},
-			date_of_birth = #{dateOfBirth:NUMERIC},
+			date_of_birth = #{dateOfBirth:VARCHAR},
 			bank_code = #{bankCode:VARCHAR}
 	   	</set>
 	   	WHERE user_id = #{userId}

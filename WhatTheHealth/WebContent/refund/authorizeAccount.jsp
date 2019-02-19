@@ -111,13 +111,14 @@
 			}
 				
 			$("form").attr("method", "POST").attr("action", "/refund/authorizeAccount").submit();
-			
+			alert("asdf");
 			
 			opener.document.getElementById("accountNum").value= accountNum; 
 		 	opener.document.getElementById("bankName").value= bankName;
 			opener.document.getElementById("holder").value= holder;  
 
-			self.close();
+			
+			//self.close();
 		} 
 		
 		
