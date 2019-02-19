@@ -117,7 +117,12 @@
                        
                   	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
                   	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
-                 	 appen += '<div class="image" style="width:348px; height:200px">';
+                  	
+                  	 if(item["blindStatus"]=='1'){	
+                  	 	appen += '<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">';
+                  	}else if(item["blindStatus"]=='0'){
+                    	appen += '<div class="image" style="width:348px; height:200px">';
+                  
              
                   if(item["photo"]==null){
               	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;" >'; 	  
@@ -153,7 +158,11 @@
                   appen += '</div>';
                   appen += '</div>';
                   appen += '</div>';
-                  appen += '</div>';                
+                  
+                   }
+                   appen += '</div>';     
+                   appen += '</div>'; 
+                     
 
                   $("#scroll").append(appen);              
                   
@@ -204,48 +213,58 @@
 		             list.forEach(function(item, index, array){     
 		            
 		            	  
-		            	  var appen = ""; 
-		                       
-		                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
-		                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
-		                 	 appen += '<div class="image" style="width:348px; height:200px">';
-		             
-		                  if(item["photo"]==null){
-		              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
-		             	  }else if(item["photo"]!=null){
-		             		 var youtube = item["photo"].indexOf("https");
-		             		 if(youtube!=-1){
-		            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
-		            	  	 }else{
-		            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
-		            	  }
-		              	}
-		             	  appen += '</div><br/><div class="row">';   
-		                  appen += '<div class="text col-md-8">';
-		                  appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
-		                  appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
-		                  appen += '<div class="userInfo">';
-		                 
-		                  if(item["userImage"] != null && item["userImage"] != ''){	
-		                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
-		                  }else{
-		                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
-		                  } 	  
-		 				  appen += item["nickName"];
-		                  appen += '</div>';
-		                  appen += '</div>';
-		                  appen += '<div class="col-md-4">';
-		                  appen += '<div class="likeImage">';
-		                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
-		                  appen += '</div>';
-		                  appen += '<div class="likeCount" style="margin-left:38px">';
-		                  appen += '<h5>'+item["likeCount"]+'</h5>';
-		                  appen += '</div>';
-		                  appen += '</div>';
-		                  appen += '</div>';
-		                  appen += '</div>';                
+		            	 var appen = ""; 
+	                       
+	                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+	                  	 appen += '<div class="post-entry bg-white" data-param="'+item["postNo"]+'" data-blind="'+item["blindStatus"]+'">';
+	                  	
+	                  	 if(item["blindStatus"]=='1'){	
+	                  	 	appen += '<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">';
+	                  	}else if(item["blindStatus"]=='0'){
+	                    	appen += '<div class="image" style="width:348px; height:200px">';
+	                  
+	             
+	                  if(item["photo"]==null){
+	              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;" >'; 	  
+	             	 
+	                  }else if(item["photo"]!=null){
+	             		 var youtube = item["photo"].indexOf("https");
+	             		 if(youtube!=-1){
+	            	  	 appen += '<img src="'+item["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
+	            	  	 }else{
+	            	  	 appen += '<img src="/resources/images/upload/'+item["photo"]+'" class="img-fluid">';  
+	            	  }
+	              	}
+	             	  appen += '</div><br/><div class="row">';   
+	                  appen += '<div class="text col-md-8">';
+	                  appen += '<h5 class="h5 text-black"><a href="#">'+item["title"]+'</a></h5>';
+	                  appen += '<span class="text-uppercase date d-block mb-3"><small>'+item["postDate"]+'</small></span>';
+	                  appen += '<div class="userInfo">';
+	                 
+	                  if(item["userImage"] != null && item["userImage"] != ''){	
+	                  	appen += '<img src="/resources/images/userImage/'+item["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+	                  }else{
+	                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+	                  } 	  
+	 				  appen += item["nickName"];
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '<div class="col-md-4">';
+	                  appen += '<div class="likeImage">';
+	                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
+	                  appen += '</div>';
+	                  appen += '<div class="likeCount" style="margin-left:38px">';
+	                  appen += '<h5>'+item["likeCount"]+'</h5>';
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  appen += '</div>';
+	                  
+	                   }
+	                   appen += '</div>';     
+	                   appen += '</div>'; 
+	                     
 
-		                  $("#scroll").append(appen);              
+	                  $("#scroll").append(appen);          
 		                  
 		              
 		      
@@ -355,19 +374,15 @@
  							<h5>${post.likeCount}</h5>
  						</div>
  					</div>
- 					
+ 					</div>
  					</c:if>
  					</div>
               	</div>
               	<!-- post-entry bg-white : end -->
-              	
-            </div>
+
             </c:forEach> 
          </div>    
-         <!-- div : end -->
-          
-   <%-- </c:forEach>  --%>
-                          
+
       </div>
       <!-- container : end -->
     </div>
