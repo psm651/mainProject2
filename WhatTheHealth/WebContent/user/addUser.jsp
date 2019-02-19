@@ -123,11 +123,12 @@
 								phone: phone
 							},
 							success : function(data , status) {
-								alert(data);
+								
 							}
 														
 				
 					});
+				swal("문자전송이 완료되었습니다.", "","success");
 			});
 		});	
 		

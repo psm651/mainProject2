@@ -349,6 +349,10 @@ function favoriteList(){
 	 
 	   $(".btn:contains('담기')").on("click", function(){
 		 
+		 if(${sessionScope.user.userId==null}){
+			 swal("회원만 이용 가능합니다.","회원가입을 진행해주세요","error")
+			 return
+		 }  
 		   var postTitle = $("#postTitle").text()
 		   
 		   $.ajax({

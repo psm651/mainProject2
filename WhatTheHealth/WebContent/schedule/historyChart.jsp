@@ -35,7 +35,7 @@
 
 		<div class="row">
 
-			<div class="col-md-7">
+			<div class="col-md-9">
 				<canvas id="canvas"></canvas>
 				<button id="addData" class="btn btn-danger btn-sm">
 					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true">Next
