@@ -122,13 +122,13 @@ public class RefundController {
 	}
 	
 	@RequestMapping(value = "authorizeAccount")
-	public String authorizeAccount(HttpSession session, @ModelAttribute("refund") Refund refund) throws Exception{
+	public void authorizeAccount(HttpSession session, @ModelAttribute("refund") Refund refund) throws Exception{
 		System.out.println("/authorizeAccount : POST");
 		//System.out.println("refund:"+refund);
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
-		User user = userService.getUser(userId);
-		session.setAttribute("user", user);
+		/*User user = userService.getUser(userId);
+		session.setAttribute("user", user);*/
 		
 		String bankCode = refundService.getBankCode(refund.getBankName());
 		System.out.println("bankCode"+bankCode);
@@ -141,6 +141,8 @@ public class RefundController {
 		
 		User owner = userService.getUser(userId);
 		if(owner.getAccountNum() == null || owner.getAccountNum() == "") {
+			
+			System.out.println("@@@@@@@@@@@@@@@@@2if들어옴@@@@@@@@@@@@@@@@@");
 			owner.setAccountNum(refund.getAccountNum());
 			owner.setDateOfBirth(refund.getDateOfBirth());
 			owner.setHolder(refund.getHolder());
@@ -150,7 +152,7 @@ public class RefundController {
 			
 			System.out.println("유저에 계좌정보 업데이트 완료");
 		}
-		return "redirect:/refund/listRefund";
+		//return "redirect:/refund/listRefund";
 		
 	}
 	

@@ -102,7 +102,7 @@
 	            	  var appen = ""; 
 	                       
 	                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
-	                  	 appen += '<div class="post-entry bg-white" data-param="'+item.post["postNo"]+'">';
+	                  	 appen += '<div class="post-entry bg-white" data-param="'+item["meetNo"]+'">';
 	                 	 appen += '<div class="image" style="width:348px; height:200px">';
 	             
 	                  if(item.post["photo"]==null){

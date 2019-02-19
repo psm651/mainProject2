@@ -348,9 +348,9 @@ function favoriteList(){
    $(function(){
 	 
 	   $(".btn:contains('담기')").on("click", function(){
-		   
+		 
 		   var postTitle = $("#postTitle").text()
-		  
+		   
 		   $.ajax({
 				 url:"/schedule/json/addPostExSchedule" ,
 				 method: "POST",
@@ -359,7 +359,7 @@ function favoriteList(){
 					 exScName : $("#postTitle").text(), 
 					 exScCalorie : parseInt($("#exScCalorie").text()), 
 					 exScTime : $("#exScTime").text(), 
-					 exScContents :$(".contents > p").text(),
+					 exScContents :$("#postTitle").text(),
 					 exScDate : $("#exScDate").val()
 				 }),
 				 dataType : "json",
@@ -368,7 +368,7 @@ function favoriteList(){
 						"Content-Type" : "application/json"
 					},
 				 success : function(JSONdata, status){
-						alert(JSONdata)
+					
 				 }
 			
 			 })//end of ajax  
@@ -398,7 +398,7 @@ function favoriteList(){
          
              
           
-            <input type="hidden" name="postNo" value="${post.postNo }"/>
+            <input type="hidden" name="postNo" value="${post.postNo}"/>
      	
              <h4 id="postTitle"><b>${post.title}</b></h4>
  <%--                <c:if test="${post.exPart == '0'}">

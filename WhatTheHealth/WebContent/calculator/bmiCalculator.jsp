@@ -156,12 +156,10 @@ $(function(){
 	 $('#save').on('click', function(){
 		 
 		 var dietScDate = $('#bmiDatepicker').val();
-		 console.log(dietScDate)
-		 console.log(typeof dietScDate)
 		 var weight = $('#weight').val();
 		 var bmiValue = $('#bmiValue').text();
 		 var bmiState = $('#bmiState').text();
-		 
+		 var userId = $('#bmiUserId').val();
 		 
 		 if(${sessionScope.user.userId == null}) {
 		     swal("회원만 이용 가능합니다.")
@@ -187,7 +185,8 @@ $(function(){
 				 data : JSON.stringify({
 					dietScDateBMI: $('#bmiDatepicker').val(),	
 					bmiValue : $('#bmiValue').text(),
-					weight : $('#weight').val()
+					weight : $('#weight').val(),
+					userId : userId
 				 }),
 				 dataType : "json", 
 				 headers : {
@@ -223,6 +222,8 @@ $(function(){
 		<div class="container">
 	
 			<br/><br/><br/>
+		
+		<input type="hidden" name="userId" id="bmiUserId" value="${sessionScope.user.userId}"/>
 		
 	   <div class="form-group">
 	   		<div class="row" style="align:right">

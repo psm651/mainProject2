@@ -78,6 +78,8 @@ CREATE TABLE users (
 	id_token		VARCHAR2(300),
 	access_token	VARCHAR2(300),
 	refresh_token	VARCHAR2(300),
+	date_of_birth   VARCHAR2(20),
+	bank_code       VARCHAR2(20),
 	PRIMARY KEY(user_id)
 );
 
