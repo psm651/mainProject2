@@ -65,22 +65,14 @@
    $(function() {
 		$("#addMeeting").on("click" , function() {
 			if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
-				 //alert("로그인이 필요한 서비스입니다.");
-				 //self.location = "/" 
 				swal("회원만 이용 가능합니다", "로그인해주세요", "error");
 				 return;
 			 } else if("${sessionScope.user}" != null){
-				self.location = "/meeting/addMeeting"	//UserId??????????
+				self.location = "/meeting/addMeeting"
 			 }
 		});
 	});	
-   
-   /* $(function() {
-		$("#addSocket").on("click" , function() {
-			self.location = "/socket/addLiveStream";
-		});
-	}); */
-	
+
 	   var currentPage=1;
 
 	   $(window).scroll(function(){
@@ -89,30 +81,28 @@
 	      
 			currentPage++;
 	     
-	      $.ajax({
-	         
-	         url: "/meeting/json/listMeeting",
-	         method: "POST",
-	         data: JSON.stringify({
-	            currentPage: currentPage,
-	            searchCondition: 0,
-	            searchKeyword: $("#searchKeyword").val()
-	         }),
-	         dataType: "json",
-	         headers : {
-	            "Accept" : "application/json",
-	            "Content-Type" : "application/json"
-	         },
-	         success : function(data , status){
+		      $.ajax({
+		         
+		         url: "/meeting/json/listMeeting",
+		         method: "POST",
+		         data: JSON.stringify({
+		            currentPage: currentPage,
+		            searchCondition: 0,
+		            searchKeyword: $("#searchKeyword").val()
+		         }),
+		         dataType: "json",
+		         headers : {
+		            "Accept" : "application/json",
+		            "Content-Type" : "application/json"
+		         },
+		         success : function(data , status){
 	  	
 	        	
 	               var list = data["list"];
 	   
 	                  
-	             list.forEach(function(item, index, array){     
-	            
-	            	  
-	            	  
+	             	list.forEach(function(item, index, array){     
+	
 	            	  var appen = ""; 
 	                       
 	                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
@@ -123,106 +113,6 @@
 	                   	}else if(item.post["blindStatus"]=='0'){
 	                     	appen += '<div class="image" style="width:348px; height:200px">';
 	  
-	             
-	                  if(item.post["photo"]==null){
-	              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
-	             	  }else if(item.post["photo"]!=null){
-	             		 var youtube = item.post["photo"].indexOf("https");
-	             		 if(youtube!=-1){
-	            	  	 appen += '<img src="'+item.post["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
-	            	  	 }else{
-	            	  	 appen += '<img src="/resources/images/upload/'+item.post["photo"]+'" class="img-fluid">';  
-	            	  	}
-	              	  }
-	             	  appen += '</div><br/><div class="row">';   
-	                  appen += '<div class="text col-md-8">';
-	                  appen += '<h5 class="h5 text-black"><a href="#">'+item.post["title"]+'</a></h5>';
-	                  appen += '<span class="text-uppercase date d-block mb-3">'+item.post["postDate"]+'</span>';
-	                  appen += '<div class="userInfo">';
-	                 
-	                  if(item.post["userImage"] != null && item.post["userImage"] != ''){	
-	                  	appen += '<img src="/resources/images/userImage/'+item.post["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
-	                  }else{
-	                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
-	                  } 	  
-	 				  appen += item.post["nickName"];
-	                  appen += '</div>';
-	                  appen += '</div>';
-	                  appen += '<div class="col-md-4">';
-	                  appen += '<div class="likeImage">';
-	                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
-	                  appen += '</div>';
-	                  appen += '<div class="likeCount" style="margin-left:38px">';
-	                  appen += '<h5>'+item.post["likeCount"]+'</h5>';
-	                  appen += '</div>';
-	                  appen += '</div>';
-	                  appen += '</div>';
-
-	                  }
-	                  appen += '</div>';     
-	                  appen += '</div>'; 
-	                         
-
-	                  $("#scroll").append(appen);              
-	                  
-	              
-	      
-	             });
-	                  
-	                  
-	         }        
-	      })
-	      
-	      
-	      }
-	   });  	
-	   
-	   $(function(){
-			$("#searchTitle").on("click", function(){
-				
-				$("#scroll").empty();
-				currentPage = 1;
-				var searchKeyword = $("#searchKeyword").val();	
-				var searchCondition= 0;
-				
-				//currentPage++;
-				
-				$.ajax({
-			         
-			         url: "/meeting/json/listMeeting",
-			         method: "POST",
-			         data: JSON.stringify({
-			            currentPage: 1,            
-			            searchCondition: searchCondition,
-			            searchKeyword: $("#searchKeyword").val()
-			            
-			         }),
-			         dataType: "json",
-			         headers : {
-			            "Accept" : "application/json",
-			            "Content-Type" : "application/json"
-			         },
-			         success : function(data , status){
-			     	  	
-				        	
-			               var list = data["list"];
-			   
-			                  
-			             list.forEach(function(item, index, array){     
-			            
-			            	  
-			            	  
-			            	 var appen = ""; 
-		                       
-		                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
-		                  	 appen += '<div class="post-entry bg-white" data-param="'+item["meetNo"]+'" data-blind="'+item.post["blindStatus"]+'">';
-		                  	 
-		                  	 if(item.post["blindStatus"]=='1'){	
-		                   	 	appen += '<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">';
-		                   	}else if(item.post["blindStatus"]=='0'){
-		                     	appen += '<div class="image" style="width:348px; height:200px">';
-		  
-		             
 		                  if(item.post["photo"]==null){
 		              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
 		             	  }else if(item.post["photo"]!=null){
@@ -256,17 +146,106 @@
 		                  appen += '</div>';
 		                  appen += '</div>';
 		                  appen += '</div>';
-
+	
 		                  }
 		                  appen += '</div>';     
 		                  appen += '</div>'; 
 		                         
+	
+		                  $("#scroll").append(appen);              
 
-		                  $("#scroll").append(appen);  
-			              
-			      
-			             });
-			                  
+	             	});
+      
+	        	 }        
+	      	})
+
+	      }
+	   });  	
+	   
+	   $(function(){
+			$("#searchTitle").on("click", function(){
+				
+				$("#scroll").empty();
+				currentPage = 1;
+				var searchKeyword = $("#searchKeyword").val();	
+				var searchCondition= 0;
+				
+				
+				$.ajax({
+			         
+			         url: "/meeting/json/listMeeting",
+			         method: "POST",
+			         data: JSON.stringify({
+			            currentPage: 1,            
+			            searchCondition: searchCondition,
+			            searchKeyword: $("#searchKeyword").val()
+			            
+			         }),
+			         dataType: "json",
+			         headers : {
+			            "Accept" : "application/json",
+			            "Content-Type" : "application/json"
+			         },
+			         success : function(data , status){
+		
+			           var list = data["list"];
+	       
+			            list.forEach(function(item, index, array){     
+
+			            	 var appen = ""; 
+		                       
+		                  	 appen += '<div class="col-md-6 col-lg-4 mb-4">';
+		                  	 appen += '<div class="post-entry bg-white" data-param="'+item["meetNo"]+'" data-blind="'+item.post["blindStatus"]+'">';
+		                  	 
+		                  	 if(item.post["blindStatus"]=='1'){	
+		                   	 	appen += '<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">';
+		                   	}else if(item.post["blindStatus"]=='0'){
+		                     	appen += '<div class="image" style="width:348px; height:200px">';
+           
+			                  if(item.post["photo"]==null){
+			              	 	 appen += '<img  src="/resources/images/1111.jpg" class="img-fluid" alt="" width= "340;" height= "200;">'; 	  
+			             	  }else if(item.post["photo"]!=null){
+			             		 var youtube = item.post["photo"].indexOf("https");
+			             		 if(youtube!=-1){
+			            	  	 appen += '<img src="'+item.post["photo"]+'" class="img-fluid" width= "348;" height= "200;">';
+			            	  	 }else{
+			            	  	 appen += '<img src="/resources/images/upload/'+item.post["photo"]+'" class="img-fluid">';  
+			            	  	}
+			              	  }
+			             	  appen += '</div><br/><div class="row">';   
+			                  appen += '<div class="text col-md-8">';
+			                  appen += '<h5 class="h5 text-black"><a href="#">'+item.post["title"]+'</a></h5>';
+			                  appen += '<span class="text-uppercase date d-block mb-3">'+item.post["postDate"]+'</span>';
+			                  appen += '<div class="userInfo">';
+			                 
+			                  if(item.post["userImage"] != null && item.post["userImage"] != ''){	
+			                  	appen += '<img src="/resources/images/userImage/'+item.post["userImage"]+'" style="border-radius:100px; width:50px; height: 50px;">';
+			                  }else{
+			                	appen += '<img src = "/resources/images/userImage/defaultUser.png" align="middle" style="border-radius:100px; width:50px; height: 50px;"/>';
+			                  } 	  
+			 				  appen += item.post["nickName"];
+			                  appen += '</div>';
+			                  appen += '</div>';
+			                  appen += '<div class="col-md-4">';
+			                  appen += '<div class="likeImage">';
+			                  appen += '<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">';
+			                  appen += '</div>';
+			                  appen += '<div class="likeCount" style="margin-left:38px">';
+			                  appen += '<h5>'+item.post["likeCount"]+'</h5>';
+			                  appen += '</div>';
+			                  appen += '</div>';
+			                  appen += '</div>';
+	
+			                  }
+			                  appen += '</div>';     
+			                  appen += '</div>'; 
+			                         
+	
+			                  $("#scroll").append(appen);  
+				              
+				      
+				             });
+				                  
 			                  
 			         }       
 			      })
@@ -289,19 +268,7 @@
         </div> -->
       </div>
       <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
-    
-
-    
-<!--     <div class="site-blocks-cover inner-page overlay" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-      <div class="container">
-        <div class="row align-items-center justify-content-center">
-          <div class="col-md-7 text-center">
-            <h1 class="mb-5">News &amp; <strong>Updates</strong></h1>
-          </div>
-        </div>
-      </div>
-    </div>   -->
+    </div> 
 
     <div class="site-section">
     <div class="container">
@@ -354,7 +321,6 @@
 		               			</c:otherwise>            			
 		               		</c:choose>
 		               	</c:if>
-                	<%-- <img src="/resources/images/upload/${meeting.post.photo}" class="img-fluid" alt=""> --%>
                
               </div>
               
@@ -363,10 +329,7 @@
               <div class="text col-md-8">
                 <h5 class="h5" ><a href="#">${meeting.post.title}</a></h5>
                 <span class="text-uppercase date d-block mb-3">${meeting.post.postDate}</span>
- 				<%-- <p class="mb-0">${meeting.post.likeCount}</p>
-                <span class="text-uppercase date d-block mb-3">
-                <small>${meeting.post.nickName}</small>
-                </span>   --%>              
+ 				 
                 <div class="userInfo">
                 			<c:if test="${meeting.post.userImage != null and meeting.post.userImage != '' }">
                 				<img src="/resources/images/userImage/${meeting.post.userImage}" style="border-radius:100px; width:50px; height: 50px;">
@@ -388,18 +351,16 @@
  					</div>
  				</div>
 
-         
-            </c:if>
-          </div>    
-          </div>
-   </c:forEach> 
+	            </c:if>
+	          </div>    
+	          </div>
+	  		</c:forEach> 
                           
 			</div>
-          
-   <%-- </c:forEach>  --%>
-          </div>                
+
+         </div>                
       </div>
-      <!-- container : end -->
+
     </div>
 
    </body>

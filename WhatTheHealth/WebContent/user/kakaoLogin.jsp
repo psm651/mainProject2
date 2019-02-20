@@ -8,7 +8,7 @@
  ${refresh}
 	 <script>
 		self.location = '/'; 
-/* 		 opner.location.replace("/schedule/listSchedule");  */
+
 	</script>
 </body>
 

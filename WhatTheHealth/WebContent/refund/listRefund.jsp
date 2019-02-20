@@ -72,9 +72,7 @@
 	}
 	
 	 $( function (){
-         /* $( "a[href='#' ]:contains('계좌등록하기')").on("click", function(){
-              self.location="/refund/authorizeAccount.jsp";
-           }); */
+
          $( "a[href='#' ]:contains('환급하기')").on("click", function(){
              self.location="/refund/addRefund.jsp";
           });
@@ -100,16 +98,7 @@
                   	 
                 
              </div>
-             <%-- <div class="col-md-2 mb-2 mb-md-1 text-left text-primary">
-             <form class="form-inline" name="detailForm">
-             	<select class="form-control col-md-10" id="searchFilter" name="searchFilter" onchange="fncGetPageList(1)" >
-						<option value="0"  ${ ! empty search.searchFilter && search.searchFilter==0 ? "selected" : "" }>날짜순</option>
-						<option value="1"  ${ ! empty search.searchFilter && search.searchFilter==1 ? "selected" : "" }>용도별</option>
-					</select>
-				 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-				 </form>			
-             </div> --%>
-             
+
               
                 <div class="col-md-4 mb-5 mb-md-1 text-center"></div>
                 <div class="col-md-3 mb-5 mb-md-1 text-center">
@@ -118,19 +107,18 @@
 				  <div class="col-md-12 text-left text-primary"><strong>보유 포인트</strong>
 			     <span id="havingPoint" class="help-block">
 		      	 	<strong class="text">${user.havingPoint}P</strong>
-		      	 	<!-- <a href="#" class="btn btn-primary pill px-4">계좌등록하기</a> -->
 		      	 	<a href="#" class="btn btn-primary pill px-4">환급하기</a>
 		      	</span>
 		      </div>
 			</div>
 	
 				  
-				  </form>
+		</form>
 				
-	    	</div>
+	   </div>
               
               
-   			</div>
+   	</div>
 
 
             <div class="row-wrap">

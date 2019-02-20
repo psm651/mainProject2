@@ -31,12 +31,7 @@
    
    <script type="text/javascript">
    selfClose = 0;
-  /*  $( function (){
-	   alert(${user.userId});
-	   alert(${meeting.post.userId});
-   }); */
-   
-   
+
    
    $(document).ready(function() {
        
@@ -110,36 +105,29 @@
     	<c:set var="i" value="0"/>
     		<c:forEach var = "join" items="${joinlist}">
     		<c:set var="i" value="${i+1}"/>
-    	 
-    	
-    		//for(let elem in item){
-    		//var partyId = item['partyId'];
+
     		
 			 if(${user.userId ==join.partyId}){
 			
 				$("#joinButton").remove();
 				$("#joinOrNot").append('<a href="#" class="btn btn-primary pill px-4"  style="font-size:18px; height: 40px; " data-param="'+${join.joinNo}+'"><b>참여취소</b></a>');
 			} 
-    		//}
+
     		</c:forEach>
     	});
   
     
     function imageClick(e){
-    //$("#user_image").on("click", function(){
-   	  
-   	  //var userId = $(this).data("paramid");
-   	 
-   	  var userId = e.getAttribute("paramid");			////잠깐 주석
-   	  //alert(userId);
 
+   	 
+   	  var userId = e.getAttribute("paramid");		
+   	  
    	  popWin 
 				= window.open("/user/getUserMeeting?userId="+userId,
 											"popWin", 
 											"left=300,top=200,width=1000%,height=700%,marginwidth=0,marginheight=0,"+
 											"scrollbars=no,scrolling=no,menubar=no ");
-    // });
-    
+
     } 
     
     var likeCount = '${meeting.post.likeCount}';
@@ -242,11 +230,7 @@
                }
            });
        }
-       
-    
-    
-       
-       
+   
        var joinNo = ''
        var meetNo = ${meeting.meetNo};
        $( function (){
@@ -256,16 +240,7 @@
           $( "a[href='#' ]:contains('삭제')").on("click", function(){
                self.location="/meeting/deleteMeeting?meetNo=${meeting.meetNo}"
             });
-        /*   $( "a[href='#' ]:contains('참여하기')").on("click", function(){
-        	swal(
-        				'참여 완료',
-        				'소모임 참여가 완료되었습니다.',
-        				'success'
-        				) 
-              self.location="/meeting/json/addJoin?meetNo=${meeting.meetNo}" 
-            		  
-           //  addJoinfunc();
-           }); */
+
           $( "a[href='#' ]:contains('목록으로')").on("click", function(){
                  self.location="/meeting/listMeeting"
             });
@@ -294,17 +269,13 @@
         					self.location="/meeting/deleteJoin?joinNo="+joinNo; 
       				 	  
       				    }, 1000);
-        	  }
+        	 	 }	
         	 
-              //$(".swal-button").attr('id', 'cancelConfirm');
+             
             		  
-         });
+         	});
           
-          /* $("#cancelConfirm").on("click", function(){
-        	  alert(joinNo);
-        	  self.location="/meeting/deleteJoin?joinNo="+joinNo 
-          }); */
-          
+
          });
        
        function videoChatting(){
@@ -376,8 +347,6 @@
    	 function exit(){
    				$("#mydiv").css("display","none"); 
    				$("#mydiv").empty();
-   				//$(this).hide();
-   				//$("#exit").show();
 		   	}
       
    </script>
@@ -409,8 +378,6 @@
   z-index: 9;
   background-color: rgba(0,0,0,0.3);
   color: #fff;
-  /* margin-top: 200px; */
-  /* border-top-width: 150px; */
 
 }
 
@@ -563,20 +530,11 @@
    <div id="mydiv"></div>
        <div class="container"> 
      <div class="row"> 
-        <!-- <div class="row align-items-center"> -->
+
         <div class="col-md-12 col-lg-9 mb-5">
-          <!-- <div class="col-md-10 col-lg-5 mb-5 mb-lg-0"> -->
+
           <div class="postHere"> 
-            <h4> 
-           <!--  <div class="row form-group">
-			 	<div class="col-md-10 mb-5 mb-md-0"> -->
-             <b>${meeting.post.title}</b>
-             <!-- </div>
-             <div class="col-md-2 mb-5 mb-md-0"> -->
-            
-              <!-- </div>
-              </div> -->
-               </h4>
+            <h4> <b>${meeting.post.title}</b> </h4>
     
             <ul class="likeandview" >
             <li style="margin-bottom:5px;"><span >
@@ -665,9 +623,7 @@
                 </div> 
                 </c:if>
                 <c:if test="${meeting.minParty == null || meeting.minParty == '' || meeting.minParty == 0 }">
-                <div class="col-md-10 mb-5 mb-md-0">
-                제한없음
-                </div>
+                <div class="col-md-10 mb-5 mb-md-0"> 제한없음 </div>
                 </c:if>
                  </div>
                   
@@ -705,7 +661,6 @@
                  
                 <div style="background-color:white; padding:2em;" > 
             <div class="contents"  >
-                 <%-- <p class="col-md-12 mb-4">${meeting.post.contents}</p> --%>
                  <p>${meeting.post.contents}</p>
                  </div>
           <!-- 다음맵지도 -->
@@ -721,11 +676,7 @@
               
             
             <div class = "row"  style="margin-top:20px; " >
-               	   <div class="col-md-8 mb-5" >
-               	    
-             <!--  <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:left;"><b>참여하기</b></a> -->
-      
-                   </div>
+               	   <div class="col-md-8 mb-5" > </div>
                <c:if test = "${user.userId == meeting.post.userId}">
              	  <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height: 30px; float:left;"><b>수정</b></a>&nbsp;
                     <a href="#" class="btn btn-primary pill px-4" style="font-size:13px; height: 30px; float:center;"><b>삭제</b></a>&nbsp;
@@ -791,35 +742,26 @@
 			</c:forEach>
 			</div>
 			
-			<%-- <p align="center"><a onclick="javascript:location.href='https://192.168.0.55:6503/rtc_multi_me/index.html?nickName=${user.nickName}';"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:20px;">화상채팅하기</a></p> --%>
-			
-			 
       </div>
       <div id="floatButton">
 			<p align="center"><a onclick="videoChatting();"   class="btn btn-primary pill text-white px-4"   id="addSocket"  style="font-size:18px; height: 40px; "><b>화상채팅하기</b></a></p>
 			 
-			<!-- 채팅방 인클루드 -->
+			<!-- 채팅방 -->
 			
 			<div class="col-md-12"  >
-			<button type="button" class="btn btn-primary pill text-white px-4" id="getMeetingChat" data-param="${meeting.post.postNo}" style="font-size:18px; height: 40px; "><b>채팅하기</b></button>
-			
-		   <%--  <%@ include file="/socket/groupChatting.jsp" %>  --%>
+				<button type="button" class="btn btn-primary pill text-white px-4" id="getMeetingChat" data-param="${meeting.post.postNo}" style="font-size:18px; height: 40px; "><b>채팅하기</b></button>
 			</div> 
 			
-			</div> 
+		</div> 
 	
-			<!-- 참여 리스트 추가추가  -->
       </div>
             
 			
-            </div> 
+     </div> 
             
          
-         </div> 
-    
+   </div> 
 
-
-    
 
 </body>
 </html>

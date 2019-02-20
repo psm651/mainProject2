@@ -16,22 +16,23 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+	<link rel="stylesheet" href="/resources/css/style.css">
     
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
+  	<!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     
-<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+	<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
    
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
-       <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  </head>
+ </head>
+ 
   <script type="text/javascript">
  	
    $(function(){
@@ -40,7 +41,7 @@
   		//var bjId = "horan";
   		var bjId = $(this).data("param2");
   		var liveTitle=$(this).data("param3");
-         //alert("socketNo"+socketNo+"; biId ;"+bjId+"; userId ;"+ '${user.userId}');
+  		
   		 if( '${user.userId}'== bjId){
   			popWin 
 			= window.open("https://192.168.0.9:443/broadcast.html?nickName="+'${user.nickName}'+"&liveTitle="+liveTitle+"&img="+'${user.userImage}'+"&roomId="+socketNo,
@@ -48,7 +49,6 @@
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
   			 
-  		//self.location = "https://192.168.0.55:443/broadcast.html?nickName="+'${user.nickName}'+"&roomId="+socketNo;
   		 }else{
   			popWin 
 			= window.open("https://192.168.0.9:443/index.html?nickName="+'${user.nickName}'+"&liveTitle="+liveTitle+"&img="+'${user.userImage}'+"&roomId="+socketNo,
@@ -56,7 +56,6 @@
 										"left=150,top=200,width=1200,height=650,marginwidth=0,marginheight=0,"+
 										"scrollbars=no,scrolling=no,menubar=no,resizable=no");
   			 
-  			//self.location = "https://192.168.0.55:443/index.html?nickName="+'${user.nickName}'+"&roomId="+socketNo;
   		 }
   	});
   });
@@ -64,7 +63,6 @@
 
    function addLiveRoom(){
 		    if( '${user.userId}'== null || '${user.userId}'=='' ){
-			  	//alert("로그인 후 이용가능합니다.");
 			  	swal("회원만 이용 가능합니다", "로그인해주세요", "error");
 			  	return;
 		   } 
@@ -76,13 +74,7 @@
 			
 
    }
-   
-   /* $(function() {
-		$("#addSocket").on("click" , function() {
-			self.location = "/socket/addLiveStream";
-		});
-	}); */
-	
+
 	   var currentPage=1;	
 	
 	   $(window).scroll(function(){
@@ -155,9 +147,7 @@
 				currentPage = 1;
 				var searchKeyword = $("#searchKeyword").val();	
 				var searchCondition= 0;
-				
-				//currentPage++;
-				
+	
 				$.ajax({
 			         
 			         url: "/socket/json/listLiveStream",
@@ -205,9 +195,7 @@
 				                  appen += '</div>';                
 
 				                  $("#scroll").append(appen);              
-				                     
-			                  
-			              
+	
 			      
 			             });
 			                  
@@ -226,17 +214,6 @@
    <div class="site-wrap">
      <jsp:include page="/layout/toolbar.jsp" /> 
 
-
-    
-<!--     <div class="site-blocks-cover inner-page overlay" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-      <div class="container">
-        <div class="row align-items-center justify-content-center">
-          <div class="col-md-7 text-center">
-            <h1 class="mb-5">News &amp; <strong>Updates</strong></h1>
-          </div>
-        </div>
-      </div>
-    </div>   -->
 
     <div class="site-section">
       <div class="container">
@@ -259,11 +236,6 @@
        <p align="right"><a href="#" align="right" class="btn btn-primary pill text-white px-4"  id="addLiveRoom"  onclick="addLiveRoom();">방개설하기</a></p>
       <br/>
   
- 
-
- 
- <%--   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/broadcast.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브방송</a></p>
-   <p align="right"><a onclick="javascript:location.href='https://192.168.0.55:443/index.html?nickName=${user.nickName}&roomId=1';"   align="right" class="btn btn-primary pill text-white px-4"   id="addLive">라이브보기</a></p> --%>
        
         
         <div class="row mb-5" id="scroll">
@@ -274,29 +246,14 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="post-entry bg-white box"  data-param="${socket.socketNo}"   data-param2="${socket.bjId}"   data-param3="${socket.liveTitle}" >
               <div class="image"  style="width:340px; height:200px">
-              	<%-- <c:if test="${empty meeting.post.photo}"> --%>
+              
                     <img  src="/resources/images/liveListDefault.jpg" class="img-fluid" alt="" width= "340;" height= "200;">
-                <%-- </c:if> --%>
-                <%-- <c:set var="youtubeThumbnail" value="${meeting.post.photo}"/>
-                <c:if test="${!empty meeting.post.photo}">
-                <c:choose>
-		               			<c:when test="${fn:contains(youtubeThumbnail,'https')}">
-		               				<img src="${meeting.post.photo}" class="img-fluid" >
-		               			</c:when>   
-		               			<c:otherwise>
-		               				<img src="/resources/images/upload/${meeting.post.photo}"  class="img-fluid">
-		               			</c:otherwise>            			
-		               		</c:choose>
-                	<img src="/resources/images/upload/${meeting.post.photo}" class="img-fluid" alt="">
-                </c:if> --%>
+               
               </div>
               <div class="text col-md-8">
                 <h5 class="h5" ><a href="#">${socket.liveTitle}</a></h5>
                 <span class="text-uppercase date d-block mb-3">${socket.liveDate}</span>
- 				<%-- <p class="mb-0">${meeting.post.likeCount}</p>
-                <span class="text-uppercase date d-block mb-3">
-                <small>${meeting.post.nickName}</small>
-                </span>   --%>              
+ 	              
                 <div class="userInfo">
                 			<c:if test="${socket.userImage != null and socket.userImage != '' }">
                 				<img src="/resources/images/userImage/${socket.userImage}" style="border-radius:100px; width:50px; height: 50px;">
@@ -307,29 +264,19 @@
                 			${socket.nickname}
                 		</div>
               </div>
-              
-              <%-- <div class="col-md-4">
- 						<div class="likeImage">
- 							<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
- 						</div>
- 						<div class="likeCount" style="margin-left:38px">
- 							<h5>${meeting.post.likeCount}</h5>
- 						</div>
- 					</div> --%>
-
+           
             </div>
           </div>    
           
-   </c:forEach> 
+  		 </c:forEach> 
                           
-   </div>    
-         <!-- div : end -->
-          
-   <%-- </c:forEach>  --%>
+   		</div>    
+
                           
       </div>
-      <!-- container : end -->
+
     </div>
   </div>
-   </body>
+ </body>
+  
 </html>

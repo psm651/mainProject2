@@ -19,23 +19,17 @@
 
 <!-- --------------------------------메뉴바--------------- -->
 <!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 <link rel="stylesheet" href="../resources/css/style.css">
+
 <script type="text/javascript">
-
-///$('img').dropdown();
-$('#profile').dropdown();
-/* $(document).ready(function() {
-
-}); */
-
-
-
- 
+	
+	$('#profile').dropdown();
+	
 </script>	
   
 <!-- --------------------------------메뉴바--------------- -->
@@ -255,23 +249,6 @@ body{
 </head>
 <body>
 
-<!-- -----------------메뉴바----------------- -->
-
-  <!-- <div class="dropdown">
- 
-  <img src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">강퇴하기</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>  -->
-  
-
-<!-- -----------------메뉴바----------------- -->
-
   
   <script src="http://192.168.0.15:3000/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -279,15 +256,7 @@ body{
   <script>
 
   		var targetName = '';
-  		
-  		/* $(function() {
-	        $('.incoming_id').on("click" , function(){
-	        	console.log('클릭됨'+$('.incoming_id').val());
-	         //   socket.emit('kickout',{targetName:$('.incoming_id').val()});
-	
-	        });
-  		}); */
-  		
+
   		
         $(document).ready(function() {
             
@@ -321,16 +290,7 @@ body{
             
             
             socket.on('preload',function(dbData){
-                /* var output = '';
-                output += '<div class="alert alert-info"><strong>';
-                output += data.sender;
-                output += '</strong> : ';
-                output += data.data;
-                output += '</div>';
-                $(output).appendTo(".msg_history"); */
-                
-                //console.log(dbData.msg);
-               // console.log("file::::"+dbData.msg.substring(dbData.msg.length-3));
+            
                 
             	 if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
                  	console.log("111111")
@@ -367,7 +327,7 @@ body{
             	var outcomingid = $(".outgoing_id").data("param1");
             	//var outcomingid = $(".incoming_id").data("param");
             	if(outcomingid == msg.name){
-            		alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
+            		//alert("강퇴누가되나: "+outcomingid+", msg.name: "+msg.name);
                  	self.location = "/";
                  	//self.location = "http://192.168.0.40:8080";
             	};
@@ -384,16 +344,13 @@ body{
           		   var incomingid = $(this).data("param");
      	        	console.log("클릭됨 "+incomingid);
      	           socket.emit("kickout",{targetName:incomingid});
-     	         	alert(incomingid);
-     	         	//self.location = "http://192.168.0.48:8080";
-     	
+     	         	
      	        });
             	
 			
             	console.log("세션에서 받은 이미지: "+"${sessionScope.user.userImage}");
+            	
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
-                
                 if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
                 	console.log("111111")
                 	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p>'+msg.msg+'</p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
@@ -415,9 +372,8 @@ body{
             socket.on('send_img', function(msg) {
 			
             	console.log("서버에서 받은 파일: "+msg.msg);
+            	
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
-                
                 if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
                 	console.log("111111")
                 	$('<div class="incoming_msg"><div class="incoming_msg_img"><div class="dropdown"><img id="profile" src="/resources/images/userImage/'+msg.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+msg.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+msg.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+msg.msg+'"></p><span class="time_date">'+msg.rt+'</span></div></div></div>').appendTo(".msg_history");
@@ -449,13 +405,10 @@ body{
             
             
             //////////////////////////////////////////file Upload//////////////////////////////////////////
-           // $('#image_name').on('change',function(){
         	   
         	$('#filee').on('change',function(){   
-           // $('#submit').on('click',function(){
-            	
-           
-            	alert("전송");
+
+  
             	event.preventDefault();
 
                 var formData = new FormData($('form')[0]);
@@ -551,9 +504,7 @@ body{
           <div class="type_msg">
           
             <div class="input_msg_write">
-              <!-- <label for="filee"><img id="attach" src="https://img.icons8.com/material/24/000000/attach.png"></label> -->
-               
-              
+
               <input type="text" class="write_msg" placeholder="Type a message" />
               
               <label for="filee"><img id="attach" src="/resources/images/icons8-attach-30.png"></label>

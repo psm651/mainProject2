@@ -145,9 +145,9 @@ public class PointRestController {
 			int sendPoint = sendUser.getHavingPoint() - point.getUsingPoint();
 			sendUser.setHavingPoint(sendPoint);
 			userService.updateHavingPoint(sendUser);
-			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+sendPoint);
+			System.out.println("Àü¼ÛÇÑ Æ÷ÀÎÆ®:: "+sendPoint);
 			session.setAttribute("user", sendUser);
-			System.out.println("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ù²ï¿½ï¿½ï¿½ "+session.getAttribute("user"));
+			System.out.println("Àü¼ÛÇÑ »ç¿ëÀÚ: "+session.getAttribute("user"));
 			
 			//User receiveUser = userService.getUser(point.getReceiverId());
 			User receiveUser = userService.findId(point.getReceiverId());
@@ -155,7 +155,7 @@ public class PointRestController {
 			int receivePoint = receiveUser.getHavingPoint() + point.getUsingPoint();
 			receiveUser.setHavingPoint(receivePoint);
 			userService.updateHavingPoint(receiveUser);
-			System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®: "+receivePoint);
+			System.out.println("¹ÞÀº Æ÷ÀÎÆ®: "+receivePoint);
 			
 			return "222";
 			
