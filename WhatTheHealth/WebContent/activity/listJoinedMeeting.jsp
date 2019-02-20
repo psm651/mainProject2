@@ -102,25 +102,9 @@
 			});
 		 });
 		
-		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		/*  $(function() {
-		
-			 $( "#title" ).on("click" , function() {
-				 
-					var meetNo = $(this).data("param1");
-					
-					 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;
-
-				});
-			
-		});	
-		 */
 		
 		 function getMeeting(e) {
-				
-				/* var category = $(this).data("param1");
-				var postNo = $(this).data("param2"); */
-				
+
 				var meetNo = e.getAttribute("param1");
 			
 				 self.location ="/meeting/getMeetingMap?meetNo="+meetNo;

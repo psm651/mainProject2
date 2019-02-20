@@ -22,14 +22,12 @@
     <link rel="stylesheet" href="../resources/css/animate.css">
     
     <link rel="stylesheet"  href="../resources/fonts/flaticon/font/flaticon.css">
-    <!-- <link rel="stylesheet"  href="../resources/fonts/posting/font/horan.css"> -->
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
-    <!--div 때문에 인클루드  -->
+
    
-      <!-- sweetalert -->
+     <!-- sweetalert -->
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>   
-   <!-- <link rel="stylesheet" href="/resources/css/bootstrap.min.css"> -->
    <style>
    #floatMenu {
       position: absolute;
@@ -139,38 +137,16 @@
    <script type="text/javascript">
    $(document).ready(function() {
 	   function imageClick(e){
-		    //$("#user_image").on("click", function(){
-		   	  
-		   	  //var userId = $(this).data("paramid");
-		   	 
-		   	  var userId = e.getAttribute("paramid");			////잠깐 주석
-		   	  //alert(userId);
+
+		   	  var userId = e.getAttribute("paramid");
 
 		   	  popWin 
 						= window.open("/user/getUserMeeting?userId="+userId,
 													"popWin", 
 													"left=300,top=200,width=1000%,height=700%,marginwidth=0,marginheight=0,"+
-													"scrollbars=no,scrolling=no,menubar=no ");
-		    // });
-		    
+													"scrollbars=no,scrolling=no,menubar=no ");  
 		    } 
-	   
-	   
-         // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
-        /*  var floatPosition = parseInt($("#floatMenu").css('top'));
-         // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
-       
-         $(window).scroll(function() {
-            // 현재 스크롤 위치를 가져온다.
-            var scrollTop = $(window).scrollTop();
-            var newPosition = scrollTop + floatPosition + "px";
-       
-             
-            $("#floatMenu").stop().animate({
-               "top" : newPosition
-            }, 500);
-       
-         }).scroll(); */
+	  
        
       }); 
    
@@ -211,9 +187,8 @@
    
     $(document).ready(function(){
        favoriteList(); 
-       });
+    });
 
-    //var likeCount = $(this).data("param");
     var likeCount = '${post.likeCount}';
     
     function emptyHeart(){
@@ -224,7 +199,6 @@
                 if(data == 1) {
                   favoriteList(); 
                   likeCount++;
-                  //likeCount.attr('likeCount'); 
                   $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                   }
                }            
@@ -243,7 +217,6 @@
                       a += '<img src="../resources/images/emptyHeart.png"  width="30px" class="likeImage" onclick="emptyHeart()">';
                              $(".likeImage").remove();
                       likeCount--;
-                      //likeCount.attr('likeCount');
                       
                       $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                      }
@@ -376,7 +349,6 @@
             <div class="col-md-8 mb-5" >
                    
  		<p>${post.contents}</p> 
-                  <%-- <p class="mb-4">${post.contents}</p> --%>
               </div>
                <div class="col-md-2 mb-5" ></div>
               </div>
@@ -390,11 +362,7 @@
               </c:if>
               </div>
              
-            
-            
-        
-                       
-             <!-- <div class="text-center border-bottom border-top margin-ten padding-four no-margin-bottom favorite"> -->
+     
                 <div class = "row"  style="margin-top:20px; " >
                	   <div class="col-md-8 mb-5" >
                    </div>
@@ -437,46 +405,10 @@
           </div>
           </div> 
    </div>
-            <!-- <div class="col-md-12 col-lg-3 mb-5" style="background-color:silver; float: right;">
-      여기추가예정 -->
-       <!-- <div class="col-md-12 col-lg-2 mb-5" > -->
-      
-      <!-- <div  id="floatMenu" >
-      <div id="innerMenu" style="font-weight: bold; text-align: center;">
-      최근 본 게시물<br/><br/>
-      </div>
-      </div> -->
-      <%-- <c:forEach var = "product" items="${cookieList }" end="4">
-      <img src = "/images/uploadFiles/${product.fileName}" align="absmiddle" style="width: 50px;" style="height: 100px;"/><br/>
-      ${product.prodName }<br/>
-      </c:forEach> --%>
-      
-
-   
-   <!-- </div> -->
-      
-      
-      
-   <!--    </div> -->
-           
-        
+    
      
      
    </div>
-    <!-- <ul class="imagelocation">
-      <li>
-          <img src="/resources/images/post/post_BMI.png" alt="Image" class="postImage" id="bmiLocation">
-      </li>
-      <li class="right">
-          <img src="/resources/images/post/post_Calorie.jpg" alt="Image" class="postImage" id="calorieLocation" >
-      </li>
-      <li>
-          <img src="/resources/images/post/post_HistroyChart.png" alt="Image" class="postImage" id="historyChartLocation">
-      </li>
-      <li class="right">
-          <img src="/resources/images/post/post_Schedule.png" alt="Image" class="postImage" id="scheduleLocation" >
-      </li>
-   </ul> -->
    
    </div>
    

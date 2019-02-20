@@ -118,23 +118,15 @@
 		       
 		       // execute the request
 		       request.execute(function(response) {
-		    	  //var page = 1;
 		          var aa = response.result;
 		          console.log(aa);
 		          $("#aa").html("");
 		          
 		          $.each(aa.items, function(index, item) {
-		        	  /* $(window).scroll(function() {
-		                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		                    console.log(++page);
-		                     */
 		            $.get("../resources/tpl/item.html", function(data) {
 		                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 		            });
 		            
-		            /*  }
-		                     
-		              });  */
 		          });
 		         resetVideoHeight();
 		       });
@@ -171,7 +163,7 @@
         	
         	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
         	 e.dataTransfer.setData("text", front+ zzz +back);  
-            //videoPlayer = document.getElementById(event.target.id);
+            
         }
 
     	//============= 지도 ====================================
@@ -233,24 +225,22 @@
     			});
     		});  
         	
-/////////////////////////지도 끝//////////////////////////////////////
+//////////////지도 끝///////////////////
     	
-////////////////////////////////////달력달력///////////////////////////////////	
-    	function datetime(){
-    		//$(".datepicker datepicker-inline").remove();
-    		$('div').remove('.datepicker datepicker-inline');
-    	};
+//////////////달력달력///////////////
+    function datetime(){
+    	$('div').remove('.datepicker datepicker-inline');
+    };
     	
-    	$(document).ready(function(){
-    		datetime(); 
-    	       });
-    	//////////////////////////////////////달력////////////////////////////////
-    	 // Initialization
+    $(document).ready(function(){
+    	datetime(); 
+    });
+
+     // Initialization
     $('#timepicker-actions-exmpl').datepicker({inline : false})
     // Access instance of plugin
     $('#timepicker-actions-exmpl').data('datepicker') 
 
-    	////////////////////////////////////달력달력///////////////////////////////////
     	 // Create start date
          var start = new Date(),
             prevDay,

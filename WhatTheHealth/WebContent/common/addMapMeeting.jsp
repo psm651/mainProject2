@@ -8,13 +8,6 @@
 
 </head>
 
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
-  <!--  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
-    
-
- 
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services,clusterer,drawing"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493&libraries=services"></script>
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6a2d276ed16924d2572933e169365493"></script>
@@ -749,9 +742,6 @@
  		$(document).on("click", "#infoMap", function(){
  			$("#infoMap").remove();//모달창에서 등록된 주소 삭제
  			$('#location').remove();
- //			$('#markerImage').remove();
- //			$('#formLocation').remove();
- //			$('#sub').remove();
  		});
  		
  		

@@ -23,19 +23,10 @@
     
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
     
-	<!-- include libraries(jQuery, bootstrap) -->
-<!-- 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
 	
-	include summernote css/js
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	 -->
 	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"> -->
 
 	<style>
  	img{ 
@@ -52,7 +43,7 @@
 	$(function() {
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		$("#cancel").on("click" , function() {
-			//alert("cancel")
+			
 			history.go(-1);
 		});
 		
@@ -85,7 +76,7 @@
 				 var email=$("input[name='email']").val();
 			    
 				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	//alert("이메일 형식이 아닙니다.");
+			    	
 			    	swal("이메일 형식이 아닙니다", "이메일을 확인해주세요", "error");
 			     }
 			});
@@ -93,7 +84,7 @@
 		});	
 		
 		 function CheckNickname(){
-				//alert("ddd")
+				
 				var usedNickname = $("#usedNickname").val();
 					console.log(usedNickname);
 				if(usedNickname !=  $("input[name='nickName']").val() ){
@@ -113,16 +104,13 @@
 								nickName : $("input[name='nickName']").val()
 							}),
 							success : function(JSONData , status) {
-								//alert(JSONData)
 								
 								if(JSONData){
-									//alert("99999999");
-									//$("input[name='userId']").css("background-color","skyblue")
+									
 									$("#checkNickname").css("color","green")
 								}
 								
 								if(!JSONData){
-									//alert("이미 존재하는 ID입니다.")
 									$("#checkNickname").css("color","red")
 								}
 							}							
@@ -135,7 +123,7 @@
 				}
 			}
 		
-		///////////////////////////////////////////////////////////////////////
+	
 		function fncUpdateUser() {
 			var pw=$("input[name='password']").val();
 			var pw_confirm=$("input[name='password2']").val();
@@ -143,13 +131,13 @@
 			var checkNickname = document.getElementById('checkNickname').style.color;
 			
 			if(nickName == null || nickName.length <1){
-				//alert("닉네임은  반드시 입력하셔야 합니다.");
+				
 				swal("닉네임을 입력해주세요", "닉네임은 반드시 입력해야 합니다", "error");
 				return;
 			}
 			
 			if( pw != pw_confirm ) {				
-				//alert("비밀번호 확인이 일치하지 않습니다.");
+				
 				swal("비밀번호를 확인해주세요", "비밀번호 확인이 일치하지 않습니다", "error");
 				$("input:text[name='password2']").focus();
 				$("#checkPW").css("color","red")
@@ -162,12 +150,12 @@
 			}
 			
 			if(checkNickname == 'red'){
-				//alert("이미 존재하는 닉네임입니다.")
+				
 				swal("이미 존재하는 닉네임입니다", "다른 닉네임을 입력해주세요", "error");
 				return;
 			}
 	
-			//swal("수정이 완료되었습니다", "", "success");	
+		
 			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
 		}
 	
@@ -263,7 +251,7 @@
 		    <label for="holder" class="font-weight-bold">예 금 주</label>
 		      <input type="text" class="form-control" id="holder" name="holder"  value="${user.holder}">
 		      <a href="#" class="btn btn-primary pill px-4">계좌등록하기</a>
-		      <!-- <button class="btn btn-primary pill px-4" type="button" id="test" data-toggle="modal" data-target="#accountAuth">계좌등록하기</button> -->
+		     
 		      
 		    </div>
 		  </div>
@@ -303,35 +291,12 @@
 		    </div>
 		  </div>
 		</form>
-		<!-- form Start /////////////////////////////////////-->
+		
 	    </div>
  	</div>
  	</div>
  	</div>
-	<!--  화면구성 div Start /////////////////////////////////////-->
- 
- 
-  <!-- Modal -->
-  
-  <!-- <div class="modal modal-center fade" id="accountAuth" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" > -->
-   <%-- <div class="modal fade" id="accountAuth" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-  
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content modal-80size">
-     <div class="modal-header"> 계좌 인증 페이지
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-      </div> 
-      
-       <div class="modal-content">
-      <div class="modal-body">
-   		  <jsp:include page="/refund/authorizeAccount.jsp" />  
-        
-      </div>
-    </div>
-  </div>
-</div>  	
-</div>	 --%>
+	
 	
  	
 </body>

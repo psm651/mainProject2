@@ -63,7 +63,7 @@
 		      var reader = new FileReader(); // FileReader 객체 사용
 		      
 		      reader.onload = function(rst){
-		          // append 메소드를 사용해서 이미지 추가
+		         // append 메소드를 사용해서 이미지 추가
 		         // 이미지는 base64 문자열로 추가
 		         // 이 방법을 응용하면 선택한 이미지를 미리보기 할 수 있음
 		      	 $("#profile-image1").remove();
@@ -147,15 +147,13 @@
                      nickName : $("input[name='nickName']").val()
                   }),
                   success : function(JSONData , status) {
-                     //alert(JSONData)
-                     
+
                      if(JSONData){
 
                         $("#checkNickname").css("color","green")
                      }
                      
                      if(!JSONData){
-                        //alert("이미 존재하는 ID입니다.")
                         $("#checkNickname").css("color","red")
                      }
                   }                     
@@ -174,7 +172,6 @@
 </head>
 
 <body>
-	<%-- <input type="hidden" id="usedNickname" value="${sessionScope.user.nickName }"/> --%>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />

@@ -169,9 +169,6 @@
             </div>
             
         </div>  
-         <!-- ///////////////////////////////////////// -->
-         
-
          
             <c:set var="i" value="0"/>
     	 	<c:forEach var="user" items="${list}">

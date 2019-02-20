@@ -93,11 +93,6 @@
 <script type="text/javascript">
   
 
-// 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-// 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-// window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-	
-  
 	function fncAddExInfo(){
 
 	 	var title = $("input[name='title']").val();
@@ -219,23 +214,17 @@
 		       
 		       // execute the request
 		       request.execute(function(response) {
-		    	  //var page = 1;
 		          var aa = response.result;
 		          console.log(aa);
 		          $("#aa").html("");
 		          
 		          $.each(aa.items, function(index, item) {
-		        	  /* $(window).scroll(function() {
-		                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		                    console.log(++page);
-		                     */
+
 		            $.get("../resources/tpl/item.html", function(data) {
 		                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 		            });
 		            
-		            /*  }
-		                     
-		              });  */
+		            
 		          });
 		         resetVideoHeight();
 		       });
@@ -272,7 +261,7 @@
         	
         	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
         	 e.dataTransfer.setData("text", front+ zzz +back);  
-            //videoPlayer = document.getElementById(event.target.id);
+         
         }
 	
 </script>
@@ -321,15 +310,6 @@
                </div>
                </div>
                
-<!--            	  <div class="form-group" id="subs">
-              
-              
-              </div>
-              <div class="form-group" id="location">
-              
-              </div> -->
-               
-               
              <div class="form-group"> 
                <div class="col-md-1 mb-5 mb-md-0">
               	    <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">
@@ -337,13 +317,7 @@
      			   </button>
      		   </div>
              </div>
-
-<!-- 			<div class="form-group" id="showAppendMap">
-			
-				<div id="showMap" style="width:600px;height:350px;"></div>
-			
-			</div> -->
-
+             
 			<br/><br/><br/><br/>
 
               <div class="form-group">

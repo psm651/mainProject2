@@ -12,18 +12,16 @@
     <script src="/resources/js/jquery-3.3.1.min.js"></script>
     
     <link rel="stylesheet" href="/resources/css/style.css">
-   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+	<link rel="stylesheet" href="/resources/css/style.css">
     
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     
-<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
    
@@ -70,12 +68,12 @@
 		$("#addExCom").on("click" , function() {
 			
 			if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
-				 //alert("로그인이 필요한 서비스입니다.");
+				 
 				 swal("회원만 이용 가능합니다", "로그인해주세요", "error");
 				 return;
-				 //self.location = "/" 
+				
 			 } else if("${sessionScope.user}" != null){
-				self.location = "/community/addExCom"	//UserId??????????
+				self.location = "/community/addExCom"	
 			 }
 
 		});
@@ -185,9 +183,7 @@
 			currentPage = 1;
 			var searchKeyword = $("#searchKeyword").val();	
 			var searchCondition= 0;
-			
-			//currentPage++;
-			
+						
 			$.ajax({
 		         
 		         url: "/community/json/exCommunitylist",
@@ -285,9 +281,7 @@
 
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
-<!--    <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div> -->
+
       </div>
       <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->

@@ -124,23 +124,17 @@
 			       
 			       // execute the request
 			       request.execute(function(response) {
-			    	  //var page = 1;
+			    
 			          var aa = response.result;
 			          console.log(aa);
 			          $("#aa").html("");
 			          
 			          $.each(aa.items, function(index, item) {
-			        	  /* $(window).scroll(function() {
-			                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			                    console.log(++page);
-			                     */
+			        	
 			            $.get("../resources/tpl/item.html", function(data) {
 			                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 			            });
-			            
-			            /*  }
-			                     
-			              });  */
+			        
 			          });
 			         resetVideoHeight();
 			       });
@@ -164,17 +158,7 @@
 				document.getElementById("search").append(text);
 			}
 		   
-		   ///////////////////////////Drag and Drop////////////////////////////////////////
-		
-	        /*  function allowDrop(e) {
-			   console.log('allowDrop 들어옴');
-			   
-	        	e.preventDefault();
-	        	e.dataTransfer.setData("text/plain", e.target.id);
-	        	e.dropEffect = "move";
-	        }  */
-	        
-	        //var videoPlayer;
+		  
 	        function handleDragStart(e) {
 	        	console.log(' handleDragStart 들어옴');
 	        	
@@ -186,7 +170,7 @@
 	        	
 	        	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
 	        	 e.dataTransfer.setData("text", front+ zzz +back);  
-	            //videoPlayer = document.getElementById(event.target.id);
+	           
 	        }
 
 			//============= 지도 ====================================

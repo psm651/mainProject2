@@ -12,15 +12,7 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-     -->
+
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -56,14 +48,7 @@
   <script src="/resources/js/main.js"></script>
  
    
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<!-- <style>
-		body {
-            padding-top : 50px;
-        }
-    </style>
-     -->
-     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	
 	<script type="text/javascript">
 	
 		//============= "수정"  Event 연결 =============
@@ -82,7 +67,6 @@
 			});	
 		
 
-		///////////////////////////////////////////////////////////////////////
 		function fncdeleteUser() {
 			var userId=$("#userId").val();
 			
@@ -144,7 +128,7 @@
 		<!-- form Start /////////////////////////////////////-->
 	    
  	</div>
-	<!--  화면구성 div Start /////////////////////////////////////-->
+
  	</div>
  	</div>
  	</div>

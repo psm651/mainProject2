@@ -70,14 +70,6 @@
    
    
    
-      
- /*  #javaKing{
-     width : 50px;
-     height : 50px;
-     background-image : url("/resources/images/${post.userImage}");
-     background-size : cover;
-     border-radius: 100px;
-  } */
   .p-4{
   }
   .p-4 .heart{
@@ -391,7 +383,6 @@ body {
 		  			$("#currentWeather").text(data["weather"].currentWeather);
 		  			$("#cityName").text(data["weather"].cityName);
 		  		
-		  			//alert("::::"+data.weatherCode);
 		  			
 		  			if(data.weatherCode==2){
 		  				$("#weatherImage").empty();
@@ -437,10 +428,7 @@ body {
 <!-- ToolBar Start /////////////////////////////////////-->
    <jsp:include page="/layout/toolbar.jsp" /> 
       <!-- ToolBar End /////////////////////////////////////-->
-<!-- 툴바 인클루드 시작! -->
-  
 
- <!--    <div class="slide-one-item home-slider owl-carousel"> -->
      
       <div class="site-blocks-cover" style="background-image: url(/resources/images/main.jpg); width:100%; height:80%;" data-aos="fade" data-stellar-background-ratio="0.5">
 
@@ -487,7 +475,7 @@ body {
 			</div>
 				
 		
-			   <!-- <div class="weather-icon sun"></div> -->
+		
 			   
        			 <strong><h3 id="temperature">${weather.temperature}℃</h3></strong>
         		<span id="currentWeather" style="margin-left:20px;color:white;">${weather.currentWeather}</span>
@@ -511,81 +499,7 @@ body {
     </div>
 
 
-    <%-- <div class="featured-classes bg-light py-5 block-13">
-      <div class="container">
-        
-        <div class="heading-with-border">
-          <h2 class="heading text-uppercase">임박한 소모임</h2>
-        </div>
-
-        <div class="nonloop-block-13 owl-carousel">
-          
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid meeting">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid meeting">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_1.jpg" alt="Image" class="img-fluid meeting">
-            <div class="p-4">
-              <h3 class="h5 heading" >${post.title}</h3>
-                  
-             <input type="hidden" name="postNo" value="${post.postNo}"/> 
-         
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="/resources/images/img_2.jpg" alt="Image" class="img-fluid meeting">
-            <div class="p-4">
-              <h3 class="h5 heading">${post.title}</h3>
-              
-              <input type="hidden" name="postNo" value="${post.postNo}"/> 
-              
-              <p>${post.contents}</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>${post.nickName}</span>
-              </span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div> --%>
-
-
+    
 
 
 <!-- 날씨별 운동추천 -->
@@ -705,20 +619,9 @@ body {
                           
                           </div>
                          <span>&nbsp;&nbsp;${post.nickName}</span>
-                         <!-- <span class="d-flex align-items-center" style="width:100px; padding-left:200px; padding-bottom:100px; float:left">
-	                       		<img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:10px;">
-	                       </span> -->
+                       
                        </span>
-                       
-                       
-                  <%-- <div class="p-4 col-md-4"> -->
-                   <div class="likeImage">
-                      <img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
-                   </div>
-                   <div class="likeCount" style="margin-left:38px">
-                      <h5>${post.likeCount}</h5>
-                   </div> 
-                </div> --%>
+            
                 
                 </div>
                 </div>
@@ -771,7 +674,7 @@ body {
                        </div>
                     
                        <input type="hidden" name="postNo" value="${post.postNo}"/> 
-                       <!-- <p></p> -->
+               
                        <span class="d-flex align-items-center">
                           <div id="userInfo">
                              <c:if test="${post.userImage != null and post.userImage != '' }">
@@ -785,14 +688,7 @@ body {
                          <span>&nbsp;&nbsp;${post.nickName}</span>
                        </span>
                        
-                  <%-- <div class="p-4 col-md-4"> -->
-                   <div class="likeImage">
-                      <img src="../resources/images/fullHeart.png" style="width: 25px; margin-left:30px; margin-top:30px">
-                   </div>
-                   <div class="likeCount" style="margin-left:38px">
-                      <h5>${post.likeCount}</h5>
-                   </div> 
-                </div> --%>
+                  
                 
                 </div>
                 </div>
@@ -803,175 +699,8 @@ body {
 
       </div>
     </div>
+
     
-<!-- 
-     <div class="site-section bg-light">
-
-      <div class="container">
-        
-        <div class="heading-with-border text-center mb-5">
-          <h2 class="heading text-uppercase">Experts Trainer</h2>
-        </div>
-
-          <div class="row">
-
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="/resources/images/person_4.jpg" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Jonah Smith</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="/resources/images/person_3.jpg" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Jonah Smith</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="/resources/images/person_4.jpg" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Jonah Smith</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="/resources/images/person_3.jpg" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Jonah Smith</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="/resources/images/person_2.jpg" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Jonah Smith</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="/resources/images/person_1.jpg" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Jonah Smith</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-      </div>
-      
-    </div> --> 
-    
-    <!-- <footer class="site-footer">
-      <div class="container">
-        
-
-        <div class="row">
-          <div class="col-lg-7">
-            <div class="row">
-              <div class="col-6 col-md-4 col-lg-8 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4 text-primary">About</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat quos rem ullam, placeat amet sint vel impedit reprehenderit eius expedita nemo consequatur obcaecati aperiam, blanditiis quia iste in! Assumenda, odio?</p>
-                <p><a href="#" class="btn btn-primary pill text-white px-4">Read More</a></p>
-              </div>
-              <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4 text-primary">Quick Menu</h3>
-                <ul class="list-unstyled">
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Approach</a></li>
-                  <li><a href="#">Sustainability</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Careers</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="row mb-5">
-              <div class="col-md-12"><h3 class="footer-heading mb-4 text-primary">Contact Info</h3></div>
-              <div class="col-md-6">
-                <p>New York - 2398 <br> 10 Hadson Carl Street</p>    
-              </div>
-              <div class="col-md-6">
-                Tel. + (123) 3240-345-9348 <br>
-                Mail. usa@youdomain.com
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12"><h3 class="footer-heading mb-4 text-primary">Social Icons</h3></div>
-              <div class="col-md-12">
-                <p>
-                  <a href="#" class="pb-2 pr-2 pl-0"><span class="icon-facebook"></span></a>
-                  <a href="#" class="p-2"><span class="icon-twitter"></span></a>
-                  <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  <a href="#" class="p-2"><span class="icon-vimeo"></span></a>
-
-                </p>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-            Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
-            </p>
-          </div>
-          
-        </div>
-      </div>
-    </footer> -->
   </div>
 
   

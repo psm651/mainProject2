@@ -6,40 +6,15 @@
 <html lang="ko">
 <head>
 
-<!-- <title>Insert title here</title> -->
-
-<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-
-<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
-	
-<!--  -->
-<!--  <script src="/resources/js/jquery-3.3.1.min.js"></script>
-  <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="/resources/js/jquery-ui.js"></script>
-  <script src="/resources/js/popper.min.js"></script>
-  <script src="/resources/js/bootstrap.min.js"></script>
-  <script src="/resources/js/owl.carousel.min.js"></script>
-  <script src="/resources/js/jquery.stellar.min.js"></script>
-  <script src="/resources/js/jquery.countdown.min.js"></script>
-  <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/js/aos.js"></script>
-  <script src="/resources/js/main.js"></script> -->
 	
     <title>ReplyforMeeting</title>
     
-  <!--   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-
+ 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <!-- <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/resources/css/animate.css">
@@ -76,21 +51,12 @@
         $.ajax({
             url : '/reply/json/listReply/'+postNo,
             type : 'get',
-           // data : {'postNo':postNo},
             success : function(JSONData){
             	formflag = true;
                  var a =''; 
                  $.each(JSONData, function(i){
                 	var list = JSONData[i];
-                	//////////////골뱅이태그 위해 추가//////////////
-                	/* var prsTarget = list.text;
-                	if(prsTarget.indexOf("@") != -1){
-                		
-                		var prsArray = prsTarget.split('@');
-                		var prsArrayPost = prsArray[1].split(' ');
-                		prsArrayPost
-                	} */
-      				/////////////골뱅이태그 위해 추가//////////////
+                	
                 	if(list.deleteStatus == 1){
                 		list.text = "삭제된 댓글입니다.";
                 	}
@@ -110,7 +76,7 @@
                     a += '<div class="replyArea'+list.reReplyNo+'" style="border-bottom:1px solid darkgray; margin-top: 15px;">';
                     a += '<div class="replyInfo'+list.reReplyNo+'">'+' <b>'+list.nickname+'</b>';
                     a += '<div style="float: right">';
-                    //a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"> 수정 </a>';
+                   
                     if(list.writerId == '${user.userId}'){
                     a += '<a onclick="replyUpdate('+list.replyNo+',\''+list.text+'\');"  id="updateButton'+list.replyNo+'"> <img src="/resources/images/pencil.png" height="20px"></a>';
                     a += '<a onclick="replyDelete('+list.replyNo+');"> <img src="/resources/images/bin.png" height="20px"></a>';
@@ -151,7 +117,6 @@
             url : '/reply/json/addReply/'+postNo,
             type : 'post',
             data : JSON.stringify({
-            			//writerId : 'user3',														////////하드코딩 수정(-----------);;;;;;;;;;;;;;;;;;
             			postNo: postNo,
             			text: $('[name=content]').val()
             			}),
@@ -179,7 +144,6 @@
             type : 'post',
             data : JSON.stringify({
             			parentReplyNo : parentReplyNo,
-            			//writerId : 'user3',														////////하드코딩 수정(-----------);;;;;;;;;;;;;;;;;;
             			postNo: postNo,
             			text: $('[name=contentReRe]').val()
             			}),
@@ -226,7 +190,6 @@
     //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
     function replyUpdate(replyNo, text){
     	if(formflag == false){
-    		//alert("다른 댓글 작성 중입니다.");
     		swal(
     				'다른 댓글 작성 중',
     				'다른 댓글 작성 완료 후 수정가능합니다.',
@@ -242,7 +205,6 @@
         a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="replyList();"><img src="/resources/images/cancel.png" width="30px"></button> </span>';		//취소버튼
         a += '</div>';
         
-       // $('.replyContent'+cno).html(a);
         $('.replyContent[name='+replyNo+']').html(a);
         $('#content').attr('disabled', true).attr('placeholder',"댓글 수정 완료 후 입력가능합니다.");
         formflag = false;
@@ -264,7 +226,6 @@
         a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="replyList();"><img src="/resources/images/cancel.png" width="30px"></button> </span>';    //취소버튼
         a += '</div>';
         
-       // $('.replyContent'+cno).html(a);
         $('.replyContent[name='+replyNo+']').append(a);
         $('#content').attr('disabled', true).attr('placeholder',"답글 작성 완료 후 입력가능합니다.");
         formflag = false;
@@ -286,18 +247,6 @@
     }
     
   function fullSirenReply(replyNo){
-        
-        /* $.ajax({
-              url : '/claim/json/addClaim/'+'${post.postNo}',
-              type : "GET",
-              success : function(data){
-            	  popWin 
-                  = window.open("../schedule/addExSchedule?date="+date.format(),
-                                       "popWin", 
-                                       "left=100,top=200,width=580,height=330,marginwidth=0,marginheight=0,"+
-                                       "scrollbars=no,scrolling=no,menubar=no,resizable=no");
-              	}
-              }); */
               
 	   popWin 
        = window.open("/claim/addClaimReply?targetNo="+replyNo+"&menu=reply",
@@ -325,9 +274,7 @@
     </script>
 </head>
 <body>
-<!-- ///////////////////////////////////////////////// AJAX ///////////////////////////////////////////////// -->
-<!-- <div class="container"> -->
-       <!--  <label for="content">reply</label> -->
+
         <form name="replyInsertForm"  id="replyInsertHere">
             <div class="input-group">
                <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요."  onkeypress="if(window.event.keyCode=='13'){replyInsert()}">
@@ -336,65 +283,14 @@
                </span>
               </div>
         </form>
-   <!--  </div> -->
+
     
     <div class="container replyListHere">
         <div class="replyList"></div>
      </div>
-<!-- </div> -->
 
-<!-- ////////////////////////////////////////////// 그냥 컨트롤러 //////////////////////////////////////////// -->
-<%--   <c:set var="i" value="0" />
-	<c:forEach var="reply" items="${list}">
-	  <c:if test = "${reply.reReplyNo == 0}"> 
-	<div class="media" >
-  <img class="media-object" src="../resources/images/1111.jpg"  height="100px"  alt="Generic placeholder image">
-    <div class="media-body"   >
-    <h5 class="mt-0" >${reply.writerId} ::::::::::::replyNo:: ${reply.replyNo} & rereplyNo :: ${reply.reReplyNo}</h5>
-    <p> ${reply.text} </p>
-  </div>
-  </div>
-  <br/>
-</c:if>
-<c:if test = "${reply.reReplyNo != 0}">
-<p id="parent"  value="${reply.parentReplyNo}"></p>
-</c:if>
-
- 
-</c:forEach>  --%>
 
 <div id="getReplyHere"></div>
-
-<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
-<%-- <c:set var="i" value="0" />
-<c:forEach var="reply" items="${list}">
-<c:if test = "${reply.reReplyNo == 0}"> 
-<div class="media">
-  <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
-  <div class="media-body">
-    <h5 class="mt-0">${reply.writerId} ::::::::::::replyNo:: ${reply.replyNo} & rereplyNo :: ${reply.reReplyNo}</h5>
-    ${reply.text}
- </c:if>
-	
-	<c:if test = "${reply.reReplyNo != 0}">
-    <div class="media mt-3">
-      <a class="pr-3" href="#">
-        <img src=".../64x64" alt="Generic placeholder image">
-      </a>
-      <div class="media-body">
-        <h5 class="mt-0">${reply.writerId} ::::::::::::::: replyNo:: ${reply.replyNo} & parentNo :: ${reply.parentReplyNo} & rereplyNo :: ${reply.reReplyNo} </h5>
-        ${reply.text}
-      </div>
-    </div>
-    </c:if>
-    
-    <c:if test = "${reply.reReplyNo == 0}"> 
-  </div>
-</div>
-</c:if>
-    
-</c:forEach> --%>
-<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 </body>
 </html>

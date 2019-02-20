@@ -220,7 +220,7 @@ img{
 
             	console.log("세션에서 받은 이미지: "+"${sessionScope.user.userImage}");
                 //div 태그를 만들어 텍스트를 msg로 지정을 한뒤 #chat_box에 추가를 시켜준다.
-                //$('<div><p></p></div>').text(msg.name+": "+msg.msg+"   "+msg.rt).appendTo(".received_msg");
+                
                 
                 if(msg.name != "${sessionScope.user.nickName}" && msg.img != "" && msg.img != null ){
                 	console.log("111111")
@@ -269,8 +269,6 @@ img{
     </div></div>
   
 
-<!-- <script src="https://192.168.0.39:443/socket.io/socket.io.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
 
 <video playsinline autoplay muted></video>
 

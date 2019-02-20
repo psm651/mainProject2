@@ -35,14 +35,14 @@
       position:relative;
       }
         
-.label {
-  display: inline-block;
-  margin: 0 5px 20px;
-  padding: 3px 8px;
-  color: #aaa;
-  text-shadow: 0 1px black;
-  border-radius: 3px;
-  cursor: pointer;
+	.label {
+  	display: inline-block;
+  	margin: 0 5px 20px;
+  	padding: 3px 8px;
+  	color: #aaa;
+  	text-shadow: 0 1px black;
+  	border-radius: 3px;
+  	cursor: pointer;
 }
        
    </style>
@@ -124,14 +124,6 @@ $(function(){
 
 });//end of function
 
-/* 
-//////////////////////////////////////달력////////////////////////////////
-// Initialization
-$('#bmiDatepicker').datepicker({inline : false})
-//Access instance of plugin
-$('#bmiDatepicker').data('datepicker') 
- */
-////////////////////////////////////달력달력///////////////////////////////////
 $(function(){
 	$('#bmiDatepicker').datepicker({
 		autoClose: false,
@@ -143,12 +135,6 @@ $(function(){
 });
 
 $('#bmiDatepicker').data('datepicker');
-////////////////////////////////////달력달력///////////////////////////////////
-
-
-
-
- 
 
    
 $(function(){
@@ -277,21 +263,6 @@ $(function(){
 	   </div>	
 	   
 	   
-	   
-	   
-	   
-	   
-<!-- 	<div class="container">
- 
-
-  <div class="progress">
-    <div class="progress-bar"></div>
-  </div>
-</div>
-	    -->
-	   
-	   
-	   
   		<div class="progress" style="width:525px">
     		<div class="progress-bar" id="1" style="width:20%;background-color:#f0ad4e;">저체중</div>
     		<div class="progress-bar" id="12" style="width:30%">정상</div>
@@ -310,15 +281,6 @@ $(function(){
   <label for="onehundred" class="label" style="margin-left:133px">30</label>  		
 
 	 </div>
-	   
-<!--  <div id="draggable">	
-	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon" onclick="">	   
-	<iframe id="iframe" src="/calculator/bmiCalculator.jsp"></iframe>
-</div> -->
-<!-- <img src="image.jpg" onclick="window.open('welcome.html')">  -->
-	   
-
-	   
 	   
 </body>
 
