@@ -85,7 +85,8 @@
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			$("#cancle").on("click" , function() {
-				self.location = "/"
+				self.close();
+				//self.location = "/"
 			});
 		});	
 		
@@ -193,7 +194,7 @@
 			    params = $("#snsForm").serializeArray();
 			    var properJsonObj = jQFormSerializeArrToJson(params);
  
-			    alert(JSON.stringify(properJsonObj));
+			   // alert(JSON.stringify(properJsonObj));
 		       	 $.ajax({
 		            url : "/user/json/addSNSUser",
 		            method : "POST" ,

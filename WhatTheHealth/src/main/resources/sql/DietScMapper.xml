@@ -43,7 +43,7 @@
 	 <insert 	id="addMeal"		parameterType="com.wthealth.domain.Food" >
 	 	INSERT
 		INTO meal( meal_no, diet_sc_no, food_name, food_calorie, amount_food) 
-		VALUES  (seq_meal_meal_no.NEXTVAL , #{dietScNo} , #{foodName}, #{foodCalorie}, #{amountFood} )
+		VALUES  (seq_meal_meal_no.NEXTVAL , #{dietScNo} , #{foodName}, #{foodCalorie}, #{amountFood})
 	 </insert>
 	 
 	 <insert   id="addBmi"    parameterType="com.wthealth.domain.BMI">
@@ -74,14 +74,8 @@
 		WHERE diet_sc_no = #{dietScNo}
 	 </select>
 	 
-	<!--  <select 	id="getMeal"	 parameterType="int"	 resultMap="dietScSelectMap">
-		SELECT
-		food_name, food_claorie, amount_food
-		FROM meal
-		WHERE diet_sc_no = #{dietScNo}
-	 </select>
-	  -->
-	 	  <!--  SQL : UPDATE-->
+
+	  <!--  SQL : UPDATE-->
 	 <update	id="updateDietSchedule"	parameterType="com.wthealth.domain.DietSchedule"  >
 	   	UPDATE diet_sc
 	   	<set>

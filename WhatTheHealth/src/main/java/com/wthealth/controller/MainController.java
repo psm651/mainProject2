@@ -68,18 +68,13 @@ public class MainController {
     
       Map<String, Object> exCom= communityService.listExComRecom(search);   
       Map<String, Object> dietCom = communityService.listDietComRecom(search);
-      // Map<String, Object> meeting = meetingService.listMeeting(search);
+ 
                 
       //날씨별 운동추천 프로그램  
       String mainCityName = "Seoul";
       Map<String, Object> weatherRecom = exInfoService.listWeatherRecom(mainCityName);
       
-      Page resultPageForExCom = new Page(search.getCurrentPage(), ((Integer)exCom.get("totalCount")).intValue(),pageUnit, pageSize); 
-	  System.out.println("resultPageForExCom" + resultPageForExCom);
-	  
-	  Page resultPageForDietCom = new Page(search.getCurrentPage(), ((Integer)dietCom.get("totalCount")).intValue(),pageUnit, pageSize); 
-	  System.out.println("resultPageForDietCom" + resultPageForDietCom);
-	  
+
 	  
 	  model.addAttribute("weather", weatherRecom.get("weather"));
 	  model.addAttribute("weatherList", weatherRecom.get("weatherRecom"));
@@ -87,34 +82,13 @@ public class MainController {
 	  
 	  model.addAttribute("exComList", exCom.get("exComList"));
 	  model.addAttribute("dietComList", dietCom.get("dietComList"));
-	  model.addAttribute("resultPageForExCom", resultPageForExCom);
-	  model.addAttribute("resultPageForDietCom", resultPageForDietCom);
+
 	  model.addAttribute("search", search);
       
       return "main.jsp";
    }
    
-   @RequestMapping(value="listSearchMain", method=RequestMethod.GET)
-   public String listSearchMain(@ModelAttribute Search search, Model model) throws Exception{
-      
-      if(search.getCurrentPage()==0) {
-         search.setCurrentPage(1);
-      }
-      search.setPageSize(1);
-      
-      //Business Logic
-      Map<String, Object> map = mainService.listSearchMain(search);
-      
-      Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-      
-      //MV
-      model.addAttribute("list", map.get("list"));
-      model.addAttribute("resultPage", resultPage);
-      model.addAttribute("search", search);
-      
-      return "forward:/main/listSearchMain.jsp";
-         
-   }
+
 
    @RequestMapping(value="profileUpload")
     public void profileUpload(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception{

@@ -6,6 +6,8 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
+	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 .fc-day-grid-event fc-h-event fc-event fc-start fc-end{
@@ -576,7 +578,8 @@ $('.action-button:contains("Save")').on('click', function(e){
 			$('#exScName').val('');
 		  	$('#exScContents').val('');
 		  	$('#exScCalorie').val('');
-		  	alert("등록완료")
+		  	//alert("등록완료")
+		  	swal("스케줄이 등록되었습니다", "", "success");
 		});
 		
 /////////exEventSc 버튼
@@ -589,7 +592,7 @@ $('.action-button:contains("Save")').on('click', function(e){
 		var exScContents = $("#exScContents").val();
 		var exScCalorie = $("#exScCalorie").val();
 		var exScNo =$("#exScEventNo").val();
-		//alert("수정ㅇㅇㅇ::::: "+exScNo);
+		
 	        $.ajax( {
 	          url : '/schedule/json/updateExSchedule',
 	          dataType: "json",
@@ -607,7 +610,7 @@ $('.action-button:contains("Save")').on('click', function(e){
    		     
 	          }),
 	  	   success: function( data ) {
-	  			alert("수정 완료");
+	  		 	swal("수정되었습니다", "", "success");
       		  } 
 	        } );
 	   
@@ -635,7 +638,7 @@ $('.action-button:contains("Save")').on('click', function(e){
 	  		 $('#calendar').fullCalendar(
 	  		        'removeEvents', exScNo //or something like that
 	  		    );
-     		alert("삭제 완료");
+	  		swal("삭제되었습니다", "", "success");
 	  	 }
 	  	} );
 	   } );
@@ -649,7 +652,6 @@ $('.action-button:contains("Save")').on('click', function(e){
 		var exScContents = $("#exScEventContents").val();
 		var exScCalorie = $("#exScEventCalorie").val(); */
 		var dietScNo =$("#dietScEventNo").val();
-		alert(dietScNo);
 		
 	        $.ajax( {
 	          url: "/schedule/json/deleteDietSchedule/"+dietScNo,
@@ -662,7 +664,7 @@ $('.action-button:contains("Save")').on('click', function(e){
 	  		 $('#calendarr').fullCalendar(
 	  		        'removeEvents', dietScNo //or something like that
 	  		    );
-     		alert("삭제 완료");
+	  		swal("삭제되었습니다", "", "success");
 	  	 }
 	  	} );
 	   } );

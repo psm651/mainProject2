@@ -66,7 +66,6 @@
 		          // append 메소드를 사용해서 이미지 추가
 		         // 이미지는 base64 문자열로 추가
 		         // 이 방법을 응용하면 선택한 이미지를 미리보기 할 수 있음
-		       alert(rst.target.result);
 		      	 $("#profile-image1").remove();
 		          $("#j").append('<img alt="User Pic" src='+rst.target.result+' id="profile-image1" class="img-circle img-responsive">');
 		         
@@ -82,42 +81,53 @@
 
 	 	// Form 유효성 검증
 		var nickName = $("input[name='nickName']").val();
-
 		var email = $("input[name='email']").val();
-	
+		var password = $("#password").val();
+		var password2 = $("input[name='password2']").val();
+		
+
 		if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			alert("이메일 형식이 아닙니다.");
+			swal("이메일 형식이 아닙니다.", "", "error");
+			return;
     	}
 	
 		if(nickName == null || nickName.length <1){
-			alert("닉네임은  반드시 입력하셔야 합니다.");
+			swal("닉네임은  반드시 입력하셔야 합니다.", "", "error");
 			return;
 		}
 	
-            	   
+ 
+		if( password != password2 ) {			
+			swal("비밀번호를 확인해주세요", "비밀번호 확인이 일치하지 않습니다", "error");
+			$("input:text[name='password2']").focus();
+			$("#checkPW").css("color","red")
+			return;
+		}
+		
 		$("form").attr("method" , "POST").attr("action" , "/adminManage/updateUserAdminManage").submit();
 	 }
 
- 	function resetData() {
-		document.detailForm.reset();
-	 }
+ 	
 
  	$(function(){
 
-		 $("button:contains('수정')").on("click", function(){
-	
+ 		 $('#cancle').on("click", function(){
+ 			history.go(-1);
+ 		 })
+ 		
+		 $(".btn-primary").on("click", function(){
 			 fncUpdateUser();
 		 });
 	 
  	});
  
  	 function CheckNickname(){
-        
+     
          var usedNickname = $("#usedNickname").val();
-       	 	console.log(usedNickname);
+   
        	 
          if(usedNickname !=  $("input[name='nickName']").val() ){
-        	console.log("들어왔다")
+      
          $.ajax( 
                
                {
@@ -136,16 +146,17 @@
                      
                      if(JSONData){
 
-                        $("#checkNicName").css("color","green")
+                        $("#checkNickname").css("color","green")
                      }
                      
                      if(!JSONData){
                         //alert("이미 존재하는 ID입니다.")
-                        $("#checkNicName").css("color","red")
+                        $("#checkNickname").css("color","red")
                      }
                   }                     
          
             });
+        	
          } 
          if(usedNickname ==  $("input[name='nickName']").val() ){
             $("#checkNickname").css("color","green")
@@ -158,7 +169,7 @@
 </head>
 
 <body>
-	<input type="hidden" id="usedNickname" value="${sessionScope.user.nickName }"/>
+	<%-- <input type="hidden" id="usedNickname" value="${sessionScope.user.nickName }"/> --%>
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
@@ -281,8 +292,8 @@
 		  
 		  <div class="form-group">
 		    <div class="col-md-10 mb-3 mb-md-2 text-center">
-		      <button type="button" class="btn btn-primary"  >수 &nbsp;정</button>
-			  <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
+		      <button type="button" class="btn btn-primary" >수 &nbsp;정</button>
+			  <a class="btn btn-primary btn" href="#" role="button" id="cancle">취 &nbsp;소</a>
 		    </div>
 		  </div>
 		</form>
