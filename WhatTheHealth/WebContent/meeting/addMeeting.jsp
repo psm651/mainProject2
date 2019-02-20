@@ -586,11 +586,7 @@
                 <div class="col-md-12 mb-5 mb-md-0">
                 	<input type="text" class="form-control" id="post.title" name="post.title" placeholder="글 제목을 입력해주세요.">
                 </div>
-                <!-- <div class="col-md-1 mb-5 mb-md-0">
-              	    <button type="button" class="btn btn-default btn-sm">
-         			 <span class="glyphicon glyphicon-map-marker"></span> 지도
-     			   </button>
-     			 </div> -->
+  
               </div>
 
 			 <div class="row form-group"  id="depoPostiveHere">
@@ -603,40 +599,7 @@
 				<input type="radio"   name="depoCondition"  value="0"  id="depoNegative">선금없음
 				 </div> 
 			</div>
-			<!-- //////////////////////////////////////////////선금있음 시 다 동적으로 처리////////////////////////////////////////////// -->
-			<!-- <div class="row form-group">
-				<div class="col-md-2 mb-5 mb-md-0">
-					&nbsp;
-				</div>
-				<div class="col-md-5 mb-5 mb-md-0">
-                	선금금액 <input type="text" class="form-control" id="depoAmount" name="depoAmount"  placeholder="선금금액을 입력해주세요.">
-                </div>
-                <div class="col-md-5 mb-5 mb-md-0">
-                	입금마감기한 <input type="text" class="form-control" id="depoDeadline" name="depoDeadline"  placeholder="">
-                </div>
-			</div>
 			
-			<div class="row form-group">
-				<div class="col-md-2 mb-5 mb-md-0">
-					&nbsp;
-				</div>
-				<div class="col-md-2 mb-5 mb-md-0">
-                	은행명 <input type="text" class="form-control" id="depoBank" name="depoBank"  placeholder="은행명">
-                </div>
-                <div class="col-md-0.5 mb-5 mb-md-0">
-					&nbsp;
-				</div>
-                <div class="col-md-2 mb-5 mb-md-0">
-                	예금주 <input type="text" class="form-control" id="depoAccHolder" name="depoAccHolder"  placeholder="예금주">
-                </div>
-                <div class="col-md-1 mb-5 mb-md-0">
-					&nbsp;
-				</div>
-                <div class="col-md-5 mb-5 mb-md-0">
-                	계좌번호 <input type="text" class="form-control" id="depoAccount" name="depoAccount"  placeholder="계좌번호를 입력해주세요.">
-                </div>
-			</div> -->
-			<!-- //////////////////////////////////////////////선금있음 시 다 동적으로 처리////////////////////////////////////////////// -->
 			<div class="row form-group"  id="feePostiveHere">
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">참가비</label>
@@ -648,16 +611,7 @@
 			   </div>
 				
 			</div>
-			<!-- //////////////////////////////////////////////참가비 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
-			<!-- <div class="row form-group"  id="feePosiAppend">
-				<div class="col-md-2 mb-5 mb-md-0">
-					&nbsp;
-				</div>
-				<div class="col-md-5 mb-5 mb-md-0">
-                	참가비금액 <input type="text" class="form-control" id="entryfee" name="entryfee"  placeholder="참가비금액을 입력해주세요.">
-                </div>
-             </div> -->
-             <!-- //////////////////////////////////////////////참가비 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
+		
              
              <div class="row form-group"  id="prtLimitPositiveHere">
 			 	<div class="col-md-2 mb-5 mb-md-0">
@@ -669,19 +623,7 @@
 				<input type="radio"  name="prtLimitCheck"  id="prtLimitNegative">제한없음
 				 </div> 
 			</div>
-			<!-- //////////////////////////////////////////////인원정원 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
-			<!-- <div class="row form-group">
-				<div class="col-md-2 mb-5 mb-md-0">
-					&nbsp;
-				</div>
-				<div class="col-md-5 mb-5 mb-md-0">
-                	최소인원 <input type="text" class="form-control" id="minParty" name="minParty"  placeholder="최소인원 수를 입력해주세요.">
-                </div>
-                <div class="col-md-5 mb-5 mb-md-0">
-                	최대인원 <input type="text" class="form-control" id="maxParty" name="maxParty"  placeholder="최대인원 수를 입력해주세요.">
-                </div>
-			</div> -->
-			<!-- //////////////////////////////////////////////인원정원 있음 시 다 동적으로 처리////////////////////////////////////////////// -->
+			
 			<div class="row form-group">
 			 	<div class="col-md-2 mb-5 mb-md-0">
                   <label class="font-weight-bold" for="fullname">시간/ 장소</label>
@@ -695,8 +637,7 @@
     			<!-- ////////////////// 달려어어어억 ///////////////// -->
                 </div> 
                 <div class="col-md-5 mb-5 mb-md-0">
-                	모임장소 <!--  <input type="text" class="form-control" id="title" name="title"  placeholder="최대인원 수를 입력해주세요."> -->
-                <!-- 	<div class="col-md-1 mb-5 mb-md-0"> -->
+                	모임장소 
               	    &nbsp; &nbsp;
               	    
               	    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mapModal" id="standard">
@@ -716,11 +657,7 @@
               <input type="submit" value="등록" onclick = "return fncAddMeeting()" class="form-control btn btn-danger">
 			<input type="cancel" value="취소" onclick = "resetData()" class="form-control btn btn-dark">
              
-              <!-- <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Send Message" class="btn btn-primary pill px-4 py-2">
-                </div>
-              </div> -->
+             
 			 </form>
 		
           </div>

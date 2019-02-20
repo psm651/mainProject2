@@ -13,14 +13,7 @@
 	<meta charset="UTF-8">
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
- -->
+
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -56,24 +49,10 @@
   <script src="/resources/js/main.js"></script>
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
    
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-<!-- 	<style>
-		body {
-            padding-top : 50px;
-        }
-    </style> -->
-    
-     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+
 	<script type="text/javascript">
 	
-		//============= "수정"  Event 연결 =============
-/* 		 $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button.btn.btn-primary" ).on("click" , function() {
-				fncupdatePoint();
-			});
-		});	
-		 */
+
 		
 		 $( function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -81,43 +60,16 @@
 					fnckakaoPay();
 				});
 			});
-		
-		//=============이메일" 유효성Check  Event 처리 =============
-/* 		 $(function() {
-			 
-			 $("input[name='email']").on("change" , function() {
-					
-				 var email=$("input[name='email']").val();
-			    
-				 if(email != "" && (email.indexOf('@') < 1 || email.indexOf('.') == -1) ){
-			    	alert("이메일 형식이 아닙니다.");
-			     }
-			});
-			 
-		});	
-		 */
-		///////////////////////////////////////////////////////////////////////
+
  		function fnckakaoPay() {
 			var point=$("input[name='point']").val();
 			var userId = $("input[name='userId']").val();
 			
 			if(point == null || point.length <1){
-				//alert("충전할 포인트는  반드시 입력하셔야 합니다.");
 				swal("충전할 포인트를 입력해주세요", "충전할 포인트는  반드시 입력해야 합니다", "error");
 				return;
 			}
-			
-			/* popWin 
-			= window.open("/point/kakaoPay?userId="+userId+"&point="+point,
-										"popWin", 
-										"left=300,top=200,width=600,height=600,marginwidth=0,marginheight=0,"+
-										"scrollbars=no,scrolling=no,menubar=no,resizable=no"); */
-				
-			//self.close();	 location.href='abc.php' 
-			//opener.location.replace("/point/kakaoPay.jsp");
-			//popWin.location.href ="/point/kakaoPay.jsp";
-			//$("form").attr("method" , "POST").attr("action" , "/point/kakaoPay").submit();
-			
+
 			
 			IMP.init('imp89029752');
 			
@@ -131,30 +83,7 @@
 			   
 			}, function(rsp) {
 			    if ( rsp.success ) {
-			    	/* //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-			    	jQuery.ajax({
-			    		url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
-			    		type: 'POST',
-			    		dataType: 'json',
-			    		data: {
-				    		imp_uid : rsp.imp_uid
-				    		//기타 필요한 데이터가 있으면 추가 전달
-			    		}
-			    	}).done(function(data) {
-			    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-			    		if ( everythings_fine ) {
-			    			var msg = '결제가 완료되었습니다.';
-			    			msg += '\n고유ID : ' + rsp.imp_uid;
-			    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-			    			msg += '\결제 금액 : ' + rsp.paid_amount;
-			    			msg += '카드 승인번호 : ' + rsp.apply_num;
-			    			
-			    			alert(msg);
-			    		} else {
-			    			//[3] 아직 제대로 결제가 되지 않았습니다.
-			    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-			    		}
-			    	}); */
+			    	
 			    	swal("충전이 완료되었습니다", "", "success");
 			    	var point = rsp.paid_amount;
 			    	
@@ -193,12 +122,7 @@
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
 		
-		<%-- <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">회원</label>
-		    <div class="col-sm-4"> 
-		   	 <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" readonly>
-		     </div>
-		  </div> --%>
+
 		  
 		  <input type="hidden"id="userId" name="userId" value="${user.userId }" />
 		  

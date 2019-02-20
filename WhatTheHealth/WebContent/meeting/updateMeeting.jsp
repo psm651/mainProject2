@@ -110,20 +110,6 @@
       self.location="/meeting/listMeeting";
    }
       
-   //============= "등록"  Event 연결 =============
-    /* $(function() {
-      $( "button.btn.btn-primary" ).on("click" , function() {
-         fncUpdateMeeting();
-      });
-   }); */   
-   
-   
-   //============= "취소"  Event 처리 및  연결 =============
-   /* $(function() {
-      $("a[href='#' ]").on("click" , function() {
-         history.go(-1);
-      });
-   });    */
 
    //============= SummerNote 처리 =============
     $(document).ready(function(){
@@ -366,13 +352,6 @@
          
          ///////////////////////////Drag and Drop////////////////////////////////////////
       
-           /*  function allowDrop(e) {
-            console.log('allowDrop 들어옴');
-            
-              e.preventDefault();
-              e.dataTransfer.setData("text/plain", e.target.id);
-              e.dropEffect = "move";
-           }  */
            
            //var videoPlayer;
            function handleDragStart(e) {
@@ -509,9 +488,7 @@
             <div class="col-md-5 mb-5 mb-md-0">
                    선금금액 <input type="text" class="form-control" id="depoAmount" name="depoAmount" value="${meeting.depoAmount}">
                 </div>
-                <!-- <div class="col-md-5 mb-5 mb-md-0">
-                   입금마감기한 <input type="text" class="form-control" id="depoDeadline" name="depoDeadline"  placeholder="">
-                </div> -->
+   
          </div>
          
          <div class="row form-group">
@@ -521,9 +498,7 @@
             <div class="col-md-2 mb-5 mb-md-0">
                    은행명 <input type="text" class="form-control" id="depoBank" name="depoBank"  value="${meeting.depoBank}">
                 </div>
-               <!--  <div class="col-md-0.5 mb-5 mb-md-0">
-               &nbsp;
-            </div> -->
+
                 <div class="col-md-2 mb-5 mb-md-0">
                    예금주 <input type="text" class="form-control" id="depoAccHolder" name="depoAccHolder"  value="${meeting.depoAccHolder}">
                 </div>
@@ -591,22 +566,21 @@
                   <label class="font-weight-bold" for="fullname">시간/ 장소</label>
                 </div>
             <div class="col-md-5 mb-5 mb-md-0">
-                   모임시간<!--  <input type="text" class="form-control" id="meetTime" name="meetTime"  placeholder="소모임 시간을 입력해주세요."> -->
+                   모임시간
                    <!-- ////////////////// 달려어어어억 ///////////////// -->
                <!--  <input type='text' class='datepicker-here' data-language='en' >  -->
                <input type='text'   class='datepicker-here' data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'  name='meetTime'  value='${meeting.meetTime}'/> 
-               <!--<div class="datepicker-here" data-timepicker="true" data-language='en' id='timepicker-actions-exmpl'></div>  -->
+             
              <!-- ////////////////// 달려어어어억 ///////////////// -->
                 </div> 
                 <div class="col-md-5 mb-5 mb-md-0">
-                   모임장소 <!--  <input type="text" class="form-control" id="title" name="title"  placeholder="최대인원 수를 입력해주세요."> -->
-                <!--    <div class="col-md-1 mb-5 mb-md-0"> -->
+                   모임장소
                      &nbsp; &nbsp;
                      
                      <button type="button" class="btn btn-default btn-sm" class="btn btn-primary" data-toggle="modal" data-target="#mapModal" id="standard">
                    <span class="glyphicon glyphicon-map-marker"></span> 지도
                  </button>
-              <!--  </div> -->
+
                 </div>
                 
          <c:if test="${!empty meeting.post.coordinate}">
@@ -653,12 +627,7 @@
            
           
   <script src="https://apis.google.com/js/client.js?onload=init"></script>            
-      <!-- <div class="form-group">
-          <div class="col-sm-offset-4  col-sm-4 text-center">
-            <button type="button" class="btn btn-primary">수정</button>
-            <a class="btn btn-primary btn" href="#" role="button">취 &nbsp;소</a>
-          </div>
-        </div> -->
+
    
    <!-- Modal -->
   <div class="modal modal-center fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" >

@@ -136,7 +136,6 @@
                 <div class="col-sm-1 col-md-2 col-lg-3"><strong>포인트 용도</strong></div>
                  <div class="col-sm-1 col-md-2 col-lg-3"><strong>충전/사용 포인트</strong></div>
                 <div class="col-sm-1 col-md-2 col-lg-3"><span class="icon-person mr-2"></span><strong>받는 아이디</strong></div>                
-                <!-- <div class="col-sm-1 col-md-2 col-lg-2"><strong>포인트 잔액</strong></div> -->
                 <div class="col-sm-1 col-md-2 col-lg-2"><span class="icon-clock-o mr-2"></span><strong>충전/사용 날짜</strong></div>
               </div>
               
@@ -169,8 +168,7 @@
                	<c:if test="${point.receiverId != null}">
                <span class="icon-person mr-2"></span></c:if>
                ${point.receiverId}</div>
-               
-               <%-- <div class="col-sm-2 col-md-2 col-lg-2">${point.havingPoint}P</div> --%>
+
                <div class="col-sm-2 col-md-2 col-lg-2 text-center">${point.pointDate}</div>
                 	
                 	

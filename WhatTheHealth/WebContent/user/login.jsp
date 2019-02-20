@@ -15,57 +15,6 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 	<script src="/resources/js/bootstrap.min.js"></script>
 
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-  	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script> -->
-	
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-    <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-    <link rel="stylesheet" href="/resources/css/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/css/animate.css">
-    
-    <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
-  
-    <link rel="stylesheet" href="/resources/css/aos.css">
-
-    <link rel="stylesheet" href="/resources/css/style.css">
-	
-	<script src="/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="/resources/js/jquery-ui.js"></script>
-	<script src="/resources/js/popper.min.js"></script>
-	<script src="/resources/js/bootstrap.min.js"></script>
-	<script src="/resources/js/owl.carousel.min.js"></script>
-	<script src="/resources/js/jquery.stellar.min.js"></script>
-	<script src="/resources/js/jquery.countdown.min.js"></script>
-	<script src="/resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="/resources/js/bootstrap-datepicker.min.js"></script>
-	<script src="/resources/js/aos.js"></script>
-	
-	<script src="/resources/js/main.js"></script> -->
-	
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<!-- <style>
-    	 body >  div.container{ 
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
-        }
-    </style> -->
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -73,37 +22,12 @@
 	$(document).ready(function() {
 	       if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
 	            
-	            //alert("${sessionScope.user}");
 	            self.close();
-	            //self.location("/main.jsp");
 	            opener.location.replace("/");
 	         }  
 	    });
 	
 	
-	/*  $(document).ready(
-			function () {
-		
-		 if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
-			 alert("이프문 안 : "+selfClose);
-			 
-		  
-			if(selfClose == 1){
-				//selfClose = true;
-				//alert("${sessionScope.user}");
-				self.close();
-				//self.location("/main.jsp");
-				opener.location.replace("/main.jsp");
-				selfClose = 0;
-				alert("클로즈 되고나서::: "+selfClose);
-			}   
-			if(selfClose == 0){
-				  alert("이프문 안 false로 안꺼짐");
-				 return;
-			 }
-		 }
-		 
-	 }); */
 
 		//============= "로그인"  Event 연결 =============
 		function fncLogin() {
@@ -117,19 +41,15 @@
 				
 			if(id == null || id.length <1) {
 				swal("아이디를 입력해주세요", "", "error");
-				//alert('아이디를 입력하지 않으셨습니다.');
 				$("#modalUserId").focus();
 				return;
 			}
 				
 			if(pw == null || pw.length <1) {
 				swal("비밀번호를 입력해주세요", "비밀번호를 입력하지 않으셨습니다", "error");
-				//alert('패스워드를 입력하지 않으셨습니다.');
 				$("#modalPassword").focus();
 				return;
 			}
-				
-			//$("#loginForm").attr("method","POST").attr("action","/user/login").submit();
 			
 	
 				$.ajax( 
@@ -149,23 +69,19 @@
 								//alert(JSONData)
 								
 								if(JSONData == '111'){
-									//alert("존재하지 않는 회원입니다.");
 									swal("존재하지 않는 회원입니다", "회원가입을 먼저 진행해주세요", "error");
 								}
 								
 								if(JSONData == '222'){
 									swal("아이디 혹은 비밀번호가 틀렸습니다", "아이디 혹은 비밀번호를 다시 확인해주세요", "error");
-									//alert("아이디 혹은 비밀번호가 틀렸습니다.")
 								}
 								
 								if(JSONData == '333'){
 									swal("탈퇴한 회원입니다", "아이디 혹은 비밀번호를 다시 확인해주세요", "error");
-									//alert("탈퇴한 회원입니다.")
 								}
 								
 								if(JSONData == '444'){
 									swal("블랙리스트 처리된 회원입니다", "아이디 혹은 비밀번호를 다시 확인해주세요", "error");
-									//alert("블랙리스트 처리된 회원입니다.")
 								}
 								
 								if(JSONData == '555'){
@@ -221,33 +137,13 @@
 				$("#kakao_login").on("click" , function() {
 					
 					$('#loginModal').hide();
-					//opner.close();
-					//self.location = '/user/kakaoLogin';
+
 					popWin 
 					= window.open("https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://192.168.0.40:8080/user/kakaoLogin&response_type=code",
 												"popWin", 
 												"left=300,top=200,width=550,height=650,marginwidth=0,marginheight=0,"+
 												"scrollbars=no,scrolling=no,menubar=no,resizable=no"); 
-					
-					
-					
-					//location.reload();
-					//location.replace("/");
-					//popWin.close();
-					/* window.location.reload(); */
-				
-					
-					//window.document.getElementById("submit").value = document.getElementById("pInput").value;
-
-					//popWin.get
-					
-					//opener.location.replace("/user/kakaoLogin?code="+popWin.location.href.split("=")[1]);
-					//alert("${sessionScope.user}");
-					 /*  if("${sessionScope.user}" != null && "${sessionScope.user}" !=""){
-						//opener.location.replace("/main.jsp");
-						alert("${sessionScope.user}");
-						popWin.close();
-					}   */ 
+			
 				});
 			});
 		 
@@ -273,22 +169,6 @@
 
 <body>
 
-<%-- <%
-    String clientId = "pCIqZTd6HaEQIsJf1Emo";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://192.168.0.51:8080/user/callBack.jsp", "UTF-8");
-    SecureRandom random = new SecureRandom();
-    String state = new BigInteger(130, random).toString();
-    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-    apiURL += "&client_id=" + clientId;
-    apiURL += "&redirect_uri=" + redirectURI;
-    apiURL += "&state=" + state;
-    session.setAttribute("state", state);
- %> --%>
-
-
-	<!-- ToolBar Start /////////////////////////////////////-->
-<%-- 	<jsp:include page="/layout/toolbar.jsp" /> --%>
-   	<!-- ToolBar End /////////////////////////////////////-->	
 	
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	 <div class="site-section">
@@ -328,16 +208,10 @@
 					    <div class="col-md-12 mb-3 mb-md-2 text-center">
 					      <button type="button" class="btn btn-primary" id="login" >로 &nbsp;그 &nbsp;인</button>
 					      
-					      <!-- <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://127.0.0.1:8080/user/kakaoLogin&response_type=code';" 
-					      src="/resources/images/kakao_login_btn_medium.png"  height="40"> -->
-					      
 					      <img src="/resources/images/kakao_login_btn_medium.png" id="kakao_login" height="40">
 					      
 					      <img id="naver_id_login" src="/resources/images/naver_login_small.png" height="40">
-					    
-					     <!--  <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
-					       <button type="button" class="btn btn-primary" id="findId" >아이디&nbsp;찾기</button>
-					       <button type="button" class="btn btn-primary"  id="findPW" >비밀번호&nbsp;찾기</button> -->
+					   
 					    </div>
 					  </div>
 					  
@@ -349,28 +223,7 @@
 					   </div>
 					   </div>
 					  
-					  
-					  <%-- <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG" align="center"/></a> --%>
-					  
-					 <!-- <div> 
-					  <img id="naver_id_login" src="/resources/images/naver_login.png" height="48">
-					  </div>  -->
-					  <!-- 네이버아이디로로그인 버튼 노출 영역 -->
-					  <!-- <script type="text/javascript">
-					  	var naver_id_login = new naver_id_login("jiCyTgVYMmt5oR1k25iy", "http://192.168.0.16:8080/user/callBack.jsp");
-					  	var state = naver_id_login.getUniqState();
-					  	naver_id_login.setButton("white", 2,40);
-					  	naver_id_login.setDomain("http://192.168.0.16:8080/user/loginView.jsp");
-					  	naver_id_login.setState(state);
-					  	naver_id_login.setPopup();
-					  	naver_id_login.init_naver_id_login();
-					  </script>  -->
-		
-					 
-					 
-<!-- 					  <img onclick="javascript:location.href='https://kauth.kakao.com/oauth/authorize?client_id=11723e59094c12e0f6ad95a132887387&redirect_uri=http://192.168.0.10:8080/user/kakaoLogin&response_type=code';" src="/resources/images/kakao_account_login_btn_medium_narrow.png">
- -->				 
-			
+	
 					</form>
 			   	 </div>
 			

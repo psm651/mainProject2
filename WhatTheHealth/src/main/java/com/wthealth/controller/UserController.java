@@ -144,17 +144,7 @@ public class UserController {
 		}
 		
 		return "redirect:/";
-		
-		/*if(){
-			
-			System.out.println("없는 회원일때");
-			response.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('존재하지 않는 회원입니다.');</script>");
-			out.flush();
-			return "/user/login.jsp";
-			
-		}*/
+
 		
 	}
 		
@@ -426,13 +416,8 @@ public class UserController {
 			PrintWriter out = response.getWriter();	 
 			out.println("<script>alert('탈퇴가 완료되었습니다.');</script>");
 			out.flush();
-		/*	response.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out = response.getWriter();	 
-			out.println("<script>alert('탈퇴가 완료되었습니다.');</script>");
-			System.out.println("asdfasdfasdfasdfasdfasdf");
-			out.flush();*/
-			
-			return "../main.jsp";
+
+			return "/";
 		} else
 			//session.invalidate();
 			System.out.println("탈퇴하기 실패");

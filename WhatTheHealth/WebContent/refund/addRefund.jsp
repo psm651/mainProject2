@@ -13,14 +13,7 @@
 	<meta charset="UTF-8">
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
- -->
+
    
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -54,13 +47,7 @@
   <script src="/resources/js/aos.js"></script>
 
   <script src="/resources/js/main.js"></script>
-   
-	<!--  ///////////////////////// CSS ////////////////////////// -->
-<!-- 	<style>
-		body {
-            padding-top : 50px;
-        }
-    </style> -->
+
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -88,12 +75,7 @@
 				alert("은행명은  반드시 입력하셔야 합니다.");
 				return;
 			}
-			
-			/* if(bankCode == null || bankCode.length <1){
-				alert("은행코드는  반드시 입력하셔야 합니다.");
-				return;
-			} */
-			
+
 			if(accountNum == null || accountNum.length <1){
 				alert("계좌번호는  반드시 입력하셔야 합니다.");
 				return;
@@ -172,13 +154,7 @@
 	    
 	    <!-- form Start /////////////////////////////////////-->
 		<form class="p-5 bg-white">
-		
-		<%-- <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">회원</label>
-		    <div class="col-sm-4"> 
-		   	 <input type="text" class="form-control" id="userId" name="userId" value="${user.userId }" readonly>
-		     </div>
-		  </div> --%>
+
 		  
 		  <input type="hidden"id="userId" name="userId" value="${user.userId}" />
 		  
@@ -190,13 +166,7 @@
 		      <input type="text" class="form-control" id="bankName" name="bankName" value="">
 		    </div>
 		  </div>
-		  
-		  <!-- <div class="form-group">
-		    <label for="point" class="col-sm-4 control-label">은행 코드</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="bankCode" name="bankCode" value="">
-		    </div>
-		  </div> -->
+
 		  <input type="hidden" class="form-control" id="bankCode" name="bankCode">
 		  
 		 <div class="form-group">

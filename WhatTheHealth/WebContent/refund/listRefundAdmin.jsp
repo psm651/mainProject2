@@ -105,16 +105,7 @@
                   	 
                 
              </div>
-             <%-- <div class="col-md-2 mb-2 mb-md-1 text-left text-primary">
-             <form class="form-inline" name="detailForm">
-             	<select class="form-control col-md-10" id="searchFilter" name="searchFilter" onchange="fncGetPageList(1)" >
-						<option value="0"  ${ ! empty search.searchFilter && search.searchFilter==0 ? "selected" : "" }>날짜순</option>
-						<option value="1"  ${ ! empty search.searchFilter && search.searchFilter==1 ? "selected" : "" }>용도별</option>
-					</select>
-				 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-				 </form>			
-             </div> --%>
-             
+
               
                 <div class="col-md-4 mb-5 mb-md-1 text-center"></div>
                 <div class="col-md-3 mb-5 mb-md-1 text-center">

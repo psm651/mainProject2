@@ -259,25 +259,7 @@ public class UserRestController {
 	public int addSNSUser(@RequestBody User user) throws Exception {
 	
 		System.out.println("/user/json/addUser : POST");
-		//String root = multi.getSession().getServletContext().getRealPath("/");
 
-		//System.out.println("들어옴들어옴:: "+root);		
-			//Business Logic
-			/*if(! uploadFile.getOriginalFilename().equals("")) {
-				String filePath = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
-				File file = new File(filePath , uploadFile.getOriginalFilename());
-				uploadFile.transferTo(file); 
-				user.setUserImage(uploadFile.getOriginalFilename());
-				userService.addUser(user);
-				System.out.println("사진 있을 때: "+user.getUserImage());
-			
-			} else if(uploadFile.getOriginalFilename().equals("")) {
-			
-				user.setUserImage("");
-				userService.addUser(user);
-				System.out.println("없을때: "+user.getUserImage());
-			}
-			*/
 		userService.addUser(user);
 			return 1;
 		}
