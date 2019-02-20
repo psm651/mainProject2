@@ -41,7 +41,10 @@
   <script src="/resources/js/main.js"></script>
 
 <style type="text/css">
-
+ 	img{ 
+		max-width:120%;
+    	border-radius: 100px;
+	}
   	input.hidden {
     position: absolute;
     left: -9999px;

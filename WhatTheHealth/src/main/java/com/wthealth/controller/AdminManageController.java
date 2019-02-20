@@ -106,7 +106,7 @@ public class AdminManageController {
 			user.setUserImage(uploadFile.getOriginalFilename());
 			
 		}else{
-			String path = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\upload\\";
+			String path = "C:\\Users\\bit\\git\\mainProject2\\WhatTheHealth\\WebContent\\resources\\images\\userImage\\";
 			File file = new File(path, uploadFile.getOriginalFilename());
 			uploadFile.transferTo(file);
 			user.setUserImage(uploadFile.getOriginalFilename());

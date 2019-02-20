@@ -96,8 +96,13 @@
 			return;
 		}
 	
- 
-		if( password != password2 ) {			
+		if( password == null || password.length<1) {			
+			swal("비밀번호를 입력하지 않으셨습니다.", "비밀번호를 입력해주세요", "error");
+			$("input:text[name='password']").focus();
+			return;
+		}
+		
+		if( password != password2) {			
 			swal("비밀번호를 확인해주세요", "비밀번호 확인이 일치하지 않습니다", "error");
 			$("input:text[name='password2']").focus();
 			$("#checkPW").css("color","red")
@@ -246,7 +251,7 @@
 		   <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="uploadFile" class="font-weight-bold">프로필 사진</label><br/>
 		      <img src="/resources/images/userImage/${user.userImage}" align="middle" height="200"/><br/>
-		      <input type="file" class="form-control" id="uploadFile" name="uploadFile" value="${user.userImage}">
+		      <input type="file" class="form-control" id="uploadFile" name="originalFileName" value="${user.userImage}">
 		    </div>
 		  </div>
 
@@ -283,9 +288,9 @@
 		   <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="userStatus" class="font-weight-bold">계정상태</label>
 		       <select class="form-control" name="userStatus" id="userStatus">
-				  	<option value="일반" >일반</option>
-					<option value="탈퇴" >탈퇴</option>
-					<option value="블랙리스트" >블랙리스트</option>
+				  	<option value="0" >일반</option>
+					<option value="1" >탈퇴</option>
+					<option value="2" >블랙리스트</option>
 				</select>
 		    </div>
 		  </div>
