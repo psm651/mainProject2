@@ -10,10 +10,6 @@ public class Search {
 	private String searchKeyword;
 	private String searchFilter;
 	private int pageSize;
-	///가격 검색 위해 field 추가
-	private String searchPriceFilter;
-	private int lowPrice;
-	private int highPrice;
 	
 	//==> 리스트화면 currentPage에 해당하는 회원정보를 ROWNUM 사용 SELECT 위해 추가된 Field 
 	//==> UserMapper.xml 의 
@@ -72,36 +68,13 @@ public class Search {
 		this.searchFilter = searchFilter;
 	}
 
-	public String getSearchPriceFilter() {
-		return searchPriceFilter;
-	}
-
-	public void setSearchPriceFilter(String searchPriceFilter) {
-		this.searchPriceFilter = searchPriceFilter;
-	}
-
-	public int getLowPrice() {
-		return lowPrice;
-	}
-
-	public void setLowPrice(int lowPrice) {
-		this.lowPrice = lowPrice;
-	}
-
-	public int getHighPrice() {
-		return highPrice;
-	}
-
-	public void setHighPrice(int highPrice) {
-		this.highPrice = highPrice;
-	}
-
 	@Override
 	public String toString() {
 		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
-				+ searchKeyword + ", searchFilter=" + searchFilter + ", pageSize=" + pageSize + ", searchPriceFilter="
-				+ searchPriceFilter + ", lowPrice=" + lowPrice + ", highPrice=" + highPrice + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum + "]";
+				+ searchKeyword + ", searchFilter=" + searchFilter + ", pageSize=" + pageSize + ", endRowNum="
+				+ endRowNum + ", startRowNum=" + startRowNum + "]";
 	}
+
+
 
 }

@@ -80,7 +80,7 @@ public class MainServiceImpl implements MainService {
 	         f.mkdirs();
 	      }
 	      file.transferTo(f);
-	      out.print("http://127.0.0.1:8080/resources/images/upload/"+strFileName);
+	      out.print("http://192.168.0.40:8080/resources/images/upload/"+strFileName);
 	      out.close();
 	}
 	

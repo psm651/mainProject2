@@ -423,17 +423,15 @@ html {
           			
           			
      				<div class="form-group">
-     						<label class="control-label" for="dietScContents">	
+     					<label class="control-label" for="dietScContents">	
 		                	<input type="text" class="form-control" id="searchFood" style="width:220%;height:37px;margin-left:-8%;"placeholder="원하는 음식을 검색하세요"/>
-		                	</label>
-		    				 <button type="button" id="btn-searchFood" class="btn btn-danger" style="left:44%">
+		                </label>
+		    			 <button type="button" id="btn-searchFood" class="btn btn-danger" style="left:44%">
 		    				 <span class="icon-search mr-1" aria-hidden="true"></span> 
-		    				</button>
+		    			</button>
 		    		</div>
-		    		
-		    		
-		    		
-		    		<div class="form-group" id="standard">
+
+    	    		<div class="form-group" id="standard">
 		    		  <div class="row" style="background:#ddd;">
 		    		  	<div class="col-md-9">
 		    		  		<label class="control-label" for="dietScContents" style="padding-top:7px;"><strong>TotalCalorie</strong></label>
@@ -881,6 +879,7 @@ function removeMap(realFoodName){
 $(function(){
 	$('#dietScheduleSave').on('click', function(){
 		
+		
   		$(".jquery-modal").hide();
 	  	$('#dietSchedule').hide();
 	  	
@@ -939,10 +938,11 @@ $(function(){
 	          				$("#d"+d).text('+'+addC+' kCal');
 	    				}
 	    			});
-		  			//모달에 남아있는 데이터 삭제
+/* 		  			//모달에 남아있는 데이터 삭제
 		  			$('div[name="calStandard"]').remove();
 		  			$('#searchFood').val('');
 		  			$('#dietCalorie').text('');
+		  			$("#searchFood").val(''); */
 		  			
 		    		swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
 		});		
@@ -1032,11 +1032,17 @@ $(function() {
 		    	  var clickDate = date.format();
 		      	  $('#showDietScDate').text(clickDate);
 		      	  $('#dietScDate').val(clickDate);
+		          //모달에 남아있는 데이터 삭제
+		  		  $('div[name="calStandard"]').remove();
+		  		  $('#searchFood').val('');
+		  		  $('#dietCalorie').text('');
 		    	  $("#dietSchedule").modal('show');
 		    	 
 		    	  $("#btn-searchFood").on("click", function(){
-		    		  var searchFood = $("#searchFood").val();	
-		    		 
+
+		    		 var searchFood = $("#searchFood").val();	
+		
+		    		
 		    		var foodName =""; 
 		  			$.ajax(
 		  		
