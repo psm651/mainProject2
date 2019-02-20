@@ -321,9 +321,7 @@
    		
 			$( "#getMeetingChat" ).on("click" , function() {
 				var roomId = $(this).data("param");
-				alert(roomId);
-				//self.location = "/socket/getChatting?roomId="+roomId
-				//$("#mydiv").empty();
+				
 				$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getMeetChatting?roomId='+roomId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
 				$("#mydiv").css("display","inline");
 		 });

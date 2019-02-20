@@ -330,7 +330,6 @@ body{
   		
   		 function outClick(e){
 			  
-  		 	alert("클릭이벤트");
   		 	var incomingid = e.getAttribute("param");
 	        console.log("클릭됨 "+incomingid);
 	         socket.emit("kickout",{targetName:incomingid});
@@ -339,65 +338,11 @@ body{
 	
 	        };
   		
-  		/* function preloadContext(){
-  			 if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
-              	console.log("111111")
-              	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+dbData.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
-              } 
-              
-              else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img == "" || dbData.img == null && dbData.msg.substring(dbData.msg.length-3)!='jpg' ){
-              	console.log("3333")
-              	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
-              }  
-              else if(dbData.name == "${sessionScope.user.nickName}" && dbData.msg.substring(dbData.msg.length-3)!='jpg') {
-              	console.log("55555")
-              	$('<div class="outgoing_msg"  id="chatContext"><div class="sent_msg"><div class="outgoing_id" data-param1="'+dbData.name+'">'+dbData.name+'</div><p>'+dbData.msg+'</p><span class="time_date">'+dbData.time+'</span></div>').appendTo(".msg_history");
-          	}
-             
-              else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img != "" && dbData.img != null && dbData.msg.substring(dbData.msg.length-3)=='jpg' ){
-               	console.log("777777")
-               	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/'+dbData.img+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div></div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
-               } 
-               
-               else if(dbData.name != "${sessionScope.user.nickName}" && dbData.img == "" || dbData.img == null && dbData.msg.substring(dbData.msg.length-3)=='jpg'  ){
-               	console.log("99999")
-               	$('<div class="incoming_msg" id="chatContext"><div class="incoming_msg_img"><div class="dropdown"><img id="chattingimage" src="/resources/images/userImage/defaultUser.png" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="#" id="outt" data-param="'+dbData.name+'">강퇴하기</a></li></ul></div> </div><div class="received_msg" ><div class="incoming_id" >'+dbData.name+'</div><div class="received_withd_msg"><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div></div></div>').appendTo(".msg_history");
-               }  
-               else if(dbData.name == "${sessionScope.user.nickName}" && dbData.msg.substring(dbData.msg.length-3)=='jpg') {
-               	console.log("1131313")
-               	$('<div class="outgoing_msg" id="chatContext"><div class="sent_msg"><div class="outgoing_id" data-param1="'+dbData.name+'">'+dbData.name+'</div><p><img id="upload" src="/resources/images/chatImage/'+dbData.msg+'"></p><span class="time_date">'+dbData.time+'</span></div>').appendTo(".msg_history");
-           	}
-              
-              $(".msg_history").scrollTop($(".msg_history")[0].scrollHeight);
-  			
-  		}
-	        
-	         */
+  	
         $(document).ready(function() {
         	
         	
-		/* function outClick(incomingid){
-  			
-  			//$j("#outt").click(function(){
-  		   alert("클릭이벤트");
-   		   var incomingid = $(this).attr("param");
-   		   	//var incomingid = event.data.param;
-	        console.log("클릭됨 "+incomingid);
-	         socket.emit("kickout",{targetName:incomingid});
-	         alert(incomingid);
-	         	//self.location = "http://127.0.0.1:8080";
-	
-	        });
-  		} */
-		
-		
-  			
-  		//$j("#outt").click(function(){
-  			
-  		 
-  		//}
-            
-        	//var socket = io("http://192.168.0.10:3000");
+
            
             
             socket.emit("send_user",{id :"${sessionScope.user.userId}", name:"${sessionScope.user.nickName}", img: "${sessionScope.user.userImage}", roomId : "${roomId}"});

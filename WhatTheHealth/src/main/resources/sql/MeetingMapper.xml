@@ -334,9 +334,10 @@
 	 <!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCountJoin"  parameterType="String"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.meet_no, j.party_id, j.delete_status, m.meet_time, p.title
+	  	FROM(	SELECT j.join_no, j.join_date, j.join_status, j.depo_status, j.meet_no, j.party_id, j.delete_status, m.meet_time, p.title, m.depo_condition
 											FROM join j, meeting m, post p
-											WHERE j.meet_no = m.meet_no 
+											WHERE j.meet_no = m.meet_no AND p.category = '4' AND 'ME'||m.meet_no = p.post_sub_no AND j.party_id = #{partyId}
+													ORDER BY j.join_no DESC
 					 ) countTable						
 	 </select>
 	 
