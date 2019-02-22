@@ -72,32 +72,32 @@
 			var refundMoney = $("input[name='refundMoney']").val();
 			
 			if(bankName == null || bankName.length <1){
-				alert("은행명은  반드시 입력하셔야 합니다.");
+				swal("은행명은  반드시 입력하셔야 합니다.","","error");
 				return;
 			}
 
 			if(accountNum == null || accountNum.length <1){
-				alert("계좌번호는  반드시 입력하셔야 합니다.");
+				swal("계좌번호는  반드시 입력하셔야 합니다.","","error");
 				return;
 			}
 			
 			if(holder == null || holder.length <1){
-				alert("예금주는  반드시 입력하셔야 합니다.");
+				swal("예금주는  반드시 입력하셔야 합니다.","","error");
 				return;
 			}
 			
 			if(dateOfBirth == null || dateOfBirth.length <1){
-				alert("생년월일+한자리는  반드시 입력하셔야 합니다.");
+				swal("생년월일+한자리는  반드시 입력하셔야 합니다.","","error");
 				return;
 			}
 			
 			if(refundMoney == null || refundMoney.length <1){
-				alert("환급 받으실 금액은  반드시 입력하셔야 합니다.");
+				swal("환급 받으실 금액은  반드시 입력하셔야 합니다.","","error");
 				return;
 			}
 			
 			if(refundMoney > ${user.havingPoint}){
-				alert("가지고 계신 포인트보다 많은 포인트를 입력하셨네요. 수정해주세요!");
+				swal("가지고 계신 포인트보다 많은 포인트를 입력하셨네요. 수정해주세요!","","error");
 				return;
 			}
 				
