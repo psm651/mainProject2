@@ -12,8 +12,7 @@
 	
 <head>
   
-  	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<!-- <script src="/resources/js/jquery-3.3.1.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>	
   <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/js/jquery-ui.js"></script>
   <script src="/resources/js/popper.min.js"></script>
@@ -49,10 +48,10 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
    
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
+  	 <!-- jQuery UI toolTip 사용 CSS-->
+ 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     <!-- jQuery UI toolTip 사용 JS-->
+ 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>   
     
   </head>
   
@@ -306,21 +305,7 @@
    
       </div>
       <jsp:include page="../common/pageNavigator_new.jsp"/>
-         <!-- <div class="row">
-          <div class="col-md-12 text-center">
-            <div class="site-block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div> -->
+        
     </div>
 	
 

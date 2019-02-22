@@ -12,27 +12,6 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	
-	Bootstrap Dropdown Hover CSS
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    Bootstrap Dropdown Hover JS
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-   
-   
-   jQuery UI toolTip 사용 CSS
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  jQuery UI toolTip 사용 JS
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -116,38 +95,12 @@
 				self.location = "/meeting/listJoinedMeeting"
 			});
 		 });
-		
-		//============= userId 에 회원정보보기  Event  처리(Click) =============	
-		/* $(function() {
-		
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "#title" ).on("click" , function() {
-				
-				var category = $(this).data("param1");
-				var postNo = $(this).data("param2");
-				
-				if(category == '1'){
-				 self.location ="/exinfo/getExInfo?postNo="+postNo;
-				} else if(category == '2'){
-				 self.location ="/community/getCommunity?postNo="+postNo;
-				} else if(category == '3'){
-				 self.location ="/community/getCommunity?postNo="+postNo;
-				}
-			});
-						
-			
-		});	
-		
-		 */
+	
 		function getInterest(e) {
-			
-			/* var category = $(this).data("param1");
-			var postNo = $(this).data("param2"); */
-			
+
 			var category = e.getAttribute("param1");
 			var postNo = e.getAttribute("param2");
 			var meetNo = e.getAttribute("param3").substring(2);
-			//alert(e.getAttribute("param3"));
 			
 			if(category == '1'){
 			 self.location ="/exInfo/getExInfo?postNo="+postNo;

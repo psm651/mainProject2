@@ -24,12 +24,10 @@ String strDate= simpleDate.format(date);%>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
-<!-- 	 Bootstrap Dropdown Hover CSS -->
+	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> 
-   
-<!--     Bootstrap Dropdown Hover JS
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+
 	
    	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
@@ -46,17 +44,6 @@ String strDate= simpleDate.format(date);%>
     
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
-		
-		//============= 회원정보수정 Event  처리 =============	
-		 /* $(function() {
-			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			 $( "button" ).on("click" , function() {
-				 console.log("123");
-				 $("form").attr("method","POST").attr("action", "/claim/addClaim" ).submit();
-				 self.close();
-					/* self.location = "/claim/updateUser?userId=${user.userId}" 
-				});
-		}); */
 		
 		 $(function() {
 				//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -122,57 +109,6 @@ String strDate= simpleDate.format(date);%>
 			
 		});		
 		
-		
-
-/*  		 $( function() {
-				$( ".btn.btn-primary" ).on("click" , function() {
-					var test = $("textarea").val();
-					var claimedUserId = $("input[name=claimedUserId]").val();
-					var targetNo1= $("input[name=targetNo]").val();
-					
-				        $.ajax( {
-				          url: "/claim/json/addClaim",
-				          dataType: "json",
-				          method : "POST",
-				          data: JSON.stringify({
-				       		claimedUserId:claimedUserId,
-				       		targetNo:$("input[name=targetNo]").val(),
-				       		claimReasonNo:$("#selectBox").val(),
-				       		<c:if test="${param.menu== 'post'}">
-								claimSortNo:"0"
-							</c:if>
-							<c:if test="${param.menu== 'reply'}">
-							claimSortNo:"1"
-						</c:if>
-				       		,claimContents:test
-				          }),
-				          headers : {
-				  			"Accept" : "application/json",
-				  			"Content-Type" : "application/json"},
-				  	   success: function( data ) {
-
-				  		   if (data=="0") {
-							alert("이미 신고처리되었습니다.")
-							self.close();
-						}
-				  		 if (data=="1") {
-				  			 
-				  			alert("신고처리가 완료되었습니다.")		  			 
-							self.close();
-							}
-			      		  } 
-				        });
-				        
-				    });
-				
-			});  원본*/
-		 
-		 ////////////////////
-		
-							////////////////////////////////////////////////////////////////////////////////////////////
-						
-
-			
 	</script>
 	
 </head>
@@ -198,9 +134,7 @@ String strDate= simpleDate.format(date);%>
 			<input type="hidden" name ="claimedUserId" value="${claimed.writerId}"/>
 				${claimed.writerId}
 			</c:if>
-		
-				<%-- <c:if test="${claimed.userId==null}">${claimed.writerId}</c:if>
-				<c:if test="${claimed.userId=!null}">${claimed.userId}</c:if> --%>
+
 				</div>
 				
 				
@@ -259,7 +193,6 @@ String strDate= simpleDate.format(date);%>
 				
 		</form>
  	</div>
- 	<!--  화면구성 div Start /////////////////////////////////////-->
 
 </body>
 

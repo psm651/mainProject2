@@ -4,17 +4,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- <meta charset="UTF-8" />	 -->
+ 
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <!-- <meta name="description" content="Awesome videos!" /> -->
-   
-    <!-- <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+ 
    <script src="/resources/js/jquery-3.3.1.min.js"></script> 
    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
    <link rel="stylesheet" href="../resources/css/style.css">
    
-   <!-- <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script> -->
-   <!-- <script src="https://www.googleapis.com/youtube/v3/search?part=snippet&q=php&key=AIzaSyC8-FlEDTW27hM7DVJN40MH4roxgdJVyfg"></script> -->
 
     
    <style>   
@@ -87,9 +83,6 @@
                 </form>
                 <div id="results" draggable="true" ondragstart="handleDragStart(event)"  controls="controls"></div>
             </div>
-            <!-- <div id="video"  ondrop="handleDrop(event)"  ondragover="allowDrop(event)"  width= "500px"  height=" 250px" >
-		    	<p id="p">동영상을 드랙 & 드랍해봅니다</p>
-			</div> -->
         </div>
    
 

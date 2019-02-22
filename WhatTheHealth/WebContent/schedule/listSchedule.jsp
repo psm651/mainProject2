@@ -164,7 +164,6 @@ html {
 	width: 80%;
 	margin: 0 10%;
 	
-	/*stacking fieldsets above each other*/
 	position: relative;
 }
 /*Hide all except first fieldset*/
@@ -213,15 +212,7 @@ html {
 #exScheduleForm .action-button:hover, #exScheduleForm .action-button:focus, #exEventScheduleForm .action-button:hover, #exScheduleForm .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
-/*headings*/
-/* .fmodal-title {
-	font-size: 20px;
-	text-transform: uppercase;
-	color: #2C3E50;
-	margin-bottom: 10px;
-	text-align: center;
-}
- */
+
 .modal-header {
 	font-size: 20px;
 	text-transform: uppercase;
@@ -268,7 +259,7 @@ html {
 </style>
 </head>
 <body>
-<!-- ToolBar Start /////////////////////////////////////-->
+	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 <br/><br/><br/>
@@ -276,7 +267,7 @@ html {
   <div style="height: 460px;" id='calendar'>
   
   </div>
-<!-- style="height: 50px; width:1200px; margin: 0 auto;" -->
+
 <div class="giyong">
 	<div class="row" >
 		<table class="table table-striped table-bordered table-hover">
@@ -508,8 +499,8 @@ html {
  				</div>
  				<div class="col-md-4 text-center ">
  				</div>
-<!--  			<button type="button" class="next action-button" >Update</button> 
- --></div>
+
+ </div>
   </fieldset>	       
   </form>
 </div>
@@ -528,7 +519,7 @@ html {
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />  
-<!--  <script src='/resources/javascript/fullcalendar1.js'></script> --> 
+
 <script>
 
 $(document).ready(function(){
@@ -567,16 +558,14 @@ $('.action-button:contains("Save")').on('click', function(e){
 	        	    var s=new Date(JSONData.exScDate);
 	      			  var d = s.getDay()+1;
 	          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONData.exScCalorie);
-	          				//console.log('addC',addC);
-	          				//console.log('인덱스1번',$("#"+d).text().substring($("#"+d).text().indexOf('+')+1));
-	          				//console.log('섭스트링',Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal"))))
+	          				
 	          				$("#"+d).text('+'+addC+' kCal');
 	    				}
 	    			});
 			$('#exScName').val('');
 		  	$('#exScContents').val('');
 		  	$('#exScCalorie').val('');
-		  	//alert("등록완료")
+	
 		  	swal("스케줄이 등록되었습니다", "", "success");
 		});
 		
@@ -646,9 +635,7 @@ $('.action-button:contains("Save")').on('click', function(e){
 	$( '#deleteDiet' ).on("click" , function(data) {
 		$(".jquery-modal").hide();
 	  	$('#dietEventSchedule').hide();
-		/* var exScName = $("#exScEventName").val();
-		var exScContents = $("#exScEventContents").val();
-		var exScCalorie = $("#exScEventCalorie").val(); */
+	  	
 		var dietScNo =$("#dietScEventNo").val();
 		
 	        $.ajax( {
@@ -666,7 +653,7 @@ $('.action-button:contains("Save")').on('click', function(e){
 	  	 }
 	  	} );
 	   } );
-/////////
+
 		
 $(function() {
 
@@ -713,7 +700,6 @@ var result = new Array();
 		  header: {
 		        left: 'myCustomButton,myCustomButton2',//왼쪽상단버튼
 		        center: 'title',//가운데
-		      /*   right: 'basicWeek'//오른쪽상단버튼 */
 		        },
 		        
 		      defaultView: 'basicWeek',//기본뷰 노터치
@@ -723,12 +709,7 @@ var result = new Array();
 		      
 		      eventTextColor:'black',//이벤트 글씨색
 		      eventBorderColor:'#FB4441;',//이벤트 주변 테두리색	
-		      
-		    	  
-		    	/* if (${'random==2'}) {
-		    		  '#ffe0e6',
-				} */  
-		    	//이벤트 속 색
+
 		      
 		      displayEventTime: false, //시간안보이게
 		      
@@ -739,7 +720,7 @@ var result = new Array();
 		    	   
 		    	  }, 
 		    	
-		    	  resources: {// 이거뭔지모름/////////////////////////////////////////////
+		    	  resources: {
 		    		    url: '/schedule/listSchedule',
 		    		    type: 'POST'
 		    		  },
@@ -752,7 +733,6 @@ var result = new Array();
 		    		  start:"${info.exScDate}",
 		    		  backgroundColor:'white', 
 		    		  <c:if test="${info.exScPhoto==null}">
-		    		  //imageurl : "../resources/images/pic.jpg"//default Image
 		    		  imageurl : "../resources/images/icons8-deadlift-48.png"
 		    			
 		    		  </c:if>
@@ -938,11 +918,7 @@ $(function(){
 	          				$("#d"+d).text('+'+addC+' kCal');
 	    				}
 	    			});
-/* 		  			//모달에 남아있는 데이터 삭제
-		  			$('div[name="calStandard"]').remove();
-		  			$('#searchFood').val('');
-		  			$('#dietCalorie').text('');
-		  			$("#searchFood").val(''); */
+
 		  			
 		    		swal("스케줄에 저장이 완료되었습니다.", "확인버튼을 눌러주세요", "success");
 		});		
@@ -956,7 +932,6 @@ $(function(){
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(function() {
 
 	  $('#calendarr').fullCalendar({
@@ -997,11 +972,9 @@ $(function() {
 			    				    console.log(total);
 			    				    $(".modal-body.row").html(total);
 			    				
-			    					//수정중
 			    					
 			    					$('#dietScEventNo').val(JSONData.dietScNo);
-			    					/* $('#dietScEventAmountFood').val(JSONData.amountFood);
-			    					$('#dietScEventFoodCalorie').val(JSONData.foodCalorie); */
+			    				
 			    					$('#dietEventSchedule').modal('show');
 			    				}
 			    			});
@@ -1021,10 +994,7 @@ $(function() {
 		      selectable:false,//드래그해서 여러칸선택
 		      
 		      eventTextColor:'black',//이벤트 글씨색
-//		      eventBorderColor:'#ff7a96',//이벤트 주변 테두리색
-//		      eventBorderColor:'#FB4441;',
 		      eventBackgroundColor:'white',
-		      //eventBackgroundColor:'#ffe0e6',//이벤트 속 색
 		      displayEventTime: false, //시간안보이게
 		      
 		      dayClick: function(date, jsEvent, view) {//날짜 빈칸 클릭시
@@ -1032,7 +1002,8 @@ $(function() {
 		    	  var clickDate = date.format();
 		      	  $('#showDietScDate').text(clickDate);
 		      	  $('#dietScDate').val(clickDate);
-		          //모달에 남아있는 데이터 삭제
+		          
+		      	  //모달에 남아있는 데이터 삭제
 		  		  $('div[name="calStandard"]').remove();
 		  		  $('#searchFood').val('');
 		  		  $('#dietCalorie').text('');
@@ -1117,7 +1088,7 @@ $(function() {
 
 		    	  }, 
 		
-		    	  resources: {// 이거뭔지모름/////////////////////////////////////////////
+		    	  resources: {
 		    		    url: '/schedule/listSchedule',
 		    		    type: 'POST'
 		    		  },
@@ -1140,31 +1111,7 @@ $(function() {
 		    		  </c:forEach>
 		   
 		    		  ],
-		    		 /* 나중에 업데이트 연결해야함  
-		    		 eventClick: function(event) {
-		    			    if (event.url) {
-		    			    	$.ajax(
-		    			    			{
-		    			    				url : event.url,
-		    			    				method : "GET",
-		    			    				dataType : "json",
-		    			    				headers : {
-		    			    					"Accept" : "application/json",
-		    			    					"Content-Type" : "application/json"
-		    			    				},
-		    			    				success : function(JSONData , status) {
-		    			    			alert("성공!");
-		    			    					
-		    			    				}
-		    			    			});
-		    			    	popWin 
-		    					= window.open("../schedule/addEx.jsp",
-		    												"popWin", 
-		    												"left=100,top=200,width=580,height=530,marginwidth=0,marginheight=0,"+
-		    												"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-		    			      return false;
-		    			    }
-		    			  }, */
+
 		    	    customButtons: {
 		    		    myCustomButton: {
 		    		      text: 'custom!',
@@ -1183,9 +1130,7 @@ $(function() {
 		                      eventElement.find("span.fc-title").before("<img src='" + event.imageurl + "'>");
 		                  }
 		              },
-		    		 /*  select: function(startDate, endDate) {
-		    		      alert('selected ' + startDate.format() + ' to ' + endDate.format());
-		    		    }, */
+		    	
 		    	  views: {
 		    		    week: { // name of view
 		    		      titleFormat: 'YYYY / MM / DD'
@@ -1335,19 +1280,7 @@ $(function(){
 		
 	
 });
-/* function doSubmit(){
-   alert()
-        
-    $("#calendar").fullCalendar('renderEvent',
-        {
-            title: $('#patientName').val(),
-            start: new Date($('#apptStartTime').val()),
-            end: new Date($('#apptEndTime').val()),
-            allDay: ($('#apptAllDay').val() == "true"),
-        },
-        true);
-   }
- */
+
 </script>
 <style>
 .modal a.close-modal{
@@ -1355,7 +1288,7 @@ $(function(){
 	right:10px;
 }
 .modal{
-	/* background: linear-gradient(rgba(196, 102, 0, 1), rgba(155, 89, 182, 0.6)); */
+	
 	padding: 0px 30px;
 }
  #calendarr .fc-toolbar{

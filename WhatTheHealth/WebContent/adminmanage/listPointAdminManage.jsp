@@ -23,7 +23,7 @@
   <script src="/resources/js/jquery.magnific-popup.min.js"></script>
   <script src="/resources/js/bootstrap-datepicker.min.js"></script>
   <script src="/resources/js/aos.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="/resources/js/main.js"></script>
 	
     

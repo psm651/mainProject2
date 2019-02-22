@@ -52,10 +52,6 @@
     	
   
 <script type="text/javascript">
- 
-/* $('#dietScDate').datepicker({
-	dateFormat : "yyyy-mm-dd"
-}); */
 
 	$(function(){
 		$("#btn-searchFood").on("click", function(){

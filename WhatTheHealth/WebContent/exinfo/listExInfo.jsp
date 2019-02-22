@@ -11,39 +11,19 @@
     <script src="/resources/js/jquery-3.3.1.min.js"></script>
     
     <link rel="stylesheet" href="/resources/css/style.css">
-   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+	<link rel="stylesheet" href="/resources/css/style.css">
     
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
-    
-<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-   
-    
-<!--     <script src="/resources/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="/resources/js/jquery-ui.js"></script>
-    <script src="/resources/js/popper.min.js"></script>
-    <script src="/resources/js/bootstrap.min.js"></script>
-    <script src="/resources/js/owl.carousel.min.js"></script>
-    <script src="/resources/js/jquery.stellar.min.js"></script>
-    <script src="/resources/js/jquery.countdown.min.js"></script>
-    <script src="/resources/js/jquery.magnific-popup.min.js"></script>
-    <script src="/resources/js/aos.js"></script>
-    <script src="/resources/js/main.js"></script>
-    
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> 
-     -->
+  
   </head>
   
   <script type="text/javascript">
@@ -97,7 +77,7 @@
        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       
 		currentPage++;
-     	//alert(currentPage)
+		
       $.ajax({
          
          url: "/exinfo/json/listExInfo",
@@ -288,7 +268,7 @@
               <br/>
               <div class="row">
               <div class="text col-md-8">
-              <!-- <div class="text p-6"> -->
+             
                 <h5 class="h5 text-black"><a href="#">${post.title}</a></h5>
                 <span class="text-uppercase date d-block mb-3"><small>${post.postDate}</small></span>
  				  <div class="userInfo">

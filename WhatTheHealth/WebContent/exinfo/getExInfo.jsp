@@ -28,8 +28,6 @@
       position: absolute;
       width: 20%;
       height: 30vw;
-      /* height: 450px; */
-      /* right: 200px; */
       right:20%; 
       padding:0;
       margin:0;
@@ -43,7 +41,6 @@
    }
    
       .postHere{
-      /*    width: 63%; */
          padding : 3em; 
          border : 1px solid gray;
          border-radius : 15px;
@@ -57,13 +54,11 @@
       }
       
       .contents{
-         /* display : block; */
          text-align : left;
          font-size : 18px;
       }
  
        .postHere li{
-         /* display : block; */
          list-style-type : none;
          float : left;
       } 
@@ -167,31 +162,6 @@
 
 
    <script type="text/javascript">
-//////////////////////////////////////달력////////////////////////////////
-// Initialization
-/* 
-   $(document).ready(function() {
-       
-         // 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
-         var floatPosition = parseInt($("#floatMenu").css('top'));
-         // 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
-      
-         
-         $(window).scroll(function() {
-            // 현재 스크롤 위치를 가져온다.
-            var scrollTop = $(window).scrollTop();
-            var newPosition = scrollTop + floatPosition + "px";
-       
-             
-            $("#floatMenu").stop().animate({
-               "top" : newPosition
-            }, 500);
-       
-         }).scroll();
-       
-      }); */
-
-
 
    
 function favoriteList(){
@@ -243,7 +213,6 @@ function favoriteList(){
                   if(data == 1) {
                     favoriteList(); 
                     likeCount++;
-                    //likeCount.attr('likeCount'); 
                     $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                     }
                  }            
@@ -262,7 +231,6 @@ function favoriteList(){
                      a += '<img src="../resources/images/emptyHeart.png"  width="30px" class="likeImage" onclick="emptyHeart()">';
                             $(".likeImage").remove();
                      likeCount--;
-                     //likeCount.attr('likeCount');
                      
                      $(".likeCount").html("<li><span class='likeCount'><img src='../resources/images/emptyHeart.png' width='17px'  style='opacity: 0.7'>&nbsp;<b>"+likeCount+"</b></span></li>");        
                     }
@@ -389,7 +357,7 @@ function favoriteList(){
    <!-- ToolBar Start /////////////////////////////////////-->
      <jsp:include page="/layout/toolbarSecond.jsp" />
   <!-- ToolBar End /////////////////////////////////////-->
-   <!-- 툴바 인클루드 시작! -->
+  
    
    </div>
  <div class="site-section bg-light">
@@ -405,26 +373,7 @@ function favoriteList(){
             <input type="hidden" name="postNo" value="${post.postNo}"/>
      	
              <h4 id="postTitle"><b>${post.title}</b></h4>
- <%--                <c:if test="${post.exPart == '0'}">
-        		<strong>>전신 </strong>
-        		</c:if>
-        		<c:if test="${post.exPart == '1'}">
-        		<strong>>복부</strong>
-        		</c:if>
-        		<c:if test="${post.exPart == '2'}">
-        		<strong>>상체</strong> 
-        		</c:if>
-        		<c:if test="${post.exPart == '3'}">
-        		<strong>>하체</strong>
-        		</c:if>
-        		<c:if test="${post.exPart == '4'}">
-        		<strong>>스트레칭</strong>
-        		</c:if>
-        		 --%>
-        		
-    
-             
-            
+
             <h7><input type='text' id="exScDate" data-language='en' name='exScDate' placeholder="내스케줄담기" style="width:150px;position: absolute;top:40px;left:69%;"/></h7> 		 
              <a href="#" class="btn btn-primary pill px-4"  style="font-size:13px; height:30px;position:absolute; float:right;top:40px;left:85%;"><b>담기</b></a>
              
@@ -449,7 +398,6 @@ function favoriteList(){
             <div class="col-md-8 mb-5" >
                    
  		<p>${post.contents}</p> 
-                  <%-- <p class="mb-4">${post.contents}</p> --%>
               </div>
                <div class="col-md-2 mb-5" ></div>
               </div>
@@ -533,11 +481,6 @@ function favoriteList(){
       
  </div>
  
-    <!--  <div  id="floatMenu" style="top:0%;left:110%;">
-      <div id="innerMenu" style="font-weight: bold; text-align: center;">
-   		   최근 본 게시물<br/><br/>
-      </div>
-     </div>	 -->
 	
 	</div>
 	

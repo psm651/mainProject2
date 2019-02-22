@@ -27,10 +27,7 @@
     <link rel="stylesheet" href="../resources/css/aos.css">
     <link rel="stylesheet" href="../resources/css/style.css">
     
-	<!-- include libraries(jQuery, bootstrap) -->
-	<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  -->
 	
 	<!-- include summernote css/js-->
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
@@ -134,23 +131,16 @@
 		       
 		       // execute the request
 		       request.execute(function(response) {
-		    	  //var page = 1;
 		          var aa = response.result;
 		          console.log(aa);
 		          $("#aa").html("");
 		          
 		          $.each(aa.items, function(index, item) {
-		        	  /* $(window).scroll(function() {
-		                  if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		                    console.log(++page);
-		                     */
+
 		            $.get("../resources/tpl/item.html", function(data) {
 		                $("#aa").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
 		            });
-		            
-		            /*  }
-		                     
-		              });  */
+
 		          });
 		         resetVideoHeight();
 		       });
@@ -187,7 +177,6 @@
         	
         	var back = '" width="640" height="360" class="note-video-clip"></iframe><br></p>';
         	 e.dataTransfer.setData("text", front+ zzz +back);  
-            //videoPlayer = document.getElementById(event.target.id);
         }
 
     	//============= 지도 ====================================

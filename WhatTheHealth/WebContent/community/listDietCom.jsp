@@ -12,25 +12,24 @@
     <script src="/resources/js/jquery-3.3.1.min.js"></script>
     
     <link rel="stylesheet" href="/resources/css/style.css">
-   <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
     <link rel="stylesheet" href="/resources/fonts/icomoon/style.css">
-<link rel="stylesheet" href="/resources/css/style.css">
+	<link rel="stylesheet" href="/resources/css/style.css">
     
     <link rel="stylesheet" href="/resources/css/magnific-popup.css">
-  <!--   <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
+
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/css/owl.theme.default.min.css">
     
-<!--     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/resources/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="/resources/css/aos.css">
-   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+   	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
     
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+   	<link href="/css/animate.min.css" rel="stylesheet">
+   	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+  	 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
  
    	<!-- sweetalert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -67,12 +66,11 @@
 		$("#addDietCom").on("click" , function() {
 			
 			if("${sessionScope.user}" == null ||"${sessionScope.user}" == ""){				 
-				 //alert("로그인이 필요한 서비스입니다.");
-				  swal("회원만 이용 가능합니다", "로그인해주세요", "error");
+				 swal("회원만 이용 가능합니다", "로그인해주세요", "error");
 				  return;
-				 //self.location = "/" 
+			
 			 } else if("${sessionScope.user}" != null){
-				self.location = "/community/addDietCom"	//UserId??????????
+				self.location = "/community/addDietCom"	
 			 }
 
 		});
@@ -187,7 +185,6 @@
 			var searchKeyword = $("#searchKeyword").val();	
 			var searchCondition= 0;
 			
-			//currentPage++;
 			
 			$.ajax({
 		         
@@ -288,12 +285,9 @@
 
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
-<!--    <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div> -->
       </div>
       <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
+    </div> 
     
     <div class="site-section">
     	
@@ -318,7 +312,7 @@
         <p align="right"><a href="#" align="right" id="addDietCom" class="btn btn-primary pill text-white px-4">글쓰기</a></p>
         <br/>
         
-        <!-- div : start -->
+  
          <div class="row mb-5" id="scroll"> 
         	<c:set var="i" value="0"/>
           	<c:set var="i" value="${i+1}"/>
@@ -326,7 +320,7 @@
           
           	<div class="col-md-6 col-lg-4 mb-4">
           		
-          		<!-- post-entry bg-white : start -->
+          	
             	<div class="post-entry bg-white box" data-param="${post.postNo}" data-blind="${post.blindStatus}">
             	<c:if test = "${post.blindStatus == '1'}">
             		<img src = "/resources/images/blind.PNG" style="width:348px; height:200px">
@@ -378,14 +372,14 @@
  					</c:if>
  					</div>
               	</div>
-              	<!-- post-entry bg-white : end -->
+
 
             </c:forEach> 
          </div>    
 
       </div>
-      <!-- container : end -->
+
     </div>
-<!--   </div> -->
+
    </body>
 </html>

@@ -10,21 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	 -->
-	<!-- Bootstrap Dropdown Hover CSS -->
-<!--    <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
-   
-    <!-- Bootstrap Dropdown Hover JS -->
- <!--   <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+
  
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -74,7 +60,7 @@
 			 $( "#update" ).on("click" , function() {
 				 self.close(); 
                  opener.location.replace("/user/updateUser?userId=${user.userId}");
-				 //self.location = "/user/updateUser?userId=${user.userId}"
+				
 			});
 		});
 		
@@ -83,7 +69,7 @@
 				 $( "#delete" ).on("click" , function() {
 					 self.close(); 
 	                 opener.location.replace("/user/deleteUser?userId=${user.userId}");
-					 //self.location = "/user/deleteUser?userId=${user.userId}"
+					
 				});
 			});
 		 
@@ -92,12 +78,9 @@
 				 $( "#chatting" ).on("click" , function() {
 					 	var userId = $(this).data("param");
 					 	
-					 	//var roomId = userId+"+${sessionScope.user.userId}";
-						
-						//$("#append_here").append('<button type="button" class="btn btn-primary" id="receiveRoom" data-param="'+roomId+'">방 입장하기</button>')
+	
 						self.location = "/socket/addChatting?userId2="+userId
-					 	//$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/addChatting?userId2='+userId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
-						// $("#mydiv").css("display","inline");
+					 	
 				 });
 			});
 		 
@@ -106,7 +89,7 @@
 				 $( "#point" ).on("click" , function() {
 					 self.close(); 
 	                 opener.location.replace("/point/updatePoint?receiverId=${user.userId}");
-					 //self.location = "/point/updatePoint?receiverId=${user.userId}"
+					 
 				});
 			});
 		 
@@ -120,8 +103,7 @@
 					 var roomId = $(this).data("param");
 					
 					self.location = "/socket/getChatting?roomId="+roomId
-					 //$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getChatting?roomId='+roomId+'" align="middle" style="height:97%; width: 100%;background:rgba(0,0,0,0.3)" frameborder="0" scrolling="no"></iframe>');
-					// $("#mydiv").css("display","inline");
+					
 					});
 				 </c:forEach>
 				
@@ -131,12 +113,10 @@
 					//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 					 $( "#getChatting${chatting2.user2}${i}" ).on("click" , function() {
 						var roomId = $(this).data("param");
-						// alert(roomId);
+						
 					
 						self.location = "/socket/getChatting?roomId="+roomId
-						//$("#mydiv").empty();	 
-						//$("#mydiv").append('<div id="mydivheader"><div align="right"><img id="exit" onclick="exit()" src="https://img.icons8.com/color/24/000000/delete-sign.png"></div></div><iframe id="chatting" src="/socket/getChatting?roomId='+roomId+'" align="middle" style="height:100%; width: 100%;" frameborder="0" scrolling="no"></iframe>');
-						//$("#mydiv").css("display","inline");
+						
 
 						});
 					</c:forEach>
@@ -402,7 +382,7 @@
 		</div>
 		</div>
  	</div>
- 	<!--  화면구성 div Start /////////////////////////////////////-->
+ 	
 
 </body>
 
