@@ -67,7 +67,7 @@
 												</if>		
 											</where>	
 											</if>
-											ORDER BY s.socket_no
+											ORDER BY s.socket_no DESC
 											 ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 

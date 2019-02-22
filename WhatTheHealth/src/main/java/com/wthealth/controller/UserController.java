@@ -244,7 +244,6 @@ public class UserController {
 		
 		//model.addAttribute("user/naverLogin", naverAuthUrl);
 		model.addAttribute("url", naverAuthUrl);
-		//return new ModelAndView("/user/loginNaver.jsp", "url", naverAuthUrl);
 		return "forward:/user/loginNaver.jsp";
 	}
 
@@ -277,12 +276,12 @@ public class UserController {
 		user.setSnsType("2");
 		user.setPassword(snsId);
 		System.out.println(name);
-		try {
+		/*try {
 			userService.addUser(user);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		if(userService.getUser(user.getUserId())==null) {
 			//vo.setPassword(vo.getUserId());
@@ -298,8 +297,6 @@ public class UserController {
 			System.out.println(user.toString());
 		}
 	
-		//model.addAttribute("user", user);
-		//return new ModelAndView("/user/callBack.jsp", "result", user);
 		return "forward:/";
 	}
 	
