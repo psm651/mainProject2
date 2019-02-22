@@ -86,7 +86,7 @@
 								receiverId: receiverId
 							}),
 							success : function(JSONData , status) {
-								alert(JSONData)
+								//alert(JSONData)
 								
 								if(JSONData == '111'){
 									swal("전송실패", "보유한 포인트를 초과해서 전송할 수 없습니다", "error");
