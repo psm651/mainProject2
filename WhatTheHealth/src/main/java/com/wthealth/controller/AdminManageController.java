@@ -3,8 +3,6 @@ package com.wthealth.controller;
 import java.io.File;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +18,7 @@ import com.wthealth.common.Page;
 import com.wthealth.common.Search;
 import com.wthealth.domain.User;
 import com.wthealth.service.adminmanage.AdminManageService;
-import com.wthealth.service.user.UserService;
+
 
 @Controller
 @RequestMapping("/adminManage/*")

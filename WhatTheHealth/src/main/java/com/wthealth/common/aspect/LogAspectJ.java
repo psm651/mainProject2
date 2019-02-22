@@ -2,10 +2,7 @@ package com.wthealth.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 
-/*
- * FileName : PojoAspectJ.java
- *   :: XML에 선언적으로 aspect의 적용   
-  */
+
 public class LogAspectJ {
 
    ///Constructor

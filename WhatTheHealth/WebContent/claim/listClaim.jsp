@@ -139,7 +139,7 @@
 		});	
 
 		 $(function(){
-			 $('#contents').tooltip();
+			 $('span[name="contents"]').tooltip();
 			 $('div[name="claimTarget"]').css('cursor','pointer');
 			 
 			 $('div[name="claimTarget"]').on('click', function(){
@@ -269,7 +269,7 @@
                 	<div class="col-sm-2 col-md-2 col-lg-2" >
                 		 <c:if test="${claim.claimReasonNo =='0'}"><span>모욕/욕설/비방</span></c:if>
 						 <c:if test="${claim.claimReasonNo =='1'}"><span>음란/폭력</span></c:if>	
-						 <c:if test="${claim.claimReasonNo =='2'}"><span id="contents" data-toggle="tooltip" data-placement="top" title="${claim.claimContents}">기타</span></c:if>
+						 <c:if test="${claim.claimReasonNo =='2'}"><span name="contents" data-toggle="tooltip" data-placement="top" title="${claim.claimContents}">기타</span></c:if>
 					</div>
 					 
                 	<div class="col-sm-2 col-md-2 col-lg-2" name="claimTarget" data-param4="${claim.claimSortNo}" data-param3="${claim.targetNo}">${claim.targetNo}

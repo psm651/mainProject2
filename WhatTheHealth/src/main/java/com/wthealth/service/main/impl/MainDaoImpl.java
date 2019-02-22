@@ -49,4 +49,8 @@ public class MainDaoImpl implements MainDao {
 		sqlSession.update("MainMapper.updateThumbnail",post);
 	}
 	
+	@Override
+	public void updateYoutube(Post post) throws Exception {
+		sqlSession.update("MainMapper.updateYoutube",post);
+	}
 }

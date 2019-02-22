@@ -51,6 +51,40 @@ public class CommunityRestController {
 		
 		return totalLikeCount;
 	}
+	@RequestMapping(value="json/listExComAd", method=RequestMethod.POST)
+	   public List<Post> listExComAd(@RequestBody Search search) throws Exception{
+	      
+	      System.out.println("rest");
+	      if(search.getCurrentPage()==0) {
+	      search.setCurrentPage(1);
+	   }
+	      search.setPageSize(100);
+	      
+	      Map<String, Object> map = communityService.listExCom(search);
+	      List<Post> list = (List<Post>) map.get("list");
+	      
+	      Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+	      
+	      return list;
+	   }
+	
+	@RequestMapping(value="json/listDietComAd", method=RequestMethod.POST)
+	   public List<Post> listDietComAd(@RequestBody Search search) throws Exception{
+	      
+	      System.out.println("rest");
+	      if(search.getCurrentPage()==0) {
+	      search.setCurrentPage(1);
+	   }
+	      search.setPageSize(100);
+	      
+	      Map<String, Object> map = communityService.listDietCom(search);
+	      List<Post> list = (List<Post>) map.get("list");
+	      
+	      Page resultPage = new Page(search.getCurrentPage(),((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize); 
+	      
+	      return list;
+	   }	
+	
 	
 	@RequestMapping(value="json/listExCom", method=RequestMethod.POST)
 	   public List<Post> listExCom(@RequestBody Search search) throws Exception{

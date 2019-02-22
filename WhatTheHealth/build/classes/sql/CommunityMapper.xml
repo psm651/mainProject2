@@ -136,7 +136,7 @@
 					AND p.contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
 		</if>
-		ORDER BY p.post_no) inner_table
+		ORDER BY p.post_date) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
@@ -164,7 +164,7 @@
 					AND p.contents LIKE '%'||#{searchKeyword}||'%'
 				</if>
 		</if>
-		ORDER BY p.post_no) inner_table
+		ORDER BY p.post_date DESC) inner_table
 		WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>

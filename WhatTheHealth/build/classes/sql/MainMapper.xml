@@ -22,6 +22,7 @@
       	 <result property="likeCount" 		column="like_count" 		 jdbcType="NUMERIC" />
      	 <result property="category" 		column="category" 		 	 jdbcType="VARCHAR" />
       	 <result property="postDate" 		column="post_date"	 	 	 jdbcType="DATE" />
+      	 <result property="youtube" 		column="youtube" 		 	 jdbcType="VARCHAR" />
       	 <!-- 운동정보 -->
       	 <result property="exInfoNo"	 	column="ex_info_no" 		 jdbcType="NUMERIC" />
       	 <result property="exCalorie" 		column="ex_calorie" 		 jdbcType="NUMERIC" />
@@ -167,6 +168,14 @@
 		UPDATE post
 		<set>
 			photo = #{photo:VARCHAR}
+		</set>
+		WHERE post_no = #{postNo}
+	</update>
+	
+	<update id="updateYoutube" parameterType="com.wthealth.domain.Post">
+		UPDATE post
+		<set>
+			youtube = #{youtube:VARCHAR}
 		</set>
 		WHERE post_no = #{postNo}
 	</update>

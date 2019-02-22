@@ -164,7 +164,7 @@
               	
               	<div class="col-sm-1 col-md-1 col-lg-1">
               	<c:if test="${refund.refundStatus=='0'}">
-              	<button type="button" class="btn btn-primary pill text-white px-4" id="refundButton${refund.refundNo}" onclick="fncUpdateRefundStatus(${refund.refundNo})">돈 주자</button>
+              	<button type="button" class="btn btn-primary pill text-white px-4" id="refundButton${refund.refundNo}" onclick="fncUpdateRefundStatus(${refund.refundNo})">환급 승인</button>
               	</c:if>
                 </div>	
               </div>

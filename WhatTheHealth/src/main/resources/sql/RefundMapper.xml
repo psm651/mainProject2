@@ -59,7 +59,7 @@
 			<if test="search.searchFilter == 1">
 				AND refund_status = '1'					
 			</if>
-		ORDER BY refund_no) inner_table
+		ORDER BY refund_date) inner_table
 		WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum}
 		AND

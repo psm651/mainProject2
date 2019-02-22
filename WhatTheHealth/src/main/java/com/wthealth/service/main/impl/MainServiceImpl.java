@@ -112,6 +112,7 @@ public class MainServiceImpl implements MainService {
 		post.setYoutube(photoName);
 		
 		mainDao.updateThumbnail(post);
+		mainDao.updateYoutube(post);
 		
 	}
 	

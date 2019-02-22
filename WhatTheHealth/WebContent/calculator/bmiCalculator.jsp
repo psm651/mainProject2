@@ -35,14 +35,14 @@
       position:relative;
       }
         
-	.label {
-  	display: inline-block;
-  	margin: 0 5px 20px;
-  	padding: 3px 8px;
-  	color: #aaa;
-  	text-shadow: 0 1px black;
-  	border-radius: 3px;
-  	cursor: pointer;
+.label {
+  display: inline-block;
+  margin: 0 5px 20px;
+  padding: 3px 8px;
+  color: #aaa;
+  text-shadow: 0 1px black;
+  border-radius: 3px;
+  cursor: pointer;
 }
        
    </style>
@@ -92,9 +92,9 @@ $(function(){
 						
 					     if(JSONdata.bmiState=='저체중'){
 							$("em").css({
-								 "position" : "absolute",
-								  "top" : "560px",
-								  "left" : "420px"
+								 "position" : "relative",
+								  "top" : "30%",
+								  "left" : "2%"
 							 });					
 						}else if(JSONdata.bmiState=='정상'){				
 
@@ -105,15 +105,15 @@ $(function(){
 								});								
 						}else if(JSONdata.bmiState=='비만'){
 							$("em").css({
-								   "position" : "absolute",
-								   "top" : "560px",
-								   "left" : "710px"
+								   "position" : "relative",
+								   "top" : "30%",
+								   "left" : "29%"
 								});
 						}else if(JSONdata.bmiState=='고도비만'){
 							$("em").css({
-								   "position" : "absolute",
-								   "top" : "560px",
-								   "left" : "833px"
+								   "position" : "relative",
+								   "top" : "30%",
+								   "left" : "39%"
 								});
 						} 
 						
@@ -124,6 +124,14 @@ $(function(){
 
 });//end of function
 
+/* 
+//////////////////////////////////////달력////////////////////////////////
+// Initialization
+$('#bmiDatepicker').datepicker({inline : false})
+//Access instance of plugin
+$('#bmiDatepicker').data('datepicker') 
+ */
+////////////////////////////////////달력달력///////////////////////////////////
 $(function(){
 	$('#bmiDatepicker').datepicker({
 		autoClose: false,
@@ -135,6 +143,12 @@ $(function(){
 });
 
 $('#bmiDatepicker').data('datepicker');
+////////////////////////////////////달력달력///////////////////////////////////
+
+
+
+
+ 
 
    
 $(function(){
@@ -142,10 +156,12 @@ $(function(){
 	 $('#save').on('click', function(){
 		 
 		 var dietScDate = $('#bmiDatepicker').val();
+		 console.log(dietScDate)
+		 console.log(typeof dietScDate)
 		 var weight = $('#weight').val();
 		 var bmiValue = $('#bmiValue').text();
 		 var bmiState = $('#bmiState').text();
-		 var userId = $('#bmiUserId').val();
+		 
 		 
 		 if(${sessionScope.user.userId == null}) {
 		     swal("회원만 이용 가능합니다.")
@@ -171,8 +187,7 @@ $(function(){
 				 data : JSON.stringify({
 					dietScDateBMI: $('#bmiDatepicker').val(),	
 					bmiValue : $('#bmiValue').text(),
-					weight : $('#weight').val(),
-					userId : userId
+					weight : $('#weight').val()
 				 }),
 				 dataType : "json", 
 				 headers : {
@@ -195,7 +210,7 @@ $(function(){
 
 <body>
 	
-	<jsp:include page="/calculator/test.jsp" />
+	<jsp:include page="/layout/toolbarSecond.jsp" />
 	
    	
    		<div class="block-schedule overlay site-section" style="background-image: url('/resources/images/upload/bmi.jpg');">
@@ -209,13 +224,11 @@ $(function(){
 	
 			<br/><br/><br/>
 		
-		<input type="hidden" name="userId" id="bmiUserId" value="${sessionScope.user.userId}"/>
-		
 	   <div class="form-group">
 	   		<div class="row" style="align:right">
 	   			<div>내 스케줄 담기</div>
 	   			<input type='text' data-language='en'  id='bmiDatepicker'  name='dietScDate'/> 
-	   			<button type="button" id="save" class="btn btn-primary btn-sm" style="position:absolute;top:40%;left:46%;"> 저장</button>
+	   			<button type="button" id="save" class="btn btn-primary btn-sm" style="margin-left:1.2%"> 저장</button>
 		      	
 	   		</div>
 	   </div>
@@ -240,9 +253,7 @@ $(function(){
 		   		<div class="col-sm-2">
 		      		<button type="button" class="btn btn-primary btn-sm" style="margin-left:-40px;margin-right:-70px;height:30px;">계산</button>
 		      	</div>	
-		      	<div class="col-sm-2">
-			 		<a class="btn btn-primary btn-sm" href="#" role="button" style="margin-left:-180px;height:30px;">초기화</a>
-			    </div>		
+		      
 		    </div>
 		</div>   		
 
@@ -263,6 +274,21 @@ $(function(){
 	   </div>	
 	   
 	   
+	   
+	   
+	   
+	   
+<!-- 	<div class="container">
+ 
+
+  <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+	    -->
+	   
+	   
+	   
   		<div class="progress" style="width:525px">
     		<div class="progress-bar" id="1" style="width:20%;background-color:#f0ad4e;">저체중</div>
     		<div class="progress-bar" id="12" style="width:30%">정상</div>
@@ -281,6 +307,15 @@ $(function(){
   <label for="onehundred" class="label" style="margin-left:133px">30</label>  		
 
 	 </div>
+	   
+<!--  <div id="draggable">	
+	<img src="/resources/images/upload/BMI.png" alt="Image" class="img-fluid" id="bmiIcon" onclick="">	   
+	<iframe id="iframe" src="/calculator/bmiCalculator.jsp"></iframe>
+</div> -->
+<!-- <img src="image.jpg" onclick="window.open('welcome.html')">  -->
+	   
+
+	   
 	   
 </body>
 

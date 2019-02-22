@@ -23,12 +23,12 @@ import com.wthealth.service.exschedule.ExScheduleService;
 
 
 
-//==> 회占쏙옙占쏙옙占쏙옙 Controller
+
 @RestController
 @RequestMapping("/schedule/*")
 public class ScheduleRestController {
 	
-	///Field
+	
 	///Field
 		@Autowired
 		@Qualifier("dietScheduleServiceImpl")
@@ -37,20 +37,17 @@ public class ScheduleRestController {
 		@Autowired
 		@Qualifier("exScheduleServiceImpl")	
 		private ExScheduleService exScheduleService;
-	//setter Method 占쏙옙占쏙옙 占쏙옙占쏙옙
+	
 		
 	public ScheduleRestController(){
 		System.out.println(this.getClass());
 	}
 	
-	//==> classpath:config/common.properties  ,  classpath:config/commonservice.xml 占쏙옙占쏙옙 占쌀곤옙
-	//==> 占싣뤄옙占쏙옙 占싸곤옙占쏙옙 占쌍쇽옙占쏙옙 풀占쏙옙 占실미몌옙 확占쏙옙 占쌀곤옙
+	
 	@Value("#{commonProperties['pageUnit']}")
-	//@Value("#{commonProperties['pageUnit'] ?: 3}")
 	int pageUnit;
 	
 	@Value("#{commonProperties['pageSize']}")
-	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
 	
@@ -118,16 +115,16 @@ public class ScheduleRestController {
 	public ExSchedule getExSchedule( @PathVariable("exScNo") int exScNo,  HttpServletResponse response, Model model ) throws Exception {
 		
 		System.out.println("json/getExSchedule/{exScNo} : GET");
-		System.out.println("�슫�룞�꽆踰�"+exScNo);
+	
 		//Business Logic
 		ExSchedule exSchedule= exScheduleService.getExSchedule(exScNo);
-		System.out.println("�슫�룞�뒪耳�以꾨쾲�샇�뿉"+exSchedule);
+		
 		
 		
 		return exSchedule;
 	}
 	
-//占싹단븝옙占쏙옙
+
 	@RequestMapping(value="json/getDietSchedule/{dietScNo}", method = RequestMethod.GET)
 	public DietSchedule getDietSchedule( @PathVariable("dietScNo") int dietScNo,  HttpServletResponse response, Model model ) throws Exception {
 		
@@ -147,7 +144,7 @@ public class ScheduleRestController {
 		System.out.println("/json/updateExSchedule/{exScNo} : GET");
 		//Business Logic
 		ExSchedule exSchedule = exScheduleService.getExSchedule(exScNo);
-		// Model 占쏙옙 View 占쏙옙占쏙옙
+	
 		
 		
 		return exSchedule;
@@ -174,7 +171,7 @@ public class ScheduleRestController {
 		System.out.println("/json/updateDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		DietSchedule dietSchedule = dietScheduleService.getDietSchedule(dietScNo);
-		// Model 占쏙옙 View 占쏙옙占쏙옙
+	
 		
 		
 		return dietSchedule;
@@ -194,27 +191,26 @@ public class ScheduleRestController {
 	}
 	
 	@RequestMapping(value="json/deleteDietSchedule/{dietScNo}", method=RequestMethod.GET)
-	public int deleteDietSchedule( @PathVariable("dietScNo") int dietScNo ) throws Exception{
+	public DietSchedule deleteDietSchedule( @PathVariable("dietScNo") int dietScNo ) throws Exception{
 
-		System.out.println("/json/deleteDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		dietScheduleService.deleteDietSchedule(dietScNo);
-		// Model 占쏙옙 View 占쏙옙占쏙옙
-		int i = 1;
 		
-		return i;
+		DietSchedule dietSchedule = dietScheduleService.getDietSchedule(dietScNo);
+		
+		return dietSchedule;
 	}
 	
 	@RequestMapping(value="json/deleteExSchedule/{exScNo}", method=RequestMethod.GET)
-	public int deleteExSchedule( @PathVariable("exScNo") int exScNo ) throws Exception{
+	public ExSchedule deleteExSchedule( @PathVariable("exScNo") int exScNo ) throws Exception{
 
-		System.out.println("/json/deleteExSchedule/{exScNo} : GET");
-		System.out.println(exScNo);
 		//Business Logic
 		int i= exScheduleService.deleteExSchedule(exScNo);
-		// Model 占쏙옙 View 占쏙옙占쏙옙
 		
-		return i;
+		ExSchedule exSchedule = exScheduleService.getExSchedule(exScNo);
+	
+		
+		return exSchedule;
 		
 	}
 	

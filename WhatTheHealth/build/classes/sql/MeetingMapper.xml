@@ -107,7 +107,7 @@
 	 	INSERT
 		INTO post (post_no, post_sub_no, user_id, title, contents, photo, click_count, blind_status, delete_status, like_count, 
 							category, post_date, locationtag_name, coordinate, address)
-		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, 0, NULL, '0', 0, '4', SYSDATE,
+		VALUES (	seq_post_post_no.nextval, #{postSubNo}, #{userId}, #{title}, #{contents}, #{photo:VARCHAR}, 0, '0', '0', 0, '4', SYSDATE,
 							 #{locationTagName:VARCHAR}, #{coordinate:VARCHAR}, #{address:VARCHAR})
 	</insert>
 
@@ -265,7 +265,7 @@
 												 and p.user_id LIKE '%'||#{searchKeyword}||'%'
 												 </if>
 											</where>
-											ORDER BY p.post_no
+											ORDER BY p.post_no desc
 											) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 

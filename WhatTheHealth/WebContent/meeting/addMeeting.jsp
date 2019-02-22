@@ -76,8 +76,8 @@
 		 var depoAccHolder = $("input[name='depoAccHolder']").val();
 		 var depoAccount = $("input[name='depoAccount']").val();
 		 var entryfee = $("input[name='entryfee']").val();
-		 var minParty = $("input[name='minParty']").val();
-		 var maxParty = $("input[name='maxParty']").val();  
+		 var minParty = Number($("input[name='minParty']").val());
+		 var maxParty = Number($("input[name='maxParty']").val());  
 		 var meetTime = $("input[name='meetTime']").val();  
 		
 		///////////////////////////////////////////////////////////
@@ -137,6 +137,9 @@
 						return false;
 				}
 				 if(maxParty != null && minParty>maxParty){
+					 alert(typeof minParty)
+					 alert(typeof maxParty)
+					 
 						swal("참여인원 수 확인 필요", "최소인원이 최대인원보다 많습니다.", "error");
 						return false;
 				}

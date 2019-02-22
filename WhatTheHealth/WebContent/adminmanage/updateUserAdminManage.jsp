@@ -264,12 +264,17 @@
 		   <div class="col-md-12 mb-3 mb-md-0">
 		    <label for="bankName" class="font-weight-bold">은 행 명</label>
 		       <select class="form-control" name="bankName" id="bankName">
-		       		<option value="" ></option>
-				  	<option value="국민" >국민</option>
-					<option value="신한" >신한</option>
-					<option value="우리" >우리</option>
-					<option value="농협" >농협</option>
-					<option value="하나" >하나</option>
+				  	<option value="국민은행">국민은행</option>
+					<option value="신한은행">신한은행</option>
+					<option value="우리은행">우리은행</option>
+					<option value="농협">농협</option>
+					<option value="기업은행">기업은행</option>
+					<option value="새마을금고">새마을금고</option>
+					<option value="외환은행">외환은행</option>
+					<option value="카카오뱅크">카카오뱅크</option>
+					<option value="SC제일은행">SC제일은행</option>
+					<option value="씨티은행">씨티은행</option>
+					<option value="우체국">우체국</option>
 				</select>
 		    </div>
 		  </div>

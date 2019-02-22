@@ -62,7 +62,7 @@ public class ExInfoRestController {
 	      if(search.getCurrentPage()==0) {
 	      search.setCurrentPage(1);
 	   }
-	      search.setPageSize(pageSize);
+	      search.setPageSize(100);
 	      
 	      Map<String, Object> map = exInfoService.listExInfo(search);
 	      List<Post> list = (List<Post>) map.get("list");
@@ -101,6 +101,27 @@ public class ExInfoRestController {
       
       return list;
    }
-	
+
+   @RequestMapping(value="json/listExInfoRecomAd")
+   public List<Post> listExInfoRecomAd(@ModelAttribute("search")Search search, Model model) throws Exception{
+      System.out.println("/listExInfoRecom");
+      
+      if(search.getCurrentPage() == 0) {
+         search.setCurrentPage(1);
+      }
+      search.setPageSize(100);
+      
+      Map<String, Object> map = exInfoService.listExInfoRecom(search);
+       List<Post> list = (List<Post>) map.get("exInfoList");
+      
+      Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(),pageUnit, pageSize); 
+      System.out.println(resultPage);
+      
+      model.addAttribute("list", map.get("list"));
+      model.addAttribute("resultPage", resultPage);
+      model.addAttribute("search", search);
+      
+      return list;
+   }   
 	
 }

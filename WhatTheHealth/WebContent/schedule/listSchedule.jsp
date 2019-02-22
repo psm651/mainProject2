@@ -10,6 +10,11 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
+#exScEventContents{
+	overflow: hidden; 
+  	text-overflow: ellipsis;
+  	white-space: nowrap; 
+}
 .fc-day-grid-event fc-h-event fc-event fc-start fc-end{
 	border-top-width:thick;
 }
@@ -556,8 +561,8 @@ $('.action-button:contains("Save")').on('click', function(e){
 	    			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'white', imageurl :JSONData.exScPhoto};
 	        	    $('#calendar').fullCalendar( 'renderEvent', event, true); 
 	        	    var s=new Date(JSONData.exScDate);
-	      			  var d = s.getDay()+1;
-	          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONData.exScCalorie);
+	      			var d = s.getDay()+1;
+	          		var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONData.exScCalorie);
 	          				
 	          				$("#"+d).text('+'+addC+' kCal');
 	    				}
@@ -596,10 +601,29 @@ $('.action-button:contains("Save")').on('click', function(e){
    		       	  exScNo:$("#exScEventNo").val()
    		     
 	          }),
-	  	   success: function( data ) {
+	         
+			success: function( JSONData ) {
+				$('#calendar').fullCalendar(
+		  		        'removeEvents', JSONData.exScNo //or something like that
+		  		    );
+				 if(JSONData.exScPhoto==null){
+						JSONData.exScPhoto="../resources/images/icons8-deadlift-48.png"
+					}
 	  		 	swal("수정되었습니다", "", "success");
-      		  } 
-	        } );
+	  			var event={id:JSONData.exScNo , title: JSONData.exScName, start:  JSONData.exScDate,  backgroundColor:'white', imageurl :JSONData.exScPhoto};
+        	    $('#calendar').fullCalendar( 'renderEvent', event, true); 
+        	    var s=new Date(JSONData.exScDate);
+      			  var d = s.getDay()+1;
+          				var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))+Number(JSONData.exScCalorie);
+          				
+          				$("#"+d).text('+'+addC+' kCal');
+    				}
+    			});
+		$('#exScName').val('');
+	  	$('#exScContents').val('');
+	  	$('#exScCalorie').val('');
+	  	
+	    
 	   
 	    } );
 
@@ -621,10 +645,18 @@ $('.action-button:contains("Save")').on('click', function(e){
 	          headers : {
 	  			"Accept" : "application/json",
 	  			"Content-Type" : "application/json"},
-	  	   success: function( data ) {
-	  		 $('#calendar').fullCalendar(
-	  		        'removeEvents', exScNo //or something like that
-	  		    );
+	  	   success: function( JSONData ) {
+	  		 
+	  		  var s=new Date(JSONData.exScDate);
+	  		  
+ 			  var d = s.getDay()+1;
+     		  var addC=Number($("#"+d).text().substring($("#"+d).text().indexOf('+')+1,$("#"+d).text().lastIndexOf("kCal")))-Number(JSONData.exScCalorie);
+     		  
+     		  $("#"+d).text('+'+addC+' kCal');
+     		
+     		  $('#calendar').fullCalendar(
+	  		     'removeEvents', exScNo //or something like that
+	  		  );
 	  		swal("삭제되었습니다", "", "success");
 	  	 }
 	  	} );
@@ -645,7 +677,16 @@ $('.action-button:contains("Save")').on('click', function(e){
 	          headers : {
 	  			"Accept" : "application/json",
 	  			"Content-Type" : "application/json"},
-	  	   success: function( data ) {
+	  	   success: function( JSONData ) {
+  		 	  console.log("diet : "+JSONData)
+  		 	  
+	  		  var s=new Date(JSONData.dietScDate);
+  		 	  console.log(JSONData.dietScDate)
+ 			  var d = s.getDay()+1;
+     		  var addC=Number($("#d"+d).text().substring($("#d"+d).text().indexOf('+')+1,$("#d"+d).text().lastIndexOf("kCal")))-Number(JSONData.dietScCalorie);
+     		  
+     		  $("#d"+d).text('+'+addC+' kCal');	  		   
+	  		   
 	  		 $('#calendarr').fullCalendar(
 	  		        'removeEvents', dietScNo //or something like that
 	  		    );

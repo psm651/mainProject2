@@ -322,7 +322,7 @@ function favoriteList(){
 			 return
 		 }  
 		   var postTitle = $("#postTitle").text()
-		   
+
 		   $.ajax({
 				 url:"/schedule/json/addPostExSchedule" ,
 				 method: "POST",
@@ -331,7 +331,7 @@ function favoriteList(){
 					 exScName : $("#postTitle").text(), 
 					 exScCalorie : parseInt($("#exScCalorie").text()), 
 					 exScTime : $("#exScTime").text(), 
-					 exScContents :$("#postTitle").text(),
+					 exScContents :$("div.col-md-8.mb-5 > p").text(),
 					 exScDate : $("#exScDate").val()
 				 }),
 				 dataType : "json",
@@ -397,7 +397,7 @@ function favoriteList(){
             <div class="col-md-2 mb-5" ></div>
             <div class="col-md-8 mb-5" >
                    
- 		<p>${post.contents}</p> 
+ 		<p id="contents">${post.contents}</p> 
               </div>
                <div class="col-md-2 mb-5" ></div>
               </div>

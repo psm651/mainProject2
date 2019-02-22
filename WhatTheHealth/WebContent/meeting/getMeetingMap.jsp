@@ -281,7 +281,7 @@
        function videoChatting(){
     	   
     	   popWin 
-           = window.open("https://192.168.0.9:6503/rtc_multi_me/index.html?nickName=${user.nickName}",
+           = window.open("https://192.168.0.23:6503/rtc_multi_me/index.html?nickName=${user.nickName}",
                                 "popWin", 
                                 "left=100,top=200,width=1175,height=1000,marginwidth=0,marginheight=0,"+
                                 "scrollbars=no,scrolling=no,menubar=no,resizable=no");

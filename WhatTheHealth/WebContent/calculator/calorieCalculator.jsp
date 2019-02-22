@@ -70,7 +70,8 @@
 					  }, // end of header
 				  
 					  success : function(data, status){
-						alert(data)
+						
+						if(data.length>=1){
 					 	var totalDisplay = "";
 						$("#appendFood").children("tbody").children("tr").remove();
 						
@@ -86,6 +87,9 @@
 						totalDisplay += display;	 
 						});		
 						$("#appendFood").children("tbody").append(totalDisplay);
+						}else{
+							alert("검색된 결과가 없습니다.")
+						}
 				  }//end of success
 				  
 				}); // end of ajax

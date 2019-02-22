@@ -39,18 +39,19 @@ public class CalculatorRestController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;	
+
+	//Constructor
 	public CalculatorRestController() {
 		System.out.println(this.getClass());
 	}
 	
 	@RequestMapping(value="json/updateScheduleBMI", method=RequestMethod.POST)
-	public String updateScheduleBMI(@RequestBody BMI bmi, HttpSession session) throws Exception{
+	public void updateScheduleBMI(@RequestBody BMI bmi, HttpSession session) throws Exception{
 		
 		
 		dietScheduleService.addBmi(bmi);
-			
-		String successMessage = "스케줄에 저장이 완료되었습니다.";
-		return successMessage;
+	
+		
 	}
 	
 	
@@ -94,8 +95,6 @@ public class CalculatorRestController {
         	String[] temp =(Double.toString(Math.floor((serving_weight/weightGrames)*nutrition.getCalories()))).split("\\.");
         	String calorie = temp[0];
         	
-/*        	param = "source=en&target=ko&text=" + URLEncoder.encode(amountFood,"UTF-8");
-    		translate = new PapaGo(param);*/
     		food.setAmountFood(amountFood);
         	param = "source=en&target=ko&text=" + URLEncoder.encode(foodName,"UTF-8");
     		translate = new PapaGo(param);
