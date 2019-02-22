@@ -335,7 +335,6 @@
 		<c:if test="${user.userStatus == 0}">
 		<div class="row">
 	  		<div class="col-md-12 text-center " id="append_here">
-	  		<button type="button" class="btn btn-primary" id="videochatting"  data-param1="${user.userId }">화상 채팅</button>
 	  			<button type="button" class="btn btn-primary" id="chatting" data-param="${user.userId }">1:1 채팅</button>
 	  			<button type="button" class="btn btn-primary" id="point">포인트 쏘기</button>
 	  			
