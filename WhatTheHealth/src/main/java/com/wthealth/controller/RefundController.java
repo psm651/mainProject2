@@ -121,40 +121,7 @@ public class RefundController {
 		return "forward:/refund/listRefundAdmin.jsp";
 	}
 	
-	@RequestMapping(value = "authorizeAccount")
-	public void authorizeAccount(HttpSession session, @ModelAttribute("refund") Refund refund) throws Exception{
-		System.out.println("/authorizeAccount : POST");
-		//System.out.println("refund:"+refund);
-		
-		String userId = ((User)session.getAttribute("user")).getUserId();
-		/*User user = userService.getUser(userId);
-		session.setAttribute("user", user);*/
-		
-		String bankCode = refundService.getBankCode(refund.getBankName());
-		System.out.println("bankCode"+bankCode);
-		
-		Map<String, Object> accessToken = refundService.getAccessToken(); //token 획득
-		refundService.getAccount((String)accessToken.get("access_token"), refund.getAccountNum(), refund.getDateOfBirth(), bankCode); 
-		
-		refund.setHolder(refund.getHolder()); 
-		refund.setUserId(userId);
-		
-		User owner = userService.getUser(userId);
-		if(owner.getAccountNum() == null || owner.getAccountNum() == "") {
-			
-			System.out.println("@@@@@@@@@@@@@@@@@2if들어옴@@@@@@@@@@@@@@@@@");
-			owner.setAccountNum(refund.getAccountNum());
-			owner.setDateOfBirth(refund.getDateOfBirth());
-			owner.setHolder(refund.getHolder());
-			owner.setBankCode(bankCode);
-			owner.setBankName(refund.getBankName());
-			userService.updateAccount(owner);
-			
-			System.out.println("유저에 계좌정보 업데이트 완료");
-		}
-		//return "redirect:/refund/listRefund";
-		
-	}
+	
 	
 	/*@RequestMapping(value = "deposit")
 	public String deposit(HttpSession session, HttpServletRequest request, Model model) throws Exception{
