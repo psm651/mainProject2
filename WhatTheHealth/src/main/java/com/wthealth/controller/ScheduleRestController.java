@@ -194,27 +194,29 @@ public class ScheduleRestController {
 	}
 	
 	@RequestMapping(value="json/deleteDietSchedule/{dietScNo}", method=RequestMethod.GET)
-	public int deleteDietSchedule( @PathVariable("dietScNo") int dietScNo ) throws Exception{
+	public DietSchedule deleteDietSchedule( @PathVariable("dietScNo") int dietScNo ) throws Exception{
 
 		System.out.println("/json/deleteDietSchedule/{dietScNo} : GET");
 		//Business Logic
 		dietScheduleService.deleteDietSchedule(dietScNo);
-		// Model 占쏙옙 View 占쏙옙占쏙옙
-		int i = 1;
 		
-		return i;
+		DietSchedule dietSchedule = dietScheduleService.getDietSchedule(dietScNo);
+		return dietSchedule;
 	}
 	
 	@RequestMapping(value="json/deleteExSchedule/{exScNo}", method=RequestMethod.GET)
-	public int deleteExSchedule( @PathVariable("exScNo") int exScNo ) throws Exception{
+	public ExSchedule deleteExSchedule( @PathVariable("exScNo") int exScNo ) throws Exception{
 
+		
 		System.out.println("/json/deleteExSchedule/{exScNo} : GET");
 		System.out.println(exScNo);
 		//Business Logic
-		int i= exScheduleService.deleteExSchedule(exScNo);
+		exScheduleService.deleteExSchedule(exScNo);
 		// Model 占쏙옙 View 占쏙옙占쏙옙
+		ExSchedule exSchedule = exScheduleService.getExSchedule(exScNo);
 		
-		return i;
+		
+		return exSchedule;
 		
 	}
 	
